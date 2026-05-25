@@ -1,0 +1,26 @@
+﻿{
+  "localeName": "English",
+  "meta": { "title": "TuneUniversal - Free music tools", "description": "Tune instruments, keep tempo and transpose chords with free multilingual music tools." },
+  "nav": { "home": "Home", "tools": "Tools", "language": "Language" },
+  "hero": { "eyebrow": "Free music microtools", "title": "TuneUniversal", "description": "A fast international lab for tuning, tempo practice and chord work on any device.", "cta": "Explore tools" },
+  "home": { "toolHeading": "Music tools", "faqHeading": "FAQ", "howHeading": "How TuneUniversal works" },
+  "tool": {
+    "detectedNote": "Detected note", "frequency": "Frequency", "cents": "Cents", "flat": "Flat", "sharp": "Sharp", "inTune": "In tune",
+    "requestMic": "Enable microphone", "stopMic": "Stop microphone", "micError": "Microphone access failed. Check browser permissions and try again.",
+    "micPermissionDenied": "Microphone permission was denied. Open site settings next to the URL, allow microphone access and reload the page.",
+    "micNotFound": "No microphone was detected. Connect or enable a microphone in your system settings.",
+    "micNotSupported": "This browser does not expose microphone access. Try an updated Chrome, Edge or Safari browser.",
+    "micNeedsSecureContext": "Microphone access requires localhost or HTTPS. Open the page from localhost or an HTTPS domain.",
+    "bpm": "BPM", "start": "Start", "stop": "Stop", "reset": "Reset", "tap": "Tap", "history": "Recent taps", "meter": "Meter",
+    "inputChords": "Chord input", "semitones": "Semitones", "outputChords": "Transposed output"
+  },
+  "common": { "howItWorks": "How it works", "faq": "FAQ", "otherTools": "Other tools" },
+  "tools": {
+    "guitar-tuner": { "title": "Online guitar tuner", "description": "Use your microphone to tune standard guitar strings quickly.", "howItWorks": ["Allow microphone access.", "Play one string at a time.", "Adjust until the indicator says in tune."], "faq": [{ "question": "Does it work on mobile?", "answer": "Yes, modern mobile browsers with microphone access are supported." }, { "question": "Which tuning is included?", "answer": "The MVP uses standard E A D G B E tuning." }] },
+    "bass-tuner": { "title": "Online bass tuner", "description": "Tune a four-string bass with real-time pitch detection.", "howItWorks": ["Enable the microphone.", "Play a clear open string.", "Tune toward the nearest target note."], "faq": [{ "question": "Which strings are supported?", "answer": "Standard E A D G bass tuning." }, { "question": "Do I need an app?", "answer": "No, it runs directly in the browser." }] },
+    "ukulele-tuner": { "title": "Online ukulele tuner", "description": "Tune your ukulele in standard G C E A tuning.", "howItWorks": ["Start the tuner.", "Pick one string.", "Follow the flat, sharp or in-tune feedback."], "faq": [{ "question": "Is re-entrant tuning supported?", "answer": "The MVP targets standard high-G G C E A tuning." }, { "question": "Is audio recorded?", "answer": "No audio is uploaded; detection runs in the browser." }] },
+    "metronome": { "title": "Online metronome", "description": "Practice with adjustable BPM, accents and common meters.", "howItWorks": ["Set the BPM.", "Choose a meter.", "Start the pulse and follow the accented first beat."], "faq": [{ "question": "Can I tap tempo?", "answer": "Yes, use the tap control to estimate a tempo." }, { "question": "Which meters are available?", "answer": "2/4, 3/4, 4/4 and 6/8." }] },
+    "tap-bpm": { "title": "Tap BPM counter", "description": "Tap along to music and calculate the average BPM.", "howItWorks": ["Tap with the beat.", "The average BPM updates automatically.", "Reset when starting a new song."], "faq": [{ "question": "How many taps are used?", "answer": "The tool keeps recent intervals for a stable estimate." }, { "question": "Can I use keyboard taps?", "answer": "This version uses the on-screen button." }] },
+    "chord-transposer": { "title": "Chord transposer", "description": "Transpose chord progressions up or down by semitones.", "howItWorks": ["Paste chord symbols.", "Choose semitones from -12 to +12.", "Copy the transposed result."], "faq": [{ "question": "Are flats supported?", "answer": "Yes, flat roots are normalized to sharp output." }, { "question": "Which chord types work?", "answer": "Major, minor, sharps, flats, sevenths and common suffixes are supported." }] }
+  }
+}

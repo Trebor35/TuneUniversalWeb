@@ -1,0 +1,7 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="TuneUniversal logo">
+  <rect width="160" height="160" rx="28" fill="#161616"/>
+  <path d="M48 104V48h14v56H48Zm25 18V38h14v84H73Zm25-18V58h14v46H98Z" fill="#faf9f6"/>
+  <circle cx="55" cy="116" r="9" fill="#1f8f7a"/>
+  <circle cx="80" cy="132" r="9" fill="#d95f43"/>
+  <circle cx="105" cy="116" r="9" fill="#c5973a"/>
+</svg>

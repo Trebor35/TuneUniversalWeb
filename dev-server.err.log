@@ -1,0 +1,1217 @@
+[Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id]
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3432043406'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3086943178'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3086943178'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3086943178'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3432043406'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3432043406'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3432043406'
+}
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
+  digest: '1309263846'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3432043406'
+}
+[TypeError: __webpack_modules__[moduleId] is not a function]
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function]
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
+  page: '/en/tools/guitar-tuner'
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/en/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it/tools/tap-bpm'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it/tools/tap-bpm'
+}
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ Error: Cannot find module './124.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\swc\options.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\swc\index.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\config.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\next.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js:2:40489)
+    at Object.<anonymous> (C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js:2:40541) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ Failed to generate static paths for /[locale]:
+[Error: Cannot find module './vendor-chunks/next.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Jest worker encountered 2 child process exceptions, exceeding retry limit] {
+  type: 'WorkerError'
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Jest worker encountered 2 child process exceptions, exceeding retry limit] {
+  type: 'WorkerError'
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Jest worker encountered 2 child process exceptions, exceeding retry limit] {
+  type: 'WorkerError'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it/tools/guitar-tuner'
+}
+[Error: ENOENT: no such file or directory, stat 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\cache\webpack\server-development\0.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\cache\\webpack\\server-development\\0.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\cache\webpack\server-development\0.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\cache\\webpack\\server-development\\0.pack.gz'
+}
+ ⨯ unhandledRejection:  [Error: ENOENT: no such file or directory, stat 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\cache\webpack\server-development\0.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\cache\\webpack\\server-development\\0.pack.gz'
+}
+[Error: ENOENT: no such file or directory, stat 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\cache\webpack\server-development\1.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\cache\\webpack\\server-development\\1.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\cache\webpack\server-development\1.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\cache\\webpack\\server-development\\1.pack.gz'
+}
+ ⨯ unhandledRejection:  [Error: ENOENT: no such file or directory, stat 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\cache\webpack\server-development\1.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\cache\\webpack\\server-development\\1.pack.gz'
+}
+[Error: ENOENT: no such file or directory, stat 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\cache\webpack\server-development\4.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\cache\\webpack\\server-development\\4.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\cache\webpack\server-development\4.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\cache\\webpack\\server-development\\4.pack.gz'
+}
+ ⨯ unhandledRejection:  [Error: ENOENT: no such file or directory, stat 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\cache\webpack\server-development\4.pack.gz'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\cache\\webpack\\server-development\\4.pack.gz'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, stat 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\cache\webpack\server-development\0.pack.gz'
+ ⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use 127.0.0.1:3000
+    at <unknown> (Error: listen EADDRINUSE: address already in use 127.0.0.1:3000) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '127.0.0.1',
+  port: 3000
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\app-paths-manifest.json',
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\pages-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\server\\pages-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\Trebor\\Documents\\Codex\\musica\\tuninglab\\.next\\routes-manifest.json'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3432043406'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3086943178'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3086943178'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>)
+    at stringify (<anonymous>) {
+  digest: '3086943178'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3432043406'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3432043406'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3432043406'
+}
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
+  digest: '1309263846'
+}
+ ⨯ Error: Could not find the module "C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\next-devtools\userspace\app\segment-explorer-node.js#SegmentViewNode" in the React Client Manifest. This is probably a bug in the React Server Components bundler.
+    at stringify (<anonymous>) {
+  digest: '3432043406'
+}
+[TypeError: __webpack_modules__[moduleId] is not a function]
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function]
+ ⨯ [TypeError: __webpack_modules__[moduleId] is not a function] {
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/next.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it'
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Failed to generate static paths for /[locale]/tools/[tool]:
+[Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/it/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/ru/tools/guitar-tuner'
+}
+ ⨯ [Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\webpack-runtime.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\.next\server\app\[locale]\tools\[tool]\page.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\require.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\load-components.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\build\utils.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Users\Trebor\Documents\Codex\musica\tuninglab\node_modules\next\dist\compiled\jest-worker\processChild.js] {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/ru/tools/guitar-tuner'
+}
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⨯ ./components/tools/Metronome.tsx
+Error:   [31mx[0m Expected '</', got ')'
+     ,-[[36;1;4mC:\Users\Trebor\Documents\Codex\musica\tuninglab\components\tools\Metronome.tsx[0m:352:1]
+ [2m349[0m |               </div>
+ [2m350[0m |             ))}
+ [2m351[0m |           </div>
+ [2m352[0m |         ))}
+     : [35;1m         ^[0m
+ [2m353[0m |       </div>
+ [2m354[0m |     </Card>
+ [2m355[0m |   );
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/tools/Metronome.tsx
+./app/[locale]/tools/[tool]/page.tsx
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: RangeError: Failed to allocate memory
+[RangeError: Failed to allocate memory] {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+ ⨯ uncaughtException: [RangeError: Failed to allocate memory] {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+ ⨯ uncaughtException:  [RangeError: Failed to allocate memory] {
+  code: 'ERR_MEMORY_ALLOCATION_FAILED'
+}
+
+<--- Last few GCs --->
+
+[11252:000001D4CB439000]   613045 ms: Mark-Compact 520.7 (533.1) -> 520.7 (533.1) MB, pooled: 1 MB, 124.39 / 0.00 ms  (average mu = 0.782, current mu = 0.890) external memory pressure; GC in old space requested
+[11252:000001D4CB439000]   614147 ms: Mark-Compact (reduce) 520.7 (533.1) -> 520.7 (532.4) MB, pooled: 0 MB, 90.11 / 0.00 ms  (average mu = 0.840, current mu = 0.918) external memory pressure; GC in old space requested
+
+FATAL ERROR: Committing semi space failed. Allocation failed - JavaScript heap out of memory
+----- Native stack trace -----
+
+ 1: 00007FF68A29C36F 
+ 2: 00007FF68AEE4D77 
+ 3: 00007FF68ACE5467 
+ 4: 00007FF68AC7DE8B 
+ 5: 00007FF68ACA61FA 
+ 6: 00007FF68ACE7846 
+ 7: 00007FF68ACE6E96 
+ 8: 00007FF68ACF7E22 
+ 9: 00007FF68ACF794B 
+10: 00007FF68C17DAED 
+11: 00007FF68ACE2F30 
+12: 00007FF68ACE3912 
+13: 00007FF68ACEAED6 
+14: 00007FF68AB61A84 
+15: 00007FF68AF0C78E 
+16: 00007FF68A2DD095 
+17: 000001D49FDCF77E 
+ ⨯ ./components/tools/GuitarTuner.tsx
+Error:   [31mx[0m Unexpected character '§'
+    ,-[[36;1;4mC:\Users\Trebor\Documents\Codex\musica\tuninglab\components\tools\GuitarTuner.tsx[0m:21:1]
+ [2m18[0m | const localeByDictionaryName: Record<string, Locale> = {
+ [2m19[0m |   Italiano: "it",
+ [2m20[0m |   English: "en",
+ [2m21[0m |   FranÃ§ais: "fr",
+    : [35;1m       ^[0m
+ [2m22[0m |   Deutsch: "de",
+ [2m23[0m |   EspaÃ±ol: "es",
+ [2m24[0m |   PortuguÃªs: "pt",
+    `----
+  [31mx[0m Expected a semicolon
+    ,-[[36;1;4mC:\Users\Trebor\Documents\Codex\musica\tuninglab\components\tools\GuitarTuner.tsx[0m:21:1]
+ [2m18[0m | const localeByDictionaryName: Record<string, Locale> = {
+ [2m19[0m |   Italiano: "it",
+ [2m20[0m |   English: "en",
+ [2m21[0m |   FranÃ§ais: "fr",
+    : [35;1m       ^[0m
+ [2m22[0m |   Deutsch: "de",
+ [2m23[0m |   EspaÃ±ol: "es",
+ [2m24[0m |   PortuguÃªs: "pt",
+    `----
+  [31mx[0m Expected ',', got 'ais'
+    ,-[[36;1;4mC:\Users\Trebor\Documents\Codex\musica\tuninglab\components\tools\GuitarTuner.tsx[0m:21:1]
+ [2m18[0m | const localeByDictionaryName: Record<string, Locale> = {
+ [2m19[0m |   Italiano: "it",
+ [2m20[0m |   English: "en",
+ [2m21[0m |   FranÃ§ais: "fr",
+    : [35;1m        ^^^[0m
+ [2m22[0m |   Deutsch: "de",
+ [2m23[0m |   EspaÃ±ol: "es",
+ [2m24[0m |   PortuguÃªs: "pt",
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/tools/GuitarTuner.tsx
+./components/tools/BassTuner.tsx
+ ⨯ ./components/tools/GuitarTuner.tsx
+Error:   [31mx[0m Unexpected character '§'
+    ,-[[36;1;4mC:\Users\Trebor\Documents\Codex\musica\tuninglab\components\tools\GuitarTuner.tsx[0m:21:1]
+ [2m18[0m | const localeByDictionaryName: Record<string, Locale> = {
+ [2m19[0m |   Italiano: "it",
+ [2m20[0m |   English: "en",
+ [2m21[0m |   FranÃ§ais: "fr",
+    : [35;1m       ^[0m
+ [2m22[0m |   Deutsch: "de",
+ [2m23[0m |   EspaÃ±ol: "es",
+ [2m24[0m |   PortuguÃªs: "pt",
+    `----
+  [31mx[0m Expected a semicolon
+    ,-[[36;1;4mC:\Users\Trebor\Documents\Codex\musica\tuninglab\components\tools\GuitarTuner.tsx[0m:21:1]
+ [2m18[0m | const localeByDictionaryName: Record<string, Locale> = {
+ [2m19[0m |   Italiano: "it",
+ [2m20[0m |   English: "en",
+ [2m21[0m |   FranÃ§ais: "fr",
+    : [35;1m       ^[0m
+ [2m22[0m |   Deutsch: "de",
+ [2m23[0m |   EspaÃ±ol: "es",
+ [2m24[0m |   PortuguÃªs: "pt",
+    `----
+  [31mx[0m Expected ',', got 'ais'
+    ,-[[36;1;4mC:\Users\Trebor\Documents\Codex\musica\tuninglab\components\tools\GuitarTuner.tsx[0m:21:1]
+ [2m18[0m | const localeByDictionaryName: Record<string, Locale> = {
+ [2m19[0m |   Italiano: "it",
+ [2m20[0m |   English: "en",
+ [2m21[0m |   FranÃ§ais: "fr",
+    : [35;1m        ^^^[0m
+ [2m22[0m |   Deutsch: "de",
+ [2m23[0m |   EspaÃ±ol: "es",
+ [2m24[0m |   PortuguÃªs: "pt",
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/tools/GuitarTuner.tsx
+./components/tools/BassTuner.tsx
+ ⨯ ./components/tools/GuitarTuner.tsx
+Error:   [31mx[0m Unexpected character '§'
+    ,-[[36;1;4mC:\Users\Trebor\Documents\Codex\musica\tuninglab\components\tools\GuitarTuner.tsx[0m:21:1]
+ [2m18[0m | const localeByDictionaryName: Record<string, Locale> = {
+ [2m19[0m |   Italiano: "it",
+ [2m20[0m |   English: "en",
+ [2m21[0m |   FranÃ§ais: "fr",
+    : [35;1m       ^[0m
+ [2m22[0m |   Deutsch: "de",
+ [2m23[0m |   EspaÃ±ol: "es",
+ [2m24[0m |   PortuguÃªs: "pt",
+    `----
+  [31mx[0m Expected a semicolon
+    ,-[[36;1;4mC:\Users\Trebor\Documents\Codex\musica\tuninglab\components\tools\GuitarTuner.tsx[0m:21:1]
+ [2m18[0m | const localeByDictionaryName: Record<string, Locale> = {
+ [2m19[0m |   Italiano: "it",
+ [2m20[0m |   English: "en",
+ [2m21[0m |   FranÃ§ais: "fr",
+    : [35;1m       ^[0m
+ [2m22[0m |   Deutsch: "de",
+ [2m23[0m |   EspaÃ±ol: "es",
+ [2m24[0m |   PortuguÃªs: "pt",
+    `----
+  [31mx[0m Expected ',', got 'ais'
+    ,-[[36;1;4mC:\Users\Trebor\Documents\Codex\musica\tuninglab\components\tools\GuitarTuner.tsx[0m:21:1]
+ [2m18[0m | const localeByDictionaryName: Record<string, Locale> = {
+ [2m19[0m |   Italiano: "it",
+ [2m20[0m |   English: "en",
+ [2m21[0m |   FranÃ§ais: "fr",
+    : [35;1m        ^^^[0m
+ [2m22[0m |   Deutsch: "de",
+ [2m23[0m |   EspaÃ±ol: "es",
+ [2m24[0m |   PortuguÃªs: "pt",
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./components/tools/GuitarTuner.tsx
+./components/tools/BassTuner.tsx
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.

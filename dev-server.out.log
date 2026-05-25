@@ -1,0 +1,571 @@
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.6s
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 1336ms
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 1579ms
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 946ms
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+ ✓ Ready in 2.9s
+ ✓ Compiled /middleware in 296ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 3.7s (705 modules)
+ GET /en/tools/guitar-tuner 200 in 5491ms
+ GET /en/tools/guitar-tuner 200 in 445ms
+ GET /en/tools/guitar-tuner 200 in 341ms
+ GET /en/tools/guitar-tuner 200 in 293ms
+ GET /en/tools/guitar-tuner 200 in 589ms
+ GET /en/tools/guitar-tuner 200 in 406ms
+ GET /en/tools/guitar-tuner 200 in 532ms
+ GET /it/tools/guitar-tuner 200 in 144ms
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 838ms (710 modules)
+ GET /en/tools/guitar-tuner 200 in 512ms
+ GET /en/tools/guitar-tuner 200 in 270ms
+ GET /en 200 in 2638ms
+ GET /en 200 in 120ms
+ GET /en 200 in 215ms
+ GET /en/tools/metronome 200 in 78ms
+ GET /en 200 in 70ms
+ GET /en/tools/tap-bpm 200 in 88ms
+ GET /it/tools/tap-bpm 200 in 146ms
+ ✓ Compiled in 2.7s (710 modules)
+ GET /en/tools/guitar-tuner 200 in 1430ms
+ GET /en/tools/guitar-tuner 200 in 1446ms
+ GET /it/tools/tap-bpm 200 in 1368ms
+ ✓ Compiled in 751ms (710 modules)
+ GET /en/tools/guitar-tuner 200 in 846ms
+ GET /it/tools/tap-bpm 200 in 525ms
+ GET /en/tools/guitar-tuner 200 in 533ms
+ ✓ Compiled in 762ms (710 modules)
+ GET /en/tools/guitar-tuner 200 in 635ms
+ GET /en/tools/guitar-tuner 200 in 602ms
+ GET /it/tools/tap-bpm 200 in 613ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 4.8s (1043 modules)
+ GET /en/tools/guitar-tuner 500 in 9610ms
+ GET /en/tools/guitar-tuner 200 in 4093ms
+ GET /it/tools/tap-bpm 200 in 3790ms
+ GET /en/tools/guitar-tuner 200 in 3665ms
+ GET /it/tools/tap-bpm 500 in 2067ms
+ GET /en/tools/guitar-tuner 500 in 1988ms
+ GET /it/tools/tap-bpm 500 in 4370ms
+ GET /en/tools/guitar-tuner 500 in 4375ms
+ GET /it/tools/tap-bpm 500 in 1552ms
+ GET /en/tools/guitar-tuner 500 in 1503ms
+ GET /en/tools/guitar-tuner 500 in 813ms
+ GET /it/tools/tap-bpm 500 in 1032ms
+ GET /it/tools/tap-bpm 500 in 1027ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 8.2s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 6.9s (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 19.4s (705 modules)
+ GET /en/tools/guitar-tuner 200 in 21093ms
+ GET /en/tools/guitar-tuner 200 in 21103ms
+ GET /en/tools/guitar-tuner 200 in 3290ms
+ GET /en/tools/guitar-tuner 200 in 5685ms
+ GET /en/tools/guitar-tuner 200 in 5700ms
+ GET /en/tools/guitar-tuner 200 in 782ms
+ GET /en/tools/guitar-tuner 200 in 265ms
+ ✓ Compiled in 1179ms (705 modules)
+ ✓ Compiled in 589ms (267 modules)
+ GET /en/tools/guitar-tuner 200 in 1571ms
+ GET /en/tools/guitar-tuner 200 in 1627ms
+ GET /en/tools/guitar-tuner 200 in 562ms
+ GET /en/tools/guitar-tuner 200 in 236ms
+ ✓ Compiled in 812ms (705 modules)
+ GET /en/tools/guitar-tuner 200 in 669ms
+ GET /en/tools/guitar-tuner 200 in 651ms
+ ✓ Compiled in 1255ms (709 modules)
+ GET /en/tools/guitar-tuner 200 in 640ms
+ GET /en/tools/guitar-tuner 200 in 645ms
+ ✓ Compiled in 888ms (709 modules)
+ GET /en/tools/guitar-tuner 200 in 788ms
+ GET /en/tools/guitar-tuner 200 in 787ms
+ ✓ Compiled in 733ms (709 modules)
+ GET /en/tools/guitar-tuner 200 in 652ms
+ GET /en/tools/guitar-tuner 200 in 654ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.8s
+ ✓ Compiled /middleware in 391ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 2.1s (695 modules)
+ GET /en/tools/guitar-tuner 200 in 4884ms
+ GET /it/tools/guitar-tuner 200 in 378ms
+ GET /it/tools/guitar-tuner 200 in 317ms
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 922ms (700 modules)
+ GET /it 200 in 1961ms
+ GET /it/tools/guitar-tuner 200 in 116ms
+ ✓ Compiled in 3.9s (826 modules)
+ GET /it/tools/guitar-tuner 200 in 3586ms
+ GET /it/tools/guitar-tuner 200 in 417ms
+ GET /it/tools/guitar-tuner 200 in 251ms
+ ✓ Compiled /[locale] in 425ms (714 modules)
+ GET /it 307 in 981ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 5.1s (1047 modules)
+ GET /it/tools/guitar-tuner 500 in 7571ms
+ GET /it/tools/guitar-tuner 200 in 648ms
+ GET /it/tools/guitar-tuner 200 in 270ms
+ GET /it/tools/guitar-tuner 200 in 1003ms
+ GET /it 500 in 955ms
+ GET /it/tools/guitar-tuner 500 in 954ms
+[?25h
+ GET /it/tools/guitar-tuner 500 in 4139ms
+ GET /it/tools/guitar-tuner 500 in 70ms
+ GET /it/tools/guitar-tuner 500 in 179ms
+ GET /it/tools/guitar-tuner 500 in 65ms
+ GET /it/tools/guitar-tuner 500 in 150ms
+ GET /it/tools/guitar-tuner 500 in 60ms
+ GET /it/tools/guitar-tuner 500 in 157ms
+ GET /it/tools/guitar-tuner 500 in 81ms
+ GET /it/tools/guitar-tuner 500 in 135ms
+ GET /it/tools/guitar-tuner 500 in 58ms
+ GET /it/tools/guitar-tuner 500 in 230ms
+ GET /it/tools/guitar-tuner 500 in 75ms
+ GET /it/tools/guitar-tuner 500 in 179ms
+ GET /it/tools/guitar-tuner 500 in 71ms
+ GET /it/tools/guitar-tuner 500 in 172ms
+ GET /it/tools/guitar-tuner 500 in 65ms
+ GET /it/tools/guitar-tuner 500 in 160ms
+ GET /it/tools/guitar-tuner 500 in 47ms
+ GET /it/tools/guitar-tuner 500 in 116ms
+ GET /it/tools/guitar-tuner 500 in 42ms
+ GET /it/tools/guitar-tuner 500 in 150ms
+ GET /it/tools/guitar-tuner 500 in 50ms
+ GET /it/tools/guitar-tuner 500 in 142ms
+ GET /it/tools/guitar-tuner 500 in 62ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.2s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 919ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 6.5s (709 modules)
+ GET /it/tools/guitar-tuner 200 in 8991ms
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 610ms (714 modules)
+ GET /it 307 in 1849ms
+ GET /it/tools/guitar-tuner 200 in 298ms
+ GET /it/tools/guitar-tuner 200 in 310ms
+ GET /it/tools/guitar-tuner 200 in 267ms
+ GET /it/tools/guitar-tuner 200 in 311ms
+ GET /ru/tools/guitar-tuner 200 in 139ms
+ GET /it/tools/guitar-tuner 200 in 88ms
+ ✓ Compiled in 2s (710 modules)
+ GET /it/tools/guitar-tuner 200 in 605ms
+ GET /it/tools/guitar-tuner 200 in 608ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 3s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1383ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 7.9s (709 modules)
+ GET /it/tools/guitar-tuner 200 in 10252ms
+ GET /it/tools/guitar-tuner 200 in 370ms
+ GET /it/tools/guitar-tuner 200 in 533ms
+ GET /it/tools/guitar-tuner 200 in 243ms
+ GET /it/tools/guitar-tuner 200 in 282ms
+ GET /it/tools/guitar-tuner 200 in 314ms
+ ✓ Compiled in 2.3s (710 modules)
+ GET /it/tools/guitar-tuner 200 in 778ms
+ GET /it/tools/guitar-tuner 200 in 762ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 5.6s (1043 modules)
+ GET /it/tools/guitar-tuner 500 in 10899ms
+ GET /it/tools/guitar-tuner 200 in 4454ms
+ GET /it/tools/guitar-tuner 200 in 4531ms
+ GET /it/tools/guitar-tuner 200 in 534ms
+ GET /it/tools/guitar-tuner 200 in 515ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.7s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1126ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 6.3s (710 modules)
+ GET /it/tools/guitar-tuner 200 in 8530ms
+ GET /it/tools/guitar-tuner 200 in 492ms
+ GET /it/tools/guitar-tuner 200 in 240ms
+ GET /it/tools/guitar-tuner 200 in 333ms
+ ✓ Compiled in 690ms (710 modules)
+ GET /it/tools/guitar-tuner 200 in 507ms
+ GET /it/tools/guitar-tuner 200 in 512ms
+ ✓ Compiled /[locale] in 364ms (701 modules)
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 3s (1048 modules)
+ GET /it/tools/guitar-tuner 200 in 1739ms
+ GET /it 500 in 5268ms
+ GET /it/tools/guitar-tuner 200 in 465ms
+ GET /it 500 in 1530ms
+ GET /it 500 in 1379ms
+ GET /it 500 in 1082ms
+ GET /it/tools/guitar-tuner 500 in 1417ms
+ GET /it 500 in 1030ms
+ GET /it 500 in 780ms
+ GET /it 500 in 1198ms
+ GET /it/tools/guitar-tuner 500 in 928ms
+ GET /it/tools/guitar-tuner 500 in 1172ms
+ GET /ru/tools/guitar-tuner 500 in 761ms
+ GET /ru/tools/guitar-tuner 500 in 786ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.7s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 3.3s (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 10.2s (710 modules)
+ GET /ru/tools/guitar-tuner 200 in 10722ms
+ GET /it/tools/guitar-tuner 200 in 5281ms
+ GET /ru/tools/guitar-tuner 200 in 3471ms
+ GET /ru/tools/guitar-tuner 200 in 726ms
+ GET /it/tools/guitar-tuner 200 in 285ms
+ GET /en/tools/guitar-tuner 200 in 606ms
+ GET /en/tools/guitar-tuner 200 in 374ms
+ ○ Compiling /[locale] ...
+ GET /en/tools/guitar-tuner 200 in 748ms
+ GET /it/tools/guitar-tuner 200 in 752ms
+ GET /ar/tools/metronome 200 in 795ms
+ ✓ Compiled /[locale] in 1597ms (715 modules)
+ GET /ru/tools/guitar-tuner 200 in 355ms
+ GET /it/tools/guitar-tuner 200 in 84ms
+ GET /it 200 in 73ms
+ GET /it/tools/guitar-tuner 200 in 185ms
+ GET /it/tools/guitar-tuner 200 in 87ms
+ GET /it/tools/metronome 200 in 80ms
+ ○ Compiling /_error ...
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.9s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 856ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 9s (718 modules)
+ GET /it/tools/metronome 200 in 13201ms
+ GET /it/tools/metronome 200 in 1100ms
+ GET /en/tools/metronome 200 in 1105ms
+ GET /en/tools/guitar-tuner 200 in 390ms
+ GET /en/tools/metronome 200 in 175ms
+ GET /it/tools/metronome 200 in 126ms
+ GET /it/tools/guitar-tuner 200 in 111ms
+ ✓ Compiled in 1810ms (718 modules)
+ GET /it/tools/guitar-tuner 200 in 540ms
+ GET /it/tools/guitar-tuner 200 in 743ms
+ GET /it/tools/guitar-tuner 200 in 278ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.8s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1002ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 7.8s (718 modules)
+ GET /it/tools/guitar-tuner 200 in 11298ms
+ ✓ Compiled in 768ms (273 modules)
+ ✓ Compiled in 529ms (273 modules)
+ ✓ Compiled in 411ms (273 modules)
+ ✓ Compiled in 279ms (273 modules)
+ ✓ Compiled in 374ms (273 modules)
+ ✓ Compiled in 311ms (273 modules)
+ ✓ Compiled in 275ms (273 modules)
+ ✓ Compiled in 177ms (259 modules)
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.8s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 824ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 7.2s (718 modules)
+ GET /it/tools/guitar-tuner 200 in 10126ms
+ ✓ Compiled in 411ms (273 modules)
+ ✓ Compiled in 425ms (273 modules)
+ ✓ Compiled in 264ms (273 modules)
+ ✓ Compiled in 241ms (273 modules)
+ ✓ Compiled in 507ms (273 modules)
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.6s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1113ms (116 modules)
+ ○ Compiling /[locale]/[page] ...
+ ✓ Compiled /[locale]/[page] in 8.7s (659 modules)
+ GET /it/privacy-policy 200 in 10949ms
+ GET /it/cookie-policy 200 in 238ms
+ GET /it/about 200 in 308ms
+ GET /it/contact 200 in 314ms
+ GET /en/privacy-policy 200 in 314ms
+ ○ Compiling /sitemap.xml ...
+ ✓ Compiled /sitemap.xml in 1624ms (678 modules)
+ GET /sitemap.xml 200 in 2075ms
+ GET /sitemap.xml 200 in 24ms
+ ✓ Compiled in 783ms (678 modules)
+ GET /it/contact 200 in 1542ms
+ GET /it/about 200 in 1545ms
+ GET /it/privacy-policy 200 in 1546ms
+ GET /it/cookie-policy 200 in 1549ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 5.3s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 995ms (116 modules)
+ ○ Compiling /sitemap.xml ...
+ ✓ Compiled /sitemap.xml in 2.6s (304 modules)
+ GET /sitemap.xml 200 in 2956ms
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/[page] in 8.6s (710 modules)
+ GET /it/privacy-policy 200 in 8275ms
+ GET /en/tools/guitar-tuner 200 in 526ms
+ GET /en/tools/guitar-tuner 200 in 586ms
+ ○ Compiling /[locale] ...
+ GET /ar/tools/metronome 200 in 622ms
+ GET /it/privacy-policy 200 in 623ms
+ GET /it/tools/metronome 200 in 622ms
+ GET /en/tools/guitar-tuner 200 in 623ms
+ GET /it/tools/guitar-tuner 200 in 726ms
+ ✓ Compiled /[locale] in 1439ms (712 modules)
+ GET /en/tools/guitar-tuner 200 in 205ms
+ GET /en/tools/guitar-tuner 200 in 394ms
+ GET /it/tools/guitar-tuner 200 in 106ms
+ GET /it/contact 200 in 64ms
+ GET /it/contact 200 in 86ms
+ GET /it/about 200 in 71ms
+ GET /en/about 200 in 79ms
+ GET /fr/about 200 in 119ms
+ GET /it/about 200 in 80ms
+ GET /it/tools/guitar-tuner 200 in 90ms
+ GET /it/contact 200 in 68ms
+ ✓ Compiled in 2.7s (724 modules)
+ GET /it/contact 200 in 1052ms
+ GET /en/tools/guitar-tuner 200 in 1136ms
+ ✓ Compiled in 1351ms (724 modules)
+ GET /it/contact 200 in 660ms
+ GET /en/tools/guitar-tuner 200 in 693ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.6s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1140ms (116 modules)
+ ○ Compiling /sitemap.xml ...
+ ✓ Compiled /sitemap.xml in 3.2s (304 modules)
+ GET /sitemap.xml 200 in 3527ms
+ ○ Compiling /[locale]/[page] ...
+ ✓ Compiled /[locale]/[page] in 6.9s (678 modules)
+ GET /it/contact 404 in 9181ms
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 866ms (729 modules)
+ GET /it/tools/guitar-tuner 200 in 2883ms
+ GET /en/tools/guitar-tuner 200 in 247ms
+ GET /en/privacy-policy 200 in 92ms
+ GET /it/privacy-policy 200 in 75ms
+ GET /it/cookie-policy 200 in 67ms
+ GET /it/tools/guitar-tuner 200 in 330ms
+ ○ Compiling /_error ...
+ GET /it/tools/guitar-tuner 500 in 11803ms
+ GET /it/tools/guitar-tuner 500 in 66ms
+ GET /it/tools/guitar-tuner 500 in 66ms
+ GET /it/tools/guitar-tuner 500 in 57ms
+ ✓ Compiled /_error in 3.5s (1057 modules)
+ GET /it/tools/guitar-tuner 200 in 162ms
+ GET /it/tools/guitar-tuner 200 in 1986ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 4.5s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 950ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 6.8s (719 modules)
+ GET /it/tools/guitar-tuner 200 in 8728ms
+ ○ Compiling /sitemap.xml ...
+ ✓ Compiled /sitemap.xml in 1450ms (741 modules)
+ GET /sitemap.xml 200 in 1724ms
+ GET /it/tools/guitar-tuner 200 in 557ms
+ GET /it/tools/guitar-tuner 200 in 423ms
+ GET /en/tools/guitar-tuner 200 in 360ms
+ ○ Compiling /[locale]/[page] ...
+ GET /en/tools/guitar-tuner 200 in 635ms
+ GET /it/tools/guitar-tuner 200 in 633ms
+ GET /it/tools/metronome 200 in 638ms
+ GET /ar/tools/metronome 200 in 640ms
+ ✓ Compiled /[locale]/[page] in 1325ms (731 modules)
+ GET /it/tools/guitar-tuner 200 in 228ms
+ GET /it/tools/guitar-tuner 200 in 262ms
+ ✓ Compiled in 2.5s (720 modules)
+ GET /it/tools/guitar-tuner 200 in 905ms
+ GET /it/tools/guitar-tuner 200 in 943ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 3.4s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 783ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 6.2s (719 modules)
+ GET /it/tools/guitar-tuner 200 in 8040ms
+ GET /it/tools/guitar-tuner 200 in 277ms
+ GET /it/tools/guitar-tuner 200 in 381ms
+ ✓ Compiled in 911ms (719 modules)
+ GET /it/tools/guitar-tuner 200 in 493ms
+ ✓ Compiled in 638ms (719 modules)
+ GET /it/tools/guitar-tuner 200 in 215ms
+ ✓ Compiled in 725ms (719 modules)
+ GET /it/tools/guitar-tuner 200 in 175ms
+ ✓ Compiled in 528ms (719 modules)
+ GET /it/tools/guitar-tuner 200 in 231ms
+ ✓ Compiled in 645ms (719 modules)
+ GET /it/tools/guitar-tuner 200 in 254ms
+ ✓ Compiled in 1129ms (719 modules)
+ GET /it/tools/guitar-tuner 200 in 229ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.5s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 868ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 9.8s (719 modules)
+ GET /it/tools/guitar-tuner 200 in 11692ms
+ GET /it/tools/guitar-tuner 200 in 252ms
+ GET /it/tools/guitar-tuner 200 in 289ms
+ ✓ Compiled in 869ms (719 modules)
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.4s
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.4s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 801ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 6.2s (719 modules)
+ GET /it/tools/guitar-tuner 200 in 8178ms
+ GET /it/tools/guitar-tuner 200 in 232ms
+ GET /it/tools/guitar-tuner 200 in 251ms
+ GET /it/tools/guitar-tuner 200 in 263ms
+ ✓ Compiled in 1200ms (719 modules)
+ GET /it/tools/guitar-tuner 200 in 715ms
+ GET /it/tools/guitar-tuner 200 in 754ms
+[?25h
+   ▲ Next.js 15.5.18
+   - Local:        http://127.0.0.1:3000
+   - Network:      http://127.0.0.1:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.6s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 855ms (116 modules)
+ ○ Compiling /[locale]/tools/[tool] ...
+ ✓ Compiled /[locale]/tools/[tool] in 6.4s (719 modules)
+ GET /it/tools/guitar-tuner 200 in 8353ms
+ GET /it/tools/guitar-tuner 200 in 345ms
+ GET /it/tools/guitar-tuner 200 in 291ms
+ GET /it/tools/guitar-tuner 200 in 311ms
+ GET /en/tools/guitar-tuner 200 in 105ms
+[?25h
