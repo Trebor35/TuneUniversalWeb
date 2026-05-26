@@ -21,6 +21,20 @@ npm run build
 
 Open `http://localhost:3000/en`.
 
+## Google AdSense
+
+The app is ready for AdSense, but ads only render when the required environment variables are configured in Vercel:
+
+```bash
+NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT=ca-pub-0000000000000000
+GOOGLE_ADSENSE_PUBLISHER_ID=pub-0000000000000000
+NEXT_PUBLIC_ADSENSE_SLOT_LEADERBOARD=0000000000
+NEXT_PUBLIC_ADSENSE_SLOT_MOBILE_BANNER=0000000000
+NEXT_PUBLIC_ADSENSE_SLOT_RECTANGLE=0000000000
+```
+
+`/ads.txt` is generated from `GOOGLE_ADSENSE_PUBLISHER_ID`. After changing these values, redeploy the site from Vercel.
+
 ## Routes
 
 - `/` redirects to `/en`
