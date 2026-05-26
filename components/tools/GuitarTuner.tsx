@@ -70,7 +70,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
     notes: isItalian ? "Note" : "Notes",
     target: isItalian ? "Obiettivo" : "Target",
     strings: isItalian ? "Corde" : "Strings",
-    tunerName: isItalian ? "Accordatore digitale TuneUniversal" : "TuneUniversal Digital Tuner"
+    tunerName: isItalian ? "Accordatore digitale" : "Digital tuner"
   };
   const initialInstrument = orderedInstruments.includes(instrument) ? instrument : "guitar";
   const [selectedInstrument, setSelectedInstrument] = useState<Instrument>(initialInstrument);
@@ -267,18 +267,18 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
 
   return (
     <Card className="overflow-hidden border-zinc-800 bg-zinc-950 p-0 text-white shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
-      <div className="border-b border-white/10 bg-zinc-900/90 px-4 py-3 sm:px-5">
+      <div className="border-b border-white/10 bg-zinc-900/90 px-3 py-3 sm:px-5">
         <div className="grid gap-3 md:grid-cols-[1fr_auto_auto] md:items-center">
-          <div className="flex items-center gap-2 text-sm font-semibold text-zinc-300">
+          <div className="flex min-w-0 items-center gap-2 text-sm font-semibold text-zinc-300">
             <Settings2 size={16} aria-hidden />
-            <span>{uiText.tunerName}</span>
+            <span className="min-w-0 truncate">{uiText.tunerName}</span>
           </div>
           <label className="grid gap-1 text-xs font-semibold text-zinc-400">
             {uiText.instrument}
             <select
               value={selectedInstrument}
               onChange={(event) => setSelectedInstrument(event.target.value as Instrument)}
-              className="min-h-10 rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
+              className="min-h-10 w-full min-w-0 rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
             >
               {orderedInstruments.map((item) => (
                 <option key={item} value={item}>
@@ -292,7 +292,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
             <select
               value={noteSystem}
               onChange={(event) => setNoteSystem(event.target.value as NoteSystem)}
-              className="min-h-10 rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
+              className="min-h-10 w-full min-w-0 rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
             >
               <option value="latin">Sistema latino - Do Re Mi Fa Sol La Si</option>
               <option value="international">Anglo-American / international - C D E F G A B</option>
@@ -368,9 +368,9 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
         </div>
       </div>
 
-      <div className="space-y-6 p-4 sm:p-6">
-        <div className={`relative mx-auto aspect-[1.55/1] w-full max-w-2xl rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_50%_70%,rgba(16,185,129,0.18),transparent_26%),linear-gradient(180deg,#18181b,#050505)] p-4 ${centerGlow}`}>
-          <div className="absolute inset-x-4 top-4 flex justify-between text-xs font-bold uppercase tracking-[0.18em] text-zinc-500">
+      <div className="space-y-5 p-3 sm:space-y-6 sm:p-6">
+        <div className={`relative mx-auto min-h-[440px] w-full max-w-2xl rounded-2xl border border-white/10 bg-[radial-gradient(circle_at_50%_70%,rgba(16,185,129,0.18),transparent_26%),linear-gradient(180deg,#18181b,#050505)] p-3 sm:aspect-[1.55/1] sm:min-h-0 sm:rounded-[2rem] sm:p-4 ${centerGlow}`}>
+          <div className="absolute inset-x-3 top-4 flex justify-between text-[10px] font-bold uppercase tracking-[0.12em] text-zinc-500 sm:inset-x-4 sm:text-xs sm:tracking-[0.18em]">
             <span className="text-orange-300">{dictionary.tool.flat}</span>
             <span className="text-emerald-300">{dictionary.tool.inTune}</span>
             <span className="text-orange-300">{dictionary.tool.sharp}</span>
@@ -402,26 +402,26 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
           />
           <div className="absolute left-1/2 top-[72%] h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-zinc-950" />
 
-          <div className="absolute inset-x-4 bottom-5 grid gap-3 text-center">
+          <div className="absolute inset-x-3 bottom-4 grid gap-2 text-center sm:inset-x-4 sm:bottom-5 sm:gap-3">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-zinc-500">{dictionary.tool.detectedNote}</p>
-              <p className="mt-1 text-6xl font-black leading-none text-white sm:text-7xl">{detectedNote}</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-zinc-500 sm:text-xs sm:tracking-[0.22em]">{dictionary.tool.detectedNote}</p>
+              <p className="mt-1 text-5xl font-black leading-none text-white sm:text-7xl">{detectedNote}</p>
             </div>
-            <div className="grid grid-cols-3 gap-2 text-sm">
-              <div className="rounded-md border border-white/10 bg-white/5 p-2">
+            <div className="grid grid-cols-1 gap-2 text-sm min-[430px]:grid-cols-3">
+              <div className="rounded-md border border-white/10 bg-white/5 p-2 min-w-0">
                 <span className="block text-xs text-zinc-500">{dictionary.tool.frequency}</span>
                 <strong>{frequency ? `${frequency.toFixed(1)} Hz` : "--"}</strong>
               </div>
-              <div className="rounded-md border border-white/10 bg-white/5 p-2">
+              <div className="rounded-md border border-white/10 bg-white/5 p-2 min-w-0">
                 <span className="block text-xs text-zinc-500">{dictionary.tool.cents}</span>
                 <strong>{cents ?? "--"}</strong>
               </div>
-              <div className="rounded-md border border-white/10 bg-white/5 p-2">
+              <div className="rounded-md border border-white/10 bg-white/5 p-2 min-w-0">
                 <span className="block text-xs text-zinc-500">{uiText.target}</span>
                 <strong>{formatNoteName(noteWithOctave(targetString), noteSystem)}</strong>
               </div>
             </div>
-            <p className={`text-lg font-black uppercase tracking-[0.18em] ${statusClass}`}>{status}</p>
+            <p className={`text-base font-black uppercase tracking-[0.14em] sm:text-lg sm:tracking-[0.18em] ${statusClass}`}>{status}</p>
           </div>
         </div>
 
