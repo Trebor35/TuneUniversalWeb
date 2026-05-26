@@ -13,11 +13,53 @@ const universalTunerLabels: Record<Locale, string> = {
   de: "Universelles Stimmgeraet",
   es: "Afinador universal",
   pt: "Afinador universal",
-  zh: "é€šç”¨è°ƒéŸ³å™¨",
-  ru: "Ð£Ð½Ð¸Ð²ÐµÑ€ÑÐ°Ð»ÑŒÐ½Ñ‹Ð¹ Ñ‚ÑŽÐ½ÐµÑ€",
-  ja: "ãƒ¦ãƒ‹ãƒãƒ¼ã‚µãƒ«ãƒãƒ¥ãƒ¼ãƒŠãƒ¼",
-  ko: "ë²”ìš© íŠœë„ˆ",
-  ar: "Ù…Ø¯ÙˆØ²Ù† Ø´Ø§Ù…Ù„"
+  zh: "通用调音器",
+  ru: "Универсальный тюнер",
+  ja: "ユニバーサルチューナー",
+  ko: "범용 튜너",
+  ar: "مدوزن شامل"
+};
+
+const footerPageLabels: Record<(typeof footerPages)[number], Record<Locale, string>> = {
+  about: {
+    it: "Chi siamo",
+    en: "About",
+    fr: "À propos",
+    de: "Über uns",
+    es: "Acerca de",
+    pt: "Sobre",
+    zh: "关于",
+    ru: "О проекте",
+    ja: "概要",
+    ko: "소개",
+    ar: "حول"
+  },
+  "privacy-policy": {
+    it: "Privacy Policy",
+    en: "Privacy Policy",
+    fr: "Politique de confidentialité",
+    de: "Datenschutz",
+    es: "Política de privacidad",
+    pt: "Política de privacidade",
+    zh: "隐私政策",
+    ru: "Политика конфиденциальности",
+    ja: "プライバシーポリシー",
+    ko: "개인정보 처리방침",
+    ar: "سياسة الخصوصية"
+  },
+  "cookie-policy": {
+    it: "Cookie Policy",
+    en: "Cookie Policy",
+    fr: "Politique relative aux cookies",
+    de: "Cookie-Richtlinie",
+    es: "Política de cookies",
+    pt: "Política de cookies",
+    zh: "Cookie 政策",
+    ru: "Политика Cookie",
+    ja: "Cookie ポリシー",
+    ko: "쿠키 정책",
+    ar: "سياسة ملفات تعريف الارتباط"
+  }
 };
 
 export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
@@ -39,9 +81,7 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
           <div className="grid gap-2">
             {footerPages.map((page) => (
               <Link key={page} href={`/${locale}/${page}`} className="text-sm font-medium text-ink/72 hover:text-mint">
-                {page === "about" && (locale === "it" ? "Chi siamo" : "About")}
-                {page === "privacy-policy" && "Privacy Policy"}
-                {page === "cookie-policy" && "Cookie Policy"}
+                {footerPageLabels[page][locale]}
               </Link>
             ))}
           </div>

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Mic, MicOff, Settings2 } from "lucide-react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import type { Locale } from "@/lib/i18n/locales";
+import { localeFromName, type Locale } from "@/lib/i18n/locales";
 import { getInstrumentLabel, getOrderedInstruments } from "@/lib/tools/instruments";
 import { autoCorrelate, formatNoteName, frequencyToNote, normalizeNoteSystem, tunings, type NoteSystem, type TuningNote } from "@/lib/tools/tuner";
 import type { Instrument } from "@/lib/tools/toolConfig";
@@ -15,18 +15,213 @@ type TunerProps = {
   instrument?: Instrument;
 };
 
-const localeByDictionaryName: Record<string, Locale> = {
-  Italiano: "it",
-  English: "en",
-  "FranÃ§ais": "fr",
-  Deutsch: "de",
-  "EspaÃ±ol": "es",
-  "PortuguÃªs": "pt",
-  "ç®€ä½“ä¸­æ–‡": "zh",
-  "Ð ÑƒÑÑÐºÐ¸Ð¹": "ru",
-  "æ—¥æœ¬èªž": "ja",
-  "í•œêµ­ì–´": "ko",
-  "Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©": "ar"
+const tunerUiText: Record<
+  Locale,
+  {
+    automaticMode: string;
+    automaticModeHint: string;
+    directionMode: string;
+    directionModeHint: string;
+    instrument: string;
+    lessSensitive: string;
+    lockString: string;
+    lockStringHint: string;
+    manualMode: string;
+    moreSensitive: string;
+    noiseGate: string;
+    notes: string;
+    target: string;
+    strings: string;
+    tunerName: string;
+  }
+> = {
+  it: {
+    automaticMode: "Automatico",
+    automaticModeHint: "Riconosce da solo la nota o la corda piu vicina.",
+    directionMode: "Filtro direzionale",
+    directionModeHint: "Riduce rumore ambientale e ascolta meglio il suono vicino al microfono.",
+    instrument: "Strumento",
+    lessSensitive: "Meno sensibile",
+    lockString: "Blocca corda selezionata",
+    lockStringHint: "Consigliato: scegli una corda e l'accordatore resta su quella nota.",
+    manualMode: "Manuale",
+    moreSensitive: "Piu sensibile",
+    noiseGate: "Sensibilita microfono",
+    notes: "Note",
+    target: "Obiettivo",
+    strings: "Corde",
+    tunerName: "Accordatore digitale"
+  },
+  en: {
+    automaticMode: "Automatic",
+    automaticModeHint: "Automatically detects the closest note or string.",
+    directionMode: "Directional filter",
+    directionModeHint: "Reduces room noise and focuses on sound close to the microphone.",
+    instrument: "Instrument",
+    lessSensitive: "Less sensitive",
+    lockString: "Lock selected string",
+    lockStringHint: "Recommended: choose a string and the tuner stays on that target.",
+    manualMode: "Manual",
+    moreSensitive: "More sensitive",
+    noiseGate: "Microphone sensitivity",
+    notes: "Notes",
+    target: "Target",
+    strings: "Strings",
+    tunerName: "Digital tuner"
+  },
+  fr: {
+    automaticMode: "Automatique",
+    automaticModeHint: "Detecte automatiquement la note ou la corde la plus proche.",
+    directionMode: "Filtre directionnel",
+    directionModeHint: "Reduit le bruit ambiant et se concentre sur le son proche du micro.",
+    instrument: "Instrument",
+    lessSensitive: "Moins sensible",
+    lockString: "Verrouiller la corde",
+    lockStringHint: "Choisissez une corde et l'accordeur reste sur cette cible.",
+    manualMode: "Manuel",
+    moreSensitive: "Plus sensible",
+    noiseGate: "Sensibilite du micro",
+    notes: "Notes",
+    target: "Cible",
+    strings: "Cordes",
+    tunerName: "Accordeur numerique"
+  },
+  de: {
+    automaticMode: "Automatisch",
+    automaticModeHint: "Erkennt automatisch die naechste Note oder Saite.",
+    directionMode: "Richtungsfilter",
+    directionModeHint: "Reduziert Raumgeraeusche und fokussiert den Ton nahe am Mikrofon.",
+    instrument: "Instrument",
+    lessSensitive: "Weniger empfindlich",
+    lockString: "Saite sperren",
+    lockStringHint: "Waehle eine Saite und der Tuner bleibt auf diesem Ziel.",
+    manualMode: "Manuell",
+    moreSensitive: "Empfindlicher",
+    noiseGate: "Mikrofonempfindlichkeit",
+    notes: "Noten",
+    target: "Ziel",
+    strings: "Saiten",
+    tunerName: "Digitales Stimmgeraet"
+  },
+  es: {
+    automaticMode: "Automatico",
+    automaticModeHint: "Detecta automaticamente la nota o cuerda mas cercana.",
+    directionMode: "Filtro direccional",
+    directionModeHint: "Reduce el ruido ambiente y enfoca el sonido cerca del microfono.",
+    instrument: "Instrumento",
+    lessSensitive: "Menos sensible",
+    lockString: "Bloquear cuerda",
+    lockStringHint: "Elige una cuerda y el afinador se queda en esa nota.",
+    manualMode: "Manual",
+    moreSensitive: "Mas sensible",
+    noiseGate: "Sensibilidad del microfono",
+    notes: "Notas",
+    target: "Objetivo",
+    strings: "Cuerdas",
+    tunerName: "Afinador digital"
+  },
+  pt: {
+    automaticMode: "Automatico",
+    automaticModeHint: "Detecta automaticamente a nota ou corda mais proxima.",
+    directionMode: "Filtro direcional",
+    directionModeHint: "Reduz o ruido ambiente e foca o som perto do microfone.",
+    instrument: "Instrumento",
+    lessSensitive: "Menos sensivel",
+    lockString: "Bloquear corda",
+    lockStringHint: "Escolha uma corda e o afinador permanece nessa nota.",
+    manualMode: "Manual",
+    moreSensitive: "Mais sensivel",
+    noiseGate: "Sensibilidade do microfone",
+    notes: "Notas",
+    target: "Alvo",
+    strings: "Cordas",
+    tunerName: "Afinador digital"
+  },
+  zh: {
+    automaticMode: "自动",
+    automaticModeHint: "自动识别最接近的音符或琴弦。",
+    directionMode: "定向滤波",
+    directionModeHint: "减少环境噪声，更专注于麦克风附近的声音。",
+    instrument: "乐器",
+    lessSensitive: "降低灵敏度",
+    lockString: "锁定所选琴弦",
+    lockStringHint: "建议选择一根琴弦，调音器会保持该目标音。",
+    manualMode: "手动",
+    moreSensitive: "提高灵敏度",
+    noiseGate: "麦克风灵敏度",
+    notes: "音名",
+    target: "目标",
+    strings: "琴弦",
+    tunerName: "数字调音器"
+  },
+  ru: {
+    automaticMode: "Авто",
+    automaticModeHint: "Автоматически определяет ближайшую ноту или струну.",
+    directionMode: "Направленный фильтр",
+    directionModeHint: "Снижает фоновый шум и фокусируется на звуке рядом с микрофоном.",
+    instrument: "Инструмент",
+    lessSensitive: "Менее чувствительно",
+    lockString: "Зафиксировать струну",
+    lockStringHint: "Выберите струну, и тюнер останется на этой цели.",
+    manualMode: "Вручную",
+    moreSensitive: "Более чувствительно",
+    noiseGate: "Чувствительность микрофона",
+    notes: "Ноты",
+    target: "Цель",
+    strings: "Струны",
+    tunerName: "Цифровой тюнер"
+  },
+  ja: {
+    automaticMode: "自動",
+    automaticModeHint: "最も近い音または弦を自動で検出します。",
+    directionMode: "指向性フィルター",
+    directionModeHint: "周囲の雑音を減らし、マイク近くの音に集中します。",
+    instrument: "楽器",
+    lessSensitive: "感度を下げる",
+    lockString: "選択した弦を固定",
+    lockStringHint: "弦を選ぶとチューナーはその音を目標にします。",
+    manualMode: "手動",
+    moreSensitive: "感度を上げる",
+    noiseGate: "マイク感度",
+    notes: "音名",
+    target: "目標",
+    strings: "弦",
+    tunerName: "デジタルチューナー"
+  },
+  ko: {
+    automaticMode: "자동",
+    automaticModeHint: "가장 가까운 음 또는 줄을 자동으로 감지합니다.",
+    directionMode: "지향성 필터",
+    directionModeHint: "주변 소음을 줄이고 마이크 가까운 소리에 집중합니다.",
+    instrument: "악기",
+    lessSensitive: "덜 민감하게",
+    lockString: "선택한 줄 고정",
+    lockStringHint: "줄을 선택하면 튜너가 그 목표 음에 고정됩니다.",
+    manualMode: "수동",
+    moreSensitive: "더 민감하게",
+    noiseGate: "마이크 감도",
+    notes: "음이름",
+    target: "목표",
+    strings: "줄",
+    tunerName: "디지털 튜너"
+  },
+  ar: {
+    automaticMode: "تلقائي",
+    automaticModeHint: "يتعرف تلقائيا على أقرب نغمة أو وتر.",
+    directionMode: "مرشح اتجاهي",
+    directionModeHint: "يقلل ضوضاء المكان ويركز على الصوت القريب من الميكروفون.",
+    instrument: "الآلة",
+    lessSensitive: "حساسية أقل",
+    lockString: "تثبيت الوتر المحدد",
+    lockStringHint: "اختر وترا وسيبقى المدوزن على تلك النغمة.",
+    manualMode: "يدوي",
+    moreSensitive: "حساسية أعلى",
+    noiseGate: "حساسية الميكروفون",
+    notes: "النغمات",
+    target: "الهدف",
+    strings: "الأوتار",
+    tunerName: "مدوزن رقمي"
+  }
 };
 
 function clamp(value: number, min: number, max: number) {
@@ -46,32 +241,9 @@ function nearestString(frequency: number, strings: TuningNote[]) {
 }
 
 export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
-  const isItalian = dictionary.localeName === "Italiano";
-  const currentLocale = localeByDictionaryName[dictionary.localeName] ?? "en";
+  const currentLocale = localeFromName(dictionary.localeName);
   const orderedInstruments = useMemo(() => getOrderedInstruments(currentLocale), [currentLocale]);
-  const uiText = {
-    automaticMode: isItalian ? "Automatico" : "Automatic",
-    automaticModeHint: isItalian
-      ? "Riconosce da solo la nota o la corda piu vicina."
-      : "Automatically detects the closest note or string.",
-    directionMode: isItalian ? "Filtro direzionale" : "Directional filter",
-    directionModeHint: isItalian
-      ? "Riduce rumore ambientale e ascolta meglio il suono vicino al microfono."
-      : "Reduces room noise and focuses on sound close to the microphone.",
-    instrument: isItalian ? "Strumento" : "Instrument",
-    lessSensitive: isItalian ? "Meno sensibile" : "Less sensitive",
-    lockString: isItalian ? "Blocca corda selezionata" : "Lock selected string",
-    lockStringHint: isItalian
-      ? "Consigliato: scegli una corda e l'accordatore resta su quella nota."
-      : "Recommended: choose a string and the tuner stays on that target.",
-    manualMode: isItalian ? "Manuale" : "Manual",
-    moreSensitive: isItalian ? "Piu sensibile" : "More sensitive",
-    noiseGate: isItalian ? "Sensibilita microfono" : "Microphone sensitivity",
-    notes: isItalian ? "Note" : "Notes",
-    target: isItalian ? "Obiettivo" : "Target",
-    strings: isItalian ? "Corde" : "Strings",
-    tunerName: isItalian ? "Accordatore digitale" : "Digital tuner"
-  };
+  const uiText = tunerUiText[currentLocale];
   const initialInstrument = orderedInstruments.includes(instrument) ? instrument : "guitar";
   const [selectedInstrument, setSelectedInstrument] = useState<Instrument>(initialInstrument);
   const [selectedString, setSelectedString] = useState(0);

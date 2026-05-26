@@ -27,3 +27,7 @@ export function isLocale(value: string | undefined): value is Locale {
 export function getTextDirection(locale: Locale) {
   return rtlLocales.includes(locale) ? "rtl" : "ltr";
 }
+
+export function localeFromName(name: string): Locale {
+  return locales.find((locale) => localeNames[locale] === name) ?? defaultLocale;
+}

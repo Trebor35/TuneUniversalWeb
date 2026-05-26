@@ -4,6 +4,20 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
+const aboutLabels: Record<Locale, string> = {
+  it: "Chi siamo",
+  en: "About",
+  fr: "À propos",
+  de: "Über uns",
+  es: "Acerca de",
+  pt: "Sobre",
+  zh: "关于",
+  ru: "О проекте",
+  ja: "概要",
+  ko: "소개",
+  ar: "حول"
+};
+
 export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-paper/88 backdrop-blur">
@@ -16,7 +30,7 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
         </Link>
         <div className="flex shrink-0 items-center gap-2">
           <Link href={`/${locale}/about`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
-            {locale === "it" ? "Chi siamo" : "About"}
+            {aboutLabels[locale]}
           </Link>
           <Link href={`/${locale}#tools`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white sm:inline-flex">
             {dictionary.nav.tools}

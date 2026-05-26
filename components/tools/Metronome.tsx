@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Headphones, Pause, Play, Save, Trash2, Volume2 } from "lucide-react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import { localeFromName, type Locale } from "@/lib/i18n/locales";
 import {
   beatsForMeter,
   getSubdivisionParts,
@@ -33,22 +34,34 @@ function clampBpm(value: number) {
   return Math.min(300, Math.max(20, Math.round(value)));
 }
 
-function metronomeLabels(dictionary: Dictionary) {
-  const isItalian = dictionary.localeName.toLowerCase().includes("italiano");
-  return {
-    accentFirstBeat: isItalian ? "Accento sul primo battito" : "Accent first beat",
-    apply: isItalian ? "Carica" : "Load",
-    beat: isItalian ? "Battito" : "Beat",
-    headphones: isItalian ? "Cuffie" : "Headphones",
-    noPresets: isItalian ? "Nessun preset salvato" : "No saved presets",
-    output: isItalian ? "Uscita" : "Output",
-    presets: isItalian ? "Memorie preset" : "Preset memories",
-    savePreset: isItalian ? "Salva preset" : "Save preset",
-    speaker: isItalian ? "Speaker" : "Speaker",
-    subdivision: isItalian ? "Suddivisione ritmica" : "Rhythmic subdivision",
-    tapHint: isItalian ? "Tap tempo" : "Tap tempo"
-  };
-}
+const metronomeUiText: Record<
+  Locale,
+  {
+    accentFirstBeat: string;
+    apply: string;
+    beat: string;
+    headphones: string;
+    noPresets: string;
+    output: string;
+    presets: string;
+    savePreset: string;
+    speaker: string;
+    subdivision: string;
+    tapHint: string;
+  }
+> = {
+  it: { accentFirstBeat: "Accento sul primo battito", apply: "Carica", beat: "Battito", headphones: "Cuffie", noPresets: "Nessun preset salvato", output: "Uscita", presets: "Memorie preset", savePreset: "Salva preset", speaker: "Speaker", subdivision: "Suddivisione ritmica", tapHint: "Tap tempo" },
+  en: { accentFirstBeat: "Accent first beat", apply: "Load", beat: "Beat", headphones: "Headphones", noPresets: "No saved presets", output: "Output", presets: "Preset memories", savePreset: "Save preset", speaker: "Speaker", subdivision: "Rhythmic subdivision", tapHint: "Tap tempo" },
+  fr: { accentFirstBeat: "Accent sur le premier temps", apply: "Charger", beat: "Temps", headphones: "Casque", noPresets: "Aucun preset enregistre", output: "Sortie", presets: "Memoires de presets", savePreset: "Enregistrer preset", speaker: "Haut-parleur", subdivision: "Subdivision rythmique", tapHint: "Tap tempo" },
+  de: { accentFirstBeat: "Akzent auf erster Zaehlzeit", apply: "Laden", beat: "Schlag", headphones: "Kopfhoerer", noPresets: "Keine Presets gespeichert", output: "Ausgabe", presets: "Preset-Speicher", savePreset: "Preset speichern", speaker: "Lautsprecher", subdivision: "Rhythmische Unterteilung", tapHint: "Tap Tempo" },
+  es: { accentFirstBeat: "Acento en el primer pulso", apply: "Cargar", beat: "Pulso", headphones: "Auriculares", noPresets: "Sin presets guardados", output: "Salida", presets: "Memorias de preset", savePreset: "Guardar preset", speaker: "Altavoz", subdivision: "Subdivision ritmica", tapHint: "Tap tempo" },
+  pt: { accentFirstBeat: "Acento no primeiro tempo", apply: "Carregar", beat: "Batida", headphones: "Fones", noPresets: "Nenhum preset salvo", output: "Saida", presets: "Memorias de preset", savePreset: "Salvar preset", speaker: "Alto-falante", subdivision: "Subdivisao ritmica", tapHint: "Tap tempo" },
+  zh: { accentFirstBeat: "第一拍重音", apply: "载入", beat: "拍", headphones: "耳机", noPresets: "没有已保存预设", output: "输出", presets: "预设记忆", savePreset: "保存预设", speaker: "扬声器", subdivision: "节奏细分", tapHint: "点击速度" },
+  ru: { accentFirstBeat: "Акцент на первой доле", apply: "Загрузить", beat: "Доля", headphones: "Наушники", noPresets: "Нет сохраненных пресетов", output: "Выход", presets: "Память пресетов", savePreset: "Сохранить пресет", speaker: "Динамик", subdivision: "Ритмическое деление", tapHint: "Tap tempo" },
+  ja: { accentFirstBeat: "1拍目を強調", apply: "読み込む", beat: "拍", headphones: "ヘッドホン", noPresets: "保存済みプリセットなし", output: "出力", presets: "プリセットメモリ", savePreset: "プリセット保存", speaker: "スピーカー", subdivision: "リズム細分", tapHint: "タップテンポ" },
+  ko: { accentFirstBeat: "첫 박자 악센트", apply: "불러오기", beat: "박", headphones: "헤드폰", noPresets: "저장된 프리셋 없음", output: "출력", presets: "프리셋 메모리", savePreset: "프리셋 저장", speaker: "스피커", subdivision: "리듬 분할", tapHint: "탭 템포" },
+  ar: { accentFirstBeat: "تشديد الضربة الأولى", apply: "تحميل", beat: "ضربة", headphones: "سماعات", noPresets: "لا توجد إعدادات محفوظة", output: "الإخراج", presets: "ذاكرة الإعدادات", savePreset: "حفظ الإعداد", speaker: "مكبر الصوت", subdivision: "تقسيم إيقاعي", tapHint: "Tap tempo" }
+};
 
 export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   const [bpm, setBpm] = useState(100);
@@ -65,8 +78,8 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   const audioRef = useRef<AudioContext | null>(null);
   const beatRef = useRef(0);
   const stepRef = useRef(0);
-  const labels = metronomeLabels(dictionary);
-  const isItalian = dictionary.localeName.toLowerCase().includes("italiano");
+  const currentLocale = localeFromName(dictionary.localeName);
+  const labels = metronomeUiText[currentLocale];
 
   function click(accent: boolean, subdivisionClick: boolean) {
     const context = audioRef.current ?? new AudioContext();
@@ -148,7 +161,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   }
 
   function savePreset() {
-    const subdivisionLabel = subdivisions.find((item) => item.id === subdivision)?.labels[isItalian ? "it" : "en"] ?? subdivision;
+    const subdivisionLabel = subdivisions.find((item) => item.id === subdivision)?.labels[currentLocale] ?? subdivision;
     const preset: MetronomePreset = {
       accentFirstBeat,
       bpm,
@@ -245,7 +258,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
           >
             {subdivisions.map((item) => (
               <option key={item.id} value={item.id}>
-                {item.labels[isItalian ? "it" : "en"]} ({item.parts})
+                {item.labels[currentLocale]} ({item.parts})
               </option>
             ))}
           </select>
