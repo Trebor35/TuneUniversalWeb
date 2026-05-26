@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 
 type AdSlotVariant = "leaderboard" | "mobileBanner" | "rectangle";
 
-const adsenseClient = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT;
+const adsenseClient = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT ?? "ca-pub-4436218293452548";
 
 const adSlots: Record<AdSlotVariant, string | undefined> = {
   leaderboard: process.env.NEXT_PUBLIC_ADSENSE_SLOT_LEADERBOARD,

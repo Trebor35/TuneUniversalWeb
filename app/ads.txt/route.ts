@@ -1,6 +1,7 @@
 const publisherId =
   process.env.GOOGLE_ADSENSE_PUBLISHER_ID ??
-  process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT?.replace(/^ca-/, "");
+  process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT?.replace(/^ca-/, "") ??
+  "pub-4436218293452548";
 
 export function GET() {
   if (!publisherId) {
