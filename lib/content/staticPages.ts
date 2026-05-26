@@ -187,29 +187,29 @@ const localizedTitles: Record<Locale, Partial<Record<StaticPageSlug, Partial<Sta
     about: { title: "Sobre", description: enPages.about.description },
   },
   zh: {
-    "privacy-policy": { title: "éšç§æ”¿ç­–", description: enPages["privacy-policy"].description },
-    "cookie-policy": { title: "Cookie æ”¿ç­–", description: enPages["cookie-policy"].description },
-    about: { title: "å…³äºŽ", description: enPages.about.description },
+    "privacy-policy": { title: "隐私政策", description: enPages["privacy-policy"].description },
+    "cookie-policy": { title: "Cookie 政策", description: enPages["cookie-policy"].description },
+    about: { title: "关于", description: enPages.about.description },
   },
   ru: {
-    "privacy-policy": { title: "ÐŸÐ¾Ð»Ð¸Ñ‚Ð¸ÐºÐ° ÐºÐ¾Ð½Ñ„Ð¸Ð´ÐµÐ½Ñ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚Ð¸", description: enPages["privacy-policy"].description },
-    "cookie-policy": { title: "ÐŸÐ¾Ð»Ð¸Ñ‚Ð¸ÐºÐ° cookie", description: enPages["cookie-policy"].description },
-    about: { title: "Ðž Ð¿Ñ€Ð¾ÐµÐºÑ‚Ðµ", description: enPages.about.description },
+    "privacy-policy": { title: "Политика конфиденциальности", description: enPages["privacy-policy"].description },
+    "cookie-policy": { title: "Политика Cookie", description: enPages["cookie-policy"].description },
+    about: { title: "О проекте", description: enPages.about.description },
   },
   ja: {
-    "privacy-policy": { title: "ãƒ—ãƒ©ã‚¤ãƒã‚·ãƒ¼ãƒãƒªã‚·ãƒ¼", description: enPages["privacy-policy"].description },
-    "cookie-policy": { title: "Cookie ãƒãƒªã‚·ãƒ¼", description: enPages["cookie-policy"].description },
-    about: { title: "æ¦‚è¦", description: enPages.about.description },
+    "privacy-policy": { title: "プライバシーポリシー", description: enPages["privacy-policy"].description },
+    "cookie-policy": { title: "Cookie ポリシー", description: enPages["cookie-policy"].description },
+    about: { title: "概要", description: enPages.about.description },
   },
   ko: {
-    "privacy-policy": { title: "ê°œì¸ì •ë³´ ì²˜ë¦¬ë°©ì¹¨", description: enPages["privacy-policy"].description },
-    "cookie-policy": { title: "ì¿ í‚¤ ì •ì±…", description: enPages["cookie-policy"].description },
-    about: { title: "ì†Œê°œ", description: enPages.about.description },
+    "privacy-policy": { title: "개인정보 처리방침", description: enPages["privacy-policy"].description },
+    "cookie-policy": { title: "쿠키 정책", description: enPages["cookie-policy"].description },
+    about: { title: "소개", description: enPages.about.description },
   },
   ar: {
-    "privacy-policy": { title: "Ø³ÙŠØ§Ø³Ø© Ø§Ù„Ø®ØµÙˆØµÙŠØ©", description: enPages["privacy-policy"].description },
-    "cookie-policy": { title: "Ø³ÙŠØ§Ø³Ø© Ù…Ù„ÙØ§Øª ØªØ¹Ø±ÙŠÙ Ø§Ù„Ø§Ø±ØªØ¨Ø§Ø·", description: enPages["cookie-policy"].description },
-    about: { title: "Ø­ÙˆÙ„", description: enPages.about.description },
+    "privacy-policy": { title: "سياسة الخصوصية", description: enPages["privacy-policy"].description },
+    "cookie-policy": { title: "سياسة ملفات تعريف الارتباط", description: enPages["cookie-policy"].description },
+    about: { title: "حول", description: enPages.about.description },
   }
 };
 

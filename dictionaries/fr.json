@@ -1,17 +1,165 @@
-﻿{
-  "localeName": "FranÃ§ais",
-  "meta": { "title": "TuneUniversal - Outils musicaux gratuits", "description": "Accordez vos instruments, gardez le tempo et transposez vos accords avec des outils musicaux multilingues gratuits." },
-  "nav": { "home": "Accueil", "tools": "Outils", "language": "Langue" },
-  "hero": { "eyebrow": "Micro-outils musicaux gratuits", "title": "TuneUniversal", "description": "Un laboratoire international rapide pour l'accordage, le tempo et les accords sur tous les appareils.", "cta": "Explorer les outils" },
-  "home": { "toolHeading": "Outils musicaux", "faqHeading": "FAQ", "howHeading": "Comment fonctionne TuneUniversal" },
-  "tool": { "detectedNote": "Note detectee", "frequency": "Frequence", "cents": "Cents", "flat": "Trop bas", "sharp": "Trop haut", "inTune": "Juste", "requestMic": "Activer le micro", "stopMic": "Arreter le micro", "micError": "Acces au micro impossible. Verifiez les permissions du navigateur.", "bpm": "BPM", "start": "Demarrer", "stop": "Arreter", "reset": "Reinitialiser", "tap": "Tap", "history": "Taps recents", "meter": "Mesure", "inputChords": "Accords source", "semitones": "Demi-tons", "outputChords": "Resultat transpose" },
-  "common": { "howItWorks": "Comment ca marche", "faq": "FAQ", "otherTools": "Autres outils" },
+{
+  "localeName": "Français",
+  "meta": {
+    "title": "TuneUniversal - Outils musicaux gratuits",
+    "description": "Accordez vos instruments, gardez le tempo et transposez vos accords avec des outils musicaux multilingues gratuits."
+  },
+  "nav": {
+    "home": "Accueil",
+    "tools": "Outils",
+    "language": "Langue"
+  },
+  "hero": {
+    "eyebrow": "Micro-outils musicaux gratuits",
+    "title": "TuneUniversal",
+    "description": "Un laboratoire international rapide pour l'accordage, le tempo et les accords sur tous les appareils.",
+    "cta": "Explorer les outils"
+  },
+  "home": {
+    "toolHeading": "Outils musicaux",
+    "faqHeading": "FAQ",
+    "howHeading": "Comment fonctionne TuneUniversal"
+  },
+  "tool": {
+    "detectedNote": "Note detectee",
+    "frequency": "Frequence",
+    "cents": "Cents",
+    "flat": "Trop bas",
+    "sharp": "Trop haut",
+    "inTune": "Juste",
+    "requestMic": "Activer le micro",
+    "stopMic": "Arreter le micro",
+    "micError": "Acces au micro impossible. Verifiez les permissions du navigateur.",
+    "bpm": "BPM",
+    "start": "Demarrer",
+    "stop": "Arreter",
+    "reset": "Reinitialiser",
+    "tap": "Tap",
+    "history": "Taps recents",
+    "meter": "Mesure",
+    "inputChords": "Accords source",
+    "semitones": "Demi-tons",
+    "outputChords": "Resultat transpose"
+  },
+  "common": {
+    "howItWorks": "Comment ca marche",
+    "faq": "FAQ",
+    "otherTools": "Autres outils"
+  },
   "tools": {
-    "guitar-tuner": { "title": "Accordeur guitare en ligne", "description": "Utilisez le micro pour accorder rapidement une guitare standard.", "howItWorks": ["Autorisez le micro.", "Jouez une corde a la fois.", "Ajustez jusqu'a ce que l'indicateur soit juste."], "faq": [{ "question": "Fonctionne-t-il sur mobile?", "answer": "Oui, les navigateurs mobiles modernes avec micro sont pris en charge." }, { "question": "Quel accordage?", "answer": "L'MVP utilise E A D G B E." }] },
-    "bass-tuner": { "title": "Accordeur basse en ligne", "description": "Accordez une basse quatre cordes avec detection en temps reel.", "howItWorks": ["Activez le micro.", "Jouez une corde a vide nette.", "Accordez vers la note cible."], "faq": [{ "question": "Quelles cordes?", "answer": "Accordage standard E A D G." }, { "question": "Faut-il une app?", "answer": "Non, tout fonctionne dans le navigateur." }] },
-    "ukulele-tuner": { "title": "Accordeur ukulele en ligne", "description": "Accordez votre ukulele en G C E A.", "howItWorks": ["Lancez l'accordeur.", "Pincez une corde.", "Suivez le retour trop bas, trop haut ou juste."], "faq": [{ "question": "High-G est-il inclus?", "answer": "L'MVP cible l'accordage high-G G C E A." }, { "question": "L'audio est-il envoye?", "answer": "Non, l'analyse reste dans le navigateur." }] },
-    "metronome": { "title": "Metronome en ligne", "description": "Travaillez avec BPM reglable, accents et mesures courantes.", "howItWorks": ["Reglez le BPM.", "Choisissez une mesure.", "Demarrez le clic et suivez le premier temps accentue."], "faq": [{ "question": "Y a-t-il tap tempo?", "answer": "Oui, le bouton tap estime le tempo." }, { "question": "Quelles mesures?", "answer": "2/4, 3/4, 4/4 et 6/8." }] },
-    "tap-bpm": { "title": "Compteur Tap BPM", "description": "Tapez avec la musique pour calculer le BPM moyen.", "howItWorks": ["Tapez sur le temps.", "Le BPM moyen se met a jour.", "Reinitialisez pour un nouveau morceau."], "faq": [{ "question": "Combien de taps?", "answer": "Les intervalles recents sont conserves pour stabiliser l'estimation." }, { "question": "Le clavier marche?", "answer": "Cette version utilise le bouton a l'ecran." }] },
-    "chord-transposer": { "title": "Transposeur d'accords", "description": "Transposez des suites d'accords par demi-tons.", "howItWorks": ["Collez les symboles d'accords.", "Choisissez de -12 a +12 demi-tons.", "Copiez le resultat."], "faq": [{ "question": "Les bemols sont-ils supportes?", "answer": "Oui, ils sont normalises en dieses." }, { "question": "Quels accords?", "answer": "Majeurs, mineurs, dieses, bemols, septiemes et suffixes courants." }] }
+    "guitar-tuner": {
+      "title": "Accordeur guitare en ligne",
+      "description": "Utilisez le micro pour accorder rapidement une guitare standard.",
+      "howItWorks": [
+        "Autorisez le micro.",
+        "Jouez une corde a la fois.",
+        "Ajustez jusqu'a ce que l'indicateur soit juste."
+      ],
+      "faq": [
+        {
+          "question": "Fonctionne-t-il sur mobile?",
+          "answer": "Oui, les navigateurs mobiles modernes avec micro sont pris en charge."
+        },
+        {
+          "question": "Quel accordage?",
+          "answer": "L'MVP utilise E A D G B E."
+        }
+      ]
+    },
+    "bass-tuner": {
+      "title": "Accordeur basse en ligne",
+      "description": "Accordez une basse quatre cordes avec detection en temps reel.",
+      "howItWorks": [
+        "Activez le micro.",
+        "Jouez une corde a vide nette.",
+        "Accordez vers la note cible."
+      ],
+      "faq": [
+        {
+          "question": "Quelles cordes?",
+          "answer": "Accordage standard E A D G."
+        },
+        {
+          "question": "Faut-il une app?",
+          "answer": "Non, tout fonctionne dans le navigateur."
+        }
+      ]
+    },
+    "ukulele-tuner": {
+      "title": "Accordeur ukulele en ligne",
+      "description": "Accordez votre ukulele en G C E A.",
+      "howItWorks": [
+        "Lancez l'accordeur.",
+        "Pincez une corde.",
+        "Suivez le retour trop bas, trop haut ou juste."
+      ],
+      "faq": [
+        {
+          "question": "High-G est-il inclus?",
+          "answer": "L'MVP cible l'accordage high-G G C E A."
+        },
+        {
+          "question": "L'audio est-il envoye?",
+          "answer": "Non, l'analyse reste dans le navigateur."
+        }
+      ]
+    },
+    "metronome": {
+      "title": "Metronome en ligne",
+      "description": "Travaillez avec BPM reglable, accents et mesures courantes.",
+      "howItWorks": [
+        "Reglez le BPM.",
+        "Choisissez une mesure.",
+        "Demarrez le clic et suivez le premier temps accentue."
+      ],
+      "faq": [
+        {
+          "question": "Y a-t-il tap tempo?",
+          "answer": "Oui, le bouton tap estime le tempo."
+        },
+        {
+          "question": "Quelles mesures?",
+          "answer": "2/4, 3/4, 4/4 et 6/8."
+        }
+      ]
+    },
+    "tap-bpm": {
+      "title": "Compteur Tap BPM",
+      "description": "Tapez avec la musique pour calculer le BPM moyen.",
+      "howItWorks": [
+        "Tapez sur le temps.",
+        "Le BPM moyen se met a jour.",
+        "Reinitialisez pour un nouveau morceau."
+      ],
+      "faq": [
+        {
+          "question": "Combien de taps?",
+          "answer": "Les intervalles recents sont conserves pour stabiliser l'estimation."
+        },
+        {
+          "question": "Le clavier marche?",
+          "answer": "Cette version utilise le bouton a l'ecran."
+        }
+      ]
+    },
+    "chord-transposer": {
+      "title": "Transposeur d'accords",
+      "description": "Transposez des suites d'accords par demi-tons.",
+      "howItWorks": [
+        "Collez les symboles d'accords.",
+        "Choisissez de -12 a +12 demi-tons.",
+        "Copiez le resultat."
+      ],
+      "faq": [
+        {
+          "question": "Les bemols sont-ils supportes?",
+          "answer": "Oui, ils sont normalises en dieses."
+        },
+        {
+          "question": "Quels accords?",
+          "answer": "Majeurs, mineurs, dieses, bemols, septiemes et suffixes courants."
+        }
+      ]
+    }
   }
 }

@@ -1,17 +1,165 @@
-﻿{
-  "localeName": "PortuguÃªs",
-  "meta": { "title": "TuneUniversal - Ferramentas musicais gratis", "description": "Afine instrumentos, mantenha o tempo e transponha acordes com ferramentas musicais multilingues gratuitas." },
-  "nav": { "home": "Inicio", "tools": "Ferramentas", "language": "Idioma" },
-  "hero": { "eyebrow": "Microferramentas musicais gratis", "title": "TuneUniversal", "description": "Um laboratorio internacional rapido para afinacao, tempo e acordes em qualquer dispositivo.", "cta": "Explorar ferramentas" },
-  "home": { "toolHeading": "Ferramentas musicais", "faqHeading": "FAQ", "howHeading": "Como funciona TuneUniversal" },
-  "tool": { "detectedNote": "Nota detectada", "frequency": "Frequencia", "cents": "Cents", "flat": "Baixo", "sharp": "Alto", "inTune": "Afinado", "requestMic": "Ativar microfone", "stopMic": "Parar microfone", "micError": "Falha ao acessar o microfone. Verifique as permissoes do navegador.", "bpm": "BPM", "start": "Iniciar", "stop": "Parar", "reset": "Resetar", "tap": "Tap", "history": "Taps recentes", "meter": "Compasso", "inputChords": "Entrada de acordes", "semitones": "Semitons", "outputChords": "Saida transposta" },
-  "common": { "howItWorks": "Como funciona", "faq": "FAQ", "otherTools": "Outras ferramentas" },
+{
+  "localeName": "Português",
+  "meta": {
+    "title": "TuneUniversal - Ferramentas musicais gratis",
+    "description": "Afine instrumentos, mantenha o tempo e transponha acordes com ferramentas musicais multilingues gratuitas."
+  },
+  "nav": {
+    "home": "Inicio",
+    "tools": "Ferramentas",
+    "language": "Idioma"
+  },
+  "hero": {
+    "eyebrow": "Microferramentas musicais gratis",
+    "title": "TuneUniversal",
+    "description": "Um laboratorio internacional rapido para afinacao, tempo e acordes em qualquer dispositivo.",
+    "cta": "Explorar ferramentas"
+  },
+  "home": {
+    "toolHeading": "Ferramentas musicais",
+    "faqHeading": "FAQ",
+    "howHeading": "Como funciona TuneUniversal"
+  },
+  "tool": {
+    "detectedNote": "Nota detectada",
+    "frequency": "Frequencia",
+    "cents": "Cents",
+    "flat": "Baixo",
+    "sharp": "Alto",
+    "inTune": "Afinado",
+    "requestMic": "Ativar microfone",
+    "stopMic": "Parar microfone",
+    "micError": "Falha ao acessar o microfone. Verifique as permissoes do navegador.",
+    "bpm": "BPM",
+    "start": "Iniciar",
+    "stop": "Parar",
+    "reset": "Resetar",
+    "tap": "Tap",
+    "history": "Taps recentes",
+    "meter": "Compasso",
+    "inputChords": "Entrada de acordes",
+    "semitones": "Semitons",
+    "outputChords": "Saida transposta"
+  },
+  "common": {
+    "howItWorks": "Como funciona",
+    "faq": "FAQ",
+    "otherTools": "Outras ferramentas"
+  },
   "tools": {
-    "guitar-tuner": { "title": "Afinador de guitarra online", "description": "Use o microfone para afinar rapidamente uma guitarra padrao.", "howItWorks": ["Permita o microfone.", "Toque uma corda por vez.", "Ajuste ate ficar afinado."], "faq": [{ "question": "Funciona no celular?", "answer": "Sim, navegadores modernos com microfone sao suportados." }, { "question": "Qual afinacao?", "answer": "O MVP usa E A D G B E." }] },
-    "bass-tuner": { "title": "Afinador de baixo online", "description": "Afine um baixo de quatro cordas com deteccao em tempo real.", "howItWorks": ["Ative o microfone.", "Toque uma corda solta clara.", "Afine para a nota alvo."], "faq": [{ "question": "Quais cordas?", "answer": "Afinacao padrao E A D G." }, { "question": "Preciso de app?", "answer": "Nao, roda no navegador." }] },
-    "ukulele-tuner": { "title": "Afinador de ukulele online", "description": "Afine seu ukulele em G C E A.", "howItWorks": ["Inicie o afinador.", "Toque uma corda.", "Siga baixo, alto ou afinado."], "faq": [{ "question": "Suporta high-G?", "answer": "O MVP usa high-G G C E A." }, { "question": "O audio e enviado?", "answer": "Nao, a analise fica no navegador." }] },
-    "metronome": { "title": "Metronomo online", "description": "Pratique com BPM ajustavel, acentos e compassos comuns.", "howItWorks": ["Defina o BPM.", "Escolha o compasso.", "Inicie o pulso e siga o primeiro beat acentuado."], "faq": [{ "question": "Tem tap tempo?", "answer": "Sim, o tap estima o tempo." }, { "question": "Quais compassos?", "answer": "2/4, 3/4, 4/4 e 6/8." }] },
-    "tap-bpm": { "title": "Contador Tap BPM", "description": "Toque junto com a musica e calcule o BPM medio.", "howItWorks": ["Toque no beat.", "O BPM medio atualiza.", "Resete para uma nova musica."], "faq": [{ "question": "Quantos taps usa?", "answer": "Mantem intervalos recentes para estimativa estavel." }, { "question": "Teclado funciona?", "answer": "Esta versao usa o botao na tela." }] },
-    "chord-transposer": { "title": "Transpositor de acordes", "description": "Transponha progressoes de acordes por semitons.", "howItWorks": ["Cole os acordes.", "Escolha semitons de -12 a +12.", "Copie o resultado."], "faq": [{ "question": "Suporta bemois?", "answer": "Sim, raizes bemol viram sustenidos na saida." }, { "question": "Quais acordes?", "answer": "Maiores, menores, sustenidos, bemois, setimas e sufixos comuns." }] }
+    "guitar-tuner": {
+      "title": "Afinador de guitarra online",
+      "description": "Use o microfone para afinar rapidamente uma guitarra padrao.",
+      "howItWorks": [
+        "Permita o microfone.",
+        "Toque uma corda por vez.",
+        "Ajuste ate ficar afinado."
+      ],
+      "faq": [
+        {
+          "question": "Funciona no celular?",
+          "answer": "Sim, navegadores modernos com microfone sao suportados."
+        },
+        {
+          "question": "Qual afinacao?",
+          "answer": "O MVP usa E A D G B E."
+        }
+      ]
+    },
+    "bass-tuner": {
+      "title": "Afinador de baixo online",
+      "description": "Afine um baixo de quatro cordas com deteccao em tempo real.",
+      "howItWorks": [
+        "Ative o microfone.",
+        "Toque uma corda solta clara.",
+        "Afine para a nota alvo."
+      ],
+      "faq": [
+        {
+          "question": "Quais cordas?",
+          "answer": "Afinacao padrao E A D G."
+        },
+        {
+          "question": "Preciso de app?",
+          "answer": "Nao, roda no navegador."
+        }
+      ]
+    },
+    "ukulele-tuner": {
+      "title": "Afinador de ukulele online",
+      "description": "Afine seu ukulele em G C E A.",
+      "howItWorks": [
+        "Inicie o afinador.",
+        "Toque uma corda.",
+        "Siga baixo, alto ou afinado."
+      ],
+      "faq": [
+        {
+          "question": "Suporta high-G?",
+          "answer": "O MVP usa high-G G C E A."
+        },
+        {
+          "question": "O audio e enviado?",
+          "answer": "Nao, a analise fica no navegador."
+        }
+      ]
+    },
+    "metronome": {
+      "title": "Metronomo online",
+      "description": "Pratique com BPM ajustavel, acentos e compassos comuns.",
+      "howItWorks": [
+        "Defina o BPM.",
+        "Escolha o compasso.",
+        "Inicie o pulso e siga o primeiro beat acentuado."
+      ],
+      "faq": [
+        {
+          "question": "Tem tap tempo?",
+          "answer": "Sim, o tap estima o tempo."
+        },
+        {
+          "question": "Quais compassos?",
+          "answer": "2/4, 3/4, 4/4 e 6/8."
+        }
+      ]
+    },
+    "tap-bpm": {
+      "title": "Contador Tap BPM",
+      "description": "Toque junto com a musica e calcule o BPM medio.",
+      "howItWorks": [
+        "Toque no beat.",
+        "O BPM medio atualiza.",
+        "Resete para uma nova musica."
+      ],
+      "faq": [
+        {
+          "question": "Quantos taps usa?",
+          "answer": "Mantem intervalos recentes para estimativa estavel."
+        },
+        {
+          "question": "Teclado funciona?",
+          "answer": "Esta versao usa o botao na tela."
+        }
+      ]
+    },
+    "chord-transposer": {
+      "title": "Transpositor de acordes",
+      "description": "Transponha progressoes de acordes por semitons.",
+      "howItWorks": [
+        "Cole os acordes.",
+        "Escolha semitons de -12 a +12.",
+        "Copie o resultado."
+      ],
+      "faq": [
+        {
+          "question": "Suporta bemois?",
+          "answer": "Sim, raizes bemol viram sustenidos na saida."
+        },
+        {
+          "question": "Quais acordes?",
+          "answer": "Maiores, menores, sustenidos, bemois, setimas e sufixos comuns."
+        }
+      ]
+    }
   }
 }
