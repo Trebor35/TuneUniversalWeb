@@ -3,6 +3,7 @@ import { locales, type Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { staticPageSlugs, type StaticPageSlug } from "@/lib/content/staticPages";
 import { toolSlugs, type ToolSlug } from "@/lib/tools/toolConfig";
+import { homeKeywords, toolKeywords } from "@/lib/seo/keywords";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
@@ -18,6 +19,7 @@ export function buildHomeMetadata(locale: Locale, dictionary: Dictionary): Metad
   return {
     title: dictionary.meta.title,
     description: dictionary.meta.description,
+    keywords: homeKeywords[locale],
     alternates: buildAlternates(locale),
     openGraph: {
       title: dictionary.meta.title,
@@ -35,6 +37,7 @@ export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Di
   return {
     title: `${content.title} | TuneUniversal`,
     description: content.description,
+    keywords: toolKeywords[locale][tool],
     alternates: buildAlternates(locale, `tools/${tool}`),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
