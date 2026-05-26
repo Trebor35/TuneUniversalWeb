@@ -4,7 +4,7 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { staticPageSlugs, type StaticPageSlug } from "@/lib/content/staticPages";
 import { toolSlugs, type ToolSlug } from "@/lib/tools/toolConfig";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tuneuniversal.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
 export function buildAlternates(locale: Locale, path = ""): Metadata["alternates"] {
   const cleanPath = path ? `/${path.replace(/^\//, "")}` : "";

@@ -2,7 +2,7 @@
 import { allLocalizedUrls } from "@/lib/seo/metadata";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tuneuniversal.vercel.app";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
   return allLocalizedUrls().map((path) => ({
     url: `${siteUrl}${path}`,
     lastModified: new Date(),

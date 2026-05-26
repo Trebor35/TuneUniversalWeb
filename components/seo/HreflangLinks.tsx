@@ -1,7 +1,7 @@
 ﻿import { locales, type Locale } from "@/lib/i18n/locales";
 
 export function HreflangLinks({ locale, path }: { locale: Locale; path: string }) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tuneuniversal.vercel.app";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
 
   return (

@@ -3,7 +3,7 @@ import type { Locale } from "@/lib/i18n/locales";
 import type { StaticPageSlug } from "@/lib/content/staticPages";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tuneuniversal.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
 export function websiteSchema(locale: Locale, dictionary: Dictionary) {
   return {
