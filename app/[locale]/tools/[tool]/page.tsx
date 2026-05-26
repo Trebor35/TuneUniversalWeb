@@ -1,4 +1,5 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChordTransposer } from "@/components/tools/ChordTransposer";
 import { AdSlot } from "@/components/ads/AdSlot";
@@ -9,6 +10,7 @@ import { TapBpm } from "@/components/tools/TapBpm";
 import { UkuleleTuner } from "@/components/tools/UkuleleTuner";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ToolNavigation } from "@/components/layout/ToolNavigation";
+import { getGuideContent, guidesForTool } from "@/lib/content/guides";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, type Locale } from "@/lib/i18n/locales";
 import { buildToolMetadata } from "@/lib/seo/metadata";
@@ -16,6 +18,20 @@ import { faqSchema, toolSchema } from "@/lib/seo/schema";
 import { isToolSlug, tunerTools, type ToolSlug } from "@/lib/tools/toolConfig";
 
 type PageProps = { params: Promise<{ locale: string; tool: string }> };
+
+const guideHeadings: Record<Locale, string> = {
+  ar: "أدلة ذات صلة",
+  de: "Verwandte Anleitungen",
+  en: "Related guides",
+  es: "Guías relacionadas",
+  fr: "Guides associés",
+  it: "Guide correlate",
+  ja: "関連ガイド",
+  ko: "관련 가이드",
+  pt: "Guias relacionados",
+  ru: "Связанные руководства",
+  zh: "相关指南"
+};
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale: rawLocale, tool: rawTool } = await params;
@@ -50,7 +66,8 @@ export default async function ToolPage({ params }: PageProps) {
   const content = dictionary.tools[tool];
   const relatedTools: ToolSlug[] = tunerTools.includes(tool as (typeof tunerTools)[number])
     ? ["metronome", "tap-bpm", "chord-transposer"]
-    : ["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"].filter((slug) => slug !== tool) as ToolSlug[];
+    : (["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"].filter((slug) => slug !== tool) as ToolSlug[]);
+  const relatedGuides = guidesForTool(tool);
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
@@ -75,6 +92,26 @@ export default async function ToolPage({ params }: PageProps) {
               ))}
             </ol>
           </section>
+          {relatedGuides.length > 0 && (
+            <section>
+              <h2 className="text-2xl font-bold">{guideHeadings[locale]}</h2>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {relatedGuides.map((guide) => {
+                  const guideContent = getGuideContent(locale, guide);
+                  return (
+                    <Link
+                      key={guide}
+                      className="rounded-lg border border-line bg-white p-4 transition hover:border-mint hover:shadow-soft"
+                      href={`/${locale}/guides/${guide}`}
+                    >
+                      <span className="block font-semibold">{guideContent.title}</span>
+                      <span className="mt-1 block text-sm leading-6 text-ink/68">{guideContent.description}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          )}
           <section>
             <h2 className="text-2xl font-bold">{dictionary.common.faq}</h2>
             <div className="mt-4 grid gap-3">

@@ -1,6 +1,7 @@
 ﻿import type { Metadata } from "next";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import { guideSlugs, type GuideContent, type GuideSlug } from "@/lib/content/guides";
 import { staticPageSlugs, type StaticPageSlug } from "@/lib/content/staticPages";
 import { toolSlugs, type ToolSlug } from "@/lib/tools/toolConfig";
 import { homeKeywords, toolKeywords } from "@/lib/seo/keywords";
@@ -73,9 +74,27 @@ export function buildStaticPageMetadata(
   };
 }
 
+export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: GuideContent): Metadata {
+  return {
+    title: `${content.title} | TuneUniversal`,
+    description: content.description,
+    keywords: content.keywords,
+    alternates: buildAlternates(locale, `guides/${guide}`),
+    openGraph: {
+      title: `${content.title} | TuneUniversal`,
+      description: content.description,
+      url: `${siteUrl}/${locale}/guides/${guide}`,
+      siteName: "TuneUniversal",
+      type: "article",
+      locale
+    }
+  };
+}
+
 export function allLocalizedUrls() {
   return locales.flatMap((locale) => [
     ...toolSlugs.map((tool) => `/${locale}/tools/${tool}`),
+    ...guideSlugs.map((guide) => `/${locale}/guides/${guide}`),
     ...staticPageSlugs.map((page) => `/${locale}/${page}`)
   ]);
 }
