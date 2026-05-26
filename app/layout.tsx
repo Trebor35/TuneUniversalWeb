@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { AdSenseScript } from "@/components/ads/AdSenseScript";
 import "./globals.css";
 
 const adsenseClient = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT ?? "ca-pub-4436218293452548";
@@ -17,8 +16,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          async
+          crossOrigin="anonymous"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+        />
+      </head>
       <body>
-        <AdSenseScript />
         {children}
       </body>
     </html>
