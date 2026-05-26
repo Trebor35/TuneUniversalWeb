@@ -11,7 +11,10 @@ export function buildAlternates(locale: Locale, path = ""): Metadata["alternates
   const cleanPath = path ? `/${path.replace(/^\//, "")}` : "";
   return {
     canonical: `/${locale}${cleanPath}`,
-    languages: Object.fromEntries(locales.map((item) => [item, `/${item}${cleanPath}`]))
+    languages: {
+      ...Object.fromEntries(locales.map((item) => [item, `/${item}${cleanPath}`])),
+      "x-default": `/en${cleanPath}`
+    }
   };
 }
 
