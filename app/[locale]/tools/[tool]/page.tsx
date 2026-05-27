@@ -116,7 +116,7 @@ export default async function ToolPage({ params }: PageProps) {
       <JsonLd
         data={breadcrumbSchema([
           { name: "TuneUniversal", url: `${siteUrl}/${locale}` },
-          { name: dictionary.nav.tools, url: `${siteUrl}/${locale}#tools` },
+          { name: dictionary.nav.tools, url: `${siteUrl}/${locale}/tools` },
           { name: content.title, url: `${siteUrl}/${locale}/tools/${rawTool}` }
         ])}
       />

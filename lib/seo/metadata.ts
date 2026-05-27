@@ -110,6 +110,23 @@ export function buildGuideIndexMetadata(locale: Locale): Metadata {
   };
 }
 
+export function buildToolsIndexMetadata(locale: Locale, dictionary: Dictionary): Metadata {
+  return {
+    title: `${dictionary.nav.tools} | TuneUniversal`,
+    description: dictionary.meta.description,
+    keywords: homeKeywords[locale],
+    alternates: buildAlternates(locale, "tools"),
+    openGraph: {
+      title: `${dictionary.nav.tools} | TuneUniversal`,
+      description: dictionary.meta.description,
+      url: `${siteUrl}/${locale}/tools`,
+      siteName: "TuneUniversal",
+      type: "website",
+      locale
+    }
+  };
+}
+
 export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: GuideContent): Metadata {
   return {
     title: `${content.title} | TuneUniversal`,
@@ -130,6 +147,7 @@ export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: Gu
 export function allLocalizedUrls() {
   const allToolPaths = Array.from(new Set([...toolSlugs, ...instrumentTunerSlugs]));
   return locales.flatMap((locale) => [
+    `/${locale}/tools`,
     ...allToolPaths.map((tool) => `/${locale}/tools/${tool}`),
     `/${locale}/guides`,
     ...guideSlugs.map((guide) => `/${locale}/guides/${guide}`),

@@ -49,7 +49,7 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
           <Link href={`/${locale}/guides`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
             {guidesLabels[locale]}
           </Link>
-          <Link href={`/${locale}#tools`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white sm:inline-flex">
+          <Link href={`/${locale}/tools`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white sm:inline-flex">
             {dictionary.nav.tools}
           </Link>
           <LanguageSwitcher locale={locale} label={dictionary.nav.language} />
