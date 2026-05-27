@@ -13,9 +13,9 @@ const adSlots: Record<AdSlotVariant, string | undefined> = {
 };
 
 const variantClassName: Record<AdSlotVariant, string> = {
-  leaderboard: "min-h-[90px] md:min-h-[110px]",
-  mobileBanner: "min-h-[96px]",
-  rectangle: "min-h-[280px]"
+  leaderboard: "min-h-[80px] sm:min-h-[90px] md:min-h-[110px]",
+  mobileBanner: "min-h-[72px] sm:min-h-[96px]",
+  rectangle: "min-h-[250px] sm:min-h-[280px]"
 };
 
 declare global {
@@ -36,7 +36,7 @@ export function AdSlot({
   const classNames = useMemo(
     () =>
       [
-        "flex w-full items-center justify-center rounded-lg border border-dashed border-line bg-white/55 px-4 text-center text-xs font-bold uppercase tracking-[0.18em] text-ink/35",
+        "flex w-full overflow-hidden items-center justify-center rounded-lg border border-dashed border-line bg-white/55 px-4 text-center text-xs font-bold uppercase tracking-[0.18em] text-ink/35",
         variantClassName[variant],
         className
       ].join(" "),

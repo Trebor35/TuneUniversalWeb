@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getGuideContent, guideIndexContent, guideSlugs } from "@/lib/content/guides";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -42,6 +43,8 @@ export default async function GuidesIndexPage({ params }: PageProps) {
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{content.title}</h1>
       <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{content.description}</p>
 
+      <AdSlot className="mt-8" />
+
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {guideSlugs.map((guide) => {
           const guideContent = getGuideContent(locale, guide);
@@ -59,6 +62,11 @@ export default async function GuidesIndexPage({ params }: PageProps) {
           );
         })}
       </div>
+
+      <AdSlot variant="mobileBanner" className="mt-8 lg:hidden" />
+      <AdSlot variant="rectangle" className="mx-auto mt-8 max-w-xl lg:hidden" />
+      <AdSlot variant="rectangle" className="mx-auto mt-8 hidden max-w-xl lg:flex" />
+      <AdSlot className="mt-8 hidden lg:flex" />
     </main>
   );
 }

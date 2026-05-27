@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChordTransposer } from "@/components/tools/ChordTransposer";
 import { AdSlot } from "@/components/ads/AdSlot";
+import { ToolNavigation } from "@/components/layout/ToolNavigation";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { BassTuner } from "@/components/tools/BassTuner";
+import { ChordTransposer } from "@/components/tools/ChordTransposer";
 import { GuitarTuner } from "@/components/tools/GuitarTuner";
 import { Metronome } from "@/components/tools/Metronome";
 import { TapBpm } from "@/components/tools/TapBpm";
 import { UkuleleTuner } from "@/components/tools/UkuleleTuner";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { ToolNavigation } from "@/components/layout/ToolNavigation";
 import { getGuideContent, guidesForTool } from "@/lib/content/guides";
 import {
   getInstrumentTunerContent,
@@ -141,6 +141,8 @@ export default async function ToolPage({ params }: PageProps) {
               ))}
             </ol>
           </section>
+          <AdSlot variant="mobileBanner" className="lg:hidden" />
+          <AdSlot className="hidden lg:flex" />
           {relatedGuides.length > 0 && (
             <section>
               <h2 className="text-2xl font-bold">{guideHeadings[locale]}</h2>
@@ -172,6 +174,7 @@ export default async function ToolPage({ params }: PageProps) {
               ))}
             </div>
           </section>
+          <AdSlot className="mb-2 mt-2" />
         </article>
         <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <AdSlot variant="rectangle" className="mb-6 hidden lg:flex" />

@@ -2,14 +2,15 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Music2 } from "lucide-react";
+import { AdSlot } from "@/components/ads/AdSlot";
+import { ToolNavigation } from "@/components/layout/ToolNavigation";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getInstrumentTunerContent, instrumentToTunerSlug } from "@/lib/content/instrumentTuners";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildToolsIndexMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 import { instrumentIds } from "@/lib/tools/toolConfig";
-import { JsonLd } from "@/components/seo/JsonLd";
-import { ToolNavigation } from "@/components/layout/ToolNavigation";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
@@ -59,12 +60,18 @@ export default async function ToolsIndexPage({ params }: PageProps) {
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{dictionary.nav.tools}</h1>
       <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{dictionary.meta.description}</p>
 
+      <AdSlot className="mt-8" />
+
       <section className="mt-8">
         <h2 className="text-2xl font-bold">{dictionary.common.otherTools}</h2>
         <div className="mt-4">
           <ToolNavigation locale={locale} dictionary={dictionary} />
         </div>
       </section>
+
+      <AdSlot variant="mobileBanner" className="mt-8 lg:hidden" />
+      <AdSlot variant="rectangle" className="mx-auto mt-8 max-w-xl lg:hidden" />
+      <AdSlot className="mt-8 hidden lg:flex" />
 
       <section className="mt-10">
         <h2 className="text-2xl font-bold">{instrumentSectionLabels[locale]}</h2>
@@ -89,6 +96,8 @@ export default async function ToolsIndexPage({ params }: PageProps) {
           })}
         </div>
       </section>
+
+      <AdSlot className="mt-8" />
     </main>
   );
 }

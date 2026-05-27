@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getGuideContent, guideIndexContent, guideSlugs, isGuideSlug } from "@/lib/content/guides";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -46,12 +47,17 @@ export default async function GuidePage({ params }: PageProps) {
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{content.title}</h1>
       <p className="mt-4 text-lg leading-8 text-ink/70">{content.description}</p>
 
+      <AdSlot className="mt-8" />
+
       <section className="mt-8 rounded-lg border border-line bg-white p-5 shadow-soft">
         <p className="leading-8 text-ink/75">{content.intro}</p>
         <Link className="mt-5 inline-flex rounded-md bg-ink px-4 py-3 font-bold text-white" href={`/${locale}/tools/${content.tool}`}>
           {tool.title}
         </Link>
       </section>
+
+      <AdSlot variant="mobileBanner" className="mt-8 lg:hidden" />
+      <AdSlot variant="rectangle" className="mx-auto mt-8 hidden max-w-xl lg:flex" />
 
       <section className="mt-8">
         <h2 className="text-2xl font-bold">{dictionary.common.howItWorks}</h2>
@@ -74,6 +80,9 @@ export default async function GuidePage({ params }: PageProps) {
         ))}
       </div>
 
+      <AdSlot variant="rectangle" className="mx-auto mt-8 max-w-xl lg:hidden" />
+      <AdSlot className="mt-8 hidden lg:flex" />
+
       <section className="mt-8 rounded-lg border border-line bg-white p-5">
         <h2 className="text-xl font-bold">{dictionary.nav.tools}</h2>
         <p className="mt-2 leading-7 text-ink/72">{tool.description}</p>
@@ -81,6 +90,8 @@ export default async function GuidePage({ params }: PageProps) {
           {tool.title}
         </Link>
       </section>
+
+      <AdSlot className="mt-8" />
     </main>
   );
 }
