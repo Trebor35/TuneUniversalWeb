@@ -102,7 +102,7 @@ export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: Gu
   return {
     title: `${content.title} | TuneUniversal`,
     description: content.description,
-    keywords: content.keywords,
+    keywords: [...content.keywords, ...toolKeywords[locale][content.tool], ...homeKeywords[locale]],
     alternates: buildAlternates(locale, `guides/${guide}`),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
