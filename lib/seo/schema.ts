@@ -1,4 +1,5 @@
 import type { Dictionary } from "@/lib/i18n/dictionaries";
+import type { InstrumentTunerContent } from "@/lib/content/instrumentTuners";
 import type { Locale } from "@/lib/i18n/locales";
 import type { GuideContent, GuideSlug } from "@/lib/content/guides";
 import type { StaticPageSlug } from "@/lib/content/staticPages";
@@ -32,11 +33,29 @@ export function toolSchema(locale: Locale, tool: ToolSlug, dictionary: Dictionar
   };
 }
 
+export function instrumentTunerSchema(locale: Locale, slug: string, content: InstrumentTunerContent) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: content.title,
+    applicationCategory: "MusicApplication",
+    operatingSystem: "Web",
+    isAccessibleForFree: true,
+    inLanguage: locale,
+    url: `${siteUrl}/${locale}/tools/${slug}`,
+    description: content.description
+  };
+}
+
 export function faqSchema(tool: ToolSlug, dictionary: Dictionary) {
+  return faqItemsSchema(dictionary.tools[tool].faq);
+}
+
+export function faqItemsSchema(items: { answer: string; question: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: dictionary.tools[tool].faq.map((item) => ({
+    mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {

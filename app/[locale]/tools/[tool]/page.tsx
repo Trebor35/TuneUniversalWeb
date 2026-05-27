@@ -11,11 +11,16 @@ import { UkuleleTuner } from "@/components/tools/UkuleleTuner";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ToolNavigation } from "@/components/layout/ToolNavigation";
 import { getGuideContent, guidesForTool } from "@/lib/content/guides";
+import {
+  getInstrumentTunerContent,
+  instrumentFromTunerSlug,
+  instrumentTunerSlugs
+} from "@/lib/content/instrumentTuners";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { isLocale, type Locale } from "@/lib/i18n/locales";
-import { buildToolMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema, faqSchema, toolSchema } from "@/lib/seo/schema";
-import { isToolSlug, tunerTools, type ToolSlug } from "@/lib/tools/toolConfig";
+import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
+import { buildInstrumentTunerMetadata, buildToolMetadata } from "@/lib/seo/metadata";
+import { breadcrumbSchema, faqItemsSchema, faqSchema, instrumentTunerSchema, toolSchema } from "@/lib/seo/schema";
+import { isToolSlug, toolSlugs, tunerTools, type Instrument, type ToolSlug } from "@/lib/tools/toolConfig";
 
 type PageProps = { params: Promise<{ locale: string; tool: string }> };
 
@@ -35,14 +40,37 @@ const guideHeadings: Record<Locale, string> = {
   zh: "相关指南"
 };
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { locale: rawLocale, tool: rawTool } = await params;
-  if (!isLocale(rawLocale) || !isToolSlug(rawTool)) return {};
-  const dictionary = await getDictionary(rawLocale);
-  return buildToolMetadata(rawLocale, rawTool, dictionary);
+export function generateStaticParams() {
+  return locales.flatMap((locale) =>
+    Array.from(new Set([...toolSlugs, ...instrumentTunerSlugs])).map((tool) => ({ locale, tool }))
+  );
 }
 
-function ToolComponent({ tool, dictionary }: { tool: ToolSlug; dictionary: Awaited<ReturnType<typeof getDictionary>> }) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale: rawLocale, tool: rawTool } = await params;
+  if (!isLocale(rawLocale)) return {};
+
+  if (isToolSlug(rawTool)) {
+    const dictionary = await getDictionary(rawLocale);
+    return buildToolMetadata(rawLocale, rawTool, dictionary);
+  }
+
+  const instrument = instrumentFromTunerSlug(rawTool);
+  if (!instrument) return {};
+  return buildInstrumentTunerMetadata(rawLocale, rawTool, getInstrumentTunerContent(rawLocale, instrument));
+}
+
+function ToolComponent({
+  dictionary,
+  instrument,
+  tool
+}: {
+  dictionary: Awaited<ReturnType<typeof getDictionary>>;
+  instrument?: Instrument;
+  tool?: ToolSlug;
+}) {
+  if (instrument) return <GuitarTuner dictionary={dictionary} instrument={instrument} />;
+
   switch (tool) {
     case "guitar-tuner":
       return <GuitarTuner dictionary={dictionary} />;
@@ -56,30 +84,40 @@ function ToolComponent({ tool, dictionary }: { tool: ToolSlug; dictionary: Await
       return <TapBpm dictionary={dictionary} />;
     case "chord-transposer":
       return <ChordTransposer dictionary={dictionary} />;
+    default:
+      return null;
   }
 }
 
 export default async function ToolPage({ params }: PageProps) {
   const { locale: rawLocale, tool: rawTool } = await params;
-  if (!isLocale(rawLocale) || !isToolSlug(rawTool)) notFound();
+  if (!isLocale(rawLocale)) notFound();
+
   const locale = rawLocale as Locale;
-  const tool = rawTool as ToolSlug;
   const dictionary = await getDictionary(locale);
-  const content = dictionary.tools[tool];
-  const relatedTools: ToolSlug[] = tunerTools.includes(tool as (typeof tunerTools)[number])
-    ? ["metronome", "tap-bpm", "chord-transposer"]
-    : (["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"].filter((slug) => slug !== tool) as ToolSlug[]);
-  const relatedGuides = guidesForTool(tool);
+  const coreTool = isToolSlug(rawTool) ? (rawTool as ToolSlug) : null;
+  const instrument = coreTool ? null : instrumentFromTunerSlug(rawTool);
+
+  if (!coreTool && !instrument) notFound();
+
+  const instrumentContent = instrument ? getInstrumentTunerContent(locale, instrument) : null;
+  const content = coreTool ? dictionary.tools[coreTool] : instrumentContent!;
+  const relatedTools: ToolSlug[] =
+    coreTool && !tunerTools.includes(coreTool as (typeof tunerTools)[number])
+      ? (["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"].filter((slug) => slug !== coreTool) as ToolSlug[])
+      : ["metronome", "tap-bpm", "chord-transposer"];
+  const relatedGuides = coreTool ? guidesForTool(coreTool) : [];
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
-      <JsonLd data={toolSchema(locale, tool, dictionary)} />
-      <JsonLd data={faqSchema(tool, dictionary)} />
+      {coreTool ? <JsonLd data={toolSchema(locale, coreTool, dictionary)} /> : null}
+      {instrumentContent ? <JsonLd data={instrumentTunerSchema(locale, rawTool, instrumentContent)} /> : null}
+      {coreTool ? <JsonLd data={faqSchema(coreTool, dictionary)} /> : <JsonLd data={faqItemsSchema(content.faq)} />}
       <JsonLd
         data={breadcrumbSchema([
           { name: "TuneUniversal", url: `${siteUrl}/${locale}` },
           { name: dictionary.nav.tools, url: `${siteUrl}/${locale}#tools` },
-          { name: content.title, url: `${siteUrl}/${locale}/tools/${tool}` }
+          { name: content.title, url: `${siteUrl}/${locale}/tools/${rawTool}` }
         ])}
       />
       <AdSlot className="mb-8" />
@@ -90,14 +128,16 @@ export default async function ToolPage({ params }: PageProps) {
             <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{content.title}</h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">{content.description}</p>
           </header>
-          <ToolComponent tool={tool} dictionary={dictionary} />
+          <ToolComponent tool={coreTool ?? undefined} instrument={instrument ?? undefined} dictionary={dictionary} />
           <AdSlot variant="mobileBanner" className="lg:hidden" />
           <AdSlot className="hidden lg:flex" />
           <section>
             <h2 className="text-2xl font-bold">{dictionary.common.howItWorks}</h2>
             <ol className="mt-4 grid gap-3">
               {content.howItWorks.map((item) => (
-                <li key={item} className="rounded-lg border border-line bg-white p-4">{item}</li>
+                <li key={item} className="rounded-lg border border-line bg-white p-4">
+                  {item}
+                </li>
               ))}
             </ol>
           </section>

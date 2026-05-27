@@ -1,4 +1,5 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
+import { instrumentTunerSlugs, type InstrumentTunerContent } from "@/lib/content/instrumentTuners";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { guideIndexContent, guideSlugs, type GuideContent, type GuideSlug } from "@/lib/content/guides";
@@ -54,6 +55,23 @@ export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Di
   };
 }
 
+export function buildInstrumentTunerMetadata(locale: Locale, slug: string, content: InstrumentTunerContent): Metadata {
+  return {
+    title: `${content.title} | TuneUniversal`,
+    description: content.description,
+    keywords: [...content.keywords, ...homeKeywords[locale]],
+    alternates: buildAlternates(locale, `tools/${slug}`),
+    openGraph: {
+      title: `${content.title} | TuneUniversal`,
+      description: content.description,
+      url: `${siteUrl}/${locale}/tools/${slug}`,
+      siteName: "TuneUniversal",
+      type: "article",
+      locale
+    }
+  };
+}
+
 export function buildStaticPageMetadata(
   locale: Locale,
   page: StaticPageSlug,
@@ -79,13 +97,7 @@ export function buildGuideIndexMetadata(locale: Locale): Metadata {
   return {
     title: `${content.title} | TuneUniversal`,
     description: content.description,
-    keywords: [
-      ...homeKeywords[locale],
-      "music guides",
-      "tuning guide",
-      "metronome guide",
-      "BPM guide"
-    ],
+    keywords: [...homeKeywords[locale], "music guides", "tuning guide", "metronome guide", "BPM guide"],
     alternates: buildAlternates(locale, "guides"),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
@@ -116,8 +128,9 @@ export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: Gu
 }
 
 export function allLocalizedUrls() {
+  const allToolPaths = Array.from(new Set([...toolSlugs, ...instrumentTunerSlugs]));
   return locales.flatMap((locale) => [
-    ...toolSlugs.map((tool) => `/${locale}/tools/${tool}`),
+    ...allToolPaths.map((tool) => `/${locale}/tools/${tool}`),
     `/${locale}/guides`,
     ...guideSlugs.map((guide) => `/${locale}/guides/${guide}`),
     ...staticPageSlugs.map((page) => `/${locale}/${page}`)
