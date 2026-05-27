@@ -1,4 +1,5 @@
-﻿import Link from "next/link";
+import Link from "next/link";
+import { getGuideContent, guideIndexContent, guideSlugs } from "@/lib/content/guides";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
@@ -7,58 +8,58 @@ const footerTools: ToolSlug[] = ["guitar-tuner", "metronome", "tap-bpm", "chord-
 const footerPages = ["about", "privacy-policy", "cookie-policy"] as const;
 
 const universalTunerLabels: Record<Locale, string> = {
-  it: "Accordatore universale",
+  ar: "مدوزن شامل",
+  de: "Universelles Stimmgerät",
   en: "Universal tuner",
-  fr: "Accordeur universel",
-  de: "Universelles Stimmgeraet",
   es: "Afinador universal",
-  pt: "Afinador universal",
-  zh: "通用调音器",
-  ru: "Универсальный тюнер",
+  fr: "Accordeur universel",
+  it: "Accordatore universale",
   ja: "ユニバーサルチューナー",
   ko: "범용 튜너",
-  ar: "مدوزن شامل"
+  pt: "Afinador universal",
+  ru: "Универсальный тюнер",
+  zh: "通用调音器"
 };
 
 const footerPageLabels: Record<(typeof footerPages)[number], Record<Locale, string>> = {
   about: {
-    it: "Chi siamo",
-    en: "About",
-    fr: "À propos",
+    ar: "حول",
     de: "Über uns",
+    en: "About",
     es: "Acerca de",
-    pt: "Sobre",
-    zh: "关于",
-    ru: "О проекте",
+    fr: "À propos",
+    it: "Chi siamo",
     ja: "概要",
     ko: "소개",
-    ar: "حول"
-  },
-  "privacy-policy": {
-    it: "Privacy Policy",
-    en: "Privacy Policy",
-    fr: "Politique de confidentialité",
-    de: "Datenschutz",
-    es: "Política de privacidad",
-    pt: "Política de privacidade",
-    zh: "隐私政策",
-    ru: "Политика конфиденциальности",
-    ja: "プライバシーポリシー",
-    ko: "개인정보 처리방침",
-    ar: "سياسة الخصوصية"
+    pt: "Sobre",
+    ru: "О проекте",
+    zh: "关于"
   },
   "cookie-policy": {
-    it: "Cookie Policy",
-    en: "Cookie Policy",
-    fr: "Politique relative aux cookies",
+    ar: "سياسة ملفات تعريف الارتباط",
     de: "Cookie-Richtlinie",
+    en: "Cookie Policy",
     es: "Política de cookies",
-    pt: "Política de cookies",
-    zh: "Cookie 政策",
-    ru: "Политика Cookie",
+    fr: "Politique relative aux cookies",
+    it: "Cookie Policy",
     ja: "Cookie ポリシー",
     ko: "쿠키 정책",
-    ar: "سياسة ملفات تعريف الارتباط"
+    pt: "Política de cookies",
+    ru: "Политика Cookie",
+    zh: "Cookie 政策"
+  },
+  "privacy-policy": {
+    ar: "سياسة الخصوصية",
+    de: "Datenschutz",
+    en: "Privacy Policy",
+    es: "Política de privacidad",
+    fr: "Politique de confidentialité",
+    it: "Privacy Policy",
+    ja: "プライバシーポリシー",
+    ko: "개인정보 처리방침",
+    pt: "Política de privacidade",
+    ru: "Политика конфиденциальности",
+    zh: "隐私政策"
   }
 };
 
@@ -70,11 +71,21 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
           <p className="font-bold">TuneUniversal</p>
           <p className="mt-2 max-w-sm text-sm leading-6 text-ink/66">{dictionary.meta.description}</p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-3">
           <div className="grid gap-2">
             {footerTools.map((slug) => (
               <Link key={slug} href={`/${locale}/tools/${slug}`} className="text-sm font-medium text-ink/72 hover:text-mint">
                 {slug === "guitar-tuner" ? universalTunerLabels[locale] : dictionary.tools[slug].title}
+              </Link>
+            ))}
+          </div>
+          <div className="grid gap-2">
+            <Link href={`/${locale}/guides`} className="text-sm font-bold text-ink hover:text-mint">
+              {guideIndexContent[locale].title}
+            </Link>
+            {guideSlugs.slice(0, 3).map((guide) => (
+              <Link key={guide} href={`/${locale}/guides/${guide}`} className="text-sm font-medium text-ink/72 hover:text-mint">
+                {getGuideContent(locale, guide).title}
               </Link>
             ))}
           </div>

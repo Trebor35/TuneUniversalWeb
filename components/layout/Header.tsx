@@ -18,6 +18,20 @@ const aboutLabels: Record<Locale, string> = {
   ar: "حول"
 };
 
+const guidesLabels: Record<Locale, string> = {
+  ar: "أدلة",
+  de: "Anleitungen",
+  en: "Guides",
+  es: "Guías",
+  fr: "Guides",
+  it: "Guide",
+  ja: "ガイド",
+  ko: "가이드",
+  pt: "Guias",
+  ru: "Руководства",
+  zh: "指南"
+};
+
 export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-paper/88 backdrop-blur">
@@ -31,6 +45,9 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
         <div className="flex shrink-0 items-center gap-2">
           <Link href={`/${locale}/about`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
             {aboutLabels[locale]}
+          </Link>
+          <Link href={`/${locale}/guides`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
+            {guidesLabels[locale]}
           </Link>
           <Link href={`/${locale}#tools`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white sm:inline-flex">
             {dictionary.nav.tools}

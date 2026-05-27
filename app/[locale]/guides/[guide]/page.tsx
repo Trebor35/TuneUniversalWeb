@@ -2,11 +2,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getGuideContent, guideSlugs, isGuideSlug } from "@/lib/content/guides";
+import { getGuideContent, guideIndexContent, guideSlugs, isGuideSlug } from "@/lib/content/guides";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildGuideMetadata } from "@/lib/seo/metadata";
-import { guideSchema } from "@/lib/seo/schema";
+import { breadcrumbSchema, guideSchema } from "@/lib/seo/schema";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
 type PageProps = { params: Promise<{ locale: string; guide: string }> };
 
@@ -27,11 +29,19 @@ export default async function GuidePage({ params }: PageProps) {
   const locale = rawLocale as Locale;
   const dictionary = await getDictionary(locale);
   const content = getGuideContent(locale, rawGuide);
+  const indexContent = guideIndexContent[locale];
   const tool = dictionary.tools[content.tool];
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10 sm:py-14">
       <JsonLd data={guideSchema(locale, rawGuide, content)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "TuneUniversal", url: `${siteUrl}/${locale}` },
+          { name: indexContent.title, url: `${siteUrl}/${locale}/guides` },
+          { name: content.title, url: `${siteUrl}/${locale}/guides/${rawGuide}` }
+        ])}
+      />
       <p className="text-xs font-bold uppercase tracking-[0.18em] text-mint">TuneUniversal Guide</p>
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{content.title}</h1>
       <p className="mt-4 text-lg leading-8 text-ink/70">{content.description}</p>

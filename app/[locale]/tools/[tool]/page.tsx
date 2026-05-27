@@ -14,10 +14,12 @@ import { getGuideContent, guidesForTool } from "@/lib/content/guides";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, type Locale } from "@/lib/i18n/locales";
 import { buildToolMetadata } from "@/lib/seo/metadata";
-import { faqSchema, toolSchema } from "@/lib/seo/schema";
+import { breadcrumbSchema, faqSchema, toolSchema } from "@/lib/seo/schema";
 import { isToolSlug, tunerTools, type ToolSlug } from "@/lib/tools/toolConfig";
 
 type PageProps = { params: Promise<{ locale: string; tool: string }> };
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
 const guideHeadings: Record<Locale, string> = {
   ar: "أدلة ذات صلة",
@@ -73,6 +75,13 @@ export default async function ToolPage({ params }: PageProps) {
     <main className="mx-auto max-w-7xl px-4 py-8 sm:py-10">
       <JsonLd data={toolSchema(locale, tool, dictionary)} />
       <JsonLd data={faqSchema(tool, dictionary)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "TuneUniversal", url: `${siteUrl}/${locale}` },
+          { name: dictionary.nav.tools, url: `${siteUrl}/${locale}#tools` },
+          { name: content.title, url: `${siteUrl}/${locale}/tools/${tool}` }
+        ])}
+      />
       <AdSlot className="mb-8" />
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,920px)_340px] lg:gap-10">
         <article className="min-w-0 space-y-8 sm:space-y-10">

@@ -1,7 +1,7 @@
 ﻿import type { Metadata } from "next";
 import { locales, type Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { guideSlugs, type GuideContent, type GuideSlug } from "@/lib/content/guides";
+import { guideIndexContent, guideSlugs, type GuideContent, type GuideSlug } from "@/lib/content/guides";
 import { staticPageSlugs, type StaticPageSlug } from "@/lib/content/staticPages";
 import { toolSlugs, type ToolSlug } from "@/lib/tools/toolConfig";
 import { homeKeywords, toolKeywords } from "@/lib/seo/keywords";
@@ -74,6 +74,30 @@ export function buildStaticPageMetadata(
   };
 }
 
+export function buildGuideIndexMetadata(locale: Locale): Metadata {
+  const content = guideIndexContent[locale];
+  return {
+    title: `${content.title} | TuneUniversal`,
+    description: content.description,
+    keywords: [
+      ...homeKeywords[locale],
+      "music guides",
+      "tuning guide",
+      "metronome guide",
+      "BPM guide"
+    ],
+    alternates: buildAlternates(locale, "guides"),
+    openGraph: {
+      title: `${content.title} | TuneUniversal`,
+      description: content.description,
+      url: `${siteUrl}/${locale}/guides`,
+      siteName: "TuneUniversal",
+      type: "website",
+      locale
+    }
+  };
+}
+
 export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: GuideContent): Metadata {
   return {
     title: `${content.title} | TuneUniversal`,
@@ -94,6 +118,7 @@ export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: Gu
 export function allLocalizedUrls() {
   return locales.flatMap((locale) => [
     ...toolSlugs.map((tool) => `/${locale}/tools/${tool}`),
+    `/${locale}/guides`,
     ...guideSlugs.map((guide) => `/${locale}/guides/${guide}`),
     ...staticPageSlugs.map((page) => `/${locale}/${page}`)
   ]);
