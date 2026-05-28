@@ -11,12 +11,15 @@ export const metadata: Metadata = {
   verification: {
     google: "gQZmeb2OXExGeZvTuDz6R-Xk87Fh9MdHgKfDl50Xk2I"
   },
-  ...(adsenseClient ? { other: { "google-adsense-account": adsenseClient } } : {})
+  other: {
+    google: "notranslate",
+    ...(adsenseClient ? { "google-adsense-account": adsenseClient } : {})
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" translate="no" className="notranslate">
       <head>
         <script
           async

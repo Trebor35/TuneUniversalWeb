@@ -17,7 +17,7 @@ export default async function LocaleLayout({
   const dictionary = await getDictionary(locale);
 
   return (
-    <div lang={locale} dir={getTextDirection(locale)}>
+    <div lang={locale} dir={getTextDirection(locale)} translate="no" className="notranslate">
       <Header locale={locale} dictionary={dictionary} />
       {children}
       <Footer locale={locale} dictionary={dictionary} />
