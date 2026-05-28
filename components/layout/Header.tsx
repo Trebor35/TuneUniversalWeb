@@ -32,6 +32,20 @@ const guidesLabels: Record<Locale, string> = {
   zh: "指南"
 };
 
+const songsLabels: Record<Locale, string> = {
+  ar: "مقطوعات",
+  de: "Noten",
+  en: "Songs",
+  es: "Canciones",
+  fr: "Partitions",
+  it: "Spartiti",
+  ja: "楽譜",
+  ko: "악보",
+  pt: "Partituras",
+  ru: "Ноты",
+  zh: "乐谱"
+};
+
 export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-paper/88 backdrop-blur">
@@ -48,6 +62,9 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
           </Link>
           <Link href={`/${locale}/guides`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
             {guidesLabels[locale]}
+          </Link>
+          <Link href={`/${locale}/songs`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white lg:inline-flex">
+            {songsLabels[locale]}
           </Link>
           <Link href={`/${locale}/tools`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white sm:inline-flex">
             {dictionary.nav.tools}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getGuideContent, guideIndexContent, guideSlugs } from "@/lib/content/guides";
+import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
@@ -66,20 +67,20 @@ const footerPageLabels: Record<(typeof footerPages)[number], Record<Locale, stri
 export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   return (
     <footer className="border-t border-line">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-[1fr_2fr]">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-[1fr_3fr]">
         <div>
           <p className="font-bold">TuneUniversal</p>
           <p className="mt-2 max-w-sm text-sm leading-6 text-ink/66">{dictionary.meta.description}</p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-3">
-          <div className="grid gap-2">
+        <div className="grid gap-6 sm:grid-cols-4">
+          <div className="grid content-start gap-2">
             {footerTools.map((slug) => (
               <Link key={slug} href={`/${locale}/tools/${slug}`} className="text-sm font-medium text-ink/72 hover:text-mint">
                 {slug === "guitar-tuner" ? universalTunerLabels[locale] : dictionary.tools[slug].title}
               </Link>
             ))}
           </div>
-          <div className="grid gap-2">
+          <div className="grid content-start gap-2">
             <Link href={`/${locale}/guides`} className="text-sm font-bold text-ink hover:text-mint">
               {guideIndexContent[locale].title}
             </Link>
@@ -89,7 +90,17 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
               </Link>
             ))}
           </div>
-          <div className="grid gap-2">
+          <div className="grid content-start gap-2">
+            <Link href={`/${locale}/songs`} className="text-sm font-bold text-ink hover:text-mint">
+              {songsUi[locale].title}
+            </Link>
+            {publicDomainSongSlugs.slice(0, 3).map((song) => (
+              <Link key={song} href={`/${locale}/songs/${song}`} className="text-sm font-medium text-ink/72 hover:text-mint">
+                {getPublicDomainSong(song).title}
+              </Link>
+            ))}
+          </div>
+          <div className="grid content-start gap-2">
             {footerPages.map((page) => (
               <Link key={page} href={`/${locale}/${page}`} className="text-sm font-medium text-ink/72 hover:text-mint">
                 {footerPageLabels[page][locale]}

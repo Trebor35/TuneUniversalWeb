@@ -2,6 +2,7 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { InstrumentTunerContent } from "@/lib/content/instrumentTuners";
 import type { Locale } from "@/lib/i18n/locales";
 import type { GuideContent, GuideSlug } from "@/lib/content/guides";
+import type { PublicDomainSong } from "@/lib/content/publicDomainSongs";
 import type { StaticPageSlug } from "@/lib/content/staticPages";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
@@ -104,6 +105,24 @@ export function guideSchema(locale: Locale, guide: GuideSlug, content: GuideCont
       name: "TuneUniversal",
       url: siteUrl
     }
+  };
+}
+
+export function musicCompositionSchema(locale: Locale, song: PublicDomainSong) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MusicComposition",
+    name: song.title,
+    inLanguage: locale,
+    url: `${siteUrl}/${locale}/songs/${song.slug}`,
+    isAccessibleForFree: true,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "TuneUniversal",
+      url: siteUrl
+    },
+    musicalKey: song.key,
+    musicCompositionForm: "Public-domain educational arrangement"
   };
 }
 

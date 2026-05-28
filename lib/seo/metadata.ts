@@ -3,6 +3,7 @@ import { instrumentTunerSlugs, type InstrumentTunerContent } from "@/lib/content
 import { locales, type Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { guideIndexContent, guideSlugs, type GuideContent, type GuideSlug } from "@/lib/content/guides";
+import { publicDomainSongSlugs, songsUi, type PublicDomainSong } from "@/lib/content/publicDomainSongs";
 import { staticPageSlugs, type StaticPageSlug } from "@/lib/content/staticPages";
 import { toolSlugs, type ToolSlug } from "@/lib/tools/toolConfig";
 import { homeKeywords, toolKeywords } from "@/lib/seo/keywords";
@@ -144,6 +145,60 @@ export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: Gu
   };
 }
 
+export function buildSongsIndexMetadata(locale: Locale): Metadata {
+  const content = songsUi[locale];
+  return {
+    title: `${content.title} | TuneUniversal`,
+    description: content.description,
+    keywords: [
+      ...homeKeywords[locale],
+      "public domain sheet music",
+      "free sheet music",
+      "spartiti pubblico dominio",
+      "accordi canzoni facili",
+      "music practice"
+    ],
+    alternates: buildAlternates(locale, "songs"),
+    openGraph: {
+      title: `${content.title} | TuneUniversal`,
+      description: content.description,
+      url: `${siteUrl}/${locale}/songs`,
+      siteName: "TuneUniversal",
+      type: "website",
+      locale
+    }
+  };
+}
+
+export function buildSongMetadata(locale: Locale, song: PublicDomainSong): Metadata {
+  const content = songsUi[locale];
+  const title = `${song.title} chords and simplified sheet music | TuneUniversal`;
+  const description = `${song.title}: ${song.key}, ${song.meter}, ${song.bpm} BPM. ${content.description}`;
+  return {
+    title,
+    description,
+    keywords: [
+      song.title,
+      `${song.title} chords`,
+      `${song.title} sheet music`,
+      `${song.title} spartito`,
+      `${song.title} accordi`,
+      "public domain music",
+      "free music sheet",
+      ...homeKeywords[locale]
+    ],
+    alternates: buildAlternates(locale, `songs/${song.slug}`),
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/${locale}/songs/${song.slug}`,
+      siteName: "TuneUniversal",
+      type: "article",
+      locale
+    }
+  };
+}
+
 export function allLocalizedUrls() {
   const allToolPaths = Array.from(new Set([...toolSlugs, ...instrumentTunerSlugs]));
   return locales.flatMap((locale) => [
@@ -151,6 +206,8 @@ export function allLocalizedUrls() {
     ...allToolPaths.map((tool) => `/${locale}/tools/${tool}`),
     `/${locale}/guides`,
     ...guideSlugs.map((guide) => `/${locale}/guides/${guide}`),
+    `/${locale}/songs`,
+    ...publicDomainSongSlugs.map((song) => `/${locale}/songs/${song}`),
     ...staticPageSlugs.map((page) => `/${locale}/${page}`)
   ]);
 }
