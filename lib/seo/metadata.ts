@@ -154,7 +154,11 @@ export function buildSongsIndexMetadata(locale: Locale): Metadata {
       ...homeKeywords[locale],
       "public domain sheet music",
       "free sheet music",
+      "easy sheet music for children",
+      "children songs notes",
       "spartiti pubblico dominio",
+      "spartiti facili per bambini",
+      "canzoni bambini note facili",
       "accordi canzoni facili",
       "music practice"
     ],
@@ -185,6 +189,9 @@ export function buildSongMetadata(locale: Locale, song: PublicDomainSong): Metad
       `${song.title} accordi`,
       "public domain music",
       "free music sheet",
+      ...(song.audience === "children"
+        ? ["easy sheet music for children", "spartiti facili per bambini", "canzoni bambini note facili"]
+        : []),
       ...homeKeywords[locale]
     ],
     alternates: buildAlternates(locale, `songs/${song.slug}`),

@@ -6,7 +6,13 @@ export type PublicDomainSongSlug =
   | "greensleeves"
   | "frere-jacques"
   | "au-clair-de-la-lune"
-  | "sakura-sakura";
+  | "sakura-sakura"
+  | "twinkle-twinkle-little-star"
+  | "mary-had-a-little-lamb"
+  | "row-row-row-your-boat"
+  | "london-bridge"
+  | "hot-cross-buns"
+  | "baa-baa-black-sheep";
 
 export type PublicDomainSong = {
   slug: PublicDomainSongSlug;
@@ -17,6 +23,7 @@ export type PublicDomainSong = {
   bpm: number;
   chords: string[];
   melody: string[];
+  audience?: "children" | "general";
   sourceNote: string;
   practiceTips: string[];
 };
@@ -27,7 +34,13 @@ export const publicDomainSongSlugs: PublicDomainSongSlug[] = [
   "greensleeves",
   "frere-jacques",
   "au-clair-de-la-lune",
-  "sakura-sakura"
+  "sakura-sakura",
+  "twinkle-twinkle-little-star",
+  "mary-had-a-little-lamb",
+  "row-row-row-your-boat",
+  "london-bridge",
+  "hot-cross-buns",
+  "baa-baa-black-sheep"
 ];
 
 export const publicDomainSongs: Record<PublicDomainSongSlug, PublicDomainSong> = {
@@ -102,6 +115,113 @@ export const publicDomainSongs: Record<PublicDomainSongSlug, PublicDomainSong> =
     melody: ["A B C B", "A B C B", "A C D C B", "A B C B A"],
     sourceNote: "Traditional public-domain melody. TuneUniversal uses a simplified study version, not a copied modern score.",
     practiceTips: ["Keep the phrasing calm.", "Use the reference tone before starting.", "Try a slower BPM first."]
+  },
+  "twinkle-twinkle-little-star": {
+    slug: "twinkle-twinkle-little-star",
+    title: "Twinkle Twinkle Little Star",
+    origin: "Traditional melody Ah! vous dirai-je, maman, 18th century",
+    key: "C major",
+    meter: "4/4",
+    bpm: 84,
+    chords: ["C", "F", "C", "G", "C", "F", "C", "G", "C"],
+    melody: [
+      "C C G G",
+      "A A G",
+      "F F E E",
+      "D D C",
+      "G G F F",
+      "E E D",
+      "G G F F",
+      "E E D",
+      "C C G G",
+      "A A G",
+      "F F E E",
+      "D D C"
+    ],
+    audience: "children",
+    sourceNote:
+      "Traditional public-domain melody. TuneUniversal provides a simplified note-and-chord study version for children.",
+    practiceTips: ["Start with one note per beat.", "Clap the rhythm before playing.", "Use C, F and G slowly."]
+  },
+  "mary-had-a-little-lamb": {
+    slug: "mary-had-a-little-lamb",
+    title: "Mary Had a Little Lamb",
+    origin: "Traditional children's melody, 19th century",
+    key: "C major",
+    meter: "4/4",
+    bpm: 88,
+    chords: ["C", "G", "C"],
+    melody: ["E D C D", "E E E", "D D D", "E G G", "E D C D", "E E E", "E D D E", "D C"],
+    audience: "children",
+    sourceNote: "Public-domain children's melody. This is a simplified educational arrangement created for TuneUniversal.",
+    practiceTips: ["Use fingers 1, 2 and 3 first.", "Keep the rhythm even.", "Try it on piano, recorder or ukulele."]
+  },
+  "row-row-row-your-boat": {
+    slug: "row-row-row-your-boat",
+    title: "Row Row Row Your Boat",
+    origin: "Traditional round, 19th century",
+    key: "C major",
+    meter: "4/4",
+    bpm: 92,
+    chords: ["C", "G", "C"],
+    melody: ["C C C D", "E", "E D E F", "G", "C C C G", "G E E C", "G F E D", "C"],
+    audience: "children",
+    sourceNote:
+      "Traditional public-domain round. TuneUniversal uses a short simplified study version without publishing protected modern editions.",
+    practiceTips: ["Sing or hum the rhythm before playing.", "Try it as a round with two players.", "Use the metronome at a slow speed."]
+  },
+  "london-bridge": {
+    slug: "london-bridge",
+    title: "London Bridge",
+    origin: "English traditional children's song",
+    key: "G major",
+    meter: "4/4",
+    bpm: 96,
+    chords: ["G", "D", "G"],
+    melody: ["G A G F#", "E F# G", "D E F#", "E F# G", "G A G F#", "E F# G", "D G E C", "D G"],
+    audience: "children",
+    sourceNote: "Traditional public-domain melody. The notes and chords are a simplified TuneUniversal teaching version.",
+    practiceTips: ["Play the melody in short phrases.", "Use G and D chords first.", "Keep the tempo playful but steady."]
+  },
+  "hot-cross-buns": {
+    slug: "hot-cross-buns",
+    title: "Hot Cross Buns",
+    origin: "English traditional nursery tune",
+    key: "C major",
+    meter: "4/4",
+    bpm: 76,
+    chords: ["C", "G", "C"],
+    melody: ["E D C", "E D C", "C C C C", "D D D D", "E D C"],
+    audience: "children",
+    sourceNote: "Traditional public-domain nursery tune. This page uses a very short simplified arrangement for beginners.",
+    practiceTips: ["Perfect for the first three notes.", "Play slowly and count aloud.", "Repeat until each note is clean."]
+  },
+  "baa-baa-black-sheep": {
+    slug: "baa-baa-black-sheep",
+    title: "Baa Baa Black Sheep",
+    origin: "Traditional nursery rhyme melody",
+    key: "C major",
+    meter: "4/4",
+    bpm: 84,
+    chords: ["C", "F", "C", "G", "C"],
+    melody: [
+      "C C G G",
+      "A A A A",
+      "G",
+      "F F E E",
+      "D D C",
+      "G G F F",
+      "E E D",
+      "G G F F",
+      "E E D",
+      "C C G G",
+      "A A G",
+      "F F E E",
+      "D D C"
+    ],
+    audience: "children",
+    sourceNote: "Traditional public-domain nursery melody. TuneUniversal provides a simplified note-and-chord learning page.",
+    practiceTips: ["Use the same melody shape as Twinkle Twinkle.", "Try clapping first.", "Keep the chord changes slow."]
   }
 };
 
