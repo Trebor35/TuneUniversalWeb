@@ -187,8 +187,12 @@ export function buildSongMetadata(locale: Locale, song: PublicDomainSong): Metad
       `${song.title} sheet music`,
       `${song.title} spartito`,
       `${song.title} accordi`,
+      `${song.title} chord diagrams`,
+      `${song.title} come fare accordi`,
       "public domain music",
       "free music sheet",
+      "guitar chord diagrams",
+      "diagrammi accordi chitarra",
       ...(song.audience === "children"
         ? ["easy sheet music for children", "spartiti facili per bambini", "canzoni bambini note facili"]
         : []),

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ChordHowTo } from "@/components/songs/ChordHowTo";
 import {
   getPublicDomainSong,
   isPublicDomainSongSlug,
@@ -80,6 +81,8 @@ export default async function SongPage({ params }: PageProps) {
               ))}
             </div>
           </section>
+
+          <ChordHowTo chords={song.chords} locale={locale} />
 
           <AdSlot variant="mobileBanner" className="lg:hidden" />
           <AdSlot variant="rectangle" className="mx-auto hidden max-w-xl lg:flex" />
