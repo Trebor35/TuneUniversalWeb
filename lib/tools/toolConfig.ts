@@ -13,6 +13,8 @@ export const tunerTools = ["guitar-tuner", "bass-tuner", "ukulele-tuner"] as con
 
 export const instrumentIds = [
   "guitar",
+  "7-string-guitar",
+  "12-string-guitar",
   "bass",
   "banjo",
   "cello",

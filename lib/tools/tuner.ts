@@ -12,6 +12,29 @@ export const tunings: Record<Instrument, TuningNote[]> = {
     { name: "B", octave: 3, frequency: 246.94 },
     { name: "E", octave: 4, frequency: 329.63 }
   ],
+  "7-string-guitar": [
+    { name: "B", octave: 1, frequency: 61.74 },
+    { name: "E", octave: 2, frequency: 82.41 },
+    { name: "A", octave: 2, frequency: 110 },
+    { name: "D", octave: 3, frequency: 146.83 },
+    { name: "G", octave: 3, frequency: 196 },
+    { name: "B", octave: 3, frequency: 246.94 },
+    { name: "E", octave: 4, frequency: 329.63 }
+  ],
+  "12-string-guitar": [
+    { name: "E", octave: 3, frequency: 164.81 },
+    { name: "E", octave: 2, frequency: 82.41 },
+    { name: "A", octave: 3, frequency: 220 },
+    { name: "A", octave: 2, frequency: 110 },
+    { name: "D", octave: 4, frequency: 293.66 },
+    { name: "D", octave: 3, frequency: 146.83 },
+    { name: "G", octave: 4, frequency: 392 },
+    { name: "G", octave: 3, frequency: 196 },
+    { name: "B", octave: 3, frequency: 246.94 },
+    { name: "B", octave: 3, frequency: 246.94 },
+    { name: "E", octave: 4, frequency: 329.63 },
+    { name: "E", octave: 4, frequency: 329.63 }
+  ],
   bass: [
     { name: "E", octave: 1, frequency: 41.2 },
     { name: "A", octave: 1, frequency: 55 },
@@ -225,6 +248,56 @@ export const tuningPresets: Partial<Record<Instrument, TuningPreset[]>> = {
         { name: "F#", octave: 3, frequency: 185 },
         { name: "A", octave: 3, frequency: 220 },
         { name: "D", octave: 4, frequency: 293.66 }
+      ]
+    }
+  ],
+  "7-string-guitar": [
+    { id: "standard", label: "Standard B", notes: tunings["7-string-guitar"] },
+    {
+      id: "drop-a",
+      label: "Drop A",
+      notes: [
+        { name: "A", octave: 1, frequency: 55 },
+        { name: "E", octave: 2, frequency: 82.41 },
+        { name: "A", octave: 2, frequency: 110 },
+        { name: "D", octave: 3, frequency: 146.83 },
+        { name: "G", octave: 3, frequency: 196 },
+        { name: "B", octave: 3, frequency: 246.94 },
+        { name: "E", octave: 4, frequency: 329.63 }
+      ]
+    },
+    {
+      id: "half-step-down",
+      label: "Half step down",
+      notes: [
+        { name: "A#", octave: 1, frequency: 58.27 },
+        { name: "D#", octave: 2, frequency: 77.78 },
+        { name: "G#", octave: 2, frequency: 103.83 },
+        { name: "C#", octave: 3, frequency: 138.59 },
+        { name: "F#", octave: 3, frequency: 185 },
+        { name: "A#", octave: 3, frequency: 233.08 },
+        { name: "D#", octave: 4, frequency: 311.13 }
+      ]
+    }
+  ],
+  "12-string-guitar": [
+    { id: "standard", label: "Standard octave pairs", notes: tunings["12-string-guitar"] },
+    {
+      id: "drop-d",
+      label: "Drop D",
+      notes: [
+        { name: "D", octave: 3, frequency: 146.83 },
+        { name: "D", octave: 2, frequency: 73.42 },
+        { name: "A", octave: 3, frequency: 220 },
+        { name: "A", octave: 2, frequency: 110 },
+        { name: "D", octave: 4, frequency: 293.66 },
+        { name: "D", octave: 3, frequency: 146.83 },
+        { name: "G", octave: 4, frequency: 392 },
+        { name: "G", octave: 3, frequency: 196 },
+        { name: "B", octave: 3, frequency: 246.94 },
+        { name: "B", octave: 3, frequency: 246.94 },
+        { name: "E", octave: 4, frequency: 329.63 },
+        { name: "E", octave: 4, frequency: 329.63 }
       ]
     }
   ],

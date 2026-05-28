@@ -811,7 +811,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
             </p>
             <p className="text-xs text-zinc-500">+/-5 cents = {dictionary.tool.inTune}</p>
           </div>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(96px,1fr))]">
             {strings.map((stringNote, index) => {
               const active = index === selectedString;
               return (

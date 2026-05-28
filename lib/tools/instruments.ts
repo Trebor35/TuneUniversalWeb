@@ -3,9 +3,35 @@ import { instrumentIds, type Instrument } from "./toolConfig";
 
 type InstrumentLabelSet = Record<Instrument, Record<Locale, string>>;
 
-export const priorityInstruments: Instrument[] = ["guitar", "bass"];
+export const priorityInstruments: Instrument[] = ["guitar", "7-string-guitar", "12-string-guitar", "bass"];
 
 export const instrumentLabels: InstrumentLabelSet = {
+  "7-string-guitar": {
+    ar: "غيتار 7 أوتار",
+    de: "7-saitige Gitarre",
+    en: "7-string guitar",
+    es: "Guitarra de 7 cuerdas",
+    fr: "Guitare 7 cordes",
+    it: "Chitarra a 7 corde",
+    ja: "7弦ギター",
+    ko: "7현 기타",
+    pt: "Guitarra de 7 cordas",
+    ru: "7-струнная гитара",
+    zh: "七弦吉他"
+  },
+  "12-string-guitar": {
+    ar: "غيتار 12 وترا",
+    de: "12-saitige Gitarre",
+    en: "12-string guitar",
+    es: "Guitarra de 12 cuerdas",
+    fr: "Guitare 12 cordes",
+    it: "Chitarra a 12 corde",
+    ja: "12弦ギター",
+    ko: "12현 기타",
+    pt: "Guitarra de 12 cordas",
+    ru: "12-струнная гитара",
+    zh: "十二弦吉他"
+  },
   banjo: { ar: "بانجو", de: "Banjo", en: "Banjo", es: "Banjo", fr: "Banjo", it: "Banjo", ja: "バンジョー", ko: "밴조", pt: "Banjo", ru: "Банджо", zh: "班卓琴" },
   bass: { ar: "باس", de: "Bass", en: "Bass", es: "Bajo", fr: "Basse", it: "Basso", ja: "ベース", ko: "베이스", pt: "Baixo", ru: "Бас", zh: "贝斯" },
   cello: { ar: "تشيلو", de: "Cello", en: "Cello", es: "Violonchelo", fr: "Violoncelle", it: "Violoncello", ja: "チェロ", ko: "첼로", pt: "Violoncelo", ru: "Виолончель", zh: "大提琴" },
