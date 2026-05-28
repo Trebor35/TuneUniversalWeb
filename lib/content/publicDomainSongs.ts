@@ -211,7 +211,7 @@ export const songsUi: Record<
     tools: "Outils utiles"
   },
   it: {
-    allSongs: "Tutti i brani",
+    allSongs: "Tutti gli spartiti",
     bpm: "BPM",
     chords: "Accordi",
     description: "Brani di pubblico dominio con accordi e spartiti semplificati per esercitarsi.",
@@ -224,7 +224,7 @@ export const songsUi: Record<
     practice: "Consigli di studio",
     publicDomain: "Pubblico dominio",
     source: "Nota sui diritti",
-    title: "Spartiti gratuiti di pubblico dominio",
+    title: "Spartiti gratis di pubblico dominio",
     tools: "Strumenti utili"
   },
   ja: {
