@@ -1,6 +1,7 @@
 import type { Instrument } from "./toolConfig";
 
 export type TuningNote = { name: string; frequency: number; octave?: number };
+export type TuningPreset = { id: string; label: string; notes: TuningNote[] };
 
 export const tunings: Record<Instrument, TuningNote[]> = {
   guitar: [
@@ -149,6 +150,171 @@ export const tunings: Record<Instrument, TuningNote[]> = {
     { name: "A", octave: 4, frequency: 440 },
     { name: "B", octave: 4, frequency: 493.88 }
   ]
+};
+
+export const tuningPresets: Partial<Record<Instrument, TuningPreset[]>> = {
+  guitar: [
+    { id: "standard", label: "Standard", notes: tunings.guitar },
+    {
+      id: "drop-d",
+      label: "Drop D",
+      notes: [
+        { name: "D", octave: 2, frequency: 73.42 },
+        { name: "A", octave: 2, frequency: 110 },
+        { name: "D", octave: 3, frequency: 146.83 },
+        { name: "G", octave: 3, frequency: 196 },
+        { name: "B", octave: 3, frequency: 246.94 },
+        { name: "E", octave: 4, frequency: 329.63 }
+      ]
+    },
+    {
+      id: "half-step-down",
+      label: "Half step down",
+      notes: [
+        { name: "D#", octave: 2, frequency: 77.78 },
+        { name: "G#", octave: 2, frequency: 103.83 },
+        { name: "C#", octave: 3, frequency: 138.59 },
+        { name: "F#", octave: 3, frequency: 185 },
+        { name: "A#", octave: 3, frequency: 233.08 },
+        { name: "D#", octave: 4, frequency: 311.13 }
+      ]
+    },
+    {
+      id: "whole-step-down",
+      label: "Whole step down",
+      notes: [
+        { name: "D", octave: 2, frequency: 73.42 },
+        { name: "G", octave: 2, frequency: 98 },
+        { name: "C", octave: 3, frequency: 130.81 },
+        { name: "F", octave: 3, frequency: 174.61 },
+        { name: "A", octave: 3, frequency: 220 },
+        { name: "D", octave: 4, frequency: 293.66 }
+      ]
+    },
+    {
+      id: "dadgad",
+      label: "DADGAD",
+      notes: [
+        { name: "D", octave: 2, frequency: 73.42 },
+        { name: "A", octave: 2, frequency: 110 },
+        { name: "D", octave: 3, frequency: 146.83 },
+        { name: "G", octave: 3, frequency: 196 },
+        { name: "A", octave: 3, frequency: 220 },
+        { name: "D", octave: 4, frequency: 293.66 }
+      ]
+    },
+    {
+      id: "open-g",
+      label: "Open G",
+      notes: [
+        { name: "D", octave: 2, frequency: 73.42 },
+        { name: "G", octave: 2, frequency: 98 },
+        { name: "D", octave: 3, frequency: 146.83 },
+        { name: "G", octave: 3, frequency: 196 },
+        { name: "B", octave: 3, frequency: 246.94 },
+        { name: "D", octave: 4, frequency: 293.66 }
+      ]
+    },
+    {
+      id: "open-d",
+      label: "Open D",
+      notes: [
+        { name: "D", octave: 2, frequency: 73.42 },
+        { name: "A", octave: 2, frequency: 110 },
+        { name: "D", octave: 3, frequency: 146.83 },
+        { name: "F#", octave: 3, frequency: 185 },
+        { name: "A", octave: 3, frequency: 220 },
+        { name: "D", octave: 4, frequency: 293.66 }
+      ]
+    }
+  ],
+  bass: [
+    { id: "standard", label: "Standard", notes: tunings.bass },
+    {
+      id: "drop-d",
+      label: "Drop D",
+      notes: [
+        { name: "D", octave: 1, frequency: 36.71 },
+        { name: "A", octave: 1, frequency: 55 },
+        { name: "D", octave: 2, frequency: 73.42 },
+        { name: "G", octave: 2, frequency: 98 }
+      ]
+    },
+    {
+      id: "half-step-down",
+      label: "Half step down",
+      notes: [
+        { name: "D#", octave: 1, frequency: 38.89 },
+        { name: "G#", octave: 1, frequency: 51.91 },
+        { name: "C#", octave: 2, frequency: 69.3 },
+        { name: "F#", octave: 2, frequency: 92.5 }
+      ]
+    },
+    {
+      id: "five-string",
+      label: "5-string low B",
+      notes: [
+        { name: "B", octave: 0, frequency: 30.87 },
+        { name: "E", octave: 1, frequency: 41.2 },
+        { name: "A", octave: 1, frequency: 55 },
+        { name: "D", octave: 2, frequency: 73.42 },
+        { name: "G", octave: 2, frequency: 98 }
+      ]
+    }
+  ],
+  ukulele: [
+    { id: "standard", label: "Standard high G", notes: tunings.ukulele },
+    {
+      id: "low-g",
+      label: "Low G",
+      notes: [
+        { name: "G", octave: 3, frequency: 196 },
+        { name: "C", octave: 4, frequency: 261.63 },
+        { name: "E", octave: 4, frequency: 329.63 },
+        { name: "A", octave: 4, frequency: 440 }
+      ]
+    },
+    {
+      id: "d-tuning",
+      label: "D tuning",
+      notes: [
+        { name: "A", octave: 4, frequency: 440 },
+        { name: "D", octave: 4, frequency: 293.66 },
+        { name: "F#", octave: 4, frequency: 369.99 },
+        { name: "B", octave: 4, frequency: 493.88 }
+      ]
+    }
+  ],
+  banjo: [
+    { id: "open-g", label: "Open G", notes: tunings.banjo },
+    {
+      id: "double-c",
+      label: "Double C",
+      notes: [
+        { name: "G", octave: 4, frequency: 392 },
+        { name: "C", octave: 3, frequency: 130.81 },
+        { name: "G", octave: 3, frequency: 196 },
+        { name: "C", octave: 4, frequency: 261.63 },
+        { name: "D", octave: 4, frequency: 293.66 }
+      ]
+    },
+    {
+      id: "sawmill",
+      label: "Sawmill",
+      notes: [
+        { name: "G", octave: 4, frequency: 392 },
+        { name: "D", octave: 3, frequency: 146.83 },
+        { name: "G", octave: 3, frequency: 196 },
+        { name: "C", octave: 4, frequency: 261.63 },
+        { name: "D", octave: 4, frequency: 293.66 }
+      ]
+    }
+  ],
+  mandolin: [{ id: "standard", label: "Standard", notes: tunings.mandolin }],
+  violin: [{ id: "standard", label: "Standard", notes: tunings.violin }],
+  viola: [{ id: "standard", label: "Standard", notes: tunings.viola }],
+  cello: [{ id: "standard", label: "Standard", notes: tunings.cello }],
+  contrabass: [{ id: "standard", label: "Standard", notes: tunings.contrabass }]
 };
 
 export const noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];

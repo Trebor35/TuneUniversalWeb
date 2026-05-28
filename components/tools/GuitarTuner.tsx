@@ -1,11 +1,20 @@
 ﻿"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Mic, MicOff, Settings2 } from "lucide-react";
+import { Mic, MicOff, Settings2, Volume2, VolumeX } from "lucide-react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { localeFromName, type Locale } from "@/lib/i18n/locales";
 import { getInstrumentLabel, getOrderedInstruments } from "@/lib/tools/instruments";
-import { autoCorrelate, formatNoteName, frequencyToNote, normalizeNoteSystem, tunings, type NoteSystem, type TuningNote } from "@/lib/tools/tuner";
+import {
+  autoCorrelate,
+  formatNoteName,
+  frequencyToNote,
+  normalizeNoteSystem,
+  tuningPresets,
+  tunings,
+  type NoteSystem,
+  type TuningNote
+} from "@/lib/tools/tuner";
 import type { Instrument } from "@/lib/tools/toolConfig";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -30,7 +39,13 @@ const tunerUiText: Record<
     moreSensitive: string;
     noiseGate: string;
     notes: string;
+    playReference: string;
+    preset: string;
+    referenceTone: string;
+    signal: string;
+    stopReference: string;
     target: string;
+    tips: string[];
     strings: string;
     tunerName: string;
   }
@@ -48,7 +63,13 @@ const tunerUiText: Record<
     moreSensitive: "Piu sensibile",
     noiseGate: "Sensibilita microfono",
     notes: "Note",
+    playReference: "Ascolta nota",
+    preset: "Accordatura",
+    referenceTone: "Tono di riferimento",
+    signal: "Segnale",
+    stopReference: "Ferma tono",
     target: "Obiettivo",
+    tips: ["Avvicina lo strumento al microfono.", "Pizzica una sola corda e lascia vibrare.", "Usa Manuale se l'ambiente e rumoroso."],
     strings: "Corde",
     tunerName: "Accordatore digitale"
   },
@@ -65,7 +86,13 @@ const tunerUiText: Record<
     moreSensitive: "More sensitive",
     noiseGate: "Microphone sensitivity",
     notes: "Notes",
+    playReference: "Play note",
+    preset: "Tuning",
+    referenceTone: "Reference tone",
+    signal: "Signal",
+    stopReference: "Stop tone",
     target: "Target",
+    tips: ["Move the instrument closer to the microphone.", "Play one open string and let it ring.", "Use Manual mode in noisy rooms."],
     strings: "Strings",
     tunerName: "Digital tuner"
   },
@@ -82,7 +109,13 @@ const tunerUiText: Record<
     moreSensitive: "Plus sensible",
     noiseGate: "Sensibilite du micro",
     notes: "Notes",
+    playReference: "Ecouter la note",
+    preset: "Accordage",
+    referenceTone: "Son de reference",
+    signal: "Signal",
+    stopReference: "Arreter",
     target: "Cible",
+    tips: ["Rapprochez l'instrument du micro.", "Jouez une seule corde a vide.", "Utilisez le mode manuel dans une piece bruyante."],
     strings: "Cordes",
     tunerName: "Accordeur numerique"
   },
@@ -99,7 +132,13 @@ const tunerUiText: Record<
     moreSensitive: "Empfindlicher",
     noiseGate: "Mikrofonempfindlichkeit",
     notes: "Noten",
+    playReference: "Ton abspielen",
+    preset: "Stimmung",
+    referenceTone: "Referenzton",
+    signal: "Signal",
+    stopReference: "Ton stoppen",
     target: "Ziel",
+    tips: ["Halte das Instrument nah ans Mikrofon.", "Spiele nur eine leere Saite.", "Nutze den manuellen Modus bei Nebengeraeuschen."],
     strings: "Saiten",
     tunerName: "Digitales Stimmgeraet"
   },
@@ -116,7 +155,13 @@ const tunerUiText: Record<
     moreSensitive: "Mas sensible",
     noiseGate: "Sensibilidad del microfono",
     notes: "Notas",
+    playReference: "Oir nota",
+    preset: "Afinacion",
+    referenceTone: "Tono de referencia",
+    signal: "Senal",
+    stopReference: "Parar tono",
     target: "Objetivo",
+    tips: ["Acerca el instrumento al microfono.", "Toca una sola cuerda al aire.", "Usa Manual si hay ruido alrededor."],
     strings: "Cuerdas",
     tunerName: "Afinador digital"
   },
@@ -133,7 +178,13 @@ const tunerUiText: Record<
     moreSensitive: "Mais sensivel",
     noiseGate: "Sensibilidade do microfone",
     notes: "Notas",
+    playReference: "Ouvir nota",
+    preset: "Afinacao",
+    referenceTone: "Tom de referencia",
+    signal: "Sinal",
+    stopReference: "Parar tom",
     target: "Alvo",
+    tips: ["Aproxime o instrumento do microfone.", "Toque uma corda solta por vez.", "Use Manual em ambientes ruidosos."],
     strings: "Cordas",
     tunerName: "Afinador digital"
   },
@@ -150,7 +201,13 @@ const tunerUiText: Record<
     moreSensitive: "提高灵敏度",
     noiseGate: "麦克风灵敏度",
     notes: "音名",
+    playReference: "播放音高",
+    preset: "调弦",
+    referenceTone: "参考音",
+    signal: "信号",
+    stopReference: "停止音高",
     target: "目标",
+    tips: ["让乐器靠近麦克风。", "一次只弹一根空弦。", "环境嘈杂时使用手动模式。"],
     strings: "琴弦",
     tunerName: "数字调音器"
   },
@@ -167,7 +224,13 @@ const tunerUiText: Record<
     moreSensitive: "Более чувствительно",
     noiseGate: "Чувствительность микрофона",
     notes: "Ноты",
+    playReference: "Слушать ноту",
+    preset: "Строй",
+    referenceTone: "Опорный тон",
+    signal: "Сигнал",
+    stopReference: "Остановить",
     target: "Цель",
+    tips: ["Поднесите инструмент ближе к микрофону.", "Играйте одну открытую струну.", "В шуме используйте ручной режим."],
     strings: "Струны",
     tunerName: "Цифровой тюнер"
   },
@@ -184,7 +247,13 @@ const tunerUiText: Record<
     moreSensitive: "感度を上げる",
     noiseGate: "マイク感度",
     notes: "音名",
+    playReference: "音を鳴らす",
+    preset: "チューニング",
+    referenceTone: "基準音",
+    signal: "信号",
+    stopReference: "停止",
     target: "目標",
+    tips: ["楽器をマイクに近づけます。", "開放弦を1本ずつ鳴らします。", "雑音が多い時は手動モードを使います。"],
     strings: "弦",
     tunerName: "デジタルチューナー"
   },
@@ -201,7 +270,13 @@ const tunerUiText: Record<
     moreSensitive: "더 민감하게",
     noiseGate: "마이크 감도",
     notes: "음이름",
+    playReference: "음 듣기",
+    preset: "튜닝",
+    referenceTone: "기준음",
+    signal: "신호",
+    stopReference: "정지",
     target: "목표",
+    tips: ["악기를 마이크 가까이에 둡니다.", "한 번에 한 개의 개방현만 연주합니다.", "주변이 시끄러우면 수동 모드를 사용합니다."],
     strings: "줄",
     tunerName: "디지털 튜너"
   },
@@ -218,7 +293,13 @@ const tunerUiText: Record<
     moreSensitive: "حساسية أعلى",
     noiseGate: "حساسية الميكروفون",
     notes: "النغمات",
+    playReference: "تشغيل النغمة",
+    preset: "الدوزان",
+    referenceTone: "النغمة المرجعية",
+    signal: "الإشارة",
+    stopReference: "إيقاف النغمة",
     target: "الهدف",
+    tips: ["قرب الآلة من الميكروفون.", "اعزف وترا واحدا مفتوحا.", "استخدم الوضع اليدوي عند وجود ضوضاء."],
     strings: "الأوتار",
     tunerName: "مدوزن رقمي"
   }
@@ -240,15 +321,21 @@ function nearestString(frequency: number, strings: TuningNote[]) {
   }, strings[0]);
 }
 
+function getRms(buffer: Float32Array) {
+  return Math.sqrt(buffer.reduce((sum, value) => sum + value * value, 0) / buffer.length);
+}
+
 export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
   const currentLocale = localeFromName(dictionary.localeName);
   const orderedInstruments = useMemo(() => getOrderedInstruments(currentLocale), [currentLocale]);
   const uiText = tunerUiText[currentLocale];
   const initialInstrument = orderedInstruments.includes(instrument) ? instrument : "guitar";
   const [selectedInstrument, setSelectedInstrument] = useState<Instrument>(initialInstrument);
+  const [selectedPresetId, setSelectedPresetId] = useState("standard");
   const [selectedString, setSelectedString] = useState(0);
   const [noteSystem, setNoteSystem] = useState<NoteSystem>("latin");
   const [isListening, setIsListening] = useState(false);
+  const [isPlayingTone, setIsPlayingTone] = useState(false);
   const [frequency, setFrequency] = useState<number | null>(null);
   const [detectedNote, setDetectedNote] = useState<string>("--");
   const [cents, setCents] = useState<number | null>(null);
@@ -256,18 +343,29 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
   const [directionalFilter, setDirectionalFilter] = useState(true);
   const [lockString, setLockString] = useState(true);
   const [micSensitivity, setMicSensitivity] = useState(58);
+  const [signalLevel, setSignalLevel] = useState(0);
   const contextRef = useRef<AudioContext | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const frameRef = useRef<number | null>(null);
+  const toneContextRef = useRef<AudioContext | null>(null);
+  const oscillatorRef = useRef<OscillatorNode | null>(null);
+  const gainRef = useRef<GainNode | null>(null);
   const frequencyHistoryRef = useRef<number[]>([]);
+  const lastSignalUpdateRef = useRef(0);
   const lockStringRef = useRef(lockString);
   const micSensitivityRef = useRef(micSensitivity);
   const noteSystemRef = useRef(noteSystem);
   const selectedStringRef = useRef(selectedString);
   const stringsRef = useRef<TuningNote[]>([]);
 
-  const strings = tunings[selectedInstrument];
+  const presets = useMemo(
+    () => tuningPresets[selectedInstrument] ?? [{ id: "standard", label: "Standard", notes: tunings[selectedInstrument] }],
+    [selectedInstrument]
+  );
+  const selectedPreset = presets.find((preset) => preset.id === selectedPresetId) ?? presets[0];
+  const strings = selectedPreset.notes;
   const targetString = strings[selectedString] ?? strings[0];
+  const targetLabel = lockString ? formatNoteName(noteWithOctave(targetString), noteSystem) : detectedNote;
   const displayCents = clamp(cents ?? 0, -50, 50);
   const needleAngle = displayCents * -1.35;
   const status =
@@ -359,6 +457,12 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
 
       const tick = () => {
         analyser.getFloatTimeDomainData(buffer);
+        const rms = getRms(buffer);
+        const now = performance.now();
+        if (now - lastSignalUpdateRef.current > 90) {
+          lastSignalUpdateRef.current = now;
+          setSignalLevel(clamp(Math.round((rms / 0.08) * 100), 0, 100));
+        }
         const minRms = 0.004 + ((100 - micSensitivityRef.current) / 100) * 0.035;
         const detected = autoCorrelate(buffer, audioContext.sampleRate, minRms);
         if (detected) {
@@ -368,7 +472,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
             ? currentStrings[selectedStringRef.current] ?? currentStrings[0]
             : nearestString(stableFrequency, currentStrings);
           const next = frequencyToNote(stableFrequency);
-          const targetCents = Math.round(1200 * Math.log2(stableFrequency / nearest.frequency));
+          const targetCents = lockStringRef.current ? Math.round(1200 * Math.log2(stableFrequency / nearest.frequency)) : next.cents;
           setFrequency(stableFrequency);
           setDetectedNote(formatNoteName(next.name, noteSystemRef.current));
           if (!lockStringRef.current) {
@@ -393,9 +497,52 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
     contextRef.current = null;
     streamRef.current = null;
     setIsListening(false);
+    setSignalLevel(0);
   }
 
-  useEffect(() => stop, []);
+  function stopReferenceTone() {
+    try {
+      oscillatorRef.current?.stop();
+    } catch {
+      // The tone may already be stopped if the browser interrupted audio playback.
+    }
+    oscillatorRef.current?.disconnect();
+    gainRef.current?.disconnect();
+    toneContextRef.current?.close();
+    oscillatorRef.current = null;
+    gainRef.current = null;
+    toneContextRef.current = null;
+    setIsPlayingTone(false);
+  }
+
+  async function toggleReferenceTone() {
+    if (isPlayingTone) {
+      stopReferenceTone();
+      return;
+    }
+
+    const audioContext = new AudioContext();
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    oscillator.type = "sine";
+    oscillator.frequency.value = targetString.frequency;
+    gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.16, audioContext.currentTime + 0.03);
+    oscillator.connect(gain).connect(audioContext.destination);
+    oscillator.start();
+    toneContextRef.current = audioContext;
+    oscillatorRef.current = oscillator;
+    gainRef.current = gain;
+    setIsPlayingTone(true);
+  }
+
+  useEffect(
+    () => () => {
+      stop();
+      stopReferenceTone();
+    },
+    []
+  );
 
   useEffect(() => {
     const savedSystem = window.localStorage.getItem("tuninglab-note-system");
@@ -425,22 +572,39 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
   }, [selectedString]);
 
   useEffect(() => {
+    if (oscillatorRef.current) {
+      oscillatorRef.current.frequency.setTargetAtTime(targetString.frequency, toneContextRef.current?.currentTime ?? 0, 0.02);
+    }
+  }, [targetString.frequency]);
+
+  useEffect(() => {
     stringsRef.current = strings;
   }, [strings]);
 
   useEffect(() => {
     setSelectedString(0);
     selectedStringRef.current = 0;
+    setSelectedPresetId(tuningPresets[selectedInstrument]?.[0]?.id ?? "standard");
     frequencyHistoryRef.current = [];
     setCents(null);
     setFrequency(null);
     setDetectedNote("--");
   }, [selectedInstrument]);
 
+  useEffect(() => {
+    setSelectedString(0);
+    selectedStringRef.current = 0;
+    stringsRef.current = strings;
+    frequencyHistoryRef.current = [];
+    setCents(null);
+    setFrequency(null);
+    setDetectedNote("--");
+  }, [selectedPresetId, strings]);
+
   return (
     <Card className="overflow-hidden border-zinc-800 bg-zinc-950 p-0 text-white shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
       <div className="border-b border-white/10 bg-zinc-900/90 px-3 py-3 sm:px-5">
-        <div className="grid gap-3 md:grid-cols-[1fr_auto_auto] md:items-center">
+        <div className="grid gap-3 lg:grid-cols-[1fr_minmax(150px,210px)_minmax(150px,210px)_minmax(220px,280px)] lg:items-center">
           <div className="flex min-w-0 items-center gap-2 text-sm font-semibold text-zinc-300">
             <Settings2 size={16} aria-hidden />
             <span className="min-w-0 truncate">{uiText.tunerName}</span>
@@ -455,6 +619,20 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
               {orderedInstruments.map((item) => (
                 <option key={item} value={item}>
                   {getInstrumentLabel(item, currentLocale)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="grid gap-1 text-xs font-semibold text-zinc-400">
+            {uiText.preset}
+            <select
+              value={selectedPreset.id}
+              onChange={(event) => setSelectedPresetId(event.target.value)}
+              className="min-h-10 w-full min-w-0 rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
+            >
+              {presets.map((preset) => (
+                <option key={preset.id} value={preset.id}>
+                  {preset.label}
                 </option>
               ))}
             </select>
@@ -502,6 +680,15 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
               <span>{uiText.lessSensitive}</span>
               <span>{uiText.moreSensitive}</span>
             </span>
+            <span className="mt-1 grid gap-1">
+              <span className="flex justify-between text-[11px] font-normal text-zinc-500">
+                <span>{uiText.signal}</span>
+                <span>{signalLevel}%</span>
+              </span>
+              <span className="h-2 overflow-hidden rounded-full bg-white/10">
+                <span className="block h-full rounded-full bg-emerald-300 transition-[width]" style={{ width: `${signalLevel}%` }} />
+              </span>
+            </span>
           </label>
         </div>
         <div className="mt-3 grid gap-2 rounded-md border border-white/10 bg-zinc-950 px-3 py-2 text-xs font-semibold text-zinc-300 sm:grid-cols-[1fr_auto] sm:items-center">
@@ -541,6 +728,23 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
       </div>
 
       <div className="space-y-5 p-3 sm:space-y-6 sm:p-6">
+        <div className="grid gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 sm:grid-cols-[1fr_auto] sm:items-center">
+          <div>
+            <p className="text-sm font-bold text-white">{uiText.referenceTone}</p>
+            <p className="mt-1 text-xs leading-5 text-zinc-500">
+              {formatNoteName(noteWithOctave(targetString), noteSystem)} / {targetString.frequency} Hz
+            </p>
+          </div>
+          <Button
+            onClick={toggleReferenceTone}
+            variant="secondary"
+            className="w-full border border-white/10 bg-white text-zinc-950 hover:bg-emerald-200 sm:w-auto"
+          >
+            {isPlayingTone ? <VolumeX size={17} /> : <Volume2 size={17} />}
+            {isPlayingTone ? uiText.stopReference : uiText.playReference}
+          </Button>
+        </div>
+
         <div className={`relative mx-auto min-h-[440px] w-full max-w-2xl rounded-2xl border border-white/10 bg-[radial-gradient(circle_at_50%_70%,rgba(16,185,129,0.18),transparent_26%),linear-gradient(180deg,#18181b,#050505)] p-3 sm:aspect-[1.55/1] sm:min-h-0 sm:rounded-[2rem] sm:p-4 ${centerGlow}`}>
           <div className="absolute inset-x-3 top-4 flex justify-between text-[10px] font-bold uppercase tracking-[0.12em] text-zinc-500 sm:inset-x-4 sm:text-xs sm:tracking-[0.18em]">
             <span className="text-orange-300">{dictionary.tool.flat}</span>
@@ -590,7 +794,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
               </div>
               <div className="rounded-md border border-white/10 bg-white/5 p-2 min-w-0">
                 <span className="block text-xs text-zinc-500">{uiText.target}</span>
-                <strong>{formatNoteName(noteWithOctave(targetString), noteSystem)}</strong>
+                <strong>{targetLabel}</strong>
               </div>
             </div>
             <p className={`text-base font-black uppercase tracking-[0.14em] sm:text-lg sm:tracking-[0.18em] ${statusClass}`}>{status}</p>
@@ -600,7 +804,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
         <div className="grid gap-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-sm font-semibold text-zinc-300">
-              {getInstrumentLabel(selectedInstrument, currentLocale)} {uiText.strings}:{" "}
+              {getInstrumentLabel(selectedInstrument, currentLocale)} {selectedPreset.label} {uiText.strings}:{" "}
               <span className="text-zinc-100">
                 {strings.map((stringNote) => formatNoteName(noteWithOctave(stringNote), noteSystem, false)).join(" - ")}
               </span>
@@ -627,6 +831,14 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
               );
             })}
           </div>
+        </div>
+
+        <div className="grid gap-2 rounded-xl border border-white/10 bg-white/[0.03] p-3 text-sm text-zinc-300 sm:grid-cols-3">
+          {uiText.tips.map((tip) => (
+            <p key={tip} className="leading-6">
+              {tip}
+            </p>
+          ))}
         </div>
 
         {error ? <p className="rounded-md border border-orange-400/30 bg-orange-500/10 p-3 text-sm text-orange-200">{error}</p> : null}
