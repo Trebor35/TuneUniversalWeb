@@ -393,6 +393,10 @@ function getRms(buffer: Float32Array) {
   return Math.sqrt(buffer.reduce((sum, value) => sum + value * value, 0) / buffer.length);
 }
 
+function sensitivityToInputGain(sensitivity: number) {
+  return 0.75 + (sensitivity / 100) * 2.4;
+}
+
 function estimateStringFromSpectrum(data: Float32Array, sampleRate: number, fftSize: number, target: TuningNote) {
   let bestDb = -Infinity;
   let bestFrequency = 0;
@@ -461,6 +465,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
   const toneContextRef = useRef<AudioContext | null>(null);
   const oscillatorRef = useRef<OscillatorNode | null>(null);
   const gainRef = useRef<GainNode | null>(null);
+  const micGainRef = useRef<GainNode | null>(null);
   const frequencyHistoryRef = useRef<number[]>([]);
   const lastSignalUpdateRef = useRef(0);
   const lockStringRef = useRef(lockString);
@@ -558,9 +563,11 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
       });
       const audioContext = new AudioContext();
       const source = audioContext.createMediaStreamSource(stream);
+      const micGain = audioContext.createGain();
       const highPass = audioContext.createBiquadFilter();
       const lowPass = audioContext.createBiquadFilter();
       const analyser = audioContext.createAnalyser();
+      micGain.gain.value = sensitivityToInputGain(micSensitivityRef.current);
       highPass.type = "highpass";
       highPass.frequency.value = directionalFilter ? 38 : 28;
       highPass.Q.value = 0.6;
@@ -569,10 +576,11 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
       lowPass.Q.value = 0.7;
       analyser.fftSize = 16384;
       analyser.smoothingTimeConstant = 0.58;
-      source.connect(highPass).connect(lowPass).connect(analyser);
+      source.connect(micGain).connect(highPass).connect(lowPass).connect(analyser);
 
       const buffer = new Float32Array(analyser.fftSize);
       analyserRef.current = analyser;
+      micGainRef.current = micGain;
       streamRef.current = stream;
       contextRef.current = audioContext;
       frequencyHistoryRef.current = [];
@@ -586,7 +594,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
           lastSignalUpdateRef.current = now;
           setSignalLevel(clamp(Math.round((rms / 0.08) * 100), 0, 100));
         }
-        const minRms = 0.003 + ((100 - micSensitivityRef.current) / 100) * 0.032;
+        const minRms = 0.0018 + ((100 - micSensitivityRef.current) / 100) * 0.028;
         const detected = autoCorrelate(buffer, audioContext.sampleRate, minRms);
         if (detected) {
           const stableFrequency = smoothedFrequency(detected);
@@ -657,6 +665,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
     streamRef.current?.getTracks().forEach((track) => track.stop());
     contextRef.current?.close();
     analyserRef.current = null;
+    micGainRef.current = null;
     contextRef.current = null;
     streamRef.current = null;
     setIsListening(false);
@@ -725,6 +734,9 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
 
   useEffect(() => {
     micSensitivityRef.current = micSensitivity;
+    if (micGainRef.current && contextRef.current) {
+      micGainRef.current.gain.setTargetAtTime(sensitivityToInputGain(micSensitivity), contextRef.current.currentTime, 0.03);
+    }
   }, [micSensitivity]);
 
   useEffect(() => {
