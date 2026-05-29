@@ -69,6 +69,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   const [subdivision, setSubdivision] = useState<Subdivision>("quarter");
   const [accentFirstBeat, setAccentFirstBeat] = useState(true);
   const [outputMode, setOutputMode] = useState<OutputMode>("speaker");
+  const [hapticsEnabled, setHapticsEnabled] = useState(true);
   const [running, setRunning] = useState(false);
   const [beat, setBeat] = useState(0);
   const [subBeat, setSubBeat] = useState(0);
@@ -80,11 +81,27 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   const stepRef = useRef(0);
   const currentLocale = localeFromName(dictionary.localeName);
   const labels = metronomeUiText[currentLocale];
+  const hapticsLabel = currentLocale === "it" ? "Vibrazione/flash" : "Vibration/flash";
+  const silentModeNote =
+    currentLocale === "it"
+      ? "Su iPhone l'interruttore silenzioso puo bloccare l'audio del browser: disattiva il silenzioso o usa cuffie. Il flash del battito resta attivo."
+      : "On iPhone, Silent Mode can block browser audio: turn Silent Mode off or use headphones. The beat flash stays active.";
 
-  function click(accent: boolean, subdivisionClick: boolean) {
+  function ensureAudioContext() {
     const context = audioRef.current ?? new AudioContext();
     audioRef.current = context;
     if (context.state === "suspended") void context.resume();
+    return context;
+  }
+
+  function pulseHaptics(accent: boolean, subdivisionClick: boolean) {
+    if (!hapticsEnabled || subdivisionClick || typeof navigator === "undefined" || !navigator.vibrate) return;
+    navigator.vibrate(accent ? 28 : 14);
+  }
+
+  function click(accent: boolean, subdivisionClick: boolean) {
+    const context = ensureAudioContext();
+    pulseHaptics(accent, subdivisionClick);
     const oscillator = context.createOscillator();
     const gain = context.createGain();
     const panner = typeof StereoPannerNode !== "undefined" ? new StereoPannerNode(context) : null;
@@ -124,7 +141,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
     return () => {
       if (intervalRef.current) window.clearInterval(intervalRef.current);
     };
-  }, [accentFirstBeat, bpm, meter, outputMode, running, subdivision]);
+  }, [accentFirstBeat, bpm, hapticsEnabled, meter, outputMode, running, subdivision]);
 
   useEffect(() => {
     try {
@@ -137,6 +154,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
 
   function toggle() {
     if (!running) {
+      ensureAudioContext();
       setBeat(0);
       setSubBeat(0);
     }
@@ -275,6 +293,15 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
             onChange={(event) => setAccentFirstBeat(event.target.checked)}
           />
         </label>
+        <label className="flex items-center justify-between gap-4 rounded-lg border border-line bg-white p-4 text-sm font-semibold">
+          {hapticsLabel}
+          <input
+            checked={hapticsEnabled}
+            className="h-5 w-5 accent-mint"
+            type="checkbox"
+            onChange={(event) => setHapticsEnabled(event.target.checked)}
+          />
+        </label>
         <div className="grid gap-2 rounded-lg border border-line bg-white p-4">
           <p className="text-sm font-semibold">{labels.output}</p>
           <div className="grid grid-cols-2 gap-2">
@@ -299,6 +326,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
               {labels.headphones}
             </button>
           </div>
+          <p className="rounded-md bg-paper p-3 text-xs leading-5 text-ink/60">{silentModeNote}</p>
         </div>
       </div>
 
