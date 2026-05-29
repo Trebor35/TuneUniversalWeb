@@ -62,7 +62,7 @@
         },
         {
           "question": "ما الضبط المتاح؟",
-          "answer": "تستخدم النسخة الأولى E A D G B E."
+          "answer": "يدعم TuneUniversal معظم الضبطات الشائعة، بما في ذلك Standard و Eb Standard و D Standard و Drop D و Drop D# و Drop C# و Drop C و Open D و Open G."
         }
       ]
     },
@@ -96,7 +96,7 @@
       "faq": [
         {
           "question": "هل يدعم high-G؟",
-          "answer": "النسخة الأولى تستهدف high-G G C E A."
+          "answer": "نعم، ضبط standard high-G G C E A متاح، مع إعدادات أخرى حسب الآلة المختارة."
         },
         {
           "question": "هل يتم رفع الصوت؟",

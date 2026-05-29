@@ -62,7 +62,7 @@
         },
         {
           "question": "Какой строй?",
-          "answer": "MVP использует E A D G B E."
+          "answer": "TuneUniversal поддерживает большинство распространенных строев, включая Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D и Open G."
         }
       ]
     },
@@ -96,7 +96,7 @@
       "faq": [
         {
           "question": "Есть high-G?",
-          "answer": "MVP рассчитан на high-G G C E A."
+          "answer": "Да, standard high-G G C E A включен, а также доступны другие пресеты в зависимости от выбранного инструмента."
         },
         {
           "question": "Аудио записывается?",

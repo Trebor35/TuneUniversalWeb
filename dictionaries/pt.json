@@ -62,7 +62,7 @@
         },
         {
           "question": "Qual afinacao?",
-          "answer": "O MVP usa E A D G B E."
+          "answer": "TuneUniversal suporta a maioria das afinacoes comuns, incluindo Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D e Open G."
         }
       ]
     },
@@ -96,7 +96,7 @@
       "faq": [
         {
           "question": "Suporta high-G?",
-          "answer": "O MVP usa high-G G C E A."
+          "answer": "Sim, a afinacao standard high-G G C E A esta incluida, com outros presets conforme o instrumento escolhido."
         },
         {
           "question": "O audio e enviado?",

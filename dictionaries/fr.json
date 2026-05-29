@@ -62,7 +62,7 @@
         },
         {
           "question": "Quel accordage?",
-          "answer": "L'MVP utilise E A D G B E."
+          "answer": "Le site prend en charge la plupart des accordages courants, dont Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D et Open G."
         }
       ]
     },
@@ -96,7 +96,7 @@
       "faq": [
         {
           "question": "High-G est-il inclus?",
-          "answer": "L'MVP cible l'accordage high-G G C E A."
+          "answer": "Oui, l'accordage high-G G C E A est inclus, avec d'autres presets selon l'instrument choisi."
         },
         {
           "question": "L'audio est-il envoye?",

@@ -62,7 +62,7 @@
         },
         {
           "question": "支持什么调弦？",
-          "answer": "MVP 使用标准 E A D G B E。"
+          "answer": "TuneUniversal 支持大多数常见调弦，包括 Standard、Eb Standard、D Standard、Drop D、Drop D#、Drop C#、Drop C、Open D 和 Open G。"
         }
       ]
     },
@@ -96,7 +96,7 @@
       "faq": [
         {
           "question": "支持 high-G 吗？",
-          "answer": "MVP 面向 high-G G C E A。"
+          "answer": "是的，包含 standard high-G G C E A，并会根据所选乐器提供其他预设。"
         },
         {
           "question": "会上传音频吗？",

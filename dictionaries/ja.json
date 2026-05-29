@@ -62,7 +62,7 @@
         },
         {
           "question": "対応チューニングは？",
-          "answer": "MVP は E A D G B E です。"
+          "answer": "TuneUniversal は Standard、Eb Standard、D Standard、Drop D、Drop D#、Drop C#、Drop C、Open D、Open G など、多くの一般的なチューニングに対応しています。"
         }
       ]
     },
@@ -96,7 +96,7 @@
       "faq": [
         {
           "question": "High-G 対応ですか？",
-          "answer": "MVP は high-G G C E A 向けです。"
+          "answer": "はい、standard high-G G C E A に対応し、選択した楽器に応じて他のプリセットも利用できます。"
         },
         {
           "question": "音声は保存されますか？",
