@@ -18,6 +18,7 @@ import { Card } from "@/components/ui/Card";
 import { Slider } from "@/components/ui/Slider";
 
 type OutputMode = "speaker" | "headphones";
+type PracticeAdvanceMode = "bars" | "time";
 
 type MetronomePreset = {
   accentFirstBeat: boolean;
@@ -71,6 +72,14 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   const [accentFirstBeat, setAccentFirstBeat] = useState(true);
   const [outputMode, setOutputMode] = useState<OutputMode>("speaker");
   const [hapticsEnabled, setHapticsEnabled] = useState(true);
+  const [practiceEnabled, setPracticeEnabled] = useState(false);
+  const [practiceStartBpm, setPracticeStartBpm] = useState(80);
+  const [practiceTargetBpm, setPracticeTargetBpm] = useState(100);
+  const [practiceIncrement, setPracticeIncrement] = useState(2);
+  const [practiceAdvanceMode, setPracticeAdvanceMode] = useState<PracticeAdvanceMode>("bars");
+  const [practiceBars, setPracticeBars] = useState(4);
+  const [practiceSeconds, setPracticeSeconds] = useState(60);
+  const [practiceProgress, setPracticeProgress] = useState(0);
   const [running, setRunning] = useState(false);
   const [beat, setBeat] = useState(0);
   const [subBeat, setSubBeat] = useState(0);
@@ -80,6 +89,8 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   const audioRef = useRef<AudioContext | null>(null);
   const beatRef = useRef(0);
   const stepRef = useRef(0);
+  const practiceBarsRef = useRef(0);
+  const practiceStartedAtRef = useRef(0);
   const currentLocale = localeFromName(dictionary.localeName);
   const labels = metronomeUiText[currentLocale];
   const hapticsLabel = currentLocale === "it" ? "Vibrazione/flash" : "Vibration/flash";
@@ -87,6 +98,32 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
     currentLocale === "it"
       ? "Su iPhone l'interruttore silenzioso puo bloccare l'audio del browser: disattiva il silenzioso o usa cuffie. Il flash del battito resta attivo."
       : "On iPhone, Silent Mode can block browser audio: turn Silent Mode off or use headphones. The beat flash stays active.";
+  const practiceLabels =
+    currentLocale === "it"
+      ? {
+          advance: "Cambia BPM",
+          afterBars: "Dopo giri completi",
+          afterTime: "Dopo tempo",
+          bars: "Giri",
+          cycle: "Ciclo esercizio",
+          every: "Ogni",
+          increment: "Incremento",
+          seconds: "Secondi",
+          start: "BPM partenza",
+          target: "BPM arrivo"
+        }
+      : {
+          advance: "Change BPM",
+          afterBars: "After complete bars",
+          afterTime: "After time",
+          bars: "Bars",
+          cycle: "Practice cycle",
+          every: "Every",
+          increment: "Increment",
+          seconds: "Seconds",
+          start: "Start BPM",
+          target: "Target BPM"
+        };
 
   function ensureAudioContext() {
     const context = audioRef.current ?? new AudioContext();
@@ -122,6 +159,18 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
     oscillator.stop(context.currentTime + 0.09);
   }
 
+  function maybeAdvancePracticeBpm() {
+    if (!practiceEnabled || bpm >= practiceTargetBpm) return;
+
+    const nextBpm = clampBpm(Math.min(practiceTargetBpm, bpm + practiceIncrement));
+    if (nextBpm === bpm) return;
+
+    practiceBarsRef.current = 0;
+    practiceStartedAtRef.current = Date.now();
+    setPracticeProgress(0);
+    setBpm(nextBpm);
+  }
+
   useEffect(() => {
     if (!running) return;
     const beats = beatsForMeter(meter);
@@ -138,11 +187,21 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
       setBeat(beatRef.current);
       setSubBeat(currentSubBeat);
       click(accentFirstBeat && beatRef.current === 0 && currentSubBeat === 0, currentSubBeat > 0);
+      if (practiceEnabled && currentSubBeat === 0 && stepRef.current === 0) {
+        practiceBarsRef.current += 1;
+        setPracticeProgress(practiceBarsRef.current);
+        if (practiceAdvanceMode === "bars" && practiceBarsRef.current >= practiceBars) {
+          maybeAdvancePracticeBpm();
+        }
+      }
+      if (practiceEnabled && practiceAdvanceMode === "time" && Date.now() - practiceStartedAtRef.current >= practiceSeconds * 1000) {
+        maybeAdvancePracticeBpm();
+      }
     }, 60000 / bpm / parts);
     return () => {
       if (intervalRef.current) window.clearInterval(intervalRef.current);
     };
-  }, [accentFirstBeat, bpm, hapticsEnabled, meter, outputMode, running, subdivision]);
+  }, [accentFirstBeat, bpm, hapticsEnabled, meter, outputMode, practiceAdvanceMode, practiceBars, practiceEnabled, practiceIncrement, practiceSeconds, practiceTargetBpm, running, subdivision]);
 
   useEffect(() => {
     try {
@@ -156,6 +215,12 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   function toggle() {
     if (!running) {
       ensureAudioContext();
+      if (practiceEnabled) {
+        setBpm(clampBpm(practiceStartBpm));
+      }
+      practiceBarsRef.current = 0;
+      practiceStartedAtRef.current = Date.now();
+      setPracticeProgress(0);
       setBeat(0);
       setSubBeat(0);
     }
@@ -259,6 +324,125 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
         </div>
       </div>
       <Slider min={20} max={300} value={bpm} onChange={(event) => updateBpm(Number(event.target.value))} />
+
+      <section className="grid gap-4 rounded-lg border border-line bg-white p-4">
+        <label className="flex items-center justify-between gap-4 text-sm font-semibold">
+          {practiceLabels.cycle}
+          <input
+            checked={practiceEnabled}
+            className="h-5 w-5 accent-mint"
+            type="checkbox"
+            onChange={(event) => {
+              setPracticeEnabled(event.target.checked);
+              practiceBarsRef.current = 0;
+              practiceStartedAtRef.current = Date.now();
+              setPracticeProgress(0);
+            }}
+          />
+        </label>
+        <div className="grid gap-3 md:grid-cols-4">
+          <label className="grid gap-2 text-sm font-semibold">
+            {practiceLabels.start}
+            <input
+              className="rounded-md border border-line bg-paper p-3"
+              inputMode="numeric"
+              max={300}
+              min={20}
+              type="number"
+              value={practiceStartBpm}
+              onChange={(event) => setPracticeStartBpm(clampBpm(Number(event.target.value)))}
+            />
+          </label>
+          <label className="grid gap-2 text-sm font-semibold">
+            {practiceLabels.target}
+            <input
+              className="rounded-md border border-line bg-paper p-3"
+              inputMode="numeric"
+              max={300}
+              min={20}
+              type="number"
+              value={practiceTargetBpm}
+              onChange={(event) => setPracticeTargetBpm(clampBpm(Number(event.target.value)))}
+            />
+          </label>
+          <label className="grid gap-2 text-sm font-semibold">
+            {practiceLabels.increment}
+            <select
+              className="rounded-md border border-line bg-paper p-3"
+              value={practiceIncrement}
+              onChange={(event) => setPracticeIncrement(Number(event.target.value))}
+            >
+              {[1, 2, 3, 4, 5].map((amount) => (
+                <option key={amount} value={amount}>
+                  +{amount} BPM
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="grid gap-2 text-sm font-semibold">
+            {practiceLabels.advance}
+            <select
+              className="rounded-md border border-line bg-paper p-3"
+              value={practiceAdvanceMode}
+              onChange={(event) => {
+                setPracticeAdvanceMode(event.target.value as PracticeAdvanceMode);
+                practiceBarsRef.current = 0;
+                practiceStartedAtRef.current = Date.now();
+                setPracticeProgress(0);
+              }}
+            >
+              <option value="bars">{practiceLabels.afterBars}</option>
+              <option value="time">{practiceLabels.afterTime}</option>
+            </select>
+          </label>
+        </div>
+        <div className="grid gap-3 md:grid-cols-[1fr_1fr_auto] md:items-end">
+          {practiceAdvanceMode === "bars" ? (
+            <label className="grid gap-2 text-sm font-semibold">
+              {practiceLabels.every}
+              <input
+                className="rounded-md border border-line bg-paper p-3"
+                inputMode="numeric"
+                max={64}
+                min={1}
+                type="number"
+                value={practiceBars}
+                onChange={(event) => setPracticeBars(Math.min(64, Math.max(1, Math.round(Number(event.target.value)))))}
+              />
+            </label>
+          ) : (
+            <label className="grid gap-2 text-sm font-semibold">
+              {practiceLabels.every}
+              <input
+                className="rounded-md border border-line bg-paper p-3"
+                inputMode="numeric"
+                max={1800}
+                min={5}
+                type="number"
+                value={practiceSeconds}
+                onChange={(event) => setPracticeSeconds(Math.min(1800, Math.max(5, Math.round(Number(event.target.value)))))}
+              />
+            </label>
+          )}
+          <p className="rounded-md bg-paper p-3 text-sm font-semibold text-ink/70">
+            {practiceAdvanceMode === "bars"
+              ? `${practiceLabels.bars}: ${practiceProgress}/${practiceBars}`
+              : `${practiceLabels.seconds}: ${practiceSeconds}`}
+          </p>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => {
+              setBpm(clampBpm(practiceStartBpm));
+              practiceBarsRef.current = 0;
+              practiceStartedAtRef.current = Date.now();
+              setPracticeProgress(0);
+            }}
+          >
+            {practiceLabels.start}
+          </Button>
+        </div>
+      </section>
 
       <div className="grid gap-4 md:grid-cols-[1fr_1fr_1.4fr]">
         <label className="grid gap-2 text-sm font-semibold">
