@@ -35,8 +35,8 @@ type PolyTuneResult = {
 const tunerUiText: Record<
   Locale,
   {
-    automaticMode: string;
-    automaticModeHint: string;
+    chromaticMode: string;
+    chromaticModeHint: string;
     directionMode: string;
     directionModeHint: string;
     instrument: string;
@@ -64,8 +64,8 @@ const tunerUiText: Record<
   }
 > = {
   it: {
-    automaticMode: "Automatico",
-    automaticModeHint: "Riconosce da solo la nota o la corda piu vicina.",
+    chromaticMode: "Cromatica",
+    chromaticModeHint: "Riconosce qualsiasi nota cromatica rilevata, utile anche fuori dalle corde del preset.",
     directionMode: "Filtro direzionale",
     directionModeHint: "Riduce rumore ambientale e ascolta meglio il suono vicino al microfono.",
     instrument: "Strumento",
@@ -92,8 +92,8 @@ const tunerUiText: Record<
     tunerName: "Accordatore digitale"
   },
   en: {
-    automaticMode: "Automatic",
-    automaticModeHint: "Automatically detects the closest note or string.",
+    chromaticMode: "Chromatic",
+    chromaticModeHint: "Detects any chromatic note it hears, even outside the selected string preset.",
     directionMode: "Directional filter",
     directionModeHint: "Reduces room noise and focuses on sound close to the microphone.",
     instrument: "Instrument",
@@ -120,8 +120,8 @@ const tunerUiText: Record<
     tunerName: "Digital tuner"
   },
   fr: {
-    automaticMode: "Automatique",
-    automaticModeHint: "Detecte automatiquement la note ou la corde la plus proche.",
+    chromaticMode: "Chromatique",
+    chromaticModeHint: "Detecte toute note chromatique, meme hors du preset de cordes choisi.",
     directionMode: "Filtre directionnel",
     directionModeHint: "Reduit le bruit ambiant et se concentre sur le son proche du micro.",
     instrument: "Instrument",
@@ -148,8 +148,8 @@ const tunerUiText: Record<
     tunerName: "Accordeur numerique"
   },
   de: {
-    automaticMode: "Automatisch",
-    automaticModeHint: "Erkennt automatisch die naechste Note oder Saite.",
+    chromaticMode: "Chromatisch",
+    chromaticModeHint: "Erkennt jede chromatische Note, auch ausserhalb des gewaehlten Saiten-Presets.",
     directionMode: "Richtungsfilter",
     directionModeHint: "Reduziert Raumgeraeusche und fokussiert den Ton nahe am Mikrofon.",
     instrument: "Instrument",
@@ -176,8 +176,8 @@ const tunerUiText: Record<
     tunerName: "Digitales Stimmgeraet"
   },
   es: {
-    automaticMode: "Automatico",
-    automaticModeHint: "Detecta automaticamente la nota o cuerda mas cercana.",
+    chromaticMode: "Cromatica",
+    chromaticModeHint: "Detecta cualquier nota cromatica, incluso fuera del preset de cuerdas elegido.",
     directionMode: "Filtro direccional",
     directionModeHint: "Reduce el ruido ambiente y enfoca el sonido cerca del microfono.",
     instrument: "Instrumento",
@@ -204,8 +204,8 @@ const tunerUiText: Record<
     tunerName: "Afinador digital"
   },
   pt: {
-    automaticMode: "Automatico",
-    automaticModeHint: "Detecta automaticamente a nota ou corda mais proxima.",
+    chromaticMode: "Cromatica",
+    chromaticModeHint: "Detecta qualquer nota cromatica, mesmo fora do preset de cordas escolhido.",
     directionMode: "Filtro direcional",
     directionModeHint: "Reduz o ruido ambiente e foca o som perto do microfone.",
     instrument: "Instrumento",
@@ -232,8 +232,8 @@ const tunerUiText: Record<
     tunerName: "Afinador digital"
   },
   zh: {
-    automaticMode: "自动",
-    automaticModeHint: "自动识别最接近的音符或琴弦。",
+    chromaticMode: "半音阶",
+    chromaticModeHint: "识别听到的任意半音阶音符，即使不在所选琴弦预设中。",
     directionMode: "定向滤波",
     directionModeHint: "减少环境噪声，更专注于麦克风附近的声音。",
     instrument: "乐器",
@@ -260,8 +260,8 @@ const tunerUiText: Record<
     tunerName: "数字调音器"
   },
   ru: {
-    automaticMode: "Авто",
-    automaticModeHint: "Автоматически определяет ближайшую ноту или струну.",
+    chromaticMode: "Хроматический",
+    chromaticModeHint: "Определяет любую хроматическую ноту, даже вне выбранного строя струн.",
     directionMode: "Направленный фильтр",
     directionModeHint: "Снижает фоновый шум и фокусируется на звуке рядом с микрофоном.",
     instrument: "Инструмент",
@@ -288,8 +288,8 @@ const tunerUiText: Record<
     tunerName: "Цифровой тюнер"
   },
   ja: {
-    automaticMode: "自動",
-    automaticModeHint: "最も近い音または弦を自動で検出します。",
+    chromaticMode: "クロマチック",
+    chromaticModeHint: "選択した弦プリセット外の音も含め、半音階の音を検出します。",
     directionMode: "指向性フィルター",
     directionModeHint: "周囲の雑音を減らし、マイク近くの音に集中します。",
     instrument: "楽器",
@@ -316,8 +316,8 @@ const tunerUiText: Record<
     tunerName: "デジタルチューナー"
   },
   ko: {
-    automaticMode: "자동",
-    automaticModeHint: "가장 가까운 음 또는 줄을 자동으로 감지합니다.",
+    chromaticMode: "크로매틱",
+    chromaticModeHint: "선택한 줄 프리셋 밖의 음까지 반음계 음을 감지합니다.",
     directionMode: "지향성 필터",
     directionModeHint: "주변 소음을 줄이고 마이크 가까운 소리에 집중합니다.",
     instrument: "악기",
@@ -344,8 +344,8 @@ const tunerUiText: Record<
     tunerName: "디지털 튜너"
   },
   ar: {
-    automaticMode: "تلقائي",
-    automaticModeHint: "يتعرف تلقائيا على أقرب نغمة أو وتر.",
+    chromaticMode: "كروماتيكي",
+    chromaticModeHint: "يتعرف على أي نغمة كروماتيكية حتى خارج ضبط الأوتار المحدد.",
     directionMode: "مرشح اتجاهي",
     directionModeHint: "يقلل ضوضاء المكان ويركز على الصوت القريب من الميكروفون.",
     instrument: "الآلة",
@@ -859,9 +859,9 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
         </div>
         <div className="mt-3 grid gap-2 rounded-md border border-white/10 bg-zinc-950 px-3 py-2 text-xs font-semibold text-zinc-300 sm:grid-cols-[1fr_auto] sm:items-center">
           <span>
-            <span className="block text-white">{lockString ? uiText.lockString : uiText.automaticMode}</span>
+            <span className="block text-white">{lockString ? uiText.lockString : uiText.chromaticMode}</span>
             <span className="mt-1 block font-normal leading-5 text-zinc-500">
-              {lockString ? uiText.lockStringHint : uiText.automaticModeHint}
+              {lockString ? uiText.lockStringHint : uiText.chromaticModeHint}
             </span>
           </span>
           <span className="grid grid-cols-2 gap-2">
@@ -875,7 +875,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
                 setLockString(false);
               }}
             >
-              {uiText.automaticMode}
+              {uiText.chromaticMode}
             </button>
             <button
               className={`rounded-md border px-3 py-2 font-bold transition ${
