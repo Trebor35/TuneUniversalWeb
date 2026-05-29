@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Mic, MicOff, Settings2, Volume2, VolumeX } from "lucide-react";
+import { ListChecks, Mic, MicOff, Settings2, Volume2, VolumeX } from "lucide-react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { localeFromName, type Locale } from "@/lib/i18n/locales";
 import { getInstrumentLabel, getOrderedInstruments } from "@/lib/tools/instruments";
@@ -24,6 +24,14 @@ type TunerProps = {
   instrument?: Instrument;
 };
 
+type PolyTuneResult = {
+  cents: number | null;
+  frequency: number | null;
+  level: number;
+  note: TuningNote;
+  status: "flat" | "inTune" | "sharp" | "missing";
+};
+
 const tunerUiText: Record<
   Locale,
   {
@@ -40,6 +48,11 @@ const tunerUiText: Record<
     noiseGate: string;
     notes: string;
     playReference: string;
+    polyAnalyze: string;
+    polyHint: string;
+    polyListening: string;
+    polyMissing: string;
+    polyTitle: string;
     preset: string;
     referenceTone: string;
     signal: string;
@@ -64,6 +77,11 @@ const tunerUiText: Record<
     noiseGate: "Sensibilita microfono",
     notes: "Note",
     playReference: "Ascolta nota",
+    polyAnalyze: "PolyTune",
+    polyHint: "Suona tutte le corde a vuoto con una pennata: vedrai quali sono scordate.",
+    polyListening: "Ascolto...",
+    polyMissing: "Non rilevata",
+    polyTitle: "Controllo tutte le corde",
     preset: "Accordatura",
     referenceTone: "Tono di riferimento",
     signal: "Segnale",
@@ -87,6 +105,11 @@ const tunerUiText: Record<
     noiseGate: "Microphone sensitivity",
     notes: "Notes",
     playReference: "Play note",
+    polyAnalyze: "PolyTune",
+    polyHint: "Strum all open strings once to see which strings are out of tune.",
+    polyListening: "Listening...",
+    polyMissing: "Not detected",
+    polyTitle: "All-string check",
     preset: "Tuning",
     referenceTone: "Reference tone",
     signal: "Signal",
@@ -110,6 +133,11 @@ const tunerUiText: Record<
     noiseGate: "Sensibilite du micro",
     notes: "Notes",
     playReference: "Ecouter la note",
+    polyAnalyze: "PolyTune",
+    polyHint: "Grattez toutes les cordes a vide pour voir lesquelles sont a corriger.",
+    polyListening: "Ecoute...",
+    polyMissing: "Non detectee",
+    polyTitle: "Controle de toutes les cordes",
     preset: "Accordage",
     referenceTone: "Son de reference",
     signal: "Signal",
@@ -133,6 +161,11 @@ const tunerUiText: Record<
     noiseGate: "Mikrofonempfindlichkeit",
     notes: "Noten",
     playReference: "Ton abspielen",
+    polyAnalyze: "PolyTune",
+    polyHint: "Schlage alle leeren Saiten einmal an, um verstimmte Saiten zu sehen.",
+    polyListening: "Hoert zu...",
+    polyMissing: "Nicht erkannt",
+    polyTitle: "Alle Saiten pruefen",
     preset: "Stimmung",
     referenceTone: "Referenzton",
     signal: "Signal",
@@ -156,6 +189,11 @@ const tunerUiText: Record<
     noiseGate: "Sensibilidad del microfono",
     notes: "Notas",
     playReference: "Oir nota",
+    polyAnalyze: "PolyTune",
+    polyHint: "Rasguea todas las cuerdas al aire para ver cuales estan desafinadas.",
+    polyListening: "Escuchando...",
+    polyMissing: "No detectada",
+    polyTitle: "Revision de todas las cuerdas",
     preset: "Afinacion",
     referenceTone: "Tono de referencia",
     signal: "Senal",
@@ -179,6 +217,11 @@ const tunerUiText: Record<
     noiseGate: "Sensibilidade do microfone",
     notes: "Notas",
     playReference: "Ouvir nota",
+    polyAnalyze: "PolyTune",
+    polyHint: "Toque todas as cordas soltas uma vez para ver quais estao desafinadas.",
+    polyListening: "Ouvindo...",
+    polyMissing: "Nao detectada",
+    polyTitle: "Verificacao de todas as cordas",
     preset: "Afinacao",
     referenceTone: "Tom de referencia",
     signal: "Sinal",
@@ -202,6 +245,11 @@ const tunerUiText: Record<
     noiseGate: "麦克风灵敏度",
     notes: "音名",
     playReference: "播放音高",
+    polyAnalyze: "PolyTune",
+    polyHint: "一次扫拨所有空弦，查看哪些琴弦需要调整。",
+    polyListening: "正在聆听...",
+    polyMissing: "未检测到",
+    polyTitle: "全弦检查",
     preset: "调弦",
     referenceTone: "参考音",
     signal: "信号",
@@ -225,6 +273,11 @@ const tunerUiText: Record<
     noiseGate: "Чувствительность микрофона",
     notes: "Ноты",
     playReference: "Слушать ноту",
+    polyAnalyze: "PolyTune",
+    polyHint: "Сыграйте все открытые струны одним ударом, чтобы увидеть расстроенные струны.",
+    polyListening: "Слушаю...",
+    polyMissing: "Не обнаружено",
+    polyTitle: "Проверка всех струн",
     preset: "Строй",
     referenceTone: "Опорный тон",
     signal: "Сигнал",
@@ -248,6 +301,11 @@ const tunerUiText: Record<
     noiseGate: "マイク感度",
     notes: "音名",
     playReference: "音を鳴らす",
+    polyAnalyze: "PolyTune",
+    polyHint: "開放弦をまとめて一度鳴らすと、ずれている弦を確認できます。",
+    polyListening: "聴いています...",
+    polyMissing: "未検出",
+    polyTitle: "全弦チェック",
     preset: "チューニング",
     referenceTone: "基準音",
     signal: "信号",
@@ -271,6 +329,11 @@ const tunerUiText: Record<
     noiseGate: "마이크 감도",
     notes: "음이름",
     playReference: "음 듣기",
+    polyAnalyze: "PolyTune",
+    polyHint: "개방현을 한 번에 스트럼하면 어떤 줄이 틀어졌는지 볼 수 있습니다.",
+    polyListening: "듣는 중...",
+    polyMissing: "감지 안 됨",
+    polyTitle: "전체 줄 확인",
     preset: "튜닝",
     referenceTone: "기준음",
     signal: "신호",
@@ -294,6 +357,11 @@ const tunerUiText: Record<
     noiseGate: "حساسية الميكروفون",
     notes: "النغمات",
     playReference: "تشغيل النغمة",
+    polyAnalyze: "PolyTune",
+    polyHint: "اعزف كل الأوتار المفتوحة مرة واحدة لمعرفة الأوتار غير المضبوطة.",
+    polyListening: "يستمع...",
+    polyMissing: "غير مكتشف",
+    polyTitle: "فحص كل الأوتار",
     preset: "الدوزان",
     referenceTone: "النغمة المرجعية",
     signal: "الإشارة",
@@ -325,6 +393,46 @@ function getRms(buffer: Float32Array) {
   return Math.sqrt(buffer.reduce((sum, value) => sum + value * value, 0) / buffer.length);
 }
 
+function estimateStringFromSpectrum(data: Float32Array, sampleRate: number, fftSize: number, target: TuningNote) {
+  let bestDb = -Infinity;
+  let bestFrequency = 0;
+  let bestHarmonic = 1;
+  const nyquist = sampleRate / 2;
+
+  for (let harmonic = 1; harmonic <= 5; harmonic += 1) {
+    const center = target.frequency * harmonic;
+    if (center >= nyquist) break;
+    const range = center * 0.045;
+    const startBin = Math.max(1, Math.floor(((center - range) / sampleRate) * fftSize));
+    const endBin = Math.min(data.length - 1, Math.ceil(((center + range) / sampleRate) * fftSize));
+
+    for (let bin = startBin; bin <= endBin; bin += 1) {
+      const db = data[bin] - harmonic * 1.8;
+      if (db > bestDb) {
+        bestDb = db;
+        bestFrequency = (bin * sampleRate) / fftSize;
+        bestHarmonic = harmonic;
+      }
+    }
+  }
+
+  if (!Number.isFinite(bestDb) || bestDb < -82 || bestFrequency <= 0) {
+    return { cents: null, frequency: null, level: 0, status: "missing" as const };
+  }
+
+  const estimatedFundamental = bestFrequency / bestHarmonic;
+  const cents = Math.round(1200 * Math.log2(estimatedFundamental / target.frequency));
+  const level = clamp(Math.round(((bestDb + 82) / 48) * 100), 0, 100);
+  const status: PolyTuneResult["status"] = Math.abs(cents) <= 7 ? "inTune" : cents < 0 ? "flat" : "sharp";
+
+  return {
+    cents: clamp(cents, -50, 50),
+    frequency: estimatedFundamental,
+    level,
+    status
+  };
+}
+
 export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
   const currentLocale = localeFromName(dictionary.localeName);
   const orderedInstruments = useMemo(() => getOrderedInstruments(currentLocale), [currentLocale]);
@@ -343,7 +451,10 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
   const [directionalFilter, setDirectionalFilter] = useState(true);
   const [lockString, setLockString] = useState(true);
   const [micSensitivity, setMicSensitivity] = useState(58);
+  const [polyAnalyzing, setPolyAnalyzing] = useState(false);
+  const [polyResults, setPolyResults] = useState<PolyTuneResult[]>([]);
   const [signalLevel, setSignalLevel] = useState(0);
+  const analyserRef = useRef<AnalyserNode | null>(null);
   const contextRef = useRef<AudioContext | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const frameRef = useRef<number | null>(null);
@@ -379,6 +490,12 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
 
   const statusClass = cents !== null && Math.abs(cents) <= 5 ? "text-emerald-300" : "text-orange-300";
   const centerGlow = cents !== null && Math.abs(cents) <= 5 ? "shadow-[0_0_45px_rgba(52,211,153,0.45)]" : "";
+  const polyStatusLabel = (statusValue: PolyTuneResult["status"]) => {
+    if (statusValue === "missing") return uiText.polyMissing;
+    if (statusValue === "inTune") return dictionary.tool.inTune;
+    if (statusValue === "flat") return dictionary.tool.flat;
+    return dictionary.tool.sharp;
+  };
 
   const ticks = useMemo(
     () =>
@@ -446,10 +563,12 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
       highPass.type = "highpass";
       highPass.frequency.value = directionalFilter ? 70 : 35;
       highPass.Q.value = 0.7;
-      analyser.fftSize = 2048;
+      analyser.fftSize = 16384;
+      analyser.smoothingTimeConstant = 0.72;
       source.connect(highPass).connect(analyser);
 
       const buffer = new Float32Array(analyser.fftSize);
+      analyserRef.current = analyser;
       streamRef.current = stream;
       contextRef.current = audioContext;
       frequencyHistoryRef.current = [];
@@ -490,13 +609,54 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
     }
   }
 
+  async function analyzePolyTune() {
+    setError("");
+    setPolyAnalyzing(true);
+    setPolyResults([]);
+
+    if (!analyserRef.current || !contextRef.current) {
+      await start();
+      await new Promise((resolve) => window.setTimeout(resolve, 450));
+    }
+
+    const analyser = analyserRef.current;
+    const audioContext = contextRef.current;
+    if (!analyser || !audioContext) {
+      setPolyAnalyzing(false);
+      return;
+    }
+
+    const mergedSpectrum = new Float32Array(analyser.frequencyBinCount).fill(-Infinity);
+    const frame = new Float32Array(analyser.frequencyBinCount);
+    const startedAt = performance.now();
+
+    while (performance.now() - startedAt < 1100) {
+      analyser.getFloatFrequencyData(frame);
+      for (let index = 0; index < frame.length; index += 1) {
+        mergedSpectrum[index] = Math.max(mergedSpectrum[index], frame[index]);
+      }
+      await new Promise((resolve) => window.setTimeout(resolve, 70));
+    }
+
+    const currentStrings = stringsRef.current.length ? stringsRef.current : strings;
+    const results = currentStrings.map((note) => {
+      const result = estimateStringFromSpectrum(mergedSpectrum, audioContext.sampleRate, analyser.fftSize, note);
+      return { ...result, note };
+    });
+
+    setPolyResults(results);
+    setPolyAnalyzing(false);
+  }
+
   function stop() {
     if (frameRef.current) cancelAnimationFrame(frameRef.current);
     streamRef.current?.getTracks().forEach((track) => track.stop());
     contextRef.current?.close();
+    analyserRef.current = null;
     contextRef.current = null;
     streamRef.current = null;
     setIsListening(false);
+    setPolyAnalyzing(false);
     setSignalLevel(0);
   }
 
@@ -589,6 +749,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
     setCents(null);
     setFrequency(null);
     setDetectedNote("--");
+    setPolyResults([]);
   }, [selectedInstrument]);
 
   useEffect(() => {
@@ -599,6 +760,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
     setCents(null);
     setFrequency(null);
     setDetectedNote("--");
+    setPolyResults([]);
   }, [selectedPresetId, strings]);
 
   return (
@@ -743,6 +905,59 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
             {isPlayingTone ? <VolumeX size={17} /> : <Volume2 size={17} />}
             {isPlayingTone ? uiText.stopReference : uiText.playReference}
           </Button>
+        </div>
+
+        <div className="grid gap-3 rounded-xl border border-emerald-300/20 bg-emerald-300/5 p-3 sm:grid-cols-[1fr_auto] sm:items-start">
+          <div className="min-w-0">
+            <p className="flex items-center gap-2 text-sm font-bold text-white">
+              <ListChecks size={17} aria-hidden />
+              {uiText.polyTitle}
+            </p>
+            <p className="mt-1 text-xs leading-5 text-zinc-400">{uiText.polyHint}</p>
+          </div>
+          <Button
+            onClick={analyzePolyTune}
+            disabled={polyAnalyzing}
+            variant="secondary"
+            className="w-full border border-emerald-300/30 bg-emerald-300 text-zinc-950 hover:bg-emerald-200 disabled:cursor-wait disabled:opacity-70 sm:w-auto"
+          >
+            <ListChecks size={17} />
+            {polyAnalyzing ? uiText.polyListening : uiText.polyAnalyze}
+          </Button>
+          {polyResults.length ? (
+            <div className="grid gap-2 sm:col-span-2">
+              {polyResults.map((result, index) => {
+                const resultLabel = formatNoteName(noteWithOctave(result.note), noteSystem, false);
+                const isOk = result.status === "inTune";
+                const isMissing = result.status === "missing";
+                const isFlat = result.status === "flat";
+                return (
+                  <div
+                    key={`${result.note.name}-${result.note.octave}-${index}`}
+                    className="grid gap-2 rounded-lg border border-white/10 bg-zinc-950/80 p-3 text-sm sm:grid-cols-[74px_1fr_96px] sm:items-center"
+                  >
+                    <span className="font-black text-white">{resultLabel}</span>
+                    <span className="h-2 overflow-hidden rounded-full bg-white/10">
+                      <span
+                        className={`block h-full rounded-full ${
+                          isMissing ? "bg-zinc-600" : isOk ? "bg-emerald-300" : isFlat ? "bg-orange-300" : "bg-red-400"
+                        }`}
+                        style={{ width: `${Math.max(result.level, isMissing ? 8 : 18)}%` }}
+                      />
+                    </span>
+                    <span
+                      className={`font-bold ${
+                        isMissing ? "text-zinc-500" : isOk ? "text-emerald-300" : "text-orange-300"
+                      }`}
+                    >
+                      {polyStatusLabel(result.status)}
+                      {result.cents !== null ? ` ${result.cents > 0 ? "+" : ""}${result.cents}` : ""}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
         </div>
 
         <div className={`relative mx-auto min-h-[440px] w-full max-w-2xl rounded-2xl border border-white/10 bg-[radial-gradient(circle_at_50%_70%,rgba(16,185,129,0.18),transparent_26%),linear-gradient(180deg,#18181b,#050505)] p-3 sm:aspect-[1.55/1] sm:min-h-0 sm:rounded-[2rem] sm:p-4 ${centerGlow}`}>
