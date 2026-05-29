@@ -7,7 +7,8 @@ import { localeFromName, type Locale } from "@/lib/i18n/locales";
 import {
   beatsForMeter,
   getSubdivisionParts,
-  meters,
+  meterDenominators,
+  meterNumerators,
   subdivisions,
   type Meter,
   type Subdivision
@@ -214,6 +215,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
 
   const beats = beatsForMeter(meter);
   const parts = getSubdivisionParts(subdivision);
+  const [meterNumerator, meterDenominator] = meter.split("/");
 
   return (
     <Card className="space-y-6 p-4 sm:p-6">
@@ -258,12 +260,32 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
       </div>
       <Slider min={20} max={300} value={bpm} onChange={(event) => updateBpm(Number(event.target.value))} />
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-[1fr_1fr_1.4fr]">
         <label className="grid gap-2 text-sm font-semibold">
-          {dictionary.tool.meter}
-          <select value={meter} onChange={(event) => setMeter(event.target.value as Meter)} className="rounded-md border border-line bg-white p-3">
-            {meters.map((item) => (
-              <option key={item}>{item}</option>
+          {currentLocale === "it" ? "Numeratore" : "Numerator"}
+          <select
+            value={meterNumerator}
+            onChange={(event) => setMeter(`${event.target.value}/${meterDenominator}` as Meter)}
+            className="rounded-md border border-line bg-white p-3"
+          >
+            {meterNumerators.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="grid gap-2 text-sm font-semibold">
+          {currentLocale === "it" ? "Denominatore" : "Denominator"}
+          <select
+            value={meterDenominator}
+            onChange={(event) => setMeter(`${meterNumerator}/${event.target.value}` as Meter)}
+            className="rounded-md border border-line bg-white p-3"
+          >
+            {meterDenominators.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
             ))}
           </select>
         </label>
@@ -334,26 +356,28 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
         <div className="flex items-center justify-between text-sm font-semibold text-ink/70">
           <span>{labels.beat}</span>
           <span>
-            {running ? beat + 1 : 1}/{beats}
+            {running ? beat + 1 : 1}/{beats} · {meter}
           </span>
         </div>
-        <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${beats}, minmax(0, 1fr))` }}>
-          {Array.from({ length: beats }).map((_, beatIndex) => (
-            <div key={beatIndex} className="grid gap-1 rounded-lg border border-line bg-white p-2" style={{ gridTemplateColumns: `repeat(${parts}, minmax(0, 1fr))` }}>
-              {Array.from({ length: parts }).map((__, partIndex) => {
-                const active = running && beatIndex === beat && partIndex === subBeat;
-                const accent = beatIndex === 0 && partIndex === 0;
-                return (
-                  <span
-                    key={partIndex}
-                    className={`h-10 rounded-md transition ${
-                      active ? (accent && accentFirstBeat ? "bg-orange" : "bg-mint") : accent ? "bg-orange/20" : "bg-line"
-                    }`}
-                  />
-                );
-              })}
-            </div>
-          ))}
+        <div className="overflow-x-auto pb-1">
+          <div className="grid min-w-full gap-2" style={{ gridTemplateColumns: `repeat(${beats}, minmax(2.35rem, 1fr))` }}>
+            {Array.from({ length: beats }).map((_, beatIndex) => (
+              <div key={beatIndex} className="grid gap-1 rounded-lg border border-line bg-white p-2" style={{ gridTemplateColumns: `repeat(${parts}, minmax(0, 1fr))` }}>
+                {Array.from({ length: parts }).map((__, partIndex) => {
+                  const active = running && beatIndex === beat && partIndex === subBeat;
+                  const accent = beatIndex === 0 && partIndex === 0;
+                  return (
+                    <span
+                      key={partIndex}
+                      className={`h-10 rounded-md transition ${
+                        active ? (accent && accentFirstBeat ? "bg-orange" : "bg-mint") : accent ? "bg-orange/20" : "bg-line"
+                      }`}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

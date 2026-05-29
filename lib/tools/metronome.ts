@@ -1,7 +1,9 @@
 import type { Locale } from "@/lib/i18n/locales";
 
-export const meters = ["2/4", "3/4", "4/4", "6/8"] as const;
-export type Meter = (typeof meters)[number];
+export const meterNumerators = [2, 3, 4, 5, 6, 7, 12] as const;
+export const meterDenominators = [4, 8] as const;
+export const meters = ["2/4", "3/4", "4/4", "5/8", "6/8", "7/4", "12/8"] as const;
+export type Meter = `${number}/${number}`;
 
 export const subdivisions = [
   {
