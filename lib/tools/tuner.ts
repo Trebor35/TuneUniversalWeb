@@ -21,6 +21,16 @@ export const tunings: Record<Instrument, TuningNote[]> = {
     { name: "B", octave: 3, frequency: 246.94 },
     { name: "E", octave: 4, frequency: 329.63 }
   ],
+  "8-string-guitar": [
+    { name: "F#", octave: 1, frequency: 46.25 },
+    { name: "B", octave: 1, frequency: 61.74 },
+    { name: "E", octave: 2, frequency: 82.41 },
+    { name: "A", octave: 2, frequency: 110 },
+    { name: "D", octave: 3, frequency: 146.83 },
+    { name: "G", octave: 3, frequency: 196 },
+    { name: "B", octave: 3, frequency: 246.94 },
+    { name: "E", octave: 4, frequency: 329.63 }
+  ],
   "12-string-guitar": [
     { name: "E", octave: 3, frequency: 164.81 },
     { name: "E", octave: 2, frequency: 82.41 },
@@ -270,6 +280,37 @@ export const tuningPresets: Partial<Record<Instrument, TuningPreset[]>> = {
       id: "half-step-down",
       label: "Half step down",
       notes: [
+        { name: "A#", octave: 1, frequency: 58.27 },
+        { name: "D#", octave: 2, frequency: 77.78 },
+        { name: "G#", octave: 2, frequency: 103.83 },
+        { name: "C#", octave: 3, frequency: 138.59 },
+        { name: "F#", octave: 3, frequency: 185 },
+        { name: "A#", octave: 3, frequency: 233.08 },
+        { name: "D#", octave: 4, frequency: 311.13 }
+      ]
+    }
+  ],
+  "8-string-guitar": [
+    { id: "standard", label: "Standard F#", notes: tunings["8-string-guitar"] },
+    {
+      id: "drop-e",
+      label: "Drop E",
+      notes: [
+        { name: "E", octave: 1, frequency: 41.2 },
+        { name: "B", octave: 1, frequency: 61.74 },
+        { name: "E", octave: 2, frequency: 82.41 },
+        { name: "A", octave: 2, frequency: 110 },
+        { name: "D", octave: 3, frequency: 146.83 },
+        { name: "G", octave: 3, frequency: 196 },
+        { name: "B", octave: 3, frequency: 246.94 },
+        { name: "E", octave: 4, frequency: 329.63 }
+      ]
+    },
+    {
+      id: "half-step-down",
+      label: "Half step down",
+      notes: [
+        { name: "F", octave: 1, frequency: 43.65 },
         { name: "A#", octave: 1, frequency: 58.27 },
         { name: "D#", octave: 2, frequency: 77.78 },
         { name: "G#", octave: 2, frequency: 103.83 },

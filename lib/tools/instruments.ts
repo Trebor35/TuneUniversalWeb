@@ -3,7 +3,7 @@ import { instrumentIds, type Instrument } from "./toolConfig";
 
 type InstrumentLabelSet = Record<Instrument, Record<Locale, string>>;
 
-export const priorityInstruments: Instrument[] = ["guitar", "7-string-guitar", "12-string-guitar", "bass"];
+export const priorityInstruments: Instrument[] = ["guitar", "bass", "7-string-guitar", "8-string-guitar", "12-string-guitar"];
 
 export const instrumentLabels: InstrumentLabelSet = {
   "7-string-guitar": {
@@ -18,6 +18,19 @@ export const instrumentLabels: InstrumentLabelSet = {
     pt: "Guitarra de 7 cordas",
     ru: "7-струнная гитара",
     zh: "七弦吉他"
+  },
+  "8-string-guitar": {
+    ar: "غيتار 8 أوتار",
+    de: "8-saitige Gitarre",
+    en: "8-string guitar",
+    es: "Guitarra de 8 cuerdas",
+    fr: "Guitare 8 cordes",
+    it: "Chitarra a 8 corde",
+    ja: "8弦ギター",
+    ko: "8현 기타",
+    pt: "Guitarra de 8 cordas",
+    ru: "8-струнная гитара",
+    zh: "八弦吉他"
   },
   "12-string-guitar": {
     ar: "غيتار 12 وترا",
