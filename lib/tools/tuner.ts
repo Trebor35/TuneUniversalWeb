@@ -201,8 +201,44 @@ export const tuningPresets: Partial<Record<Instrument, TuningPreset[]>> = {
       ]
     },
     {
+      id: "drop-d-sharp",
+      label: "Drop D#",
+      notes: [
+        { name: "D#", octave: 2, frequency: 77.78 },
+        { name: "A#", octave: 2, frequency: 116.54 },
+        { name: "D#", octave: 3, frequency: 155.56 },
+        { name: "G#", octave: 3, frequency: 207.65 },
+        { name: "C", octave: 4, frequency: 261.63 },
+        { name: "F", octave: 4, frequency: 349.23 }
+      ]
+    },
+    {
+      id: "drop-c-sharp",
+      label: "Drop C#",
+      notes: [
+        { name: "C#", octave: 2, frequency: 69.3 },
+        { name: "G#", octave: 2, frequency: 103.83 },
+        { name: "C#", octave: 3, frequency: 138.59 },
+        { name: "F#", octave: 3, frequency: 185 },
+        { name: "A#", octave: 3, frequency: 233.08 },
+        { name: "D#", octave: 4, frequency: 311.13 }
+      ]
+    },
+    {
+      id: "drop-c",
+      label: "Drop C",
+      notes: [
+        { name: "C", octave: 2, frequency: 65.41 },
+        { name: "G", octave: 2, frequency: 98 },
+        { name: "C", octave: 3, frequency: 130.81 },
+        { name: "F", octave: 3, frequency: 174.61 },
+        { name: "A", octave: 3, frequency: 220 },
+        { name: "D", octave: 4, frequency: 293.66 }
+      ]
+    },
+    {
       id: "half-step-down",
-      label: "Half step down",
+      label: "Eb Standard",
       notes: [
         { name: "D#", octave: 2, frequency: 77.78 },
         { name: "G#", octave: 2, frequency: 103.83 },
@@ -214,7 +250,7 @@ export const tuningPresets: Partial<Record<Instrument, TuningPreset[]>> = {
     },
     {
       id: "whole-step-down",
-      label: "Whole step down",
+      label: "D Standard",
       notes: [
         { name: "D", octave: 2, frequency: 73.42 },
         { name: "G", octave: 2, frequency: 98 },
@@ -225,13 +261,13 @@ export const tuningPresets: Partial<Record<Instrument, TuningPreset[]>> = {
       ]
     },
     {
-      id: "dadgad",
-      label: "DADGAD",
+      id: "open-d",
+      label: "Open D",
       notes: [
         { name: "D", octave: 2, frequency: 73.42 },
         { name: "A", octave: 2, frequency: 110 },
         { name: "D", octave: 3, frequency: 146.83 },
-        { name: "G", octave: 3, frequency: 196 },
+        { name: "F#", octave: 3, frequency: 185 },
         { name: "A", octave: 3, frequency: 220 },
         { name: "D", octave: 4, frequency: 293.66 }
       ]
@@ -249,13 +285,13 @@ export const tuningPresets: Partial<Record<Instrument, TuningPreset[]>> = {
       ]
     },
     {
-      id: "open-d",
-      label: "Open D",
+      id: "dadgad",
+      label: "DADGAD",
       notes: [
         { name: "D", octave: 2, frequency: 73.42 },
         { name: "A", octave: 2, frequency: 110 },
         { name: "D", octave: 3, frequency: 146.83 },
-        { name: "F#", octave: 3, frequency: 185 },
+        { name: "G", octave: 3, frequency: 196 },
         { name: "A", octave: 3, frequency: 220 },
         { name: "D", octave: 4, frequency: 293.66 }
       ]
