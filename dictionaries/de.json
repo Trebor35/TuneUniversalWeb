@@ -1,7 +1,7 @@
 ﻿{
   "localeName": "Deutsch",
   "meta": { "title": "TuneUniversal - Kostenlose Musiktools", "description": "Instrumente stimmen, Tempo halten und Akkorde transponieren mit kostenlosen mehrsprachigen Musiktools." },
-  "nav": { "home": "Start", "tools": "Tools", "language": "Sprache" },
+  "nav": { "home": "Start", "tools": "Werkzeuge", "language": "Sprache" },
   "hero": { "eyebrow": "Kostenlose Musik-Microtools", "title": "TuneUniversal", "description": "Ein schnelles internationales Labor fuer Stimmung, Tempo und Akkorde auf jedem Geraet.", "cta": "Tools ansehen" },
   "home": { "toolHeading": "Musiktools", "faqHeading": "FAQ", "howHeading": "So funktioniert TuneUniversal" },
   "tool": { "detectedNote": "Erkannter Ton", "frequency": "Frequenz", "cents": "Cents", "flat": "Zu tief", "sharp": "Zu hoch", "inTune": "Gestimmt", "requestMic": "Mikrofon aktivieren", "stopMic": "Mikrofon stoppen", "micError": "Mikrofonzugriff fehlgeschlagen. Bitte Browserrechte pruefen.", "bpm": "BPM", "start": "Start", "stop": "Stopp", "reset": "Reset", "tap": "Tap", "history": "Letzte Taps", "meter": "Taktart", "inputChords": "Akkordeingabe", "semitones": "Halbtoene", "outputChords": "Transponiertes Ergebnis" },
