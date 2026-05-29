@@ -478,7 +478,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
   const targetString = strings[selectedString] ?? strings[0];
   const targetLabel = lockString ? formatNoteName(noteWithOctave(targetString), noteSystem) : detectedNote;
   const displayCents = clamp(cents ?? 0, -50, 50);
-  const needleAngle = displayCents * -1.35;
+  const needleAngle = displayCents * 1.35;
   const status =
     cents === null
       ? "--"
