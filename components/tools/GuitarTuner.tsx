@@ -559,13 +559,17 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
       const audioContext = new AudioContext();
       const source = audioContext.createMediaStreamSource(stream);
       const highPass = audioContext.createBiquadFilter();
+      const lowPass = audioContext.createBiquadFilter();
       const analyser = audioContext.createAnalyser();
       highPass.type = "highpass";
-      highPass.frequency.value = directionalFilter ? 70 : 35;
-      highPass.Q.value = 0.7;
+      highPass.frequency.value = directionalFilter ? 38 : 28;
+      highPass.Q.value = 0.6;
+      lowPass.type = "lowpass";
+      lowPass.frequency.value = directionalFilter ? 1500 : 2200;
+      lowPass.Q.value = 0.7;
       analyser.fftSize = 16384;
-      analyser.smoothingTimeConstant = 0.72;
-      source.connect(highPass).connect(analyser);
+      analyser.smoothingTimeConstant = 0.58;
+      source.connect(highPass).connect(lowPass).connect(analyser);
 
       const buffer = new Float32Array(analyser.fftSize);
       analyserRef.current = analyser;
@@ -582,7 +586,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
           lastSignalUpdateRef.current = now;
           setSignalLevel(clamp(Math.round((rms / 0.08) * 100), 0, 100));
         }
-        const minRms = 0.004 + ((100 - micSensitivityRef.current) / 100) * 0.035;
+        const minRms = 0.003 + ((100 - micSensitivityRef.current) / 100) * 0.032;
         const detected = autoCorrelate(buffer, audioContext.sampleRate, minRms);
         if (detected) {
           const stableFrequency = smoothedFrequency(detected);

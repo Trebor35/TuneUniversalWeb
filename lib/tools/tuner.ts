@@ -513,25 +513,54 @@ export function autoCorrelate(buffer: Float32Array, sampleRate: number, minRms =
   const rms = Math.sqrt(buffer.reduce((sum, value) => sum + value * value, 0) / buffer.length);
   if (rms < minRms) return null;
 
-  let bestOffset = -1;
-  let bestCorrelation = 0;
-  const correlations = new Array<number>(buffer.length).fill(0);
-  const minOffset = Math.floor(sampleRate / 1000);
-  const maxOffset = Math.floor(sampleRate / 40);
+  const minTau = Math.floor(sampleRate / 1200);
+  const maxTau = Math.min(Math.floor(sampleRate / 28), Math.floor(buffer.length / 2));
+  const yin = new Float32Array(maxTau + 1);
 
-  for (let offset = minOffset; offset < maxOffset; offset += 1) {
-    let correlation = 0;
-    for (let i = 0; i < buffer.length - offset; i += 1) {
-      correlation += 1 - Math.abs(buffer[i] - buffer[i + offset]);
+  for (let tau = minTau; tau <= maxTau; tau += 1) {
+    let sum = 0;
+    for (let index = 0; index < maxTau; index += 1) {
+      const difference = buffer[index] - buffer[index + tau];
+      sum += difference * difference;
     }
-    correlation /= buffer.length - offset;
-    correlations[offset] = correlation;
-    if (correlation > bestCorrelation) {
-      bestCorrelation = correlation;
-      bestOffset = offset;
+    yin[tau] = sum;
+  }
+
+  let runningSum = 0;
+  for (let tau = minTau; tau <= maxTau; tau += 1) {
+    runningSum += yin[tau];
+    yin[tau] = runningSum === 0 ? 1 : (yin[tau] * tau) / runningSum;
+  }
+
+  let bestTau = -1;
+  const threshold = 0.14;
+  for (let tau = minTau + 1; tau < maxTau; tau += 1) {
+    if (yin[tau] < threshold && yin[tau] <= yin[tau - 1]) {
+      while (tau + 1 < maxTau && yin[tau + 1] < yin[tau]) {
+        tau += 1;
+      }
+      bestTau = tau;
+      break;
     }
   }
 
-  if (bestCorrelation < 0.88 || bestOffset === -1) return null;
-  return sampleRate / bestOffset;
+  if (bestTau === -1) {
+    let bestValue = 1;
+    for (let tau = minTau; tau <= maxTau; tau += 1) {
+      if (yin[tau] < bestValue) {
+        bestValue = yin[tau];
+        bestTau = tau;
+      }
+    }
+    if (bestValue > 0.22) return null;
+  }
+
+  const previous = yin[bestTau - 1] ?? yin[bestTau];
+  const current = yin[bestTau];
+  const next = yin[bestTau + 1] ?? yin[bestTau];
+  const divisor = previous + next - 2 * current;
+  const betterTau = divisor === 0 ? bestTau : bestTau + (previous - next) / (2 * divisor);
+
+  if (!Number.isFinite(betterTau) || betterTau <= 0) return null;
+  return sampleRate / betterTau;
 }
