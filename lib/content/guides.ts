@@ -1,7 +1,7 @@
 import type { Locale } from "@/lib/i18n/locales";
 import { getInstrumentLabel } from "@/lib/tools/instruments";
 import { instrumentIds, type Instrument, type ToolSlug } from "@/lib/tools/toolConfig";
-import { formatNoteName, tunings } from "@/lib/tools/tuner";
+import { formatNoteName, tuningPresets, tunings, type TuningNote } from "@/lib/tools/tuner";
 
 export const instrumentGuideSlugs = [
   "how-to-tune-guitar",
@@ -31,9 +31,29 @@ export const instrumentGuideSlugs = [
 
 const extraGuideSlugs = ["standard-bass-tuning", "how-to-use-metronome", "how-to-find-bpm"] as const;
 
-export const guideSlugs = [...instrumentGuideSlugs, ...extraGuideSlugs] as const;
+export const alternativeTuningGuideSlugs = [
+  "eb-standard-tuning",
+  "d-standard-tuning",
+  "drop-d-tuning",
+  "drop-d-sharp-tuning",
+  "drop-c-sharp-tuning",
+  "drop-c-tuning",
+  "open-d-tuning",
+  "open-g-tuning",
+  "dadgad-tuning",
+  "drop-a-7-string-tuning",
+  "drop-e-8-string-tuning",
+  "low-g-ukulele-tuning",
+  "d-ukulele-tuning",
+  "double-c-banjo-tuning",
+  "sawmill-banjo-tuning",
+  "five-string-bass-tuning"
+] as const;
+
+export const guideSlugs = [...instrumentGuideSlugs, ...alternativeTuningGuideSlugs, ...extraGuideSlugs] as const;
 
 export type GuideSlug = (typeof guideSlugs)[number];
+type AlternativeTuningGuideSlug = (typeof alternativeTuningGuideSlugs)[number];
 
 export type GuideContent = {
   description: string;
@@ -393,6 +413,153 @@ function standardBassUtility(locale: Locale): Omit<GuideContent, "targetPath"> {
   };
 }
 
+const alternativeTuningGuides: Record<
+  AlternativeTuningGuideSlug,
+  { instrument: Instrument; presetId: string; label: string }
+> = {
+  "eb-standard-tuning": { instrument: "guitar", presetId: "half-step-down", label: "Eb Standard" },
+  "d-standard-tuning": { instrument: "guitar", presetId: "whole-step-down", label: "D Standard" },
+  "drop-d-tuning": { instrument: "guitar", presetId: "drop-d", label: "Drop D" },
+  "drop-d-sharp-tuning": { instrument: "guitar", presetId: "drop-d-sharp", label: "Drop D#" },
+  "drop-c-sharp-tuning": { instrument: "guitar", presetId: "drop-c-sharp", label: "Drop C#" },
+  "drop-c-tuning": { instrument: "guitar", presetId: "drop-c", label: "Drop C" },
+  "open-d-tuning": { instrument: "guitar", presetId: "open-d", label: "Open D" },
+  "open-g-tuning": { instrument: "guitar", presetId: "open-g", label: "Open G" },
+  "dadgad-tuning": { instrument: "guitar", presetId: "dadgad", label: "DADGAD" },
+  "drop-a-7-string-tuning": { instrument: "7-string-guitar", presetId: "drop-a", label: "Drop A" },
+  "drop-e-8-string-tuning": { instrument: "8-string-guitar", presetId: "drop-e", label: "Drop E" },
+  "low-g-ukulele-tuning": { instrument: "ukulele", presetId: "low-g", label: "Low G" },
+  "d-ukulele-tuning": { instrument: "ukulele", presetId: "d-tuning", label: "D tuning" },
+  "double-c-banjo-tuning": { instrument: "banjo", presetId: "double-c", label: "Double C" },
+  "sawmill-banjo-tuning": { instrument: "banjo", presetId: "sawmill", label: "Sawmill" },
+  "five-string-bass-tuning": { instrument: "bass", presetId: "five-string", label: "5-string low B" }
+};
+
+const alternativeTuningLabels: Record<
+  Locale,
+  {
+    description: (name: string, instrument: string, tuning: string) => string;
+    intro: (name: string, instrument: string, tuning: string) => string;
+    keywords: (name: string, instrument: string, tuning: string) => string[];
+    referenceTitle: string;
+    setupTitle: string;
+    steps: (name: string, instrument: string) => string[];
+    targetTitle: (name: string, instrument: string) => string;
+    title: (name: string, instrument: string) => string;
+  }
+> = {
+  ar: {
+    title: (name, instrument) => `ضبط ${name} لـ ${instrument}`,
+    description: (name, instrument, tuning) => `دليل ضبط ${instrument} على ${name}. النغمات: ${tuning}.`,
+    intro: (name, instrument, tuning) => `استخدم هذا الدليل لضبط ${instrument} على ${name}. افتح الموالف، اختر الآلة والضبط المناسب، ثم اتبع النغمات: ${tuning}.`,
+    steps: (name, instrument) => [`افتح موالف ${instrument}.`, `اختر ضبط ${name} إن كان متاحا.`, "اعزف وترا واحدا في كل مرة.", "اضبط حتى يصبح المؤشر في الوسط."],
+    referenceTitle: "النغمات",
+    setupTitle: "متى يستخدم",
+    keywords: (name, instrument, tuning) => [`ضبط ${name}`, `موالف ${instrument}`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `موالف ${instrument} - ${name}`
+  },
+  de: {
+    title: (name, instrument) => `${name} Stimmung für ${instrument}`,
+    description: (name, instrument, tuning) => `Guide für ${instrument} in ${name}. Referenznoten: ${tuning}.`,
+    intro: (name, instrument, tuning) => `Diese Anleitung zeigt die ${name} Stimmung für ${instrument}. Öffne den Tuner, wähle das Instrument und stimme nach diesen Noten: ${tuning}.`,
+    steps: (name, instrument) => [`Öffne den ${instrument}-Tuner.`, `Wähle ${name}, falls der Preset sichtbar ist.`, "Spiele eine Saite nach der anderen.", "Stimme, bis die Anzeige mittig steht."],
+    referenceTitle: "Referenznoten",
+    setupTitle: "Einsatz",
+    keywords: (name, instrument, tuning) => [`${name} stimmung`, `${instrument} stimmen`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `${instrument} Tuner - ${name}`
+  },
+  en: {
+    title: (name, instrument) => `${name} tuning for ${instrument}`,
+    description: (name, instrument, tuning) => `Learn ${name} tuning for ${instrument}. Reference notes: ${tuning}.`,
+    intro: (name, instrument, tuning) => `Use this guide to tune ${instrument} in ${name}. Open the tuner, select the instrument and match these notes: ${tuning}.`,
+    steps: (name, instrument) => [`Open the ${instrument} tuner.`, `Select ${name} if the preset is available.`, "Play one string at a time.", "Tune until the needle is centered."],
+    referenceTitle: "Reference notes",
+    setupTitle: "When to use it",
+    keywords: (name, instrument, tuning) => [`${name} tuning`, `${instrument} tuner`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `${instrument} tuner - ${name}`
+  },
+  es: {
+    title: (name, instrument) => `Afinación ${name} para ${instrument}`,
+    description: (name, instrument, tuning) => `Guía de afinación ${name} para ${instrument}. Notas: ${tuning}.`,
+    intro: (name, instrument, tuning) => `Usa esta guía para afinar ${instrument} en ${name}. Abre el afinador, selecciona el instrumento y ajusta estas notas: ${tuning}.`,
+    steps: (name, instrument) => [`Abre el afinador de ${instrument}.`, `Elige ${name} si el preset está disponible.`, "Toca una cuerda cada vez.", "Ajusta hasta centrar el indicador."],
+    referenceTitle: "Notas de referencia",
+    setupTitle: "Cuándo usarla",
+    keywords: (name, instrument, tuning) => [`afinación ${name}`, `afinador ${instrument}`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `Afinador de ${instrument} - ${name}`
+  },
+  fr: {
+    title: (name, instrument) => `Accordage ${name} pour ${instrument}`,
+    description: (name, instrument, tuning) => `Guide d'accordage ${name} pour ${instrument}. Notes : ${tuning}.`,
+    intro: (name, instrument, tuning) => `Utilisez ce guide pour accorder ${instrument} en ${name}. Ouvrez l'accordeur, sélectionnez l'instrument et suivez ces notes : ${tuning}.`,
+    steps: (name, instrument) => [`Ouvrez l'accordeur ${instrument}.`, `Choisissez ${name} si le preset est disponible.`, "Jouez une corde à la fois.", "Ajustez jusqu'à ce que l'aiguille soit centrée."],
+    referenceTitle: "Notes de référence",
+    setupTitle: "Quand l'utiliser",
+    keywords: (name, instrument, tuning) => [`accordage ${name}`, `accordeur ${instrument}`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `Accordeur ${instrument} - ${name}`
+  },
+  it: {
+    title: (name, instrument) => `Accordatura ${name} per ${instrument}`,
+    description: (name, instrument, tuning) => `Guida all'accordatura ${name} per ${instrument}. Note di riferimento: ${tuning}.`,
+    intro: (name, instrument, tuning) => `Usa questa guida per accordare ${instrument} in ${name}. Apri l'accordatore, seleziona lo strumento e segui queste note: ${tuning}.`,
+    steps: (name, instrument) => [`Apri l'accordatore per ${instrument}.`, `Seleziona ${name} se il preset è disponibile.`, "Suona una corda alla volta.", "Regola finché la lancetta è al centro."],
+    referenceTitle: "Note di riferimento",
+    setupTitle: "Quando usarla",
+    keywords: (name, instrument, tuning) => [`accordatura ${name}`, `accordatore ${instrument}`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `Accordatore ${instrument} - ${name}`
+  },
+  ja: {
+    title: (name, instrument) => `${instrument}の${name}チューニング`,
+    description: (name, instrument, tuning) => `${instrument}を${name}で調整するガイド。基準音: ${tuning}。`,
+    intro: (name, instrument, tuning) => `${instrument}を${name}にチューニングするためのガイドです。チューナーを開き、楽器を選び、${tuning} に合わせます。`,
+    steps: (name, instrument) => [`${instrument}チューナーを開きます。`, `${name}プリセットがあれば選びます。`, "1本ずつ弦を鳴らします。", "針が中央になるまで調整します。"],
+    referenceTitle: "基準音",
+    setupTitle: "使いどころ",
+    keywords: (name, instrument, tuning) => [`${name} チューニング`, `${instrument} チューナー`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `${instrument}チューナー - ${name}`
+  },
+  ko: {
+    title: (name, instrument) => `${instrument} ${name} 튜닝`,
+    description: (name, instrument, tuning) => `${instrument}의 ${name} 튜닝 가이드입니다. 기준 음: ${tuning}.`,
+    intro: (name, instrument, tuning) => `${instrument}를 ${name}로 맞추는 가이드입니다. 튜너를 열고 악기를 선택한 뒤 ${tuning}에 맞춥니다.`,
+    steps: (name, instrument) => [`${instrument} 튜너를 엽니다.`, `${name} 프리셋이 있으면 선택합니다.`, "현을 하나씩 연주합니다.", "바늘이 중앙에 올 때까지 조율합니다."],
+    referenceTitle: "기준 음",
+    setupTitle: "사용 시점",
+    keywords: (name, instrument, tuning) => [`${name} 튜닝`, `${instrument} 튜너`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `${instrument} 튜너 - ${name}`
+  },
+  pt: {
+    title: (name, instrument) => `Afinação ${name} para ${instrument}`,
+    description: (name, instrument, tuning) => `Guia de afinação ${name} para ${instrument}. Notas: ${tuning}.`,
+    intro: (name, instrument, tuning) => `Use este guia para afinar ${instrument} em ${name}. Abra o afinador, selecione o instrumento e siga estas notas: ${tuning}.`,
+    steps: (name, instrument) => [`Abra o afinador de ${instrument}.`, `Escolha ${name} se o preset estiver disponível.`, "Toque uma corda por vez.", "Ajuste até o indicador ficar no centro."],
+    referenceTitle: "Notas de referência",
+    setupTitle: "Quando usar",
+    keywords: (name, instrument, tuning) => [`afinação ${name}`, `afinador ${instrument}`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `Afinador de ${instrument} - ${name}`
+  },
+  ru: {
+    title: (name, instrument) => `Строй ${name} для ${instrument}`,
+    description: (name, instrument, tuning) => `Руководство по строю ${name} для ${instrument}. Ноты: ${tuning}.`,
+    intro: (name, instrument, tuning) => `Используйте это руководство, чтобы настроить ${instrument} в ${name}. Откройте тюнер, выберите инструмент и настройте ноты: ${tuning}.`,
+    steps: (name, instrument) => [`Откройте тюнер ${instrument}.`, `Выберите ${name}, если пресет доступен.`, "Играйте по одной струне.", "Настраивайте, пока стрелка не будет в центре."],
+    referenceTitle: "Опорные ноты",
+    setupTitle: "Когда использовать",
+    keywords: (name, instrument, tuning) => [`строй ${name}`, `тюнер ${instrument}`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `Тюнер ${instrument} - ${name}`
+  },
+  zh: {
+    title: (name, instrument) => `${instrument} ${name} 调弦`,
+    description: (name, instrument, tuning) => `${instrument} 的 ${name} 调弦指南。参考音：${tuning}。`,
+    intro: (name, instrument, tuning) => `使用本指南将 ${instrument} 调为 ${name}。打开调音器，选择乐器，并按照这些音调弦：${tuning}。`,
+    steps: (name, instrument) => [`打开 ${instrument} 调音器。`, `如果有 ${name} 预设，请选择它。`, "一次弹奏一根弦。", "调整到指针居中。"],
+    referenceTitle: "参考音",
+    setupTitle: "适用场景",
+    keywords: (name, instrument, tuning) => [`${name} 调弦`, `${instrument} 调音器`, `${instrument} ${name}`, tuning],
+    targetTitle: (name, instrument) => `${instrument} 调音器 - ${name}`
+  }
+};
+
 function coreToolForInstrument(instrument: Instrument): ToolSlug {
   if (instrument === "bass") return "bass-tuner";
   if (instrument === "ukulele") return "ukulele-tuner";
@@ -414,8 +581,12 @@ function instrumentFromGuideSlug(guide: GuideSlug): Instrument | null {
 }
 
 function tuningString(instrument: Instrument, locale: Locale) {
+  return tuningStringFromNotes(tunings[instrument], locale);
+}
+
+function tuningStringFromNotes(notes: TuningNote[], locale: Locale) {
   const notation = locale === "it" || locale === "fr" || locale === "es" || locale === "pt" ? "latin" : "international";
-  return tunings[instrument].map((note) => formatNoteName(`${note.name}${note.octave ?? ""}`, notation, false)).join(" - ");
+  return notes.map((note) => formatNoteName(`${note.name}${note.octave ?? ""}`, notation, false)).join(" - ");
 }
 
 function buildInstrumentGuide(locale: Locale, instrument: Instrument, guide: GuideSlug): GuideContent {
@@ -436,6 +607,43 @@ function buildInstrumentGuide(locale: Locale, instrument: Instrument, guide: Gui
   };
 }
 
+function alternativeTuningFromGuideSlug(guide: GuideSlug) {
+  return alternativeTuningGuides[guide as AlternativeTuningGuideSlug] ?? null;
+}
+
+function buildAlternativeTuningGuide(locale: Locale, guide: GuideSlug): GuideContent | null {
+  const tuningGuide = alternativeTuningFromGuideSlug(guide);
+  if (!tuningGuide) return null;
+
+  const preset = tuningPresets[tuningGuide.instrument]?.find((item) => item.id === tuningGuide.presetId);
+  if (!preset) return null;
+
+  const copy = alternativeTuningLabels[locale];
+  const instrument = getInstrumentLabel(tuningGuide.instrument, locale);
+  const tuning = tuningStringFromNotes(preset.notes, locale);
+  const name = tuningGuide.label;
+  const targetPath = targetPathForInstrument(tuningGuide.instrument);
+
+  return {
+    description: copy.description(name, instrument, tuning),
+    intro: copy.intro(name, instrument, tuning),
+    keywords: [...copy.keywords(name, instrument, tuning), "alternate tuning", "guitar tuning", "TuneUniversal"],
+    sections: [
+      { title: copy.referenceTitle, body: tuning },
+      {
+        title: copy.setupTitle,
+        body: copy.description(name, instrument, tuning)
+      }
+    ],
+    steps: copy.steps(name, instrument),
+    targetDescription: copy.description(name, instrument, tuning),
+    targetPath,
+    targetTitle: copy.targetTitle(name, instrument),
+    title: copy.title(name, instrument),
+    tool: coreToolForInstrument(tuningGuide.instrument)
+  };
+}
+
 export function isGuideSlug(value: string | undefined): value is GuideSlug {
   return Boolean(value && guideSlugs.includes(value as GuideSlug));
 }
@@ -443,15 +651,24 @@ export function isGuideSlug(value: string | undefined): value is GuideSlug {
 export function getGuideContent(locale: Locale, guide: GuideSlug): GuideContent {
   const instrument = instrumentFromGuideSlug(guide);
   if (instrument) return buildInstrumentGuide(locale, instrument, guide);
+  const alternativeGuide = buildAlternativeTuningGuide(locale, guide);
+  if (alternativeGuide) return alternativeGuide;
   return utilityGuides[locale][guide as (typeof extraGuideSlugs)[number]];
 }
 
 export function guidesForTool(tool: ToolSlug): GuideSlug[] {
   if (tool === "guitar-tuner") {
-    return ["how-to-tune-guitar", "how-to-tune-7-string-guitar", "how-to-tune-8-string-guitar", "how-to-tune-12-string-guitar"];
+    return [
+      "how-to-tune-guitar",
+      "eb-standard-tuning",
+      "d-standard-tuning",
+      "drop-d-tuning",
+      "drop-c-tuning",
+      "open-g-tuning"
+    ];
   }
-  if (tool === "bass-tuner") return ["how-to-tune-bass", "standard-bass-tuning"];
-  if (tool === "ukulele-tuner") return ["how-to-tune-ukulele"];
+  if (tool === "bass-tuner") return ["how-to-tune-bass", "standard-bass-tuning", "five-string-bass-tuning"];
+  if (tool === "ukulele-tuner") return ["how-to-tune-ukulele", "low-g-ukulele-tuning", "d-ukulele-tuning"];
   if (tool === "metronome") return ["how-to-use-metronome"];
   if (tool === "tap-bpm") return ["how-to-find-bpm"];
   return [];
