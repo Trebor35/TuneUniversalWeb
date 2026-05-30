@@ -1,13 +1,37 @@
 import type { Locale } from "@/lib/i18n/locales";
-import type { ToolSlug } from "@/lib/tools/toolConfig";
+import { getInstrumentLabel } from "@/lib/tools/instruments";
+import { instrumentIds, type Instrument, type ToolSlug } from "@/lib/tools/toolConfig";
+import { formatNoteName, tunings } from "@/lib/tools/tuner";
 
-export const guideSlugs = [
+export const instrumentGuideSlugs = [
   "how-to-tune-guitar",
-  "standard-bass-tuning",
+  "how-to-tune-7-string-guitar",
+  "how-to-tune-8-string-guitar",
+  "how-to-tune-12-string-guitar",
+  "how-to-tune-bass",
+  "how-to-tune-banjo",
+  "how-to-tune-cello",
+  "how-to-tune-cimbalom",
+  "how-to-tune-contrabass",
+  "how-to-tune-dulcimer",
+  "how-to-tune-erhu",
+  "how-to-tune-harp",
+  "how-to-tune-koto",
+  "how-to-tune-lute",
+  "how-to-tune-mandolin",
+  "how-to-tune-piano",
+  "how-to-tune-santur",
+  "how-to-tune-sitar",
   "how-to-tune-ukulele",
-  "how-to-use-metronome",
-  "how-to-find-bpm"
+  "how-to-tune-viola",
+  "how-to-tune-viola-da-gamba",
+  "how-to-tune-violin",
+  "how-to-tune-yangqin"
 ] as const;
+
+const extraGuideSlugs = ["standard-bass-tuning", "how-to-use-metronome", "how-to-find-bpm"] as const;
+
+export const guideSlugs = [...instrumentGuideSlugs, ...extraGuideSlugs] as const;
 
 export type GuideSlug = (typeof guideSlugs)[number];
 
@@ -17,14 +41,27 @@ export type GuideContent = {
   keywords: string[];
   sections: { body: string; title: string }[];
   steps: string[];
+  targetDescription?: string;
+  targetPath?: string;
+  targetTitle?: string;
   title: string;
   tool: ToolSlug;
+};
+
+type TuningGuideCopy = {
+  description: (instrument: string, tuning: string) => string;
+  intro: (instrument: string, tuning: string) => string;
+  keywords: (instrument: string, tuning: string) => string[];
+  sections: (instrument: string, tuning: string) => { body: string; title: string }[];
+  steps: (instrument: string) => string[];
+  targetTitle: (instrument: string) => string;
+  title: (instrument: string) => string;
 };
 
 export const guideIndexContent: Record<Locale, { description: string; title: string }> = {
   ar: {
     title: "أدلة TuneUniversal",
-    description: "أدلة سريعة لاستخدام الموالف والميترونوم وحساب BPM بلغتك."
+    description: "أدلة سريعة لضبط الآلات واستخدام الميترونوم وحساب BPM بلغتك."
   },
   de: {
     title: "TuneUniversal Anleitungen",
@@ -68,209 +105,354 @@ export const guideIndexContent: Record<Locale, { description: string; title: str
   }
 };
 
-const guideContent = {
-  it: {
-    "how-to-tune-guitar": {
-      title: "Come accordare la chitarra online",
-      description: "Guida rapida per accordare una chitarra standard con microfono e accordatore online.",
-      intro: "L'accordatura standard della chitarra è Mi, La, Re, Sol, Si, Mi. Con TuneUniversal puoi usare il microfono del telefono o del computer per controllare ogni corda in tempo reale.",
-      keywords: ["accordare chitarra", "accordatore chitarra online", "accordatura standard chitarra"],
-      tool: "guitar-tuner",
-      steps: ["Apri l'accordatore chitarra.", "Consenti l'accesso al microfono.", "Suona una corda a vuoto.", "Regola finché l'indicatore è al centro."],
-      sections: [
-        { title: "Accordatura standard", body: "Le corde dalla più grave alla più acuta sono Mi, La, Re, Sol, Si, Mi. Nel sistema internazionale sono E, A, D, G, B, E." },
-        { title: "Consigli pratici", body: "Suona una corda alla volta, tieni lo strumento vicino al microfono e riduci il rumore nella stanza." }
-      ]
-    },
-    "standard-bass-tuning": {
-      title: "Accordatura basso standard",
-      description: "Come accordare un basso a quattro corde in Mi, La, Re, Sol con un tuner online.",
-      intro: "Il basso standard a quattro corde usa Mi, La, Re, Sol. Sono note basse, quindi serve suonare corde pulite e lasciare vibrare il suono.",
-      keywords: ["accordare basso", "accordatore basso online", "accordatura basso standard"],
-      tool: "bass-tuner",
-      steps: ["Seleziona basso nell'accordatore.", "Suona la corda Mi a vuoto.", "Ripeti con La, Re e Sol.", "Controlla che ogni corda resti intonata."],
-      sections: [
-        { title: "Corde del basso", body: "In notazione internazionale le corde sono E, A, D, G. Parti sempre dalla corda più grave." },
-        { title: "Rilevamento migliore", body: "Le basse frequenze richiedono un segnale stabile. Avvicina lo strumento al microfono ed evita colpi troppo forti." }
-      ]
-    },
-    "how-to-tune-ukulele": {
-      title: "Come accordare l'ukulele",
-      description: "Guida all'accordatura ukulele standard G C E A con accordatore online.",
-      intro: "L'ukulele più comune usa l'accordatura Sol, Do, Mi, La. Con il tuner online puoi controllare rapidamente ogni corda.",
-      keywords: ["accordare ukulele", "accordatore ukulele online", "accordatura G C E A"],
-      tool: "ukulele-tuner",
-      steps: ["Apri l'accordatore ukulele.", "Suona la corda Sol.", "Controlla Do, Mi e La.", "Regola fino allo stato intonato."],
-      sections: [
-        { title: "Accordatura G C E A", body: "Questa accordatura è spesso chiamata high-G ed è comune su soprano, concert e tenor." },
-        { title: "Precisione", body: "Pizzica la corda con delicatezza e aspetta un secondo prima di leggere la nota." }
-      ]
-    },
-    "how-to-use-metronome": {
-      title: "Come usare il metronomo",
-      description: "Guida per studiare con BPM, accenti, metrica e suddivisioni ritmiche.",
-      intro: "Il metronomo aiuta a sviluppare tempo stabile. Imposta i BPM, scegli la metrica e ascolta l'accento sul primo battito.",
-      keywords: ["come usare metronomo", "metronomo online", "bpm musica"],
-      tool: "metronome",
-      steps: ["Scegli un BPM lento.", "Imposta 4/4 o la metrica del brano.", "Avvia il click.", "Aumenta gradualmente la velocità."],
-      sections: [
-        { title: "BPM e metrica", body: "I BPM indicano i battiti per minuto. La metrica, come 3/4 o 4/4, definisce come vengono raggruppati gli accenti." },
-        { title: "Suddivisioni", body: "Duine, terzine e quartine aiutano a studiare precisione ritmica oltre al semplice click sul battito." }
-      ]
-    },
-    "how-to-find-bpm": {
-      title: "Come calcolare i BPM di una canzone",
-      description: "Usa Tap BPM per trovare il tempo medio di un brano battendo il ritmo.",
-      intro: "Se non conosci il tempo di una canzone, puoi battere il pulsante Tap a tempo con la musica e ottenere una stima dei BPM.",
-      keywords: ["calcolare bpm", "tap bpm", "battiti per minuto"],
-      tool: "tap-bpm",
-      steps: ["Avvia il brano.", "Premi Tap su ogni battito.", "Continua per almeno 8 battiti.", "Leggi il BPM medio."],
-      sections: [
-        { title: "Che cosa sono i BPM", body: "BPM significa battiti per minuto. Un valore basso indica un tempo lento, un valore alto indica un tempo veloce." },
-        { title: "Stima stabile", body: "Per un risultato migliore batti sempre sullo stesso punto del ritmo, ad esempio sul movimento principale del brano." }
-      ]
-    }
-  },
-  en: {
-    "how-to-tune-guitar": {
-      title: "How to tune a guitar online",
-      description: "A quick guide to tuning a standard guitar with a microphone and online tuner.",
-      intro: "Standard guitar tuning is E, A, D, G, B, E. TuneUniversal listens through your microphone and shows whether each string is flat, sharp or in tune.",
-      keywords: ["tune guitar", "online guitar tuner", "standard guitar tuning"],
-      tool: "guitar-tuner",
-      steps: ["Open the guitar tuner.", "Allow microphone access.", "Play one open string.", "Adjust until the needle is centered."],
-      sections: [
-        { title: "Standard tuning", body: "From the lowest string to the highest string, standard guitar tuning is E, A, D, G, B, E." },
-        { title: "Better microphone results", body: "Play one string at a time, keep the instrument close to the microphone and reduce room noise while tuning." }
-      ]
-    },
-    "standard-bass-tuning": {
-      title: "Standard bass tuning",
-      description: "Tune a four-string bass in E, A, D, G with an online bass tuner.",
-      intro: "A standard four-string bass uses E, A, D, G. Because the notes are low, a clear and stable sound helps the tuner detect pitch.",
-      keywords: ["bass tuning", "online bass tuner", "standard bass tuning"],
-      tool: "bass-tuner",
-      steps: ["Select bass in the tuner.", "Play the open E string.", "Repeat with A, D and G.", "Check every string again."],
-      sections: [
-        { title: "Bass strings", body: "Start from the lowest string and move upward: E, A, D, G." },
-        { title: "Pitch detection tips", body: "Let the note ring naturally. Avoid hitting the string too hard, because the first transient can be unstable." }
-      ]
-    },
-    "how-to-tune-ukulele": {
-      title: "How to tune a ukulele",
-      description: "Learn standard G C E A ukulele tuning with an online tuner.",
-      intro: "Most soprano, concert and tenor ukuleles use G, C, E, A tuning. The online tuner helps you check each string quickly.",
-      keywords: ["tune ukulele", "online ukulele tuner", "G C E A tuning"],
-      tool: "ukulele-tuner",
-      steps: ["Open the ukulele tuner.", "Play the G string.", "Check C, E and A.", "Tune until the display says in tune."],
-      sections: [
-        { title: "G C E A tuning", body: "This common tuning is often high-G, where the G string is not the lowest sounding string." },
-        { title: "Accuracy", body: "Pick gently and wait for the pitch to settle before turning the tuning peg." }
-      ]
-    },
-    "how-to-use-metronome": {
-      title: "How to use a metronome",
-      description: "Practice with BPM, accents, meter and rhythmic subdivisions.",
-      intro: "A metronome builds steady timing. Set the BPM, choose the meter and follow the accented first beat.",
-      keywords: ["how to use metronome", "online metronome", "music bpm"],
-      tool: "metronome",
-      steps: ["Choose a slow BPM.", "Set the song meter.", "Start the click.", "Increase speed gradually."],
-      sections: [
-        { title: "BPM and meter", body: "BPM means beats per minute. Meter, such as 3/4 or 4/4, defines how beats are grouped." },
-        { title: "Subdivisions", body: "Duplets, triplets and quadruplets help you practice timing inside each beat." }
-      ]
-    },
-    "how-to-find-bpm": {
-      title: "How to find the BPM of a song",
-      description: "Use Tap BPM to estimate a song tempo by tapping with the beat.",
-      intro: "Tap along with the music and TuneUniversal calculates an average BPM from your recent taps.",
-      keywords: ["find bpm", "tap bpm", "beats per minute"],
-      tool: "tap-bpm",
-      steps: ["Start the song.", "Tap on each beat.", "Continue for at least 8 taps.", "Read the average BPM."],
-      sections: [
-        { title: "What BPM means", body: "BPM stands for beats per minute. Lower numbers feel slower, higher numbers feel faster." },
-        { title: "Stable estimates", body: "Tap the same rhythmic point each time, usually the main pulse of the song." }
-      ]
-    }
-  }
-} satisfies Record<"it" | "en", Record<GuideSlug, GuideContent>>;
-
-const localizedLabels: Record<Exclude<Locale, "it" | "en">, Record<GuideSlug, Pick<GuideContent, "description" | "intro" | "keywords" | "sections" | "steps" | "title">>> = {
+const tuningGuideCopy: Record<Locale, TuningGuideCopy> = {
   ar: {
-    "how-to-find-bpm": { title: "كيفية معرفة BPM للأغنية", description: "استخدم Tap BPM لتقدير سرعة الأغنية بالنقر مع الإيقاع.", intro: "انقر مع الموسيقى وسيحسب TuneUniversal متوسط BPM من النقرات الأخيرة.", keywords: ["حساب BPM", "Tap BPM", "نبضات في الدقيقة"], steps: ["شغل الأغنية.", "انقر مع كل نبضة.", "استمر لعدة نقرات.", "اقرأ متوسط BPM."], sections: [{ title: "ما هو BPM", body: "BPM يعني عدد النبضات في الدقيقة." }, { title: "قياس ثابت", body: "انقر دائماً على نفس موضع الإيقاع الرئيسي." }] },
-    "how-to-tune-guitar": { title: "كيفية ضبط الغيتار عبر الإنترنت", description: "دليل سريع لضبط الغيتار القياسي بالميكروفون وموالف الإنترنت.", intro: "الضبط القياسي للغيتار هو E و A و D و G و B و E. يعرض TuneUniversal إن كان الوتر منخفضاً أو مرتفعاً أو مضبوطاً.", keywords: ["ضبط الغيتار", "موالف غيتار أونلاين", "ضبط غيتار قياسي"], steps: ["افتح موالف الغيتار.", "اسمح بالوصول إلى الميكروفون.", "اعزف وتراً مفتوحاً.", "اضبط حتى يصبح المؤشر في الوسط."], sections: [{ title: "الضبط القياسي", body: "من الوتر الأغلظ إلى الأرفع: E، A، D، G، B، E." }, { title: "نصائح للميكروفون", body: "اعزف وتراً واحداً في كل مرة وقلل الضوضاء حولك." }] },
-    "how-to-tune-ukulele": { title: "كيفية ضبط الأوكوليلي", description: "تعلم ضبط G C E A للأوكوليلي باستخدام موالف أونلاين.", intro: "الأوكوليلي الشائع يستخدم G و C و E و A. يساعدك الموالف على فحص كل وتر بسرعة.", keywords: ["ضبط أوكوليلي", "موالف أوكوليلي", "G C E A"], steps: ["افتح موالف الأوكوليلي.", "اعزف وتر G.", "افحص C و E و A.", "اضبط حتى تصبح النغمة صحيحة."], sections: [{ title: "G C E A", body: "ضبط High-G شائع في أوكوليلي السوبرانو والكونسرت والتينور." }, { title: "الدقة", body: "انقر الوتر بلطف وانتظر حتى تستقر النغمة." }] },
-    "how-to-use-metronome": { title: "كيفية استخدام المترونوم", description: "تدرب على BPM والميزان والنبرات والتقسيمات الإيقاعية.", intro: "يساعد المترونوم على بناء Tempo ثابت أثناء التدريب.", keywords: ["استخدام مترونوم", "مترونوم أونلاين", "BPM موسيقى"], steps: ["اختر BPM بطيئاً.", "حدد الميزان.", "ابدأ النقر.", "زد السرعة تدريجياً."], sections: [{ title: "BPM والميزان", body: "BPM يعني نبضات في الدقيقة. الميزان ينظم مواضع النبرات." }, { title: "التقسيمات", body: "الثنائيات والثلاثيات والرباعيات تساعد على دقة الإيقاع." }] },
-    "standard-bass-tuning": { title: "ضبط الباس القياسي", description: "اضبط باساً بأربعة أوتار على E و A و D و G.", intro: "الباس القياسي يستخدم E و A و D و G. النغمات المنخفضة تحتاج صوتاً واضحاً وثابتاً.", keywords: ["ضبط الباس", "موالف باس أونلاين", "ضبط باس قياسي"], steps: ["اختر الباس.", "اعزف وتر E.", "كرر A و D و G.", "افحص كل الأوتار."], sections: [{ title: "أوتار الباس", body: "ابدأ من الوتر الأغلظ: E، A، D، G." }, { title: "تحسين الكشف", body: "اترك النغمة ترن طبيعياً ولا تضرب الوتر بقوة زائدة." }] }
+    title: (instrument) => `كيفية ضبط ${instrument} على الإنترنت`,
+    description: (instrument, tuning) => `دليل سريع لضبط ${instrument} بالميكروفون. النغمات المرجعية: ${tuning}.`,
+    intro: (instrument, tuning) => `يساعدك TuneUniversal على ضبط ${instrument} مباشرة في المتصفح. اختر الآلة، اسمح بالوصول إلى الميكروفون، ثم استخدم النغمات المرجعية: ${tuning}.`,
+    steps: (instrument) => [`افتح موالف ${instrument}.`, "اسمح بالوصول إلى الميكروفون.", "اعزف وترا أو نغمة واحدة بوضوح.", "اضبط حتى يصبح المؤشر في الوسط."],
+    sections: (instrument, tuning) => [
+      { title: "النغمات المرجعية", body: `النغمات المستخدمة لهذه الصفحة هي: ${tuning}. اعزف نغمة واحدة في كل مرة للحصول على قراءة مستقرة.` },
+      { title: "نصائح للميكروفون", body: `ضع ${instrument} قريبا من الميكروفون، قلل الضوضاء في الغرفة، وانتظر لحظة بعد العزف حتى تستقر النغمة.` }
+    ],
+    keywords: (instrument) => [`ضبط ${instrument}`, `موالف ${instrument} اونلاين`, `موالف ${instrument} مجاني`, `${instrument} بالميكروفون`],
+    targetTitle: (instrument) => `موالف ${instrument}`
   },
   de: {
-    "how-to-find-bpm": { title: "BPM eines Songs finden", description: "Schätze das Tempo eines Songs, indem du mit Tap BPM zum Beat tippst.", intro: "Tippe zum Beat und TuneUniversal berechnet einen Durchschnitt aus deinen letzten Taps.", keywords: ["bpm finden", "tap bpm", "schläge pro minute"], steps: ["Starte den Song.", "Tippe auf jeden Beat.", "Tippe mindestens 8-mal.", "Lies den Durchschnitts-BPM ab."], sections: [{ title: "Was BPM bedeutet", body: "BPM steht für Schläge pro Minute." }, { title: "Stabile Werte", body: "Tippe immer denselben rhythmischen Punkt, meist den Hauptpuls." }] },
-    "how-to-tune-guitar": { title: "Gitarre online stimmen", description: "Kurzanleitung zum Stimmen einer Standardgitarre mit Mikrofon und Online-Tuner.", intro: "Die Standardstimmung ist E, A, D, G, H, E. TuneUniversal zeigt, ob jede Saite zu tief, zu hoch oder richtig gestimmt ist.", keywords: ["gitarre stimmen", "gitarren tuner online", "standard gitarrenstimmung"], steps: ["Öffne den Gitarren-Tuner.", "Erlaube den Mikrofonzugriff.", "Spiele eine leere Saite.", "Stimme, bis die Nadel in der Mitte steht."], sections: [{ title: "Standardstimmung", body: "Von tief nach hoch: E, A, D, G, H, E." }, { title: "Bessere Mikrofon-Ergebnisse", body: "Spiele jeweils nur eine Saite und reduziere Nebengeräusche." }] },
-    "how-to-tune-ukulele": { title: "Ukulele stimmen", description: "Lerne die Standardstimmung G C E A mit einem Online-Tuner.", intro: "Viele Ukulelen verwenden G, C, E, A. Der Online-Tuner prüft jede Saite schnell.", keywords: ["ukulele stimmen", "ukulele tuner online", "G C E A stimmung"], steps: ["Öffne den Ukulele-Tuner.", "Spiele die G-Saite.", "Prüfe C, E und A.", "Stimme, bis die Anzeige korrekt ist."], sections: [{ title: "G C E A", body: "Diese Stimmung ist oft High-G und bei Sopran-, Konzert- und Tenor-Ukulelen verbreitet." }, { title: "Genauigkeit", body: "Zupfe sanft und warte, bis sich die Tonhöhe stabilisiert." }] },
-    "how-to-use-metronome": { title: "Metronom richtig verwenden", description: "Übe mit BPM, Akzenten, Taktart und rhythmischen Unterteilungen.", intro: "Ein Metronom hilft, ein stabiles Timing zu entwickeln.", keywords: ["metronom verwenden", "metronom online", "musik bpm"], steps: ["Wähle ein langsames BPM.", "Stelle die Taktart ein.", "Starte den Klick.", "Erhöhe das Tempo schrittweise."], sections: [{ title: "BPM und Taktart", body: "BPM bedeutet Schläge pro Minute. Die Taktart gruppiert die Schläge." }, { title: "Unterteilungen", body: "Duolen, Triolen und Quartolen trainieren Genauigkeit innerhalb des Beats." }] },
-    "standard-bass-tuning": { title: "Standard Bassstimmung", description: "Stimme einen viersaitigen Bass in E, A, D, G.", intro: "Ein Standardbass nutzt E, A, D, G. Tiefe Noten brauchen ein klares und stabiles Signal.", keywords: ["bass stimmen", "bass tuner online", "standard bassstimmung"], steps: ["Wähle Bass im Tuner.", "Spiele die leere E-Saite.", "Wiederhole A, D und G.", "Prüfe alle Saiten erneut."], sections: [{ title: "Basssaiten", body: "Beginne mit der tiefsten Saite: E, A, D, G." }, { title: "Pitch-Erkennung", body: "Lass die Note natürlich ausklingen und schlage nicht zu hart an." }] }
+    title: (instrument) => `${instrument} online stimmen`,
+    description: (instrument, tuning) => `Kurzanleitung zum Stimmen von ${instrument} mit Mikrofon. Referenznoten: ${tuning}.`,
+    intro: (instrument, tuning) => `Mit TuneUniversal kannst du ${instrument} direkt im Browser stimmen. Wähle das Instrument, erlaube den Mikrofonzugriff und orientiere dich an diesen Referenznoten: ${tuning}.`,
+    steps: (instrument) => [`Öffne den ${instrument}-Tuner.`, "Erlaube den Mikrofonzugriff.", "Spiele eine Saite oder Note klar an.", "Stimme, bis die Anzeige mittig steht."],
+    sections: (instrument, tuning) => [
+      { title: "Referenznoten", body: `Diese Seite nutzt die Referenznoten ${tuning}. Spiele immer nur eine Note gleichzeitig, damit die Erkennung stabil bleibt.` },
+      { title: "Bessere Mikrofonerkennung", body: `Halte ${instrument} nah am Mikrofon, reduziere Nebengeräusche und warte nach dem Anschlag kurz, bis sich die Tonhöhe stabilisiert.` }
+    ],
+    keywords: (instrument) => [`${instrument} stimmen`, `${instrument} tuner online`, `${instrument} stimmgerät`, `kostenloser ${instrument} tuner`],
+    targetTitle: (instrument) => `${instrument} Tuner`
+  },
+  en: {
+    title: (instrument) => `How to tune ${instrument} online`,
+    description: (instrument, tuning) => `A quick guide to tuning ${instrument} with a microphone. Reference notes: ${tuning}.`,
+    intro: (instrument, tuning) => `TuneUniversal helps you tune ${instrument} directly in your browser. Select the instrument, allow microphone access and use these reference notes: ${tuning}.`,
+    steps: (instrument) => [`Open the ${instrument} tuner.`, "Allow microphone access.", "Play one clear string or note.", "Tune until the indicator is centered."],
+    sections: (instrument, tuning) => [
+      { title: "Reference notes", body: `This page uses ${tuning} as reference notes. Play one note at a time so the pitch detector can stay stable.` },
+      { title: "Better microphone results", body: `Keep ${instrument} close to the microphone, reduce room noise and wait a moment after playing so the pitch can settle.` }
+    ],
+    keywords: (instrument) => [`tune ${instrument}`, `online ${instrument} tuner`, `free ${instrument} tuner`, `${instrument} microphone tuner`],
+    targetTitle: (instrument) => `${instrument} tuner`
   },
   es: {
-    "how-to-find-bpm": { title: "Cómo calcular los BPM de una canción", description: "Usa Tap BPM para estimar el tempo de una canción tocando el pulso.", intro: "Toca junto con la música y TuneUniversal calcula un BPM medio con tus últimos toques.", keywords: ["calcular bpm", "tap bpm", "pulsaciones por minuto"], steps: ["Reproduce la canción.", "Pulsa Tap en cada beat.", "Continúa al menos 8 pulsos.", "Lee el BPM medio."], sections: [{ title: "Qué es BPM", body: "BPM significa pulsaciones por minuto." }, { title: "Resultado estable", body: "Toca siempre el mismo punto del ritmo, normalmente el pulso principal." }] },
-    "how-to-tune-guitar": { title: "Cómo afinar una guitarra online", description: "Guía rápida para afinar una guitarra estándar con micrófono y afinador online.", intro: "La afinación estándar es Mi, La, Re, Sol, Si, Mi. TuneUniversal indica si cada cuerda está baja, alta o afinada.", keywords: ["afinar guitarra", "afinador guitarra online", "afinación guitarra estándar"], steps: ["Abre el afinador de guitarra.", "Permite el acceso al micrófono.", "Toca una cuerda al aire.", "Ajusta hasta que la aguja quede centrada."], sections: [{ title: "Afinación estándar", body: "De grave a agudo: E, A, D, G, B, E." }, { title: "Consejos para el micrófono", body: "Toca una cuerda cada vez y reduce el ruido de la habitación." }] },
-    "how-to-tune-ukulele": { title: "Cómo afinar el ukulele", description: "Aprende la afinación estándar G C E A con un afinador online.", intro: "La mayoría de ukuleles usan G, C, E, A. El afinador online comprueba cada cuerda rápidamente.", keywords: ["afinar ukulele", "afinador ukulele online", "G C E A"], steps: ["Abre el afinador de ukulele.", "Toca la cuerda G.", "Comprueba C, E y A.", "Ajusta hasta que esté afinado."], sections: [{ title: "Afinación G C E A", body: "Esta afinación suele ser high-G y es común en soprano, concierto y tenor." }, { title: "Precisión", body: "Pulsa suavemente y espera a que la nota se estabilice." }] },
-    "how-to-use-metronome": { title: "Cómo usar un metrónomo", description: "Practica con BPM, acentos, compás y subdivisiones rítmicas.", intro: "El metrónomo ayuda a desarrollar un tempo estable.", keywords: ["usar metrónomo", "metrónomo online", "bpm música"], steps: ["Elige un BPM lento.", "Ajusta el compás.", "Inicia el clic.", "Aumenta la velocidad poco a poco."], sections: [{ title: "BPM y compás", body: "BPM son pulsaciones por minuto. El compás agrupa los acentos." }, { title: "Subdivisiones", body: "Dosillos, tresillos y cuatrillos ayudan a practicar la precisión rítmica." }] },
-    "standard-bass-tuning": { title: "Afinación estándar del bajo", description: "Afina un bajo de cuatro cuerdas en E, A, D, G con un afinador online.", intro: "El bajo estándar usa E, A, D, G. Las notas graves necesitan una señal clara y estable.", keywords: ["afinar bajo", "afinador bajo online", "afinación bajo estándar"], steps: ["Selecciona bajo en el afinador.", "Toca la cuerda E al aire.", "Repite con A, D y G.", "Comprueba todas las cuerdas."], sections: [{ title: "Cuerdas del bajo", body: "Empieza por la cuerda más grave: E, A, D, G." }, { title: "Detección de pitch", body: "Deja sonar la nota naturalmente y evita tocar demasiado fuerte." }] }
+    title: (instrument) => `Cómo afinar ${instrument} online`,
+    description: (instrument, tuning) => `Guía rápida para afinar ${instrument} con micrófono. Notas de referencia: ${tuning}.`,
+    intro: (instrument, tuning) => `TuneUniversal te ayuda a afinar ${instrument} directamente en el navegador. Selecciona el instrumento, permite el micrófono y usa estas notas de referencia: ${tuning}.`,
+    steps: (instrument) => [`Abre el afinador de ${instrument}.`, "Permite el acceso al micrófono.", "Toca una cuerda o nota clara.", "Ajusta hasta que el indicador quede centrado."],
+    sections: (instrument, tuning) => [
+      { title: "Notas de referencia", body: `Esta página usa ${tuning} como notas de referencia. Toca una sola nota cada vez para mantener una detección estable.` },
+      { title: "Mejor lectura del micrófono", body: `Mantén ${instrument} cerca del micrófono, reduce el ruido ambiente y espera un momento después de tocar para que la altura se estabilice.` }
+    ],
+    keywords: (instrument) => [`afinar ${instrument}`, `afinador ${instrument} online`, `afinador ${instrument} gratis`, `${instrument} con micrófono`],
+    targetTitle: (instrument) => `Afinador de ${instrument}`
   },
   fr: {
-    "how-to-find-bpm": { title: "Comment trouver le BPM d'une chanson", description: "Utilisez Tap BPM pour estimer le tempo en tapant le rythme.", intro: "Tapez avec la musique et TuneUniversal calcule un BPM moyen à partir de vos derniers taps.", keywords: ["trouver bpm", "tap bpm", "battements par minute"], steps: ["Lancez la chanson.", "Tapez sur chaque battement.", "Continuez au moins 8 taps.", "Lisez le BPM moyen."], sections: [{ title: "Que signifie BPM", body: "BPM signifie battements par minute." }, { title: "Mesure stable", body: "Tapez toujours le même point rythmique, généralement la pulsation principale." }] },
-    "how-to-tune-guitar": { title: "Comment accorder une guitare en ligne", description: "Guide rapide pour accorder une guitare standard avec micro et accordeur en ligne.", intro: "L'accordage standard de la guitare est Mi, La, Ré, Sol, Si, Mi. TuneUniversal indique si chaque corde est trop basse, trop haute ou juste.", keywords: ["accorder guitare", "accordeur guitare en ligne", "accordage guitare standard"], steps: ["Ouvrez l'accordeur guitare.", "Autorisez le micro.", "Jouez une corde à vide.", "Ajustez jusqu'à ce que l'aiguille soit centrée."], sections: [{ title: "Accordage standard", body: "De la corde grave à la corde aiguë: E, A, D, G, B, E." }, { title: "Conseils micro", body: "Jouez une corde à la fois et réduisez le bruit autour de vous." }] },
-    "how-to-tune-ukulele": { title: "Comment accorder un ukulélé", description: "Apprenez l'accordage standard G C E A avec un accordeur en ligne.", intro: "La plupart des ukulélés utilisent G, C, E, A. L'accordeur vérifie chaque corde rapidement.", keywords: ["accorder ukulélé", "accordeur ukulélé en ligne", "G C E A"], steps: ["Ouvrez l'accordeur ukulélé.", "Jouez la corde G.", "Vérifiez C, E et A.", "Ajustez jusqu'à l'accord juste."], sections: [{ title: "Accordage G C E A", body: "Cet accordage est souvent high-G et courant sur soprano, concert et ténor." }, { title: "Précision", body: "Pincez doucement et attendez que la hauteur se stabilise." }] },
-    "how-to-use-metronome": { title: "Comment utiliser un métronome", description: "Travaillez le BPM, les accents, la mesure et les subdivisions.", intro: "Le métronome aide à développer un tempo stable.", keywords: ["utiliser métronome", "métronome en ligne", "bpm musique"], steps: ["Choisissez un BPM lent.", "Sélectionnez la mesure.", "Lancez le clic.", "Augmentez progressivement."], sections: [{ title: "BPM et mesure", body: "Le BPM indique les battements par minute. La mesure organise les accents." }, { title: "Subdivisions", body: "Les duolets, triolets et quartolets améliorent la précision." }] },
-    "standard-bass-tuning": { title: "Accordage standard de la basse", description: "Accordez une basse quatre cordes en E, A, D, G avec un accordeur en ligne.", intro: "La basse standard utilise E, A, D, G. Les notes graves demandent un son clair et stable.", keywords: ["accorder basse", "accordeur basse en ligne", "accordage basse standard"], steps: ["Sélectionnez basse dans l'accordeur.", "Jouez la corde E à vide.", "Répétez avec A, D et G.", "Vérifiez toutes les cordes."], sections: [{ title: "Cordes de basse", body: "Commencez par la corde la plus grave: E, A, D, G." }, { title: "Détection", body: "Laissez la note sonner naturellement et évitez de frapper trop fort." }] }
+    title: (instrument) => `Comment accorder ${instrument} en ligne`,
+    description: (instrument, tuning) => `Guide rapide pour accorder ${instrument} avec le micro. Notes de référence : ${tuning}.`,
+    intro: (instrument, tuning) => `TuneUniversal vous aide à accorder ${instrument} directement dans le navigateur. Sélectionnez l'instrument, autorisez le micro et utilisez ces notes de référence : ${tuning}.`,
+    steps: (instrument) => [`Ouvrez l'accordeur ${instrument}.`, "Autorisez l'accès au micro.", "Jouez une corde ou une note claire.", "Ajustez jusqu'à ce que l'indicateur soit centré."],
+    sections: (instrument, tuning) => [
+      { title: "Notes de référence", body: `Cette page utilise ${tuning} comme notes de référence. Jouez une seule note à la fois pour garder une détection stable.` },
+      { title: "Meilleure détection micro", body: `Gardez ${instrument} près du micro, réduisez le bruit ambiant et attendez un instant après l'attaque pour laisser la hauteur se stabiliser.` }
+    ],
+    keywords: (instrument) => [`accorder ${instrument}`, `accordeur ${instrument} en ligne`, `accordeur ${instrument} gratuit`, `${instrument} avec micro`],
+    targetTitle: (instrument) => `Accordeur ${instrument}`
+  },
+  it: {
+    title: (instrument) => `Come accordare ${instrument} online`,
+    description: (instrument, tuning) => `Guida rapida per accordare ${instrument} con il microfono. Note di riferimento: ${tuning}.`,
+    intro: (instrument, tuning) => `TuneUniversal ti aiuta ad accordare ${instrument} direttamente nel browser. Seleziona lo strumento, consenti il microfono e usa queste note di riferimento: ${tuning}.`,
+    steps: (instrument) => [`Apri l'accordatore per ${instrument}.`, "Consenti l'accesso al microfono.", "Suona una corda o una nota pulita.", "Regola finché l'indicatore è al centro."],
+    sections: (instrument, tuning) => [
+      { title: "Note di riferimento", body: `Questa pagina usa ${tuning} come note di riferimento. Suona una nota alla volta per mantenere stabile il rilevamento.` },
+      { title: "Migliore lettura del microfono", body: `Tieni ${instrument} vicino al microfono, riduci il rumore nella stanza e aspetta un istante dopo l'attacco perché la nota si stabilizzi.` }
+    ],
+    keywords: (instrument) => [`accordare ${instrument}`, `accordatore ${instrument} online`, `accordatore ${instrument} gratis`, `${instrument} con microfono`],
+    targetTitle: (instrument) => `Accordatore ${instrument}`
   },
   ja: {
-    "how-to-find-bpm": { title: "曲の BPM を調べる方法", description: "Tap BPM を使って、曲に合わせてタップしながらテンポを推定します。", intro: "音楽に合わせてタップすると、TuneUniversal が最近のタップから平均 BPM を計算します。", keywords: ["BPM 調べる", "Tap BPM", "拍数"], steps: ["曲を再生します。", "各拍に合わせてタップします。", "少なくとも 8 回続けます。", "平均 BPM を読みます。"], sections: [{ title: "BPM とは", body: "BPM は 1 分間の拍数を表します。" }, { title: "安定した計測", body: "毎回同じリズム位置、通常は主拍でタップします。" }] },
-    "how-to-tune-guitar": { title: "ギターをオンラインでチューニングする方法", description: "マイクとオンラインチューナーで標準ギターを調弦する短いガイドです。", intro: "標準ギター調弦は E、A、D、G、B、E です。TuneUniversal は各弦が低いか高いか、または合っているかを表示します。", keywords: ["ギター チューニング", "オンラインギターチューナー", "標準ギター調弦"], steps: ["ギターチューナーを開きます。", "マイクを許可します。", "開放弦を鳴らします。", "針が中央に来るまで調整します。"], sections: [{ title: "標準調弦", body: "低い弦から高い弦へ E、A、D、G、B、E です。" }, { title: "マイクのコツ", body: "1 本ずつ鳴らし、周囲の雑音を減らします。" }] },
-    "how-to-tune-ukulele": { title: "ウクレレのチューニング方法", description: "オンラインチューナーで標準 G C E A チューニングを確認します。", intro: "多くのウクレレは G、C、E、A を使います。オンラインチューナーで各弦をすばやく確認できます。", keywords: ["ウクレレ チューニング", "ウクレレチューナー", "G C E A"], steps: ["ウクレレチューナーを開きます。", "G 弦を鳴らします。", "C、E、A を確認します。", "表示が合うまで調整します。"], sections: [{ title: "G C E A", body: "この調弦は high-G と呼ばれることが多く、ソプラノ、コンサート、テナーで一般的です。" }, { title: "精度", body: "やさしく弾き、音程が安定してから調整します。" }] },
-    "how-to-use-metronome": { title: "メトロノームの使い方", description: "BPM、アクセント、拍子、リズム細分を練習します。", intro: "メトロノームは安定したテンポを身につけるのに役立ちます。", keywords: ["メトロノーム 使い方", "オンラインメトロノーム", "BPM 音楽"], steps: ["遅めの BPM を選びます。", "曲の拍子を設定します。", "クリックを開始します。", "少しずつ速くします。"], sections: [{ title: "BPM と拍子", body: "BPM は 1 分間の拍数です。拍子は拍のまとまりを表します。" }, { title: "細分", body: "2 連符、3 連符、4 連符で拍内の精度を鍛えます。" }] },
-    "standard-bass-tuning": { title: "標準ベースチューニング", description: "4 弦ベースを E、A、D、G に調弦します。", intro: "標準ベースは E、A、D、G を使います。低音は安定した信号が必要です。", keywords: ["ベース チューニング", "オンラインベースチューナー", "標準ベース調弦"], steps: ["チューナーでベースを選びます。", "開放 E 弦を鳴らします。", "A、D、G を繰り返します。", "すべての弦を再確認します。"], sections: [{ title: "ベース弦", body: "低い弦から E、A、D、G です。" }, { title: "検出のコツ", body: "音を自然に伸ばし、強く弾きすぎないようにします。" }] }
+    title: (instrument) => `${instrument}をオンラインでチューニングする方法`,
+    description: (instrument, tuning) => `${instrument}をマイクでチューニングする短いガイド。基準音: ${tuning}。`,
+    intro: (instrument, tuning) => `TuneUniversal ではブラウザ上で ${instrument} をチューニングできます。楽器を選び、マイクを許可し、基準音 ${tuning} を使って確認します。`,
+    steps: (instrument) => [`${instrument}チューナーを開きます。`, "マイクの使用を許可します。", "1つの弦または音をはっきり鳴らします。", "表示が中央になるまで調整します。"],
+    sections: (instrument, tuning) => [
+      { title: "基準音", body: `このページでは ${tuning} を基準音として使います。音程検出を安定させるため、1音ずつ鳴らしてください。` },
+      { title: "マイク検出のコツ", body: `${instrument}をマイクの近くに置き、周囲のノイズを減らし、音を鳴らした後に少し待って音程を安定させます。` }
+    ],
+    keywords: (instrument) => [`${instrument} チューニング`, `${instrument} チューナー`, `オンライン ${instrument} チューナー`, `無料 ${instrument} チューナー`],
+    targetTitle: (instrument) => `${instrument}チューナー`
   },
   ko: {
-    "how-to-find-bpm": { title: "노래의 BPM 찾는 방법", description: "Tap BPM으로 박자에 맞춰 탭하며 곡의 템포를 추정합니다.", intro: "음악에 맞춰 탭하면 TuneUniversal이 최근 탭을 바탕으로 평균 BPM을 계산합니다.", keywords: ["BPM 찾기", "Tap BPM", "분당 박자"], steps: ["노래를 재생합니다.", "각 박자에 맞춰 탭합니다.", "최소 8번 이상 계속합니다.", "평균 BPM을 확인합니다."], sections: [{ title: "BPM 의미", body: "BPM은 분당 박자 수를 뜻합니다." }, { title: "안정적인 측정", body: "항상 같은 리듬 위치, 보통 주박에 맞춰 탭합니다." }] },
-    "how-to-tune-guitar": { title: "온라인으로 기타 튜닝하는 방법", description: "마이크와 온라인 튜너로 표준 기타를 조율하는 빠른 가이드입니다.", intro: "표준 기타 튜닝은 E, A, D, G, B, E입니다. TuneUniversal은 각 줄이 낮은지 높은지 또는 정확한지 보여줍니다.", keywords: ["기타 튜닝", "온라인 기타 튜너", "표준 기타 튜닝"], steps: ["기타 튜너를 엽니다.", "마이크 접근을 허용합니다.", "개방현을 연주합니다.", "바늘이 가운데에 올 때까지 조율합니다."], sections: [{ title: "표준 튜닝", body: "낮은 줄부터 높은 줄까지 E, A, D, G, B, E입니다." }, { title: "마이크 팁", body: "한 줄씩 연주하고 주변 소음을 줄이세요." }] },
-    "how-to-tune-ukulele": { title: "우쿨렐레 튜닝 방법", description: "온라인 튜너로 표준 G C E A 튜닝을 확인합니다.", intro: "대부분의 우쿨렐레는 G, C, E, A 튜닝을 사용합니다.", keywords: ["우쿨렐레 튜닝", "온라인 우쿨렐레 튜너", "G C E A"], steps: ["우쿨렐레 튜너를 엽니다.", "G 줄을 연주합니다.", "C, E, A를 확인합니다.", "정확할 때까지 조율합니다."], sections: [{ title: "G C E A", body: "High-G 튜닝은 소프라노, 콘서트, 테너 우쿨렐레에서 흔합니다." }, { title: "정확도", body: "부드럽게 튕기고 음이 안정된 뒤 조율하세요." }] },
-    "how-to-use-metronome": { title: "메트로놈 사용 방법", description: "BPM, 악센트, 박자와 리듬 분할을 연습합니다.", intro: "메트로놈은 안정적인 템포를 만드는 데 도움이 됩니다.", keywords: ["메트로놈 사용법", "온라인 메트로놈", "음악 BPM"], steps: ["느린 BPM을 선택합니다.", "곡의 박자를 설정합니다.", "클릭을 시작합니다.", "속도를 천천히 올립니다."], sections: [{ title: "BPM과 박자", body: "BPM은 분당 박자 수입니다. 박자는 악센트의 묶음을 정합니다." }, { title: "리듬 분할", body: "두잇단음, 셋잇단음, 네잇단음으로 박 안의 정확도를 연습합니다." }] },
-    "standard-bass-tuning": { title: "표준 베이스 튜닝", description: "4현 베이스를 E, A, D, G로 조율합니다.", intro: "표준 베이스는 E, A, D, G를 사용합니다. 낮은 음은 안정적인 소리가 필요합니다.", keywords: ["베이스 튜닝", "온라인 베이스 튜너", "표준 베이스 튜닝"], steps: ["튜너에서 베이스를 선택합니다.", "개방 E 줄을 연주합니다.", "A, D, G를 반복합니다.", "모든 줄을 다시 확인합니다."], sections: [{ title: "베이스 줄", body: "가장 낮은 줄부터 E, A, D, G입니다." }, { title: "감지 팁", body: "음을 자연스럽게 울리고 너무 세게 치지 마세요." }] }
+    title: (instrument) => `${instrument} 온라인 튜닝 방법`,
+    description: (instrument, tuning) => `마이크로 ${instrument}을 조율하는 빠른 가이드입니다. 기준 음: ${tuning}.`,
+    intro: (instrument, tuning) => `TuneUniversal은 브라우저에서 바로 ${instrument}을 조율할 수 있게 도와줍니다. 악기를 선택하고 마이크를 허용한 뒤 기준 음 ${tuning}을 사용하세요.`,
+    steps: (instrument) => [`${instrument} 튜너를 엽니다.`, "마이크 접근을 허용합니다.", "한 번에 하나의 줄 또는 음을 또렷하게 연주합니다.", "표시가 가운데에 올 때까지 조율합니다."],
+    sections: (instrument, tuning) => [
+      { title: "기준 음", body: `이 페이지는 ${tuning}을 기준 음으로 사용합니다. 피치 감지를 안정적으로 유지하려면 한 번에 한 음만 연주하세요.` },
+      { title: "마이크 감지 팁", body: `${instrument}을 마이크 가까이에 두고 주변 소음을 줄인 뒤, 소리를 낸 후 잠시 기다려 음정이 안정되게 하세요.` }
+    ],
+    keywords: (instrument) => [`${instrument} 튜닝`, `온라인 ${instrument} 튜너`, `무료 ${instrument} 튜너`, `${instrument} 마이크 튜너`],
+    targetTitle: (instrument) => `${instrument} 튜너`
   },
   pt: {
-    "how-to-find-bpm": { title: "Como encontrar o BPM de uma música", description: "Use Tap BPM para estimar o tempo tocando junto com a batida.", intro: "Toque junto com a música e TuneUniversal calcula um BPM médio a partir dos seus toques recentes.", keywords: ["encontrar bpm", "tap bpm", "batidas por minuto"], steps: ["Reproduza a música.", "Toque em cada batida.", "Continue por pelo menos 8 toques.", "Leia o BPM médio."], sections: [{ title: "O que é BPM", body: "BPM significa batidas por minuto." }, { title: "Estimativa estável", body: "Toque sempre no mesmo ponto rítmico, normalmente o pulso principal." }] },
-    "how-to-tune-guitar": { title: "Como afinar guitarra online", description: "Guia rápido para afinar guitarra padrão com microfone e afinador online.", intro: "A afinação padrão é Mi, Lá, Ré, Sol, Si, Mi. TuneUniversal mostra se a corda está baixa, alta ou afinada.", keywords: ["afinar guitarra", "afinador guitarra online", "afinação guitarra padrão"], steps: ["Abra o afinador de guitarra.", "Permita acesso ao microfone.", "Toque uma corda solta.", "Ajuste até a agulha ficar no centro."], sections: [{ title: "Afinação padrão", body: "Da corda mais grave para a mais aguda: E, A, D, G, B, E." }, { title: "Dicas de microfone", body: "Toque uma corda por vez e reduza o ruído ambiente." }] },
-    "how-to-tune-ukulele": { title: "Como afinar ukulele", description: "Aprenda a afinação padrão G C E A com um afinador online.", intro: "A maioria dos ukuleles usa G, C, E, A. O afinador online ajuda a verificar cada corda rapidamente.", keywords: ["afinar ukulele", "afinador ukulele online", "G C E A"], steps: ["Abra o afinador de ukulele.", "Toque a corda G.", "Confira C, E e A.", "Ajuste até ficar afinado."], sections: [{ title: "G C E A", body: "Essa afinação geralmente é high-G e comum em soprano, concert e tenor." }, { title: "Precisão", body: "Toque suavemente e espere a nota estabilizar." }] },
-    "how-to-use-metronome": { title: "Como usar um metrônomo", description: "Pratique com BPM, acentos, compasso e subdivisões rítmicas.", intro: "O metrônomo ajuda a desenvolver tempo estável.", keywords: ["usar metrônomo", "metrônomo online", "bpm música"], steps: ["Escolha um BPM lento.", "Defina o compasso.", "Inicie o clique.", "Aumente a velocidade aos poucos."], sections: [{ title: "BPM e compasso", body: "BPM significa batidas por minuto. O compasso organiza os acentos." }, { title: "Subdivisões", body: "Duínas, tercinas e quartinas ajudam a praticar precisão rítmica." }] },
-    "standard-bass-tuning": { title: "Afinação padrão do baixo", description: "Afine um baixo de quatro cordas em E, A, D, G com afinador online.", intro: "O baixo padrão usa E, A, D, G. Frequências graves precisam de som claro e estável.", keywords: ["afinar baixo", "afinador baixo online", "afinação baixo padrão"], steps: ["Selecione baixo no afinador.", "Toque a corda E solta.", "Repita A, D e G.", "Confira todas as cordas."], sections: [{ title: "Cordas do baixo", body: "Comece pela corda mais grave: E, A, D, G." }, { title: "Detecção de pitch", body: "Deixe a nota soar naturalmente e evite tocar forte demais." }] }
+    title: (instrument) => `Como afinar ${instrument} online`,
+    description: (instrument, tuning) => `Guia rápido para afinar ${instrument} com microfone. Notas de referência: ${tuning}.`,
+    intro: (instrument, tuning) => `O TuneUniversal ajuda você a afinar ${instrument} diretamente no navegador. Selecione o instrumento, permita o microfone e use estas notas de referência: ${tuning}.`,
+    steps: (instrument) => [`Abra o afinador de ${instrument}.`, "Permita o acesso ao microfone.", "Toque uma corda ou nota clara.", "Ajuste até o indicador ficar no centro."],
+    sections: (instrument, tuning) => [
+      { title: "Notas de referência", body: `Esta página usa ${tuning} como notas de referência. Toque uma nota por vez para manter a detecção estável.` },
+      { title: "Melhor leitura do microfone", body: `Mantenha ${instrument} perto do microfone, reduza o ruído ambiente e espere um instante depois de tocar para a altura estabilizar.` }
+    ],
+    keywords: (instrument) => [`afinar ${instrument}`, `afinador ${instrument} online`, `afinador ${instrument} grátis`, `${instrument} com microfone`],
+    targetTitle: (instrument) => `Afinador de ${instrument}`
   },
   ru: {
-    "how-to-find-bpm": { title: "Как узнать BPM песни", description: "Используйте Tap BPM, чтобы определить темп песни по ритму.", intro: "Нажимайте в такт музыке, и TuneUniversal рассчитает средний BPM по последним нажатиям.", keywords: ["узнать bpm", "tap bpm", "ударов в минуту"], steps: ["Включите песню.", "Нажимайте на каждый удар.", "Сделайте минимум 8 нажатий.", "Посмотрите средний BPM."], sections: [{ title: "Что такое BPM", body: "BPM означает количество ударов в минуту." }, { title: "Стабильный результат", body: "Нажимайте всегда в одну и ту же ритмическую точку, обычно на основной пульс." }] },
-    "how-to-tune-guitar": { title: "Как настроить гитару онлайн", description: "Краткое руководство по настройке стандартной гитары с микрофоном и онлайн-тюнером.", intro: "Стандартный строй гитары: E, A, D, G, B, E. TuneUniversal показывает, ниже струна, выше или настроена точно.", keywords: ["настроить гитару", "онлайн тюнер гитары", "стандартный строй гитары"], steps: ["Откройте гитарный тюнер.", "Разрешите доступ к микрофону.", "Сыграйте открытую струну.", "Настраивайте, пока стрелка не окажется в центре."], sections: [{ title: "Стандартный строй", body: "От самой низкой струны к высокой: E, A, D, G, B, E." }, { title: "Советы для микрофона", body: "Играйте по одной струне и уменьшите шум в комнате." }] },
-    "how-to-tune-ukulele": { title: "Как настроить укулеле", description: "Изучите стандартный строй G C E A с онлайн-тюнером.", intro: "Большинство укулеле используют строй G, C, E, A. Онлайн-тюнер помогает быстро проверить каждую струну.", keywords: ["настроить укулеле", "онлайн тюнер укулеле", "G C E A"], steps: ["Откройте тюнер укулеле.", "Сыграйте струну G.", "Проверьте C, E и A.", "Настраивайте до точного строя."], sections: [{ title: "Строй G C E A", body: "Этот строй часто является high-G и распространен для soprano, concert и tenor." }, { title: "Точность", body: "Щипните струну мягко и подождите, пока высота звука стабилизируется." }] },
-    "how-to-use-metronome": { title: "Как пользоваться метрономом", description: "Практикуйте BPM, акценты, размер и ритмические деления.", intro: "Метроном помогает развивать стабильное чувство темпа.", keywords: ["как пользоваться метрономом", "метроном онлайн", "bpm музыка"], steps: ["Выберите медленный BPM.", "Установите размер композиции.", "Запустите клик.", "Постепенно увеличивайте скорость."], sections: [{ title: "BPM и размер", body: "BPM означает удары в минуту. Размер, например 3/4 или 4/4, группирует доли." }, { title: "Деления", body: "Дуоли, триоли и квартоли помогают тренировать точность внутри доли." }] },
-    "standard-bass-tuning": { title: "Стандартный строй бас-гитары", description: "Настройте четырехструнный бас в E, A, D, G с онлайн-тюнером.", intro: "Стандартный четырехструнный бас использует E, A, D, G. Низким нотам нужен чистый и стабильный звук.", keywords: ["настроить бас", "онлайн тюнер баса", "стандартный строй баса"], steps: ["Выберите бас в тюнере.", "Сыграйте открытую струну E.", "Повторите A, D и G.", "Проверьте все струны еще раз."], sections: [{ title: "Струны баса", body: "Начинайте с самой низкой струны: E, A, D, G." }, { title: "Распознавание высоты", body: "Дайте ноте звучать естественно и не бейте по струне слишком сильно." }] }
+    title: (instrument) => `Как настроить ${instrument} онлайн`,
+    description: (instrument, tuning) => `Краткое руководство по настройке ${instrument} с микрофоном. Опорные ноты: ${tuning}.`,
+    intro: (instrument, tuning) => `TuneUniversal помогает настроить ${instrument} прямо в браузере. Выберите инструмент, разрешите микрофон и используйте опорные ноты: ${tuning}.`,
+    steps: (instrument) => [`Откройте тюнер для ${instrument}.`, "Разрешите доступ к микрофону.", "Сыграйте одну чистую струну или ноту.", "Настраивайте, пока индикатор не окажется в центре."],
+    sections: (instrument, tuning) => [
+      { title: "Опорные ноты", body: `Эта страница использует опорные ноты ${tuning}. Играйте по одной ноте, чтобы распознавание оставалось стабильным.` },
+      { title: "Лучшее распознавание микрофона", body: `Держите ${instrument} ближе к микрофону, уменьшите шум в комнате и подождите мгновение после атаки, чтобы высота звука стабилизировалась.` }
+    ],
+    keywords: (instrument) => [`настроить ${instrument}`, `тюнер ${instrument} онлайн`, `бесплатный тюнер ${instrument}`, `${instrument} с микрофоном`],
+    targetTitle: (instrument) => `Тюнер ${instrument}`
   },
   zh: {
-    "how-to-find-bpm": { title: "如何计算歌曲 BPM", description: "使用 Tap BPM 跟随节拍点击，估算歌曲速度。", intro: "跟着音乐点击，TuneUniversal 会根据最近的点击计算平均 BPM。", keywords: ["计算 BPM", "Tap BPM", "每分钟拍数"], steps: ["播放歌曲。", "跟随每一拍点击。", "至少连续点击 8 次。", "查看平均 BPM。"], sections: [{ title: "什么是 BPM", body: "BPM 表示每分钟的拍数。" }, { title: "稳定估算", body: "每次点击同一个节奏位置，通常是主拍。" }] },
-    "how-to-tune-guitar": { title: "如何在线调吉他", description: "使用麦克风和在线调音器快速调标准吉他。", intro: "吉他标准调弦为 E、A、D、G、B、E。TuneUniversal 会显示每根弦偏低、偏高还是已调准。", keywords: ["吉他调音", "在线吉他调音器", "吉他标准调弦"], steps: ["打开吉他调音器。", "允许麦克风访问。", "弹奏一根空弦。", "调整到指针居中。"], sections: [{ title: "标准调弦", body: "从低音弦到高音弦依次为 E、A、D、G、B、E。" }, { title: "麦克风技巧", body: "一次只弹一根弦，并尽量减少环境噪音。" }] },
-    "how-to-tune-ukulele": { title: "如何给尤克里里调音", description: "使用在线调音器学习 G C E A 标准调弦。", intro: "大多数尤克里里使用 G、C、E、A 调弦。在线调音器可以快速检查每根弦。", keywords: ["尤克里里调音", "在线尤克里里调音器", "G C E A"], steps: ["打开尤克里里调音器。", "弹奏 G 弦。", "检查 C、E 和 A。", "调整到显示已调准。"], sections: [{ title: "G C E A 调弦", body: "这种调弦通常是 high-G，在 soprano、concert 和 tenor 尤克里里中很常见。" }, { title: "准确度", body: "轻轻拨弦，等待音高稳定后再调整。" }] },
-    "how-to-use-metronome": { title: "如何使用节拍器", description: "练习 BPM、重音、拍号和节奏细分。", intro: "节拍器可以帮助你建立稳定的节奏感。", keywords: ["如何使用节拍器", "在线节拍器", "音乐 BPM"], steps: ["选择较慢的 BPM。", "设置歌曲拍号。", "启动节拍声。", "逐渐提高速度。"], sections: [{ title: "BPM 与拍号", body: "BPM 表示每分钟拍数。拍号定义节拍如何分组。" }, { title: "节奏细分", body: "二连音、三连音和四连音可以训练每拍内部的准确度。" }] },
-    "standard-bass-tuning": { title: "贝斯标准调弦", description: "使用在线贝斯调音器将四弦贝斯调为 E、A、D、G。", intro: "标准四弦贝斯使用 E、A、D、G。低音需要清晰稳定的声音才能更好识别。", keywords: ["贝斯调音", "在线贝斯调音器", "贝斯标准调弦"], steps: ["在调音器中选择贝斯。", "弹奏空弦 E。", "继续检查 A、D 和 G。", "再次确认每根弦。"], sections: [{ title: "贝斯琴弦", body: "从最低音弦开始：E、A、D、G。" }, { title: "音高识别技巧", body: "让音自然延续，避免过重拨弦。" }] }
+    title: (instrument) => `如何在线调${instrument}`,
+    description: (instrument, tuning) => `使用麦克风调${instrument}的快速指南。参考音: ${tuning}。`,
+    intro: (instrument, tuning) => `TuneUniversal 可以帮助你直接在浏览器中调${instrument}。选择乐器，允许麦克风访问，并使用这些参考音: ${tuning}。`,
+    steps: (instrument) => [`打开${instrument}调音器。`, "允许麦克风访问。", "清楚地弹奏一根弦或一个音。", "调整到指针居中。"],
+    sections: (instrument, tuning) => [
+      { title: "参考音", body: `此页面使用 ${tuning} 作为参考音。一次只弹一个音，可以让音高识别更稳定。` },
+      { title: "更好的麦克风识别", body: `让${instrument}靠近麦克风，减少环境噪音，并在发声后稍等片刻，让音高稳定。` }
+    ],
+    keywords: (instrument) => [`${instrument}调音`, `在线${instrument}调音器`, `免费${instrument}调音器`, `${instrument}麦克风调音器`],
+    targetTitle: (instrument) => `${instrument}调音器`
   }
 };
+
+const utilityGuides: Record<Locale, Record<(typeof extraGuideSlugs)[number], Omit<GuideContent, "targetPath">>> = {
+  ar: {
+    "how-to-find-bpm": {
+      title: "كيفية معرفة BPM للأغنية",
+      description: "استخدم Tap BPM لتقدير سرعة الأغنية بالنقر مع الإيقاع.",
+      intro: "انقر مع الموسيقى وسيحسب TuneUniversal متوسط BPM من النقرات الأخيرة.",
+      keywords: ["حساب BPM", "Tap BPM", "نبضات في الدقيقة"],
+      steps: ["شغل الأغنية.", "انقر مع كل نبضة.", "استمر لثماني نقرات أو أكثر.", "اقرأ متوسط BPM."],
+      sections: [{ title: "ما هو BPM", body: "BPM يعني عدد النبضات في الدقيقة." }, { title: "قياس ثابت", body: "انقر دائما على نفس موضع الإيقاع الرئيسي." }],
+      tool: "tap-bpm"
+    },
+    "how-to-use-metronome": {
+      title: "كيفية استخدام الميترونوم",
+      description: "تدرب على BPM والميزان والنبرات والتقسيمات الإيقاعية.",
+      intro: "يساعد الميترونوم على بناء إحساس ثابت بالوقت أثناء التدريب.",
+      keywords: ["استخدام ميترونوم", "ميترونوم اونلاين", "BPM موسيقى"],
+      steps: ["اختر BPM بطيئا.", "حدد الميزان.", "ابدأ النقر.", "زد السرعة تدريجيا."],
+      sections: [{ title: "BPM والميزان", body: "BPM يعني نبضات في الدقيقة. الميزان ينظم مواضع النبرات." }, { title: "التقسيمات", body: "الثنائيات والثلاثيات والرباعيات تساعد على دقة الإيقاع." }],
+      tool: "metronome"
+    },
+    "standard-bass-tuning": standardBassUtility("ar")
+  },
+  de: {
+    "how-to-find-bpm": utilityBpm("de"),
+    "how-to-use-metronome": utilityMetronome("de"),
+    "standard-bass-tuning": standardBassUtility("de")
+  },
+  en: {
+    "how-to-find-bpm": utilityBpm("en"),
+    "how-to-use-metronome": utilityMetronome("en"),
+    "standard-bass-tuning": standardBassUtility("en")
+  },
+  es: {
+    "how-to-find-bpm": utilityBpm("es"),
+    "how-to-use-metronome": utilityMetronome("es"),
+    "standard-bass-tuning": standardBassUtility("es")
+  },
+  fr: {
+    "how-to-find-bpm": utilityBpm("fr"),
+    "how-to-use-metronome": utilityMetronome("fr"),
+    "standard-bass-tuning": standardBassUtility("fr")
+  },
+  it: {
+    "how-to-find-bpm": utilityBpm("it"),
+    "how-to-use-metronome": utilityMetronome("it"),
+    "standard-bass-tuning": standardBassUtility("it")
+  },
+  ja: {
+    "how-to-find-bpm": utilityBpm("ja"),
+    "how-to-use-metronome": utilityMetronome("ja"),
+    "standard-bass-tuning": standardBassUtility("ja")
+  },
+  ko: {
+    "how-to-find-bpm": utilityBpm("ko"),
+    "how-to-use-metronome": utilityMetronome("ko"),
+    "standard-bass-tuning": standardBassUtility("ko")
+  },
+  pt: {
+    "how-to-find-bpm": utilityBpm("pt"),
+    "how-to-use-metronome": utilityMetronome("pt"),
+    "standard-bass-tuning": standardBassUtility("pt")
+  },
+  ru: {
+    "how-to-find-bpm": utilityBpm("ru"),
+    "how-to-use-metronome": utilityMetronome("ru"),
+    "standard-bass-tuning": standardBassUtility("ru")
+  },
+  zh: {
+    "how-to-find-bpm": utilityBpm("zh"),
+    "how-to-use-metronome": utilityMetronome("zh"),
+    "standard-bass-tuning": standardBassUtility("zh")
+  }
+};
+
+function utilityBpm(locale: Locale): Omit<GuideContent, "targetPath"> {
+  const data = {
+    de: ["BPM eines Songs finden", "Schätze das Tempo eines Songs, indem du mit Tap BPM zum Beat tippst.", "Tippe zum Beat und TuneUniversal berechnet einen Durchschnitt aus deinen letzten Taps.", "bpm finden"],
+    en: ["How to find the BPM of a song", "Use Tap BPM to estimate a song tempo by tapping with the beat.", "Tap along with the music and TuneUniversal calculates an average BPM from your recent taps.", "find bpm"],
+    es: ["Cómo calcular el BPM de una canción", "Usa Tap BPM para estimar el tempo tocando con el pulso.", "Toca junto con la música y TuneUniversal calcula un BPM medio.", "calcular bpm"],
+    fr: ["Comment trouver le BPM d'un morceau", "Utilisez Tap BPM pour estimer le tempo en tapant le rythme.", "Tapez avec la musique et TuneUniversal calcule un BPM moyen.", "trouver bpm"],
+    it: ["Come calcolare i BPM di una canzone", "Usa Tap BPM per trovare il tempo medio di un brano battendo il ritmo.", "Batti il tempo con la musica e TuneUniversal calcola il BPM medio.", "calcolare bpm"],
+    ja: ["曲の BPM を調べる方法", "Tap BPM を使って曲のテンポを推定します。", "音楽に合わせてタップすると平均 BPM が計算されます。", "BPM 計測"],
+    ko: ["노래 BPM 찾는 방법", "Tap BPM으로 박자에 맞춰 눌러 템포를 추정합니다.", "음악에 맞춰 탭하면 평균 BPM을 계산합니다.", "BPM 계산"],
+    pt: ["Como encontrar o BPM de uma música", "Use Tap BPM para estimar o tempo tocando junto com a batida.", "Toque junto com a música e o TuneUniversal calcula o BPM médio.", "encontrar bpm"],
+    ru: ["Как узнать BPM песни", "Используйте Tap BPM, чтобы определить темп по ритму.", "Нажимайте в такт музыке, и TuneUniversal рассчитает средний BPM.", "узнать bpm"],
+    zh: ["如何计算歌曲 BPM", "使用 Tap BPM 跟随节拍点击，估算歌曲速度。", "跟着音乐点击，TuneUniversal 会计算平均 BPM。", "计算 BPM"],
+    ar: ["كيفية معرفة BPM للأغنية", "استخدم Tap BPM لتقدير سرعة الأغنية بالنقر مع الإيقاع.", "انقر مع الموسيقى وسيحسب TuneUniversal متوسط BPM.", "حساب BPM"]
+  }[locale];
+  return {
+    title: data[0],
+    description: data[1],
+    intro: data[2],
+    keywords: [data[3], "tap bpm", "beats per minute"],
+    steps: ["Start the song.", "Tap on each beat.", "Continue for at least 8 taps.", "Read the average BPM."],
+    sections: [{ title: "BPM", body: "BPM means beats per minute and describes the speed of the pulse." }, { title: "Stable estimate", body: "Tap the same rhythmic point each time for a more stable average." }],
+    tool: "tap-bpm"
+  };
+}
+
+function utilityMetronome(locale: Locale): Omit<GuideContent, "targetPath"> {
+  const data = {
+    de: ["Metronom richtig verwenden", "Übe mit BPM, Akzenten, Taktart und rhythmischen Unterteilungen.", "Ein Metronom baut stabiles Timing auf."],
+    en: ["How to use a metronome", "Practice with BPM, accents, meter and rhythmic subdivisions.", "A metronome builds steady timing."],
+    es: ["Cómo usar un metrónomo", "Practica con BPM, acentos, compás y subdivisiones rítmicas.", "El metrónomo ayuda a construir un tempo estable."],
+    fr: ["Comment utiliser un métronome", "Travaillez avec BPM, accents, mesure et subdivisions rythmiques.", "Un métronome aide à construire un tempo stable."],
+    it: ["Come usare il metronomo", "Guida per studiare con BPM, accenti, metrica e suddivisioni ritmiche.", "Il metronomo aiuta a sviluppare un tempo stabile."],
+    ja: ["メトロノームの使い方", "BPM、アクセント、拍子、細かなリズムで練習します。", "メトロノームは安定したテンポ感を育てます。"],
+    ko: ["메트로놈 사용 방법", "BPM, 악센트, 박자, 리듬 분할로 연습합니다.", "메트로놈은 안정적인 타이밍을 만들어 줍니다."],
+    pt: ["Como usar um metrônomo", "Pratique com BPM, acentos, compasso e subdivisões rítmicas.", "O metrônomo ajuda a desenvolver tempo estável."],
+    ru: ["Как пользоваться метрономом", "Практикуйте BPM, акценты, размер и ритмические деления.", "Метроном помогает развить стабильный темп."],
+    zh: ["如何使用节拍器", "练习 BPM、重音、拍号和节奏细分。", "节拍器可以帮助建立稳定的节奏感。"],
+    ar: ["كيفية استخدام الميترونوم", "تدرب على BPM والميزان والنبرات والتقسيمات الإيقاعية.", "يساعد الميترونوم على بناء إحساس ثابت بالوقت."]
+  }[locale];
+  return {
+    title: data[0],
+    description: data[1],
+    intro: data[2],
+    keywords: ["online metronome", "music bpm", "metronome practice"],
+    steps: ["Choose a slow BPM.", "Set the meter.", "Start the click.", "Increase speed gradually."],
+    sections: [{ title: "BPM and meter", body: "BPM defines the pulse speed. Meter groups beats and accents." }, { title: "Subdivisions", body: "Duplets, triplets and quadruplets help you practice timing inside the beat." }],
+    tool: "metronome"
+  };
+}
+
+function standardBassUtility(locale: Locale): Omit<GuideContent, "targetPath"> {
+  const guide = buildInstrumentGuide(locale, "bass", "standard-bass-tuning");
+  return {
+    ...guide,
+    title:
+      locale === "it"
+        ? "Accordatura basso standard"
+        : locale === "fr"
+          ? "Accordage standard de la basse"
+          : locale === "es"
+            ? "Afinación estándar del bajo"
+            : locale === "pt"
+              ? "Afinação padrão do baixo"
+              : locale === "de"
+                ? "Standardstimmung für Bass"
+                : locale === "ru"
+                  ? "Стандартный строй бас-гитары"
+                  : locale === "zh"
+                    ? "贝斯标准调弦"
+                    : locale === "ja"
+                      ? "ベースの標準チューニング"
+                      : locale === "ko"
+                        ? "표준 베이스 튜닝"
+                        : locale === "ar"
+                          ? "ضبط الباس القياسي"
+                          : "Standard bass tuning"
+  };
+}
+
+function coreToolForInstrument(instrument: Instrument): ToolSlug {
+  if (instrument === "bass") return "bass-tuner";
+  if (instrument === "ukulele") return "ukulele-tuner";
+  return "guitar-tuner";
+}
+
+function targetPathForInstrument(instrument: Instrument) {
+  if (instrument === "guitar") return "tools/guitar-tuner";
+  if (instrument === "bass") return "tools/bass-tuner";
+  if (instrument === "ukulele") return "tools/ukulele-tuner";
+  return `tools/${instrument}-tuner`;
+}
+
+function instrumentFromGuideSlug(guide: GuideSlug): Instrument | null {
+  if (guide === "standard-bass-tuning") return "bass";
+  if (!guide.startsWith("how-to-tune-")) return null;
+  const instrument = guide.slice("how-to-tune-".length) as Instrument;
+  return instrumentIds.includes(instrument) ? instrument : null;
+}
+
+function tuningString(instrument: Instrument, locale: Locale) {
+  const notation = locale === "it" || locale === "fr" || locale === "es" || locale === "pt" ? "latin" : "international";
+  return tunings[instrument].map((note) => formatNoteName(`${note.name}${note.octave ?? ""}`, notation, false)).join(" - ");
+}
+
+function buildInstrumentGuide(locale: Locale, instrument: Instrument, guide: GuideSlug): GuideContent {
+  const copy = tuningGuideCopy[locale];
+  const label = getInstrumentLabel(instrument, locale);
+  const tuning = tuningString(instrument, locale);
+  return {
+    description: copy.description(label, tuning),
+    intro: copy.intro(label, tuning),
+    keywords: [...copy.keywords(label, tuning), tuning, "TuneUniversal"],
+    sections: copy.sections(label, tuning),
+    steps: copy.steps(label),
+    targetDescription: copy.description(label, tuning),
+    targetPath: targetPathForInstrument(instrument),
+    targetTitle: copy.targetTitle(label),
+    title: copy.title(label),
+    tool: coreToolForInstrument(instrument)
+  };
+}
 
 export function isGuideSlug(value: string | undefined): value is GuideSlug {
   return Boolean(value && guideSlugs.includes(value as GuideSlug));
 }
 
 export function getGuideContent(locale: Locale, guide: GuideSlug): GuideContent {
-  const base = guideContent[locale === "it" || locale === "en" ? locale : "en"][guide];
-  const localized = locale === "it" || locale === "en" ? base : localizedLabels[locale][guide];
-  return { ...base, ...localized };
+  const instrument = instrumentFromGuideSlug(guide);
+  if (instrument) return buildInstrumentGuide(locale, instrument, guide);
+  return utilityGuides[locale][guide as (typeof extraGuideSlugs)[number]];
 }
 
 export function guidesForTool(tool: ToolSlug): GuideSlug[] {
-  return guideSlugs.filter((guide) => getGuideContent("en", guide).tool === tool);
+  if (tool === "guitar-tuner") {
+    return ["how-to-tune-guitar", "how-to-tune-7-string-guitar", "how-to-tune-8-string-guitar", "how-to-tune-12-string-guitar"];
+  }
+  if (tool === "bass-tuner") return ["how-to-tune-bass", "standard-bass-tuning"];
+  if (tool === "ukulele-tuner") return ["how-to-tune-ukulele"];
+  if (tool === "metronome") return ["how-to-use-metronome"];
+  if (tool === "tap-bpm") return ["how-to-find-bpm"];
+  return [];
 }

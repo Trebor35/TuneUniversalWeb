@@ -32,6 +32,9 @@ export default async function GuidePage({ params }: PageProps) {
   const content = getGuideContent(locale, rawGuide);
   const indexContent = guideIndexContent[locale];
   const tool = dictionary.tools[content.tool];
+  const toolHref = `/${locale}/${content.targetPath ?? `tools/${content.tool}`}`;
+  const toolTitle = content.targetTitle ?? tool.title;
+  const toolDescription = content.targetDescription ?? tool.description;
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10 sm:py-14">
@@ -51,8 +54,8 @@ export default async function GuidePage({ params }: PageProps) {
 
       <section className="mt-8 rounded-lg border border-line bg-white p-5 shadow-soft">
         <p className="leading-8 text-ink/75">{content.intro}</p>
-        <Link className="mt-5 inline-flex rounded-md bg-ink px-4 py-3 font-bold text-white" href={`/${locale}/tools/${content.tool}`}>
-          {tool.title}
+        <Link className="mt-5 inline-flex rounded-md bg-ink px-4 py-3 font-bold text-white" href={toolHref}>
+          {toolTitle}
         </Link>
       </section>
 
@@ -85,9 +88,9 @@ export default async function GuidePage({ params }: PageProps) {
 
       <section className="mt-8 rounded-lg border border-line bg-white p-5">
         <h2 className="text-xl font-bold">{dictionary.nav.tools}</h2>
-        <p className="mt-2 leading-7 text-ink/72">{tool.description}</p>
-        <Link className="mt-4 inline-flex rounded-md bg-mint px-4 py-3 font-bold text-white" href={`/${locale}/tools/${content.tool}`}>
-          {tool.title}
+        <p className="mt-2 leading-7 text-ink/72">{toolDescription}</p>
+        <Link className="mt-4 inline-flex rounded-md bg-mint px-4 py-3 font-bold text-white" href={toolHref}>
+          {toolTitle}
         </Link>
       </section>
 
