@@ -6,6 +6,7 @@ import { guideIndexContent, guideSlugs, type GuideContent, type GuideSlug } from
 import { publicDomainSongSlugs, songsUi, type PublicDomainSong } from "@/lib/content/publicDomainSongs";
 import { staticPageSlugs, type StaticPageSlug } from "@/lib/content/staticPages";
 import { tuningHubContent } from "@/lib/content/tuningHub";
+import { toolsHubContent } from "@/lib/content/toolsHub";
 import { toolSlugs, type ToolSlug } from "@/lib/tools/toolConfig";
 import { homeKeywords, toolKeywords } from "@/lib/seo/keywords";
 
@@ -113,14 +114,15 @@ export function buildGuideIndexMetadata(locale: Locale): Metadata {
 }
 
 export function buildToolsIndexMetadata(locale: Locale, dictionary: Dictionary): Metadata {
+  const content = toolsHubContent[locale];
   return {
-    title: `${dictionary.nav.tools} | TuneUniversal`,
-    description: dictionary.meta.description,
-    keywords: homeKeywords[locale],
+    title: `${content.title} | TuneUniversal`,
+    description: content.description,
+    keywords: [...content.keywords, ...homeKeywords[locale], "universal tuner", "online music tools"],
     alternates: buildAlternates(locale, "tools"),
     openGraph: {
-      title: `${dictionary.nav.tools} | TuneUniversal`,
-      description: dictionary.meta.description,
+      title: `${content.title} | TuneUniversal`,
+      description: content.description,
       url: `${siteUrl}/${locale}/tools`,
       siteName: "TuneUniversal",
       type: "website",

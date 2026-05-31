@@ -7,10 +7,12 @@ import { ToolNavigation } from "@/components/layout/ToolNavigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getInstrumentTunerContent, instrumentToTunerSlug } from "@/lib/content/instrumentTuners";
 import { hubEnhancements } from "@/lib/content/seoEnhancements";
+import { tuningHubContent } from "@/lib/content/tuningHub";
+import { toolsHubContent } from "@/lib/content/toolsHub";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildToolsIndexMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema } from "@/lib/seo/schema";
+import { breadcrumbSchema, faqItemsSchema } from "@/lib/seo/schema";
 import { instrumentIds } from "@/lib/tools/toolConfig";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
@@ -48,30 +50,62 @@ export default async function ToolsIndexPage({ params }: PageProps) {
 
   const locale = rawLocale as Locale;
   const dictionary = await getDictionary(locale);
+  const hub = toolsHubContent[locale];
+  const tuningsLabel = tuningHubContent[locale].title;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
       <JsonLd
         data={breadcrumbSchema([
           { name: "TuneUniversal", url: `${siteUrl}/${locale}` },
-          { name: dictionary.nav.tools, url: `${siteUrl}/${locale}/tools` }
+          { name: hub.title, url: `${siteUrl}/${locale}/tools` }
         ])}
       />
+      <JsonLd data={faqItemsSchema(hub.faq)} />
       <p className="text-xs font-bold uppercase tracking-[0.18em] text-mint">TuneUniversal</p>
-      <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{dictionary.nav.tools}</h1>
-      <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{dictionary.meta.description}</p>
+      <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{hub.title}</h1>
+      <p className="mt-4 max-w-3xl text-lg leading-8 text-ink/70">{hub.description}</p>
       <section className="mt-6 rounded-lg border border-line bg-white p-5 shadow-soft">
         <p className="leading-7 text-ink/72">{hubEnhancements[locale].tools}</p>
       </section>
 
       <AdSlot className="mt-8" />
 
-      <section className="mt-8">
-        <h2 className="text-2xl font-bold">{dictionary.common.otherTools}</h2>
-        <div className="mt-4">
-          <ToolNavigation locale={locale} dictionary={dictionary} />
+      <section className="mt-8 grid gap-4 rounded-lg border border-line bg-ink p-5 text-white shadow-soft sm:p-7 lg:grid-cols-[1.35fr_0.65fr] lg:items-center">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-mint">Chromatic tuner</p>
+          <h2 className="mt-3 text-2xl font-black leading-tight sm:text-4xl">{hub.chromaticTitle}</h2>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-white/72">{hub.chromaticBody}</p>
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+          <Link
+            href={`/${locale}/tools/guitar-tuner`}
+            className="inline-flex min-h-12 items-center justify-center rounded-md bg-mint px-5 py-3 text-center font-bold text-ink transition hover:bg-mintSoft"
+          >
+            {hub.chromaticCta}
+          </Link>
+          <Link
+            href={`/${locale}/tunings`}
+            className="inline-flex min-h-12 items-center justify-center rounded-md border border-white/20 px-5 py-3 text-center font-bold text-white transition hover:bg-white/10"
+          >
+            {tuningsLabel}
+          </Link>
         </div>
       </section>
+
+      <div className="mt-8 grid gap-8">
+        {hub.groups.map((group) => (
+          <section key={group.title}>
+            <div className="max-w-3xl">
+              <h2 className="text-2xl font-bold">{group.title}</h2>
+              <p className="mt-2 text-base leading-7 text-ink/68">{group.description}</p>
+            </div>
+            <div className="mt-4">
+              <ToolNavigation locale={locale} dictionary={dictionary} tools={group.tools} />
+            </div>
+          </section>
+        ))}
+      </div>
 
       <AdSlot variant="mobileBanner" className="mt-8 lg:hidden" />
       <AdSlot variant="rectangle" className="mx-auto mt-8 max-w-xl lg:hidden" />
@@ -79,6 +113,7 @@ export default async function ToolsIndexPage({ params }: PageProps) {
 
       <section className="mt-10">
         <h2 className="text-2xl font-bold">{instrumentSectionLabels[locale]}</h2>
+        <p className="mt-2 max-w-3xl text-base leading-7 text-ink/68">{hub.instrumentIntro}</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {instrumentIds.map((instrument) => {
             const content = getInstrumentTunerContent(locale, instrument);
@@ -102,6 +137,18 @@ export default async function ToolsIndexPage({ params }: PageProps) {
       </section>
 
       <AdSlot className="mt-8" />
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-bold">{dictionary.common.faq}</h2>
+        <div className="mt-4 grid gap-3">
+          {hub.faq.map((item) => (
+            <details key={item.question} className="rounded-lg border border-line bg-white p-5">
+              <summary className="cursor-pointer text-lg font-bold">{item.question}</summary>
+              <p className="mt-3 leading-7 text-ink/68">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
