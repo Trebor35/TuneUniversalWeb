@@ -6,6 +6,7 @@ import { AdSlot } from "@/components/ads/AdSlot";
 import { ToolNavigation } from "@/components/layout/ToolNavigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getInstrumentTunerContent, instrumentToTunerSlug } from "@/lib/content/instrumentTuners";
+import { hubEnhancements } from "@/lib/content/seoEnhancements";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildToolsIndexMetadata } from "@/lib/seo/metadata";
@@ -59,6 +60,9 @@ export default async function ToolsIndexPage({ params }: PageProps) {
       <p className="text-xs font-bold uppercase tracking-[0.18em] text-mint">TuneUniversal</p>
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{dictionary.nav.tools}</h1>
       <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{dictionary.meta.description}</p>
+      <section className="mt-6 rounded-lg border border-line bg-white p-5 shadow-soft">
+        <p className="leading-7 text-ink/72">{hubEnhancements[locale].tools}</p>
+      </section>
 
       <AdSlot className="mt-8" />
 
@@ -82,14 +86,14 @@ export default async function ToolsIndexPage({ params }: PageProps) {
               <Link
                 key={instrument}
                 href={`/${locale}/tools/${instrumentToTunerSlug(instrument)}`}
-                className="group flex min-h-24 items-start gap-3 rounded-lg border border-line bg-white p-4 transition hover:-translate-y-0.5 hover:border-mint hover:shadow-soft"
+                className="group flex min-h-0 items-start gap-3 rounded-lg border border-line bg-white p-4 transition hover:-translate-y-0.5 hover:border-mint hover:shadow-soft sm:min-h-24"
               >
                 <span className="mt-1 shrink-0 rounded-md bg-mint/10 p-2 text-mint">
                   <Music2 size={18} aria-hidden />
                 </span>
                 <span className="min-w-0">
-                  <span className="block font-semibold">{content.title}</span>
-                  <span className="mt-1 block text-sm leading-6 text-ink/68">{content.description}</span>
+                  <span className="block break-words font-semibold">{content.title}</span>
+                  <span className="mt-1 block break-words text-sm leading-6 text-ink/68">{content.description}</span>
                 </span>
               </Link>
             );

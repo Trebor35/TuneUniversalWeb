@@ -11,6 +11,7 @@ import {
   utilityGuideSlugs,
   type GuideSlug
 } from "@/lib/content/guides";
+import { hubEnhancements } from "@/lib/content/seoEnhancements";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildGuideIndexMetadata } from "@/lib/seo/metadata";
@@ -68,6 +69,9 @@ export default async function GuidesIndexPage({ params }: PageProps) {
       <p className="text-xs font-bold uppercase tracking-[0.18em] text-mint">TuneUniversal</p>
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{content.title}</h1>
       <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{content.description}</p>
+      <section className="mt-6 rounded-lg border border-line bg-white p-5 shadow-soft">
+        <p className="leading-7 text-ink/72">{hubEnhancements[locale].guides}</p>
+      </section>
 
       <AdSlot className="mt-8" />
 

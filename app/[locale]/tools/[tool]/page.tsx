@@ -16,10 +16,11 @@ import {
   instrumentFromTunerSlug,
   instrumentTunerSlugs
 } from "@/lib/content/instrumentTuners";
+import { getToolSeoEnhancement } from "@/lib/content/seoEnhancements";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildInstrumentTunerMetadata, buildToolMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema, faqItemsSchema, faqSchema, instrumentTunerSchema, toolSchema } from "@/lib/seo/schema";
+import { breadcrumbSchema, faqItemsSchema, instrumentTunerSchema, toolSchema } from "@/lib/seo/schema";
 import { isToolSlug, toolSlugs, tunerTools, type Instrument, type ToolSlug } from "@/lib/tools/toolConfig";
 
 type PageProps = { params: Promise<{ locale: string; tool: string }> };
@@ -102,6 +103,8 @@ export default async function ToolPage({ params }: PageProps) {
 
   const instrumentContent = instrument ? getInstrumentTunerContent(locale, instrument) : null;
   const content = coreTool ? dictionary.tools[coreTool] : instrumentContent!;
+  const seoEnhancement = coreTool ? getToolSeoEnhancement(locale, coreTool) : null;
+  const faqContent = seoEnhancement ? [...content.faq, ...seoEnhancement.faqs] : content.faq;
   const relatedTools: ToolSlug[] =
     coreTool && !tunerTools.includes(coreTool as (typeof tunerTools)[number])
       ? (["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"].filter((slug) => slug !== coreTool) as ToolSlug[])
@@ -112,7 +115,7 @@ export default async function ToolPage({ params }: PageProps) {
     <main className="mx-auto w-full max-w-7xl overflow-hidden px-2 py-8 sm:px-4 sm:py-10">
       {coreTool ? <JsonLd data={toolSchema(locale, coreTool, dictionary)} /> : null}
       {instrumentContent ? <JsonLd data={instrumentTunerSchema(locale, rawTool, instrumentContent)} /> : null}
-      {coreTool ? <JsonLd data={faqSchema(coreTool, dictionary)} /> : <JsonLd data={faqItemsSchema(content.faq)} />}
+      {coreTool ? <JsonLd data={faqItemsSchema(faqContent)} /> : <JsonLd data={faqItemsSchema(content.faq)} />}
       <JsonLd
         data={breadcrumbSchema([
           { name: "TuneUniversal", url: `${siteUrl}/${locale}` },
@@ -145,6 +148,19 @@ export default async function ToolPage({ params }: PageProps) {
           </section>
           <AdSlot variant="mobileBanner" className="lg:hidden" />
           <AdSlot className="hidden lg:flex" />
+          {seoEnhancement ? (
+            <section>
+              <h2 className="text-2xl font-bold">{guideHeadings[locale]}</h2>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                {seoEnhancement.sections.map((section) => (
+                  <article key={section.title} className="rounded-lg border border-line bg-white p-4 shadow-soft">
+                    <h3 className="text-lg font-bold">{section.title}</h3>
+                    <p className="mt-2 leading-7 text-ink/72">{section.body}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ) : null}
           {relatedGuides.length > 0 && (
             <section>
               <h2 className="text-2xl font-bold">{guideHeadings[locale]}</h2>
@@ -168,7 +184,7 @@ export default async function ToolPage({ params }: PageProps) {
           <section>
             <h2 className="text-2xl font-bold">{dictionary.common.faq}</h2>
             <div className="mt-4 grid gap-3">
-              {content.faq.map((item) => (
+              {faqContent.map((item) => (
                 <details key={item.question} className="rounded-lg border border-line bg-white p-4">
                   <summary className="cursor-pointer font-semibold">{item.question}</summary>
                   <p className="mt-3 leading-7 text-ink/70">{item.answer}</p>

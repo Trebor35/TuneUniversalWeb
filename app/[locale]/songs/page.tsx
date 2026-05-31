@@ -5,6 +5,7 @@ import { Music2 } from "lucide-react";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
+import { hubEnhancements } from "@/lib/content/seoEnhancements";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildSongsIndexMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -65,14 +66,14 @@ export default async function SongsIndexPage({ params }: PageProps) {
       <Link
         key={slug}
         href={`/${locale}/songs/${slug}`}
-        className="group flex min-h-40 items-start gap-3 rounded-lg border border-line bg-white p-4 transition hover:-translate-y-0.5 hover:border-mint hover:shadow-soft"
+        className="group flex min-h-0 items-start gap-3 rounded-lg border border-line bg-white p-4 transition hover:-translate-y-0.5 hover:border-mint hover:shadow-soft sm:min-h-40"
       >
         <span className="mt-1 shrink-0 rounded-md bg-mint/10 p-2 text-mint">
           <Music2 size={18} aria-hidden />
         </span>
         <span className="min-w-0">
-          <span className="block text-lg font-bold">{song.title}</span>
-          <span className="mt-1 block text-sm leading-6 text-ink/68">{song.origin}</span>
+          <span className="block break-words text-lg font-bold">{song.title}</span>
+          <span className="mt-1 block break-words text-sm leading-6 text-ink/68">{song.origin}</span>
           <span className="mt-3 flex flex-wrap gap-2 text-xs font-bold text-ink/60">
             <span className="rounded-full bg-paper px-2 py-1">{song.key}</span>
             <span className="rounded-full bg-paper px-2 py-1">{song.meter}</span>
@@ -94,6 +95,9 @@ export default async function SongsIndexPage({ params }: PageProps) {
       <p className="text-xs font-bold uppercase tracking-[0.18em] text-mint">{ui.publicDomain}</p>
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{ui.title}</h1>
       <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{ui.description}</p>
+      <section className="mt-6 rounded-lg border border-line bg-white p-5 shadow-soft">
+        <p className="leading-7 text-ink/72">{hubEnhancements[locale].songs}</p>
+      </section>
 
       <AdSlot className="mt-8" />
 
