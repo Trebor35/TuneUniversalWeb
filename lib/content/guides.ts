@@ -29,7 +29,15 @@ export const instrumentGuideSlugs = [
   "how-to-tune-yangqin"
 ] as const;
 
-export const utilityGuideSlugs = ["standard-bass-tuning", "how-to-use-metronome", "how-to-find-bpm"] as const;
+export const utilityGuideSlugs = [
+  "standard-bass-tuning",
+  "how-to-use-metronome",
+  "how-to-find-bpm",
+  "how-to-read-chords",
+  "how-to-transpose-chords",
+  "common-guitar-tunings",
+  "metronome-subdivisions"
+] as const;
 
 export const alternativeTuningGuideSlugs = [
   "eb-standard-tuning",
@@ -54,6 +62,11 @@ export const guideSlugs = [...instrumentGuideSlugs, ...alternativeTuningGuideSlu
 
 export type GuideSlug = (typeof guideSlugs)[number];
 type AlternativeTuningGuideSlug = (typeof alternativeTuningGuideSlugs)[number];
+type UtilityGuideSlug = (typeof utilityGuideSlugs)[number];
+type ExtraUtilityGuideSlug = Exclude<
+  UtilityGuideSlug,
+  "standard-bass-tuning" | "how-to-use-metronome" | "how-to-find-bpm"
+>;
 
 export type GuideContent = {
   description: string;
@@ -260,7 +273,7 @@ const tuningGuideCopy: Record<Locale, TuningGuideCopy> = {
   }
 };
 
-const utilityGuides: Record<Locale, Record<(typeof utilityGuideSlugs)[number], Omit<GuideContent, "targetPath">>> = {
+const utilityGuides: Record<Locale, Record<UtilityGuideSlug, Omit<GuideContent, "targetPath">>> = {
   ar: {
     "how-to-find-bpm": {
       title: "كيفية معرفة BPM للأغنية",
@@ -280,59 +293,389 @@ const utilityGuides: Record<Locale, Record<(typeof utilityGuideSlugs)[number], O
       sections: [{ title: "BPM والميزان", body: "BPM يعني نبضات في الدقيقة. الميزان ينظم مواضع النبرات." }, { title: "التقسيمات", body: "الثنائيات والثلاثيات والرباعيات تساعد على دقة الإيقاع." }],
       tool: "metronome"
     },
+    ...extraUtilityGuides("ar"),
     "standard-bass-tuning": standardBassUtility("ar")
   },
   de: {
     "how-to-find-bpm": utilityBpm("de"),
     "how-to-use-metronome": utilityMetronome("de"),
+    ...extraUtilityGuides("de"),
     "standard-bass-tuning": standardBassUtility("de")
   },
   en: {
     "how-to-find-bpm": utilityBpm("en"),
     "how-to-use-metronome": utilityMetronome("en"),
+    ...extraUtilityGuides("en"),
     "standard-bass-tuning": standardBassUtility("en")
   },
   es: {
     "how-to-find-bpm": utilityBpm("es"),
     "how-to-use-metronome": utilityMetronome("es"),
+    ...extraUtilityGuides("es"),
     "standard-bass-tuning": standardBassUtility("es")
   },
   fr: {
     "how-to-find-bpm": utilityBpm("fr"),
     "how-to-use-metronome": utilityMetronome("fr"),
+    ...extraUtilityGuides("fr"),
     "standard-bass-tuning": standardBassUtility("fr")
   },
   it: {
     "how-to-find-bpm": utilityBpm("it"),
     "how-to-use-metronome": utilityMetronome("it"),
+    ...extraUtilityGuides("it"),
     "standard-bass-tuning": standardBassUtility("it")
   },
   ja: {
     "how-to-find-bpm": utilityBpm("ja"),
     "how-to-use-metronome": utilityMetronome("ja"),
+    ...extraUtilityGuides("ja"),
     "standard-bass-tuning": standardBassUtility("ja")
   },
   ko: {
     "how-to-find-bpm": utilityBpm("ko"),
     "how-to-use-metronome": utilityMetronome("ko"),
+    ...extraUtilityGuides("ko"),
     "standard-bass-tuning": standardBassUtility("ko")
   },
   pt: {
     "how-to-find-bpm": utilityBpm("pt"),
     "how-to-use-metronome": utilityMetronome("pt"),
+    ...extraUtilityGuides("pt"),
     "standard-bass-tuning": standardBassUtility("pt")
   },
   ru: {
     "how-to-find-bpm": utilityBpm("ru"),
     "how-to-use-metronome": utilityMetronome("ru"),
+    ...extraUtilityGuides("ru"),
     "standard-bass-tuning": standardBassUtility("ru")
   },
   zh: {
     "how-to-find-bpm": utilityBpm("zh"),
     "how-to-use-metronome": utilityMetronome("zh"),
+    ...extraUtilityGuides("zh"),
     "standard-bass-tuning": standardBassUtility("zh")
   }
 };
+
+function extraUtilityGuides(locale: Locale): Record<ExtraUtilityGuideSlug, Omit<GuideContent, "targetPath">> {
+  const copy = {
+    ar: {
+      chords: ["كيفية قراءة رموز الأوتار", "تعلم معنى C و Am و G7 والرموز الشائعة للأوتار.", "رموز الأوتار تختصر النغمة الأساسية ونوع الوتر. الحرف يحدد الجذر، و m يعني صغير، و 7 يضيف السابعة.", "قراءة الأوتار", "رموز أوتار الغيتار"],
+      transpose: ["كيفية نقل الأوتار إلى مقام آخر", "انقل تقدمات الأوتار لأعلى أو لأسفل بنصف نغمة.", "النقل يغير المقام مع الحفاظ على العلاقات بين الأوتار. ارفع أو اخفض نصف النغمات حتى يناسب الصوت أو الآلة.", "نقل الأوتار", "تغيير مقام الأغنية"],
+      tunings: ["أشهر ضبطات الغيتار", "دليل سريع لضبط Standard و Drop D و Eb Standard و Open G.", "يبدأ معظم العازفين بضبط E A D G B E، ثم ينتقلون إلى Drop D أو Eb Standard أو Open G حسب الأسلوب.", "ضبطات الغيتار", "Drop D و Open G"],
+      subdiv: ["تقسيمات المترونوم", "تدرب على الثنائيات والثلاثيات والرباعيات داخل كل نبضة.", "تساعد التقسيمات على جعل الإيقاع أدق من النبضة الأساسية، خصوصا عند التمرين البطيء.", "تقسيمات إيقاعية", "ثلاثيات و رباعيات"]
+    },
+    de: {
+      chords: ["Akkordsymbole lesen", "Lerne, was C, Am, G7 und gängige Akkordsymbole bedeuten.", "Akkordsymbole zeigen Grundton und Akkordtyp. Der Buchstabe ist der Grundton, m bedeutet Moll und 7 ergänzt die Septime.", "akkorde lesen", "gitarrenakkorde verstehen"],
+      transpose: ["Akkorde in eine andere Tonart transponieren", "Verschiebe Akkordfolgen in Halbtonschritten nach oben oder unten.", "Transponieren ändert die Tonart, lässt aber die Abstände zwischen den Akkorden gleich.", "akkorde transponieren", "tonart ändern"],
+      tunings: ["Häufige Gitarrenstimmungen", "Kurzer Überblick zu Standard, Drop D, Eb Standard und Open G.", "Die meisten Spieler starten mit E A D G B E und nutzen Drop D, Eb Standard oder Open G für andere Klangfarben.", "gitarrenstimmungen", "drop d open g"],
+      subdiv: ["Metronom-Unterteilungen üben", "Übe Duolen, Triolen und Vierergruppen innerhalb eines Beats.", "Unterteilungen machen den Puls genauer und helfen besonders beim langsamen Üben.", "metronom unterteilungen", "triolen üben"]
+    },
+    en: {
+      chords: ["How to read chord symbols", "Learn what C, Am, G7 and common chord names mean.", "Chord symbols compress the root note and chord quality. The letter is the root, m means minor and 7 adds the seventh.", "read chord symbols", "guitar chord names"],
+      transpose: ["How to transpose chords", "Move chord progressions up or down by semitones.", "Transposing changes the key while keeping the relationships between chords intact.", "transpose chords", "change song key"],
+      tunings: ["Common guitar tunings", "A quick guide to Standard, Drop D, Eb Standard, D Standard, Open D and Open G.", "Most players start with E A D G B E, then use alternate tunings for lower riffs, open chords or different vocal ranges.", "common guitar tunings", "drop d open g tuning"],
+      subdiv: ["Metronome subdivisions", "Practice duplets, triplets and quadruplets inside the beat.", "Subdivisions make the pulse more precise and help you hear rhythm between main clicks.", "metronome subdivisions", "triplet practice"]
+    },
+    es: {
+      chords: ["Cómo leer símbolos de acordes", "Aprende qué significan C, Am, G7 y otros acordes comunes.", "Los símbolos resumen la nota raíz y el tipo de acorde. La letra es la raíz, m indica menor y 7 añade la séptima.", "leer acordes", "nombres de acordes"],
+      transpose: ["Cómo transportar acordes", "Mueve progresiones de acordes arriba o abajo por semitonos.", "Transportar cambia la tonalidad manteniendo la relación entre los acordes.", "transportar acordes", "cambiar tonalidad"],
+      tunings: ["Afinaciones comunes de guitarra", "Guía rápida de Standard, Drop D, Eb Standard, D Standard, Open D y Open G.", "La mayoría empieza con E A D G B E y usa afinaciones alternativas para riffs graves o acordes abiertos.", "afinaciones guitarra", "drop d open g"],
+      subdiv: ["Subdivisiones del metrónomo", "Practica duinas, tresillos y cuatrillos dentro del pulso.", "Las subdivisiones ayudan a escuchar mejor el ritmo entre los clics principales.", "subdivisiones metrónomo", "practicar tresillos"]
+    },
+    fr: {
+      chords: ["Comment lire les accords", "Comprendre C, Am, G7 et les symboles d'accords courants.", "Un symbole d'accord indique la fondamentale et la couleur. La lettre donne la note, m signifie mineur et 7 ajoute la septième.", "lire accords", "symboles accords guitare"],
+      transpose: ["Comment transposer des accords", "Déplacez une suite d'accords vers le haut ou le bas par demi-tons.", "Transposer change la tonalité tout en gardant les mêmes relations entre les accords.", "transposer accords", "changer tonalité"],
+      tunings: ["Accordages courants de guitare", "Guide rapide pour Standard, Drop D, Eb Standard, D Standard, Open D et Open G.", "La plupart des guitaristes commencent en E A D G B E puis utilisent des accordages alternatifs pour changer de couleur.", "accordages guitare", "drop d open g"],
+      subdiv: ["Subdivisions du métronome", "Travaillez les duos, triolets et groupes de quatre dans chaque temps.", "Les subdivisions rendent le tempo plus précis et aident à sentir le rythme entre les clics.", "subdivisions métronome", "travailler triolets"]
+    },
+    it: {
+      chords: ["Come leggere gli accordi", "Capisci cosa significano C, Am, G7 e le sigle più comuni.", "Le sigle degli accordi indicano nota fondamentale e qualità. La lettera è la nota, m significa minore e 7 aggiunge la settima.", "leggere accordi", "sigle accordi chitarra"],
+      transpose: ["Come trasporre gli accordi", "Sposta una progressione di accordi su o giù per semitoni.", "Trasporre cambia tonalità mantenendo uguali i rapporti tra gli accordi.", "trasporre accordi", "cambiare tonalità canzone"],
+      tunings: ["Accordature comuni per chitarra", "Guida rapida a Standard, Drop D, Eb Standard, D Standard, Open D e Open G.", "La maggior parte dei chitarristi parte da Mi La Re Sol Si Mi, poi usa accordature alternative per riff più bassi, accordi aperti o tonalità vocali diverse.", "accordature chitarra", "drop d open g"],
+      subdiv: ["Suddivisioni del metronomo", "Studia duine, terzine e quartine dentro ogni battito.", "Le suddivisioni rendono il tempo più preciso e aiutano a sentire il ritmo tra i click principali.", "suddivisioni metronomo", "studiare terzine"]
+    },
+    ja: {
+      chords: ["コード記号の読み方", "C、Am、G7 など基本的なコード名の意味を学びます。", "コード記号はルート音とコードの種類を表します。文字はルート、m はマイナー、7 はセブンスを示します。", "コード 読み方", "ギターコード 記号"],
+      transpose: ["コードを移調する方法", "コード進行を半音ずつ上下に移動します。", "移調はコード同士の関係を保ったままキーを変える作業です。", "コード 移調", "キー変更"],
+      tunings: ["一般的なギターチューニング", "Standard、Drop D、Eb Standard、D Standard、Open D、Open G の短いガイドです。", "多くの奏者は E A D G B E から始め、曲調に合わせて別のチューニングを使います。", "ギター チューニング", "Drop D Open G"],
+      subdiv: ["メトロノームの細分化", "2連、3連、4連を拍の中で練習します。", "細分化はクリックの間のリズムを感じる助けになります。", "メトロノーム 細分化", "三連符 練習"]
+    },
+    ko: {
+      chords: ["코드 기호 읽는 법", "C, Am, G7 같은 기본 코드 이름을 이해합니다.", "코드 기호는 근음과 코드 성격을 압축해 보여 줍니다. 글자는 근음, m은 마이너, 7은 세븐스를 뜻합니다.", "코드 읽기", "기타 코드 이름"],
+      transpose: ["코드 조옮김 방법", "코드 진행을 반음 단위로 올리거나 내립니다.", "조옮김은 코드 사이 관계를 유지하면서 키를 바꾸는 작업입니다.", "코드 조옮김", "키 변경"],
+      tunings: ["일반적인 기타 튜닝", "Standard, Drop D, Eb Standard, D Standard, Open D, Open G 빠른 가이드입니다.", "대부분은 E A D G B E에서 시작하고 곡 스타일에 따라 다른 튜닝을 사용합니다.", "기타 튜닝", "Drop D Open G"],
+      subdiv: ["메트로놈 subdivision", "박 안에서 2연음, 3연음, 4연음을 연습합니다.", "세분화는 주요 클릭 사이의 리듬을 더 정확히 느끼게 합니다.", "메트로놈 세분화", "셋잇단음 연습"]
+    },
+    pt: {
+      chords: ["Como ler cifras de acordes", "Entenda C, Am, G7 e nomes comuns de acordes.", "A cifra mostra a nota fundamental e o tipo do acorde. A letra é a fundamental, m significa menor e 7 adiciona a sétima.", "ler acordes", "cifras de guitarra"],
+      transpose: ["Como transpor acordes", "Mova progressões de acordes para cima ou para baixo em semitons.", "Transpor muda a tonalidade mantendo a relação entre os acordes.", "transpor acordes", "mudar tonalidade"],
+      tunings: ["Afinações comuns de guitarra", "Guia rápido para Standard, Drop D, Eb Standard, D Standard, Open D e Open G.", "A maioria começa em E A D G B E e usa afinações alternativas para riffs graves ou acordes abertos.", "afinações guitarra", "drop d open g"],
+      subdiv: ["Subdivisões do metrônomo", "Pratique duínas, tercinas e quartinas dentro do pulso.", "As subdivisões ajudam a sentir o ritmo entre os cliques principais.", "subdivisões metrônomo", "praticar tercinas"]
+    },
+    ru: {
+      chords: ["Как читать обозначения аккордов", "Разберите C, Am, G7 и другие распространенные названия аккордов.", "Обозначение аккорда показывает основной тон и тип. Буква означает корень, m - минор, 7 - добавленную септиму.", "читать аккорды", "обозначения аккордов"],
+      transpose: ["Как транспонировать аккорды", "Перемещайте последовательности аккордов вверх или вниз по полутонам.", "Транспонирование меняет тональность, сохраняя интервальные отношения между аккордами.", "транспонировать аккорды", "сменить тональность"],
+      tunings: ["Популярные строи гитары", "Краткий гид по Standard, Drop D, Eb Standard, D Standard, Open D и Open G.", "Большинство начинает с E A D G B E, а затем использует альтернативные строи для другого звучания.", "строи гитары", "drop d open g"],
+      subdiv: ["Деления метронома", "Практикуйте дуоли, триоли и группы по четыре внутри доли.", "Деления помогают точнее чувствовать ритм между основными кликами.", "деления метронома", "триоли практика"]
+    },
+    zh: {
+      chords: ["如何阅读和弦符号", "了解 C、Am、G7 和常见和弦名称的含义。", "和弦符号包含根音和和弦性质。字母是根音，m 表示小三和弦，7 表示加入七音。", "阅读和弦", "吉他和弦名称"],
+      transpose: ["如何移调和弦", "按半音向上或向下移动和弦进行。", "移调会改变调性，但保持和弦之间的关系不变。", "和弦移调", "改变歌曲调性"],
+      tunings: ["常见吉他调弦", "Standard、Drop D、Eb Standard、D Standard、Open D 和 Open G 快速指南。", "多数演奏者从 E A D G B E 开始，再根据风格使用其他调弦。", "吉他调弦", "Drop D Open G"],
+      subdiv: ["节拍器细分练习", "在每一拍中练习二连、三连和四连。", "细分可以帮助你更准确地感受主拍之间的节奏。", "节拍器细分", "三连音练习"]
+    }
+  }[locale];
+  const ui = {
+    ar: {
+      chordTool: "ناقل الأوتار",
+      guitarTool: "موالِف الغيتار",
+      metronomeTool: "الميترونوم",
+      rootMajor: "الجذر والوتر الكبير",
+      extensions: "m و 7 و maj7",
+      semitones: "أنصاف النغمات",
+      progression: "حافظ على التقدم",
+      standard: "الضبط القياسي",
+      alternate: "الضبطات البديلة",
+      duplets: "الثنائيات",
+      triplets: "الثلاثيات والرباعيات",
+      chordSteps: ["حدد النغمة الجذرية.", "اقرأ نوع الوتر.", "انتبه للأرقام أو الإضافات.", "تدرب على الشكل ببطء."],
+      transposeSteps: ["الصق تقدم الأوتار.", "اختر قيمة من -12 إلى +12 نصف نغمة.", "راجع النتيجة المنقولة.", "اعزف المقام الجديد ببطء."],
+      tuningSteps: ["اختر ضبطا مسبقا.", "اضبط الوتر الأكثر انخفاضا أولا.", "تابع وترا بعد وتر.", "أعد فحص كل الأوتار."],
+      subdivSteps: ["ابدأ بسرعة BPM بطيئة.", "اختر الميزان.", "اختر التقسيم.", "زد السرعة فقط عندما يصبح الإيقاع مريحا."]
+    },
+    de: {
+      chordTool: "Akkord-Transposer",
+      guitarTool: "Gitarren-Tuner",
+      metronomeTool: "Metronom",
+      rootMajor: "Grundton und Dur",
+      extensions: "m, 7 und maj7",
+      semitones: "Halbtöne",
+      progression: "Akkordfolge erhalten",
+      standard: "Standardstimmung",
+      alternate: "Alternative Stimmungen",
+      duplets: "Duolen",
+      triplets: "Triolen und Vierergruppen",
+      chordSteps: ["Finde den Grundton.", "Lies die Akkordqualität.", "Prüfe Zahlen und Erweiterungen.", "Übe den Griff langsam."],
+      transposeSteps: ["Füge die Akkordfolge ein.", "Wähle einen Halbtonwert von -12 bis +12.", "Prüfe das Ergebnis.", "Spiele die neue Tonart langsam."],
+      tuningSteps: ["Wähle einen Stimmungs-Preset.", "Stimme zuerst die tiefste Saite.", "Gehe Saite für Saite weiter.", "Kontrolliere danach alle Saiten erneut."],
+      subdivSteps: ["Starte mit langsamem BPM.", "Wähle die Taktart.", "Wähle die Unterteilung.", "Erhöhe das Tempo erst, wenn es locker klingt."]
+    },
+    en: {
+      chordTool: "Chord transposer",
+      guitarTool: "Guitar tuner",
+      metronomeTool: "Metronome",
+      rootMajor: "Root and major chords",
+      extensions: "m, 7 and maj7",
+      semitones: "Semitones",
+      progression: "Keep the progression",
+      standard: "Standard tuning",
+      alternate: "Alternate tunings",
+      duplets: "Duplets",
+      triplets: "Triplets and quadruplets",
+      chordSteps: ["Find the root note.", "Read the chord quality.", "Check added numbers or extensions.", "Practice the shape slowly."],
+      transposeSteps: ["Paste the chord progression.", "Choose a semitone value from -12 to +12.", "Check the transposed output.", "Play the new key slowly."],
+      tuningSteps: ["Choose a tuning preset.", "Tune the lowest string first.", "Continue string by string.", "Recheck all strings after the first pass."],
+      subdivSteps: ["Start with a slow BPM.", "Choose the meter.", "Select the subdivision.", "Increase speed only when the rhythm feels relaxed."]
+    },
+    es: {
+      chordTool: "Transpositor de acordes",
+      guitarTool: "Afinador de guitarra",
+      metronomeTool: "Metrónomo",
+      rootMajor: "Raíz y acorde mayor",
+      extensions: "m, 7 y maj7",
+      semitones: "Semitonos",
+      progression: "Mantén la progresión",
+      standard: "Afinación estándar",
+      alternate: "Afinaciones alternativas",
+      duplets: "Duinas",
+      triplets: "Tresillos y cuatrillos",
+      chordSteps: ["Encuentra la nota raíz.", "Lee la cualidad del acorde.", "Revisa números o extensiones.", "Practica la posición lentamente."],
+      transposeSteps: ["Pega la progresión.", "Elige un valor de -12 a +12 semitonos.", "Comprueba el resultado.", "Toca la nueva tonalidad despacio."],
+      tuningSteps: ["Elige un preset de afinación.", "Afina primero la cuerda más grave.", "Continúa cuerda por cuerda.", "Vuelve a comprobar todas las cuerdas."],
+      subdivSteps: ["Empieza con BPM lento.", "Elige el compás.", "Selecciona la subdivisión.", "Sube la velocidad solo cuando suene cómodo."]
+    },
+    fr: {
+      chordTool: "Transposeur d'accords",
+      guitarTool: "Accordeur guitare",
+      metronomeTool: "Métronome",
+      rootMajor: "Fondamentale et majeur",
+      extensions: "m, 7 et maj7",
+      semitones: "Demi-tons",
+      progression: "Gardez la progression",
+      standard: "Accordage standard",
+      alternate: "Accordages alternatifs",
+      duplets: "Duolets",
+      triplets: "Triolets et groupes de quatre",
+      chordSteps: ["Trouvez la fondamentale.", "Lisez la couleur de l'accord.", "Repérez les chiffres ou extensions.", "Travaillez la position lentement."],
+      transposeSteps: ["Collez la progression.", "Choisissez une valeur de -12 à +12 demi-tons.", "Vérifiez le résultat.", "Jouez lentement la nouvelle tonalité."],
+      tuningSteps: ["Choisissez un preset d'accordage.", "Accordez d'abord la corde la plus grave.", "Continuez corde par corde.", "Revérifiez toutes les cordes."],
+      subdivSteps: ["Commencez avec un BPM lent.", "Choisissez la mesure.", "Sélectionnez la subdivision.", "Augmentez seulement quand le rythme est détendu."]
+    },
+    it: {
+      chordTool: "Traspositore accordi",
+      guitarTool: "Accordatore chitarra",
+      metronomeTool: "Metronomo",
+      rootMajor: "Fondamentale e accordo maggiore",
+      extensions: "m, 7 e maj7",
+      semitones: "Semitoni",
+      progression: "Mantieni la progressione",
+      standard: "Accordatura standard",
+      alternate: "Accordature alternative",
+      duplets: "Duine",
+      triplets: "Terzine e quartine",
+      chordSteps: ["Trova la nota fondamentale.", "Leggi la qualità dell'accordo.", "Controlla numeri o estensioni.", "Studia la posizione lentamente."],
+      transposeSteps: ["Incolla la progressione di accordi.", "Scegli un valore da -12 a +12 semitoni.", "Controlla l'output trasposto.", "Suona lentamente la nuova tonalità."],
+      tuningSteps: ["Scegli un preset di accordatura.", "Accorda prima la corda più grave.", "Procedi corda per corda.", "Ricontrolla tutte le corde alla fine."],
+      subdivSteps: ["Parti con BPM lento.", "Scegli la metrica.", "Seleziona la suddivisione.", "Aumenta la velocità solo quando il ritmo è rilassato."]
+    },
+    ja: {
+      chordTool: "コード移調",
+      guitarTool: "ギターチューナー",
+      metronomeTool: "メトロノーム",
+      rootMajor: "ルートとメジャーコード",
+      extensions: "m、7、maj7",
+      semitones: "半音",
+      progression: "進行を保つ",
+      standard: "標準チューニング",
+      alternate: "別チューニング",
+      duplets: "2連",
+      triplets: "3連と4連",
+      chordSteps: ["ルート音を見つけます。", "コードの種類を読みます。", "数字や拡張音を確認します。", "フォームをゆっくり練習します。"],
+      transposeSteps: ["コード進行を貼り付けます。", "-12 から +12 半音を選びます。", "移調後の結果を確認します。", "新しいキーをゆっくり弾きます。"],
+      tuningSteps: ["チューニングプリセットを選びます。", "一番低い弦から合わせます。", "弦ごとに進めます。", "最後に全弦を確認します。"],
+      subdivSteps: ["遅い BPM から始めます。", "拍子を選びます。", "細分化を選びます。", "リズムが安定してから速度を上げます。"]
+    },
+    ko: {
+      chordTool: "코드 조옮김",
+      guitarTool: "기타 튜너",
+      metronomeTool: "메트로놈",
+      rootMajor: "근음과 메이저 코드",
+      extensions: "m, 7, maj7",
+      semitones: "반음",
+      progression: "진행 유지",
+      standard: "스탠더드 튜닝",
+      alternate: "대체 튜닝",
+      duplets: "2연음",
+      triplets: "3연음과 4연음",
+      chordSteps: ["근음을 찾습니다.", "코드 성격을 읽습니다.", "숫자와 확장음을 확인합니다.", "폼을 천천히 연습합니다."],
+      transposeSteps: ["코드 진행을 붙여넣습니다.", "-12부터 +12까지 반음 값을 고릅니다.", "조옮김 결과를 확인합니다.", "새 키를 천천히 연주합니다."],
+      tuningSteps: ["튜닝 프리셋을 고릅니다.", "가장 낮은 줄부터 맞춥니다.", "줄마다 차례로 진행합니다.", "마지막에 모든 줄을 다시 확인합니다."],
+      subdivSteps: ["느린 BPM으로 시작합니다.", "박자를 선택합니다.", "세분화를 선택합니다.", "리듬이 편해질 때만 속도를 올립니다."]
+    },
+    pt: {
+      chordTool: "Transpositor de acordes",
+      guitarTool: "Afinador de guitarra",
+      metronomeTool: "Metrônomo",
+      rootMajor: "Fundamental e acorde maior",
+      extensions: "m, 7 e maj7",
+      semitones: "Semitons",
+      progression: "Mantenha a progressão",
+      standard: "Afinação padrão",
+      alternate: "Afinações alternativas",
+      duplets: "Duínas",
+      triplets: "Tercinas e quartinas",
+      chordSteps: ["Encontre a nota fundamental.", "Leia a qualidade do acorde.", "Confira números ou extensões.", "Pratique a forma devagar."],
+      transposeSteps: ["Cole a progressão.", "Escolha um valor de -12 a +12 semitons.", "Confira o resultado.", "Toque a nova tonalidade devagar."],
+      tuningSteps: ["Escolha um preset de afinação.", "Afine primeiro a corda mais grave.", "Continue corda por corda.", "Verifique todas as cordas no final."],
+      subdivSteps: ["Comece com BPM lento.", "Escolha o compasso.", "Selecione a subdivisão.", "Aumente a velocidade só quando estiver confortável."]
+    },
+    ru: {
+      chordTool: "Транспозитор аккордов",
+      guitarTool: "Гитарный тюнер",
+      metronomeTool: "Метроном",
+      rootMajor: "Основной тон и мажор",
+      extensions: "m, 7 и maj7",
+      semitones: "Полутоны",
+      progression: "Сохраните последовательность",
+      standard: "Стандартный строй",
+      alternate: "Альтернативные строи",
+      duplets: "Дуоли",
+      triplets: "Триоли и группы по четыре",
+      chordSteps: ["Найдите основной тон.", "Определите тип аккорда.", "Проверьте цифры и расширения.", "Медленно отработайте аппликатуру."],
+      transposeSteps: ["Вставьте последовательность аккордов.", "Выберите значение от -12 до +12 полутонов.", "Проверьте результат.", "Медленно сыграйте новую тональность."],
+      tuningSteps: ["Выберите пресет строя.", "Сначала настройте самую низкую струну.", "Продолжайте струна за струной.", "В конце проверьте все струны снова."],
+      subdivSteps: ["Начните с медленного BPM.", "Выберите размер.", "Выберите деление.", "Увеличивайте скорость только при расслабленном ритме."]
+    },
+    zh: {
+      chordTool: "和弦移调器",
+      guitarTool: "吉他调音器",
+      metronomeTool: "节拍器",
+      rootMajor: "根音与大三和弦",
+      extensions: "m、7 和 maj7",
+      semitones: "半音",
+      progression: "保持和弦进行",
+      standard: "标准调弦",
+      alternate: "替代调弦",
+      duplets: "二连音",
+      triplets: "三连音和四连音",
+      chordSteps: ["找到根音。", "阅读和弦性质。", "检查数字或扩展音。", "慢速练习指法。"],
+      transposeSteps: ["粘贴和弦进行。", "选择 -12 到 +12 的半音值。", "检查移调结果。", "慢速弹奏新调性。"],
+      tuningSteps: ["选择调弦预设。", "先调最低音弦。", "逐弦继续。", "最后重新检查所有弦。"],
+      subdivSteps: ["从慢 BPM 开始。", "选择拍号。", "选择细分。", "节奏放松后再加速。"]
+    }
+  }[locale];
+
+  return {
+    "how-to-read-chords": {
+      title: copy.chords[0],
+      description: copy.chords[1],
+      intro: copy.chords[2],
+      keywords: [copy.chords[3], copy.chords[4], "chord symbols", "guitar chords", "TuneUniversal"],
+      sections: [
+        { title: ui.rootMajor, body: copy.chords[2] },
+        { title: ui.extensions, body: copy.chords[1] }
+      ],
+      steps: ui.chordSteps,
+      targetTitle: ui.chordTool,
+      targetDescription: copy.transpose[1],
+      tool: "chord-transposer"
+    },
+    "how-to-transpose-chords": {
+      title: copy.transpose[0],
+      description: copy.transpose[1],
+      intro: copy.transpose[2],
+      keywords: [copy.transpose[3], copy.transpose[4], "transpose chords", "change key", "TuneUniversal"],
+      sections: [
+        { title: ui.semitones, body: copy.transpose[2] },
+        { title: ui.progression, body: copy.transpose[1] }
+      ],
+      steps: ui.transposeSteps,
+      targetTitle: ui.chordTool,
+      targetDescription: copy.transpose[1],
+      tool: "chord-transposer"
+    },
+    "common-guitar-tunings": {
+      title: copy.tunings[0],
+      description: copy.tunings[1],
+      intro: copy.tunings[2],
+      keywords: [copy.tunings[3], copy.tunings[4], "guitar tunings", "Drop D", "Open G", "TuneUniversal"],
+      sections: [
+        { title: ui.standard, body: copy.tunings[2] },
+        { title: ui.alternate, body: copy.tunings[1] }
+      ],
+      steps: ui.tuningSteps,
+      targetTitle: ui.guitarTool,
+      targetDescription: copy.tunings[1],
+      tool: "guitar-tuner"
+    },
+    "metronome-subdivisions": {
+      title: copy.subdiv[0],
+      description: copy.subdiv[1],
+      intro: copy.subdiv[2],
+      keywords: [copy.subdiv[3], copy.subdiv[4], "metronome subdivisions", "triplets", "rhythm practice", "TuneUniversal"],
+      sections: [
+        { title: ui.duplets, body: copy.subdiv[2] },
+        { title: ui.triplets, body: copy.subdiv[1] }
+      ],
+      steps: ui.subdivSteps,
+      targetTitle: ui.metronomeTool,
+      targetDescription: copy.subdiv[1],
+      tool: "metronome"
+    }
+  };
+}
 
 function utilityBpm(locale: Locale): Omit<GuideContent, "targetPath"> {
   const data = {
@@ -664,12 +1007,15 @@ export function guidesForTool(tool: ToolSlug): GuideSlug[] {
       "d-standard-tuning",
       "drop-d-tuning",
       "drop-c-tuning",
-      "open-g-tuning"
+      "open-g-tuning",
+      "common-guitar-tunings",
+      "how-to-read-chords"
     ];
   }
   if (tool === "bass-tuner") return ["how-to-tune-bass", "standard-bass-tuning", "five-string-bass-tuning"];
   if (tool === "ukulele-tuner") return ["how-to-tune-ukulele", "low-g-ukulele-tuning", "d-ukulele-tuning"];
-  if (tool === "metronome") return ["how-to-use-metronome"];
+  if (tool === "metronome") return ["how-to-use-metronome", "metronome-subdivisions", "how-to-find-bpm"];
   if (tool === "tap-bpm") return ["how-to-find-bpm"];
+  if (tool === "chord-transposer") return ["how-to-transpose-chords", "how-to-read-chords"];
   return [];
 }

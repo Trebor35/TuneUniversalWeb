@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { AudioLines } from "lucide-react";
-import { alternativeTuningGuideSlugs, getGuideContent, instrumentGuideSlugs, type GuideSlug } from "@/lib/content/guides";
+import {
+  alternativeTuningGuideSlugs,
+  getGuideContent,
+  instrumentGuideSlugs,
+  utilityGuideSlugs,
+  type GuideSlug
+} from "@/lib/content/guides";
 import { getInstrumentTunerContent, instrumentToTunerSlug } from "@/lib/content/instrumentTuners";
 import { publicDomainSongs, publicDomainSongSlugs } from "@/lib/content/publicDomainSongs";
 import { getStaticPageContent } from "@/lib/content/staticPages";
@@ -71,7 +77,7 @@ const menuLabels: Record<
 
 function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGroup[] {
   const labels = menuLabels[locale];
-  const tuningGuideSlugs: GuideSlug[] = [...alternativeTuningGuideSlugs, "standard-bass-tuning"];
+  const tuningGuideSlugs: GuideSlug[] = [...alternativeTuningGuideSlugs, ...utilityGuideSlugs];
 
   return [
     {
