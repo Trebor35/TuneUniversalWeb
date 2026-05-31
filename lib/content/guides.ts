@@ -29,7 +29,7 @@ export const instrumentGuideSlugs = [
   "how-to-tune-yangqin"
 ] as const;
 
-const extraGuideSlugs = ["standard-bass-tuning", "how-to-use-metronome", "how-to-find-bpm"] as const;
+export const utilityGuideSlugs = ["standard-bass-tuning", "how-to-use-metronome", "how-to-find-bpm"] as const;
 
 export const alternativeTuningGuideSlugs = [
   "eb-standard-tuning",
@@ -50,7 +50,7 @@ export const alternativeTuningGuideSlugs = [
   "five-string-bass-tuning"
 ] as const;
 
-export const guideSlugs = [...instrumentGuideSlugs, ...alternativeTuningGuideSlugs, ...extraGuideSlugs] as const;
+export const guideSlugs = [...instrumentGuideSlugs, ...alternativeTuningGuideSlugs, ...utilityGuideSlugs] as const;
 
 export type GuideSlug = (typeof guideSlugs)[number];
 type AlternativeTuningGuideSlug = (typeof alternativeTuningGuideSlugs)[number];
@@ -260,7 +260,7 @@ const tuningGuideCopy: Record<Locale, TuningGuideCopy> = {
   }
 };
 
-const utilityGuides: Record<Locale, Record<(typeof extraGuideSlugs)[number], Omit<GuideContent, "targetPath">>> = {
+const utilityGuides: Record<Locale, Record<(typeof utilityGuideSlugs)[number], Omit<GuideContent, "targetPath">>> = {
   ar: {
     "how-to-find-bpm": {
       title: "كيفية معرفة BPM للأغنية",
@@ -653,7 +653,7 @@ export function getGuideContent(locale: Locale, guide: GuideSlug): GuideContent 
   if (instrument) return buildInstrumentGuide(locale, instrument, guide);
   const alternativeGuide = buildAlternativeTuningGuide(locale, guide);
   if (alternativeGuide) return alternativeGuide;
-  return utilityGuides[locale][guide as (typeof extraGuideSlugs)[number]];
+  return utilityGuides[locale][guide as (typeof utilityGuideSlugs)[number]];
 }
 
 export function guidesForTool(tool: ToolSlug): GuideSlug[] {

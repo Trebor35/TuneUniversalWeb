@@ -1,21 +1,27 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { AudioLines } from "lucide-react";
+import { alternativeTuningGuideSlugs, getGuideContent, instrumentGuideSlugs, type GuideSlug } from "@/lib/content/guides";
+import { getInstrumentTunerContent, instrumentToTunerSlug } from "@/lib/content/instrumentTuners";
+import { publicDomainSongs, publicDomainSongSlugs } from "@/lib/content/publicDomainSongs";
+import { getStaticPageContent } from "@/lib/content/staticPages";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
+import { instrumentIds, toolSlugs } from "@/lib/tools/toolConfig";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { MobileMenu, type MobileNavGroup } from "./MobileMenu";
 
 const aboutLabels: Record<Locale, string> = {
-  it: "Chi siamo",
-  en: "About",
-  fr: "À propos",
+  ar: "حول",
   de: "Über uns",
+  en: "About",
   es: "Acerca de",
-  pt: "Sobre",
-  zh: "关于",
-  ru: "О проекте",
+  fr: "À propos",
+  it: "Chi siamo",
   ja: "概要",
   ko: "소개",
-  ar: "حول"
+  pt: "Sobre",
+  ru: "О проекте",
+  zh: "关于"
 };
 
 const guidesLabels: Record<Locale, string> = {
@@ -46,7 +52,81 @@ const songsLabels: Record<Locale, string> = {
   zh: "乐谱"
 };
 
+const menuLabels: Record<
+  Locale,
+  { instrumentGuides: string; instrumentTuners: string; menu: string; pages: string; tuningGuides: string }
+> = {
+  ar: { instrumentGuides: "أدلة الآلات", instrumentTuners: "موالفات الآلات", menu: "القائمة", pages: "الصفحات", tuningGuides: "أدلة الضبط" },
+  de: { instrumentGuides: "Instrumenten-Guides", instrumentTuners: "Instrumenten-Tuner", menu: "Menü", pages: "Seiten", tuningGuides: "Stimmungs-Guides" },
+  en: { instrumentGuides: "Instrument guides", instrumentTuners: "Instrument tuners", menu: "Menu", pages: "Pages", tuningGuides: "Tuning guides" },
+  es: { instrumentGuides: "Guías de instrumentos", instrumentTuners: "Afinadores", menu: "Menú", pages: "Páginas", tuningGuides: "Guías de afinación" },
+  fr: { instrumentGuides: "Guides instruments", instrumentTuners: "Accordeurs", menu: "Menu", pages: "Pages", tuningGuides: "Guides d'accordage" },
+  it: { instrumentGuides: "Guide strumenti", instrumentTuners: "Accordatori strumenti", menu: "Menu", pages: "Pagine", tuningGuides: "Guide accordature" },
+  ja: { instrumentGuides: "楽器ガイド", instrumentTuners: "楽器チューナー", menu: "メニュー", pages: "ページ", tuningGuides: "チューニングガイド" },
+  ko: { instrumentGuides: "악기 가이드", instrumentTuners: "악기 튜너", menu: "메뉴", pages: "페이지", tuningGuides: "튜닝 가이드" },
+  pt: { instrumentGuides: "Guias de instrumentos", instrumentTuners: "Afinadores", menu: "Menu", pages: "Páginas", tuningGuides: "Guias de afinação" },
+  ru: { instrumentGuides: "Гайды по инструментам", instrumentTuners: "Тюнеры", menu: "Меню", pages: "Страницы", tuningGuides: "Гайды по строям" },
+  zh: { instrumentGuides: "乐器指南", instrumentTuners: "乐器调音器", menu: "菜单", pages: "页面", tuningGuides: "调弦指南" }
+};
+
+function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGroup[] {
+  const labels = menuLabels[locale];
+  const tuningGuideSlugs: GuideSlug[] = [...alternativeTuningGuideSlugs, "standard-bass-tuning"];
+
+  return [
+    {
+      title: labels.pages,
+      links: [
+        { href: `/${locale}`, label: "TuneUniversal" },
+        { href: `/${locale}/tools`, label: dictionary.nav.tools },
+        { href: `/${locale}/guides`, label: guidesLabels[locale] },
+        { href: `/${locale}/songs`, label: songsLabels[locale] },
+        { href: `/${locale}/about`, label: getStaticPageContent(locale, "about").title },
+        { href: `/${locale}/privacy-policy`, label: getStaticPageContent(locale, "privacy-policy").title },
+        { href: `/${locale}/cookie-policy`, label: getStaticPageContent(locale, "cookie-policy").title }
+      ]
+    },
+    {
+      title: dictionary.nav.tools,
+      links: toolSlugs.map((tool) => ({
+        href: `/${locale}/tools/${tool}`,
+        label: dictionary.tools[tool].title
+      }))
+    },
+    {
+      title: labels.instrumentTuners,
+      links: instrumentIds.map((instrument) => ({
+        href: `/${locale}/tools/${instrumentToTunerSlug(instrument)}`,
+        label: getInstrumentTunerContent(locale, instrument).title
+      }))
+    },
+    {
+      title: labels.instrumentGuides,
+      links: instrumentGuideSlugs.map((guide) => ({
+        href: `/${locale}/guides/${guide}`,
+        label: getGuideContent(locale, guide).title
+      }))
+    },
+    {
+      title: labels.tuningGuides,
+      links: tuningGuideSlugs.map((guide) => ({
+        href: `/${locale}/guides/${guide}`,
+        label: getGuideContent(locale, guide).title
+      }))
+    },
+    {
+      title: songsLabels[locale],
+      links: publicDomainSongSlugs.map((song) => ({
+        href: `/${locale}/songs/${song}`,
+        label: publicDomainSongs[song].title
+      }))
+    }
+  ];
+}
+
 export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
+  const mobileGroups = buildMobileGroups(locale, dictionary);
+
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-paper/88 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-3 sm:gap-3 sm:px-4">
@@ -57,6 +137,7 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
           <span className="truncate">TuneUniversal</span>
         </Link>
         <div className="flex shrink-0 items-center gap-2">
+          <MobileMenu groups={mobileGroups} label={menuLabels[locale].menu} />
           <Link href={`/${locale}/about`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
             {aboutLabels[locale]}
           </Link>
