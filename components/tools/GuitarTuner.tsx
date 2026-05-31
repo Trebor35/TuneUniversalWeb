@@ -782,17 +782,17 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
   return (
     <Card className="overflow-hidden border-zinc-800 bg-zinc-950 p-0 text-white shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
       <div className="border-b border-white/10 bg-zinc-900/90 px-3 py-3 sm:px-5">
-        <div className="grid gap-3 lg:grid-cols-[1fr_minmax(150px,210px)_minmax(150px,210px)_minmax(220px,280px)] lg:items-center">
+        <div className="grid min-w-0 gap-3 lg:grid-cols-[1fr_minmax(150px,210px)_minmax(150px,210px)_minmax(220px,280px)] lg:items-center">
           <div className="flex min-w-0 items-center gap-2 text-sm font-semibold text-zinc-300">
             <Settings2 size={16} aria-hidden />
             <span className="min-w-0 truncate">{uiText.tunerName}</span>
           </div>
-          <label className="grid gap-1 text-xs font-semibold text-zinc-400">
+          <label className="grid min-w-0 gap-1 text-xs font-semibold text-zinc-400">
             {uiText.instrument}
             <select
               value={selectedInstrument}
               onChange={(event) => setSelectedInstrument(event.target.value as Instrument)}
-              className="min-h-10 w-full min-w-0 rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
+              className="min-h-10 w-full min-w-0 max-w-full truncate rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
             >
               {orderedInstruments.map((item) => (
                 <option key={item} value={item}>
@@ -801,12 +801,12 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
               ))}
             </select>
           </label>
-          <label className="grid gap-1 text-xs font-semibold text-zinc-400">
+          <label className="grid min-w-0 gap-1 text-xs font-semibold text-zinc-400">
             {uiText.preset}
             <select
               value={selectedPreset.id}
               onChange={(event) => setSelectedPresetId(event.target.value)}
-              className="min-h-10 w-full min-w-0 rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
+              className="min-h-10 w-full min-w-0 max-w-full truncate rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
             >
               {presets.map((preset) => (
                 <option key={preset.id} value={preset.id}>
@@ -815,12 +815,12 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
               ))}
             </select>
           </label>
-          <label className="grid gap-1 text-xs font-semibold text-zinc-400">
+          <label className="grid min-w-0 gap-1 text-xs font-semibold text-zinc-400">
             {uiText.notes}
             <select
               value={noteSystem}
               onChange={(event) => setNoteSystem(event.target.value as NoteSystem)}
-              className="min-h-10 w-full min-w-0 rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
+              className="min-h-10 w-full min-w-0 max-w-full truncate rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
             >
               <option value="latin">Sistema latino - Do Re Mi Fa Sol La Si</option>
               <option value="international">Anglo-American / international - C D E F G A B</option>
