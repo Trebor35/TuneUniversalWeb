@@ -10,6 +10,7 @@ import {
 import { getInstrumentTunerContent, instrumentToTunerSlug } from "@/lib/content/instrumentTuners";
 import { publicDomainSongs, publicDomainSongSlugs } from "@/lib/content/publicDomainSongs";
 import { getStaticPageContent } from "@/lib/content/staticPages";
+import { tuningHubContent } from "@/lib/content/tuningHub";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
 import { instrumentIds, toolSlugs } from "@/lib/tools/toolConfig";
@@ -85,6 +86,7 @@ function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGro
       links: [
         { href: `/${locale}`, label: "TuneUniversal" },
         { href: `/${locale}/tools`, label: dictionary.nav.tools },
+        { href: `/${locale}/tunings`, label: tuningHubContent[locale].title },
         { href: `/${locale}/guides`, label: guidesLabels[locale] },
         { href: `/${locale}/songs`, label: songsLabels[locale] },
         { href: `/${locale}/about`, label: getStaticPageContent(locale, "about").title },
@@ -168,6 +170,9 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
           </Link>
           <Link href={`/${locale}/guides`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
             {guidesLabels[locale]}
+          </Link>
+          <Link href={`/${locale}/tunings`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white lg:inline-flex">
+            {tuningHubContent[locale].title}
           </Link>
           <Link href={`/${locale}/songs`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white lg:inline-flex">
             {songsLabels[locale]}

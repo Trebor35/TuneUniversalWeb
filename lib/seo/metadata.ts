@@ -5,6 +5,7 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { guideIndexContent, guideSlugs, type GuideContent, type GuideSlug } from "@/lib/content/guides";
 import { publicDomainSongSlugs, songsUi, type PublicDomainSong } from "@/lib/content/publicDomainSongs";
 import { staticPageSlugs, type StaticPageSlug } from "@/lib/content/staticPages";
+import { tuningHubContent } from "@/lib/content/tuningHub";
 import { toolSlugs, type ToolSlug } from "@/lib/tools/toolConfig";
 import { homeKeywords, toolKeywords } from "@/lib/seo/keywords";
 
@@ -128,6 +129,24 @@ export function buildToolsIndexMetadata(locale: Locale, dictionary: Dictionary):
   };
 }
 
+export function buildTuningHubMetadata(locale: Locale): Metadata {
+  const content = tuningHubContent[locale];
+  return {
+    title: `${content.title} | TuneUniversal`,
+    description: content.description,
+    keywords: [...content.keywords, ...homeKeywords[locale], "alternate tunings", "guitar tuning", "Drop D", "Open G"],
+    alternates: buildAlternates(locale, "tunings"),
+    openGraph: {
+      title: `${content.title} | TuneUniversal`,
+      description: content.description,
+      url: `${siteUrl}/${locale}/tunings`,
+      siteName: "TuneUniversal",
+      type: "website",
+      locale
+    }
+  };
+}
+
 export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: GuideContent): Metadata {
   return {
     title: `${content.title} | TuneUniversal`,
@@ -215,6 +234,7 @@ export function allLocalizedUrls() {
   return locales.flatMap((locale) => [
     `/${locale}/tools`,
     ...allToolPaths.map((tool) => `/${locale}/tools/${tool}`),
+    `/${locale}/tunings`,
     `/${locale}/guides`,
     ...guideSlugs.map((guide) => `/${locale}/guides/${guide}`),
     `/${locale}/songs`,

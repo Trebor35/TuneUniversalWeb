@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getGuideContent, guideIndexContent, type GuideSlug } from "@/lib/content/guides";
 import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
+import { tuningHubContent } from "@/lib/content/tuningHub";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
@@ -89,6 +90,9 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
             ))}
           </div>
           <div className="grid content-start gap-2">
+            <Link href={`/${locale}/tunings`} className="text-sm font-bold text-ink hover:text-mint">
+              {tuningHubContent[locale].title}
+            </Link>
             <Link href={`/${locale}/guides`} className="text-sm font-bold text-ink hover:text-mint">
               {guideIndexContent[locale].title}
             </Link>
