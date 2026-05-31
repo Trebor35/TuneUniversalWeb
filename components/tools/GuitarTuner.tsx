@@ -483,7 +483,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
   const targetString = strings[selectedString] ?? strings[0];
   const targetLabel = lockString ? formatNoteName(noteWithOctave(targetString), noteSystem) : detectedNote;
   const displayCents = clamp(cents ?? 0, -50, 50);
-  const needleAngle = displayCents * 1.35;
+  const needleAngle = displayCents * 1.15;
   const status =
     cents === null
       ? "--"
@@ -506,12 +506,12 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
     () =>
       Array.from({ length: 21 }, (_, index) => {
         const value = -50 + index * 5;
-        const angle = value * 1.35;
+        const angle = value * 1.15;
         const radians = (angle * Math.PI) / 180;
         return {
           angle,
-          left: 50 + Math.sin(radians) * 38,
-          top: 72 - Math.cos(radians) * 48,
+          left: 50 + Math.sin(radians) * 43,
+          top: 70 - Math.cos(radians) * 36,
           value
         };
       }),
@@ -983,7 +983,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
             <span className="text-orange-300">{dictionary.tool.sharp}</span>
           </div>
 
-          <div className="absolute left-1/2 top-[72%] h-[96%] w-[76%] -translate-x-1/2 -translate-y-1/2 rounded-t-full border-t-[18px] border-zinc-800" />
+          <div className="absolute left-1/2 top-[70%] h-[72%] w-[94%] -translate-x-1/2 -translate-y-1/2 rounded-t-full border-t-[12px] border-zinc-800 sm:h-[82%] sm:w-[84%] sm:border-t-[18px]" />
 
           {ticks.map((tick) => {
             const isCenter = tick.value === 0;
@@ -1004,10 +1004,10 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
           })}
 
           <div
-            className="absolute left-1/2 top-[72%] h-[35%] w-1 origin-bottom rounded-full bg-white shadow-[0_0_20px_rgba(255,255,255,0.55)] transition-transform duration-150"
+            className="absolute left-1/2 top-[70%] h-[31%] w-1 origin-bottom rounded-full bg-white shadow-[0_0_20px_rgba(255,255,255,0.55)] transition-transform duration-150 sm:h-[35%]"
             style={{ transform: `translateX(-50%) translateY(-100%) rotate(${needleAngle}deg)` }}
           />
-          <div className="absolute left-1/2 top-[72%] h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-zinc-950" />
+          <div className="absolute left-1/2 top-[70%] h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-zinc-950" />
 
           <div className="absolute inset-x-3 bottom-4 grid gap-2 text-center sm:inset-x-4 sm:bottom-5 sm:gap-3">
             <div>
