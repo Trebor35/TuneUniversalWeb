@@ -122,13 +122,16 @@ export default async function ToolPage({ params }: PageProps) {
       />
       <AdSlot className="mb-8" />
       <div className="grid w-full min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,920px)_340px] lg:gap-10">
-        <article className="w-full min-w-0 max-w-[calc(100vw-2rem)] space-y-8 sm:space-y-10 lg:max-w-none">
+        <article
+          className="w-full min-w-0 max-w-[calc(100vw-2rem)] space-y-8 sm:space-y-10 lg:max-w-none"
+          style={{ maxWidth: "calc(100vw - 2rem)" }}
+        >
           <header className="min-w-0">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-mint sm:text-sm sm:tracking-[0.18em]">TuneUniversal</p>
             <h1 className="mt-3 max-w-full break-words text-2xl font-black leading-tight sm:text-5xl">{content.title}</h1>
             <p className="mt-4 max-w-2xl break-words text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">{content.description}</p>
           </header>
-          <div className="w-full min-w-0 max-w-full overflow-hidden">
+          <div className="w-full min-w-0 max-w-full overflow-hidden" style={{ maxWidth: "calc(100vw - 2rem)" }}>
             <ToolComponent tool={coreTool ?? undefined} instrument={instrument ?? undefined} dictionary={dictionary} />
           </div>
           <AdSlot variant="mobileBanner" className="lg:hidden" />
