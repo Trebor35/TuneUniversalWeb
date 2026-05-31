@@ -130,14 +130,14 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-paper/88 backdrop-blur">
       <div className="mx-auto max-w-6xl lg:hidden">
-        <div className="flex items-center justify-between gap-3 px-3 py-3">
-          <Link href={`/${locale}/tools/guitar-tuner`} className="inline-flex min-w-0 items-center gap-2 font-bold">
+        <div className="flex items-center gap-3 px-3 py-3">
+          <MobileMenu groups={mobileGroups} label={menuLabels[locale].menu} />
+          <Link href={`/${locale}/tools/guitar-tuner`} className="inline-flex min-w-0 flex-1 items-center gap-2 font-bold">
             <span className="shrink-0 rounded-md bg-ink p-2 text-white">
               <AudioLines size={18} aria-hidden />
             </span>
             <span className="whitespace-nowrap text-base font-black">TuneUniversal</span>
           </Link>
-          <MobileMenu groups={mobileGroups} label={menuLabels[locale].menu} />
         </div>
         <div className="flex justify-end border-t border-line/70 px-3 py-2">
           <LanguageSwitcher
