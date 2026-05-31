@@ -12,7 +12,17 @@ export type PublicDomainSongSlug =
   | "row-row-row-your-boat"
   | "london-bridge"
   | "hot-cross-buns"
-  | "baa-baa-black-sheep";
+  | "baa-baa-black-sheep"
+  | "old-macdonald-had-a-farm"
+  | "skip-to-my-lou"
+  | "the-muffin-man"
+  | "yankee-doodle"
+  | "jingle-bells"
+  | "silent-night"
+  | "auld-lang-syne"
+  | "oh-susanna"
+  | "alouette"
+  | "when-the-saints-go-marching-in";
 
 export type PublicDomainSong = {
   slug: PublicDomainSongSlug;
@@ -40,7 +50,17 @@ export const publicDomainSongSlugs: PublicDomainSongSlug[] = [
   "row-row-row-your-boat",
   "london-bridge",
   "hot-cross-buns",
-  "baa-baa-black-sheep"
+  "baa-baa-black-sheep",
+  "old-macdonald-had-a-farm",
+  "skip-to-my-lou",
+  "the-muffin-man",
+  "yankee-doodle",
+  "jingle-bells",
+  "silent-night",
+  "auld-lang-syne",
+  "oh-susanna",
+  "alouette",
+  "when-the-saints-go-marching-in"
 ];
 
 export const publicDomainSongs: Record<PublicDomainSongSlug, PublicDomainSong> = {
@@ -222,6 +242,142 @@ export const publicDomainSongs: Record<PublicDomainSongSlug, PublicDomainSong> =
     audience: "children",
     sourceNote: "Traditional public-domain nursery melody. TuneUniversal provides a simplified note-and-chord learning page.",
     practiceTips: ["Use the same melody shape as Twinkle Twinkle.", "Try clapping first.", "Keep the chord changes slow."]
+  },
+  "old-macdonald-had-a-farm": {
+    slug: "old-macdonald-had-a-farm",
+    title: "Old MacDonald Had a Farm",
+    origin: "Traditional children's song, 19th century",
+    key: "G major",
+    meter: "4/4",
+    bpm: 104,
+    chords: ["G", "D", "G", "C", "G", "D", "G"],
+    melody: ["G G G D", "E E D", "B B A A", "G", "D D G G", "G G G", "D D G"],
+    audience: "children",
+    sourceNote:
+      "Traditional public-domain children's melody. TuneUniversal uses a simplified educational note-and-chord version without publishing protected lyrics.",
+    practiceTips: ["Keep a light 4/4 pulse.", "Practice the G to D change slowly.", "Use the Tap BPM tool to find a comfortable speed."]
+  },
+  "skip-to-my-lou": {
+    slug: "skip-to-my-lou",
+    title: "Skip to My Lou",
+    origin: "American traditional play-party song, 19th century",
+    key: "C major",
+    meter: "4/4",
+    bpm: 112,
+    chords: ["C", "G", "C", "F", "C", "G", "C"],
+    melody: ["G E E", "G E E", "F D D", "F D D", "E C C D", "E F G", "G E C"],
+    audience: "children",
+    sourceNote:
+      "Traditional public-domain tune. This is a compact study arrangement created for TuneUniversal beginners.",
+    practiceTips: ["Use short, clean phrases.", "Count four steady beats.", "Try clapping the rhythm before playing."]
+  },
+  "the-muffin-man": {
+    slug: "the-muffin-man",
+    title: "The Muffin Man",
+    origin: "English traditional nursery song, 19th century",
+    key: "G major",
+    meter: "4/4",
+    bpm: 96,
+    chords: ["G", "D", "G", "C", "G", "D", "G"],
+    melody: ["D G G A", "B G", "D G G A", "B G", "B C B A", "G A B", "A D"],
+    audience: "children",
+    sourceNote:
+      "Traditional public-domain nursery song. TuneUniversal provides simplified notes and chords for practice only.",
+    practiceTips: ["Play slowly first.", "Keep the melody even.", "Use G and D as the first chord targets."]
+  },
+  "yankee-doodle": {
+    slug: "yankee-doodle",
+    title: "Yankee Doodle",
+    origin: "Traditional American melody, 18th century",
+    key: "D major",
+    meter: "2/4",
+    bpm: 108,
+    chords: ["D", "A", "D", "G", "D", "A", "D"],
+    melody: ["D D E F#", "D F# E A", "D D E F#", "D C# D", "A D A B", "A G F# E", "D D E F#", "E D D"],
+    audience: "children",
+    sourceNote:
+      "Traditional public-domain melody. This page uses an original simplified study version for beginners.",
+    practiceTips: ["Feel two beats per bar.", "Use alternate picking on guitar.", "Slow the metronome if the eighth notes rush."]
+  },
+  "jingle-bells": {
+    slug: "jingle-bells",
+    title: "Jingle Bells",
+    origin: "James Lord Pierpont, 1857",
+    key: "G major",
+    meter: "4/4",
+    bpm: 116,
+    chords: ["G", "C", "G", "A7", "D", "G"],
+    melody: ["B B B", "B B B", "B D G A", "B", "C C C C", "C B B B", "B A A B", "A D"],
+    audience: "children",
+    sourceNote:
+      "Public-domain composition. TuneUniversal offers a simplified educational guide, not a copy of a modern edition.",
+    practiceTips: ["Keep the repeated notes light.", "Use a bright but controlled tempo.", "Practice the A7 to D change slowly."]
+  },
+  "silent-night": {
+    slug: "silent-night",
+    title: "Silent Night",
+    origin: "Franz Xaver Gruber and Joseph Mohr, 1818",
+    key: "G major",
+    meter: "3/4",
+    bpm: 72,
+    chords: ["G", "D", "G", "C", "G", "D", "G"],
+    melody: ["D E D B", "D E D B", "A A F#", "G G D", "E E G F# E D", "E E G F# E D", "A A C A F#", "G"],
+    sourceNote:
+      "Public-domain Christmas carol. The notes and chords here are a simplified educational arrangement made for TuneUniversal.",
+    practiceTips: ["Count three gentle beats.", "Let each phrase breathe.", "Use a slow metronome and avoid rushing the rests."]
+  },
+  "auld-lang-syne": {
+    slug: "auld-lang-syne",
+    title: "Auld Lang Syne",
+    origin: "Traditional Scottish melody, 18th century",
+    key: "G major",
+    meter: "4/4",
+    bpm: 78,
+    chords: ["G", "D", "Em", "C", "G", "D", "G"],
+    melody: ["D G G B", "A G A B", "G B D E", "D B G", "D G G B", "A G A B", "G E D B", "A G"],
+    sourceNote:
+      "Traditional public-domain melody. TuneUniversal provides a short simplified chord and note guide.",
+    practiceTips: ["Use a warm legato feel.", "Keep chord changes relaxed.", "Transpose if the key is uncomfortable."]
+  },
+  "oh-susanna": {
+    slug: "oh-susanna",
+    title: "Oh! Susanna",
+    origin: "Stephen Foster, 1848",
+    key: "G major",
+    meter: "4/4",
+    bpm: 100,
+    chords: ["G", "D", "G", "C", "G", "D", "G"],
+    melody: ["D G G A", "B B A G", "E G G A", "B A G", "D G G A", "B B A G", "E E D D", "G"],
+    sourceNote:
+      "Public-domain melody. This page contains a simplified instrumental study version and does not reproduce protected editions.",
+    practiceTips: ["Keep the rhythm bouncy.", "Start with G and D chords.", "Use the metronome accent to stabilize the phrase."]
+  },
+  alouette: {
+    slug: "alouette",
+    title: "Alouette",
+    origin: "French-Canadian traditional song, 19th century",
+    key: "C major",
+    meter: "4/4",
+    bpm: 108,
+    chords: ["C", "G", "C", "F", "C", "G", "C"],
+    melody: ["G A G E", "G A G E", "G G A B C", "B A G", "G A G E", "F E D C"],
+    audience: "children",
+    sourceNote:
+      "Traditional public-domain melody. TuneUniversal uses a simplified educational arrangement without publishing protected lyrics.",
+    practiceTips: ["Use small phrases.", "Practice slowly before increasing BPM.", "Try it with guitar, piano or ukulele."]
+  },
+  "when-the-saints-go-marching-in": {
+    slug: "when-the-saints-go-marching-in",
+    title: "When the Saints Go Marching In",
+    origin: "Traditional gospel melody, early 20th century",
+    key: "C major",
+    meter: "4/4",
+    bpm: 96,
+    chords: ["C", "F", "C", "G", "C"],
+    melody: ["C E F G", "C E F G", "C E F G E", "C E D", "E E D C", "C E G G", "G F E F", "G E C"],
+    sourceNote:
+      "Traditional public-domain melody in a simplified educational arrangement created for TuneUniversal.",
+    practiceTips: ["Use a steady swing-free pulse first.", "Make the melody sing clearly.", "Add expression only after the notes are stable."]
   }
 };
 
