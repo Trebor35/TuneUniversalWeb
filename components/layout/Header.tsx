@@ -144,7 +144,7 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
             locale={locale}
             label={dictionary.nav.language}
             className="w-full justify-between sm:w-auto"
-            selectClassName="max-w-none"
+            selectClassName="w-full max-w-full"
           />
         </div>
       </div>
