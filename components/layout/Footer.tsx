@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getGuideContent, guideIndexContent, guideSlugs } from "@/lib/content/guides";
+import { getGuideContent, guideIndexContent, type GuideSlug } from "@/lib/content/guides";
 import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
@@ -7,6 +7,14 @@ import type { ToolSlug } from "@/lib/tools/toolConfig";
 
 const footerTools: ToolSlug[] = ["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"];
 const footerPages = ["about", "privacy-policy", "cookie-policy"] as const;
+const footerGuideSlugs: GuideSlug[] = [
+  "how-to-tune-guitar",
+  "how-to-tune-bass",
+  "how-to-tune-ukulele",
+  "how-to-tune-violin",
+  "how-to-tune-cello",
+  "how-to-tune-piano"
+];
 
 const universalTunerLabels: Record<Locale, string> = {
   ar: "مدوزن شامل",
@@ -84,7 +92,7 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
             <Link href={`/${locale}/guides`} className="text-sm font-bold text-ink hover:text-mint">
               {guideIndexContent[locale].title}
             </Link>
-            {guideSlugs.slice(0, 3).map((guide) => (
+            {footerGuideSlugs.map((guide) => (
               <Link key={guide} href={`/${locale}/guides/${guide}`} className="text-sm font-medium text-ink/72 hover:text-mint">
                 {getGuideContent(locale, guide).title}
               </Link>
