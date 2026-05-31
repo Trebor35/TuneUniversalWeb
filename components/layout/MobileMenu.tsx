@@ -25,7 +25,7 @@ export function MobileMenu({ groups, label }: { groups: MobileNavGroup[]; label:
       </button>
 
       {open ? (
-        <div className="absolute right-0 top-12 z-50 w-[min(88vw,420px)] max-h-[calc(100vh-5.5rem)] overflow-y-auto rounded-lg border border-line bg-white p-4 text-left shadow-soft">
+        <div className="absolute right-0 top-12 z-50 w-[calc(100vw-2rem)] max-w-sm max-h-[calc(100vh-5.5rem)] overflow-y-auto rounded-lg border border-line bg-white p-4 text-left shadow-soft">
           <div className="space-y-5">
             {groups.map((group) => (
               <section key={group.title}>
