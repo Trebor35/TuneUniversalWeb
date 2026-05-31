@@ -109,7 +109,7 @@ export default async function ToolPage({ params }: PageProps) {
   const relatedGuides = coreTool ? guidesForTool(coreTool) : [];
 
   return (
-    <main className="mx-auto w-full max-w-7xl overflow-hidden px-4 py-8 sm:py-10">
+    <main className="mx-auto w-full max-w-7xl overflow-hidden px-3 py-8 sm:px-4 sm:py-10">
       {coreTool ? <JsonLd data={toolSchema(locale, coreTool, dictionary)} /> : null}
       {instrumentContent ? <JsonLd data={instrumentTunerSchema(locale, rawTool, instrumentContent)} /> : null}
       {coreTool ? <JsonLd data={faqSchema(coreTool, dictionary)} /> : <JsonLd data={faqItemsSchema(content.faq)} />}
@@ -122,16 +122,13 @@ export default async function ToolPage({ params }: PageProps) {
       />
       <AdSlot className="mb-8" />
       <div className="grid w-full min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,920px)_340px] lg:gap-10">
-        <article
-          className="w-full min-w-0 max-w-[calc(100vw-2rem)] space-y-8 sm:space-y-10 lg:max-w-none"
-          style={{ maxWidth: "calc(100vw - 2rem)" }}
-        >
+        <article className="w-full min-w-0 space-y-8 sm:space-y-10">
           <header className="min-w-0">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-mint sm:text-sm sm:tracking-[0.18em]">TuneUniversal</p>
             <h1 className="mt-3 max-w-full break-words text-2xl font-black leading-tight sm:text-5xl">{content.title}</h1>
             <p className="mt-4 max-w-2xl break-words text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">{content.description}</p>
           </header>
-          <div className="w-full min-w-0 max-w-full overflow-hidden" style={{ maxWidth: "calc(100vw - 2rem)" }}>
+          <div className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden px-2 min-[390px]:px-3 sm:static sm:w-full sm:max-w-full sm:translate-x-0 sm:px-0">
             <ToolComponent tool={coreTool ?? undefined} instrument={instrument ?? undefined} dictionary={dictionary} />
           </div>
           <AdSlot variant="mobileBanner" className="lg:hidden" />
