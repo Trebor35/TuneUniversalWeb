@@ -88,7 +88,7 @@ function ToolComponent({
     case "tap-bpm":
       return <TapBpm dictionary={dictionary} locale={locale} />;
     case "chord-transposer":
-      return <ChordTransposer dictionary={dictionary} />;
+      return <ChordTransposer dictionary={dictionary} locale={locale} />;
     case "sound-level-meter":
       return <SoundLevelMeter dictionary={dictionary} locale={locale} />;
     case "pitch-generator":
