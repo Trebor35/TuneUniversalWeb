@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Music2 } from "lucide-react";
+import { Check, Music2 } from "lucide-react";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { ToolNavigation } from "@/components/layout/ToolNavigation";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -18,6 +18,71 @@ import { instrumentIds, type Instrument } from "@/lib/tools/toolConfig";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
 type PageProps = { params: Promise<{ locale: string }> };
+
+const heroPlatformCopy: Record<
+  Locale,
+  {
+    categories: string[];
+    summary: string;
+    trustLine: string;
+  }
+> = {
+  ar: {
+    categories: ["أجهزة ضبط", "ميترونومات", "أدوات صوتية", "أدوات موسيقية مساعدة"],
+    summary: "منصة موسيقية متعددة اللغات للضبط والإيقاع وقياس الصوت والعمل على الأكوردات من أي جهاز.",
+    trustLine: "مجاني • عبر الإنترنت • بدون تثبيت"
+  },
+  de: {
+    categories: ["Stimmgeräte", "Metronome", "Audiotools", "Musik-Utilities"],
+    summary: "Eine mehrsprachige Musikplattform zum Stimmen, Üben von Rhythmus, Messen von Audio und Arbeiten mit Akkorden auf jedem Gerät.",
+    trustLine: "Kostenlos • Online • Keine Installation"
+  },
+  en: {
+    categories: ["Tuners", "Metronomes", "Audio Tools", "Music Utilities"],
+    summary: "A multilingual music platform for tuning, rhythm practice, audio checks and chord work on any device.",
+    trustLine: "Free • Online • No installation"
+  },
+  es: {
+    categories: ["Afinadores", "Metrónomos", "Herramientas de audio", "Utilidades musicales"],
+    summary: "Una plataforma musical multilingüe para afinar, practicar ritmo, medir audio y trabajar acordes desde cualquier dispositivo.",
+    trustLine: "Gratis • Online • Sin instalación"
+  },
+  fr: {
+    categories: ["Accordeurs", "Métronomes", "Outils audio", "Utilitaires musicaux"],
+    summary: "Une plateforme musicale multilingue pour l'accordage, le rythme, les contrôles audio et le travail des accords sur tout appareil.",
+    trustLine: "Gratuit • En ligne • Sans installation"
+  },
+  it: {
+    categories: ["Accordatori", "Metronomi", "Strumenti Audio", "Utility Musicali"],
+    summary: "Una piattaforma musicale multilingua per accordare, studiare il ritmo, misurare l'audio e lavorare sugli accordi da qualsiasi dispositivo.",
+    trustLine: "Gratuiti • Online • Nessuna installazione"
+  },
+  ja: {
+    categories: ["チューナー", "メトロノーム", "オーディオツール", "音楽ユーティリティ"],
+    summary: "あらゆるデバイスで使える、多言語対応のチューニング、リズム練習、音声チェック、コード作業向け音楽プラットフォームです。",
+    trustLine: "無料 • オンライン • インストール不要"
+  },
+  ko: {
+    categories: ["튜너", "메트로놈", "오디오 도구", "음악 유틸리티"],
+    summary: "모든 기기에서 조율, 리듬 연습, 오디오 체크, 코드 작업을 할 수 있는 다국어 음악 플랫폼입니다.",
+    trustLine: "무료 • 온라인 • 설치 불필요"
+  },
+  pt: {
+    categories: ["Afinadores", "Metrónomos", "Ferramentas de áudio", "Utilitários musicais"],
+    summary: "Uma plataforma musical multilíngue para afinação, prática de ritmo, medições de áudio e trabalho com acordes em qualquer dispositivo.",
+    trustLine: "Grátis • Online • Sem instalação"
+  },
+  ru: {
+    categories: ["Тюнеры", "Метрономы", "Аудиоинструменты", "Музыкальные утилиты"],
+    summary: "Многоязычная музыкальная платформа для настройки, работы с ритмом, проверки звука и транспонирования аккордов на любом устройстве.",
+    trustLine: "Бесплатно • Онлайн • Без установки"
+  },
+  zh: {
+    categories: ["调音器", "节拍器", "音频工具", "音乐实用工具"],
+    summary: "一个多语言音乐平台，可在任何设备上完成调音、节奏练习、音频检测和和弦处理。",
+    trustLine: "免费 • 在线 • 无需安装"
+  }
+};
 
 const featuredInstrumentIds: Instrument[] = ["guitar", "bass"];
 const featuredInstrumentSet = new Set<Instrument>(featuredInstrumentIds);
@@ -44,6 +109,7 @@ export default async function ToolsIndexPage({ params }: PageProps) {
   const locale = rawLocale as Locale;
   const dictionary = await getDictionary(locale);
   const hub = toolsHubContent[locale];
+  const hero = heroPlatformCopy[locale];
   const tuningsLabel = tuningHubContent[locale].title;
 
   return (
@@ -55,11 +121,25 @@ export default async function ToolsIndexPage({ params }: PageProps) {
         ])}
       />
       <JsonLd data={faqItemsSchema(hub.faq)} />
-      <p className="text-xs font-bold uppercase tracking-[0.18em] text-mint">TuneUniversal</p>
-      <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{hub.title}</h1>
-      <p className="mt-4 max-w-3xl text-lg leading-8 text-ink/70">{hub.description}</p>
+      <p className="text-xs font-bold uppercase tracking-[0.18em] text-mint">{hub.title}</p>
+      <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">TuneUniversal</h1>
+      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        {hero.categories.map((category) => (
+          <div
+            key={category}
+            className="flex items-center gap-3 rounded-lg border border-line bg-white px-4 py-3 shadow-soft"
+          >
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mint/12 text-mint">
+              <Check size={17} aria-hidden />
+            </span>
+            <span className="font-semibold text-ink">{category}</span>
+          </div>
+        ))}
+      </div>
+      <p className="mt-6 max-w-4xl text-lg leading-8 text-ink/70">{hero.summary}</p>
       <section className="mt-6 rounded-lg border border-line bg-white p-5 shadow-soft">
-        <p className="leading-7 text-ink/72">{hubEnhancements[locale].tools}</p>
+        <p className="font-semibold text-ink">{hero.trustLine}</p>
+        <p className="mt-2 leading-7 text-ink/72">{hubEnhancements[locale].tools}</p>
       </section>
 
       <AdSlot className="mt-8" />
