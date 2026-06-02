@@ -179,6 +179,25 @@
           "answer": "Use o controle de sensibilidade/calibração se a leitura parecer alta ou baixa demais."
         }
       ]
+    },
+    "pitch-generator": {
+      "title": "Gerador de tom",
+      "description": "Gere um tom puro de 20 Hz a 20000 Hz para treino auditivo e testes de audio.",
+      "howItWorks": [
+        "Escolha uma frequencia entre 20 Hz e 20000 Hz.",
+        "Ajuste volume e forma de onda.",
+        "Pressione gerar tom e pare quando terminar."
+      ],
+      "faq": [
+        {
+          "question": "Posso usar fones?",
+          "answer": "Sim, mas comece com volume baixo, especialmente em frequencias altas."
+        },
+        {
+          "question": "Qual faixa de frequencia e suportada?",
+          "answer": "O gerador cobre de 20 Hz a 20000 Hz, a faixa aproximada da audicao humana."
+        }
+      ]
     }
   }
 }

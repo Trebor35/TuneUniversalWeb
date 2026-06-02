@@ -179,6 +179,25 @@
           "answer": "Nutze den Empfindlichkeits-/Kalibrierungsregler, wenn der Wert zu hoch oder zu niedrig wirkt."
         }
       ]
+    },
+    "pitch-generator": {
+      "title": "Pitch Generator",
+      "description": "Erzeuge einen reinen Ton von 20 Hz bis 20000 Hz fuer Gehoertraining und Audiotests.",
+      "howItWorks": [
+        "Waehle eine Frequenz zwischen 20 Hz und 20000 Hz.",
+        "Stelle Lautstaerke und Wellenform ein.",
+        "Starte den Ton und stoppe ihn nach dem Test."
+      ],
+      "faq": [
+        {
+          "question": "Kann ich Kopfhoerer verwenden?",
+          "answer": "Ja, aber beginne mit niedriger Lautstaerke, besonders bei hohen Frequenzen."
+        },
+        {
+          "question": "Welchen Bereich deckt der Generator ab?",
+          "answer": "Er deckt 20 Hz bis 20000 Hz ab, den ungefaehren Bereich des menschlichen Hoerens."
+        }
+      ]
     }
   }
 }

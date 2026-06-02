@@ -59,7 +59,7 @@ const songsLabels: Record<Locale, string> = {
   zh: "乐谱"
 };
 
-const primaryToolMenu: ToolSlug[] = ["guitar-tuner", "bass-tuner", "metronome", "tap-bpm", "sound-level-meter"];
+const primaryToolMenu: ToolSlug[] = ["guitar-tuner", "bass-tuner", "metronome", "tap-bpm", "sound-level-meter", "pitch-generator"];
 
 const menuLabels: Record<
   Locale,

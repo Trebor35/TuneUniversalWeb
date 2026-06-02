@@ -183,6 +183,25 @@
           "answer": "Usa il cursore sensibilità/calibrazione se la lettura sembra troppo alta o troppo bassa rispetto al tuo ambiente."
         }
       ]
+    },
+    "pitch-generator": {
+      "title": "Pitch Generator",
+      "description": "Genera un tono puro da 20 Hz a 20000 Hz per ear training, test audio e riferimenti di frequenza.",
+      "howItWorks": [
+        "Scegli una frequenza tra 20 Hz e 20000 Hz.",
+        "Regola volume e forma d'onda.",
+        "Premi genera tono per avviare il suono e Stop per fermarlo."
+      ],
+      "faq": [
+        {
+          "question": "Posso usarlo con le cuffie?",
+          "answer": "Si, ma parti sempre con volume basso, soprattutto sulle frequenze alte."
+        },
+        {
+          "question": "Che intervallo di frequenze copre?",
+          "answer": "Il generatore copre da 20 Hz a 20000 Hz, circa il range dell'udito umano."
+        }
+      ]
     }
   }
 }

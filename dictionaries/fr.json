@@ -179,6 +179,25 @@
           "answer": "Utilisez le curseur de sensibilité/calibration si la lecture semble trop haute ou trop basse."
         }
       ]
+    },
+    "pitch-generator": {
+      "title": "Generateur de hauteur",
+      "description": "Generez un son pur de 20 Hz a 20000 Hz pour entrainement auditif et tests audio.",
+      "howItWorks": [
+        "Choisissez une frequence entre 20 Hz et 20000 Hz.",
+        "Reglez le volume et la forme d'onde.",
+        "Lancez le son puis arretez-le quand le test est termine."
+      ],
+      "faq": [
+        {
+          "question": "Puis-je utiliser un casque?",
+          "answer": "Oui, mais commencez avec un volume faible, surtout dans les hautes frequences."
+        },
+        {
+          "question": "Quelle plage est prise en charge?",
+          "answer": "Le generateur couvre de 20 Hz a 20000 Hz, la plage approximative de l'audition humaine."
+        }
+      ]
     }
   }
 }

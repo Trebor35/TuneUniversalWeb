@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/i18n/locales";
+import { locales, type Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
 const brandKeywords = ["TuneUniversal", "Tune Universal", "tuneuniversal.com"];
@@ -31,7 +31,7 @@ const universalInstrumentKeywords = {
   zh: ["吉他", "贝斯", "班卓琴", "大提琴", "低音提琴", "竖琴", "古筝", "鲁特琴", "曼陀林", "钢琴", "西塔琴", "尤克里里", "中提琴", "小提琴", "弦乐器"]
 } satisfies Record<Locale, string[]>;
 
-export const toolKeywords = {
+const baseToolKeywords = {
   ar: {
     "bass-tuner": ["موالف باس اونلاين", "ضبط الباس", "توليف باس بالميكروفون", "ضبط باس قياسي", "E A D G", "موالف باس مجاني", "باس كهربائي", ...brandKeywords],
     "chord-transposer": ["ناقل الأوتار", "تغيير مقام الأوتار", "أوتار الغيتار", "تغيير الطبقة", "نقل نصف نغمة", "تقدم الأوتار", "نقل موسيقي", ...brandKeywords],
@@ -131,4 +131,28 @@ export const toolKeywords = {
     "tap-bpm": ["Tap BPM", "BPM 计数器", "计算 BPM", "每分钟拍数", "歌曲速度", "平均 BPM", "在线 Tap Tempo", ...brandKeywords],
     "ukulele-tuner": ["在线尤克里里调音器", "尤克里里调音", "尤克里里调弦", "G C E A", "免费尤克里里调音器", "标准尤克里里", "麦克风调音器", ...brandKeywords]
   }
-} satisfies Record<Locale, Record<ToolSlug, string[]>>;
+} satisfies Record<Locale, Record<Exclude<ToolSlug, "pitch-generator">, string[]>>;
+
+const pitchGeneratorKeywords = {
+  ar: ["مولد نغمات", "مولد تردد", "20 hz", "20000 hz", "اختبار السمع", "نغمة نقية", "audio tone generator", ...brandKeywords],
+  de: ["pitch generator", "tongenerator", "frequenz generator", "20 hz", "20000 hz", "sinuston", "gehoertest", ...brandKeywords],
+  en: ["pitch generator", "tone generator", "frequency generator", "20 hz", "20000 hz", "sine wave generator", "ear training tone", ...brandKeywords],
+  es: ["generador de tono", "generador de frecuencia", "20 hz", "20000 hz", "tono puro", "prueba auditiva", "generador senoidal", ...brandKeywords],
+  fr: ["generateur de hauteur", "generateur de frequence", "20 hz", "20000 hz", "son pur", "test auditif", "generateur sinus", ...brandKeywords],
+  it: ["pitch generator", "generatore di tono", "generatore frequenza", "20 hz", "20000 hz", "tono puro", "test udito", "generatore sinusoide", ...brandKeywords],
+  ja: ["ピッチジェネレーター", "周波数ジェネレーター", "20 hz", "20000 hz", "純音", "聴覚テスト", "サイン波", ...brandKeywords],
+  ko: ["피치 제너레이터", "주파수 제너레이터", "20 hz", "20000 hz", "순음", "청음 연습", "사인파", ...brandKeywords],
+  pt: ["gerador de tom", "gerador de frequencia", "20 hz", "20000 hz", "tom puro", "teste auditivo", "gerador senoidal", ...brandKeywords],
+  ru: ["генератор тона", "генератор частоты", "20 hz", "20000 hz", "чистый тон", "проверка слуха", "синусоида", ...brandKeywords],
+  zh: ["音高发生器", "频率发生器", "20 hz", "20000 hz", "纯音", "听力测试", "正弦波", ...brandKeywords]
+} satisfies Record<Locale, string[]>;
+
+export const toolKeywords = Object.fromEntries(
+  locales.map((locale) => [
+    locale,
+    {
+      ...baseToolKeywords[locale],
+      "pitch-generator": pitchGeneratorKeywords[locale]
+    }
+  ])
+) as Record<Locale, Record<ToolSlug, string[]>>;

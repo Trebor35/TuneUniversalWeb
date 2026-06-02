@@ -5,7 +5,8 @@ export const toolSlugs = [
   "metronome",
   "tap-bpm",
   "chord-transposer",
-  "sound-level-meter"
+  "sound-level-meter",
+  "pitch-generator"
 ] as const;
 
 export type ToolSlug = (typeof toolSlugs)[number];

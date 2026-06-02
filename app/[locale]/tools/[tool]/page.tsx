@@ -8,6 +8,7 @@ import { BassTuner } from "@/components/tools/BassTuner";
 import { ChordTransposer } from "@/components/tools/ChordTransposer";
 import { GuitarTuner } from "@/components/tools/GuitarTuner";
 import { Metronome } from "@/components/tools/Metronome";
+import { PitchGenerator } from "@/components/tools/PitchGenerator";
 import { SoundLevelMeter } from "@/components/tools/SoundLevelMeter";
 import { TapBpm } from "@/components/tools/TapBpm";
 import { UkuleleTuner } from "@/components/tools/UkuleleTuner";
@@ -90,6 +91,8 @@ function ToolComponent({
       return <ChordTransposer dictionary={dictionary} />;
     case "sound-level-meter":
       return <SoundLevelMeter dictionary={dictionary} locale={locale} />;
+    case "pitch-generator":
+      return <PitchGenerator locale={locale} />;
     default:
       return null;
   }
@@ -112,8 +115,8 @@ export default async function ToolPage({ params }: PageProps) {
   const faqContent = seoEnhancement ? [...content.faq, ...seoEnhancement.faqs] : content.faq;
   const relatedTools: ToolSlug[] =
     coreTool && !tunerTools.includes(coreTool as (typeof tunerTools)[number])
-      ? (["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"].filter((slug) => slug !== coreTool) as ToolSlug[])
-      : ["metronome", "tap-bpm", "chord-transposer", "sound-level-meter"];
+      ? (["guitar-tuner", "metronome", "tap-bpm", "sound-level-meter", "pitch-generator", "chord-transposer"].filter((slug) => slug !== coreTool) as ToolSlug[])
+      : ["metronome", "tap-bpm", "chord-transposer", "sound-level-meter", "pitch-generator"];
   const relatedGuides = coreTool ? guidesForTool(coreTool) : [];
 
   return (

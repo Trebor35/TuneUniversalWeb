@@ -183,6 +183,25 @@
           "answer": "Use the sensitivity/calibration slider if the reading feels too high or too low for your environment."
         }
       ]
+    },
+    "pitch-generator": {
+      "title": "Pitch Generator",
+      "description": "Generate a pure tone from 20 Hz to 20000 Hz for ear training, audio checks and reference pitches.",
+      "howItWorks": [
+        "Choose a frequency between 20 Hz and 20000 Hz.",
+        "Set volume and waveform.",
+        "Press play to generate the tone, then stop it when finished."
+      ],
+      "faq": [
+        {
+          "question": "Can I use headphones?",
+          "answer": "Yes, but start with a low volume, especially with high frequencies."
+        },
+        {
+          "question": "What frequency range is supported?",
+          "answer": "The generator covers 20 Hz to 20000 Hz, the approximate range of human hearing."
+        }
+      ]
     }
   }
 }

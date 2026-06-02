@@ -179,6 +179,25 @@
           "answer": "Usa el control de sensibilidad/calibración si la lectura parece demasiado alta o baja."
         }
       ]
+    },
+    "pitch-generator": {
+      "title": "Generador de tono",
+      "description": "Genera un tono puro de 20 Hz a 20000 Hz para entrenamiento auditivo y pruebas de audio.",
+      "howItWorks": [
+        "Elige una frecuencia entre 20 Hz y 20000 Hz.",
+        "Ajusta volumen y forma de onda.",
+        "Pulsa reproducir para generar el tono y detener para finalizar."
+      ],
+      "faq": [
+        {
+          "question": "Puedo usar auriculares?",
+          "answer": "Si, pero empieza con volumen bajo, sobre todo en frecuencias altas."
+        },
+        {
+          "question": "Que rango de frecuencia admite?",
+          "answer": "Cubre de 20 Hz a 20000 Hz, el rango aproximado del oido humano."
+        }
+      ]
     }
   }
 }
