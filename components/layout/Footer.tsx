@@ -6,7 +6,7 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
-const footerTools: ToolSlug[] = ["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"];
+const footerTools: ToolSlug[] = ["guitar-tuner", "bass-tuner", "metronome", "tap-bpm", "sound-level-meter"];
 const footerPages = ["about", "privacy-policy", "cookie-policy"] as const;
 const footerGuideSlugs: GuideSlug[] = [
   "how-to-tune-guitar",
@@ -16,20 +16,6 @@ const footerGuideSlugs: GuideSlug[] = [
   "how-to-tune-cello",
   "how-to-tune-piano"
 ];
-
-const universalTunerLabels: Record<Locale, string> = {
-  ar: "مدوزن شامل",
-  de: "Universelles Stimmgerät",
-  en: "Universal tuner",
-  es: "Afinador universal",
-  fr: "Accordeur universel",
-  it: "Accordatore universale",
-  ja: "ユニバーサルチューナー",
-  ko: "범용 튜너",
-  pt: "Afinador universal",
-  ru: "Универсальный тюнер",
-  zh: "通用调音器"
-};
 
 const footerPageLabels: Record<(typeof footerPages)[number], Record<Locale, string>> = {
   about: {
@@ -85,7 +71,7 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
           <div className="grid content-start gap-2">
             {footerTools.map((slug) => (
               <Link key={slug} href={`/${locale}/tools/${slug}`} className="text-sm font-medium text-ink/72 hover:text-mint">
-                {slug === "guitar-tuner" ? universalTunerLabels[locale] : dictionary.tools[slug].title}
+                {dictionary.tools[slug].title}
               </Link>
             ))}
           </div>

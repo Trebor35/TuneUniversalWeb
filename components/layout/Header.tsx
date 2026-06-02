@@ -13,7 +13,7 @@ import { getStaticPageContent } from "@/lib/content/staticPages";
 import { tuningHubContent } from "@/lib/content/tuningHub";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
-import { instrumentIds, toolSlugs } from "@/lib/tools/toolConfig";
+import { instrumentIds, type ToolSlug } from "@/lib/tools/toolConfig";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { MobileMenu, type MobileNavGroup } from "./MobileMenu";
 
@@ -59,6 +59,8 @@ const songsLabels: Record<Locale, string> = {
   zh: "乐谱"
 };
 
+const primaryToolMenu: ToolSlug[] = ["guitar-tuner", "bass-tuner", "metronome", "tap-bpm", "sound-level-meter"];
+
 const menuLabels: Record<
   Locale,
   { instrumentGuides: string; instrumentTuners: string; menu: string; pages: string; tuningGuides: string }
@@ -96,7 +98,7 @@ function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGro
     },
     {
       title: dictionary.nav.tools,
-      links: toolSlugs.map((tool) => ({
+      links: primaryToolMenu.map((tool) => ({
         href: `/${locale}/tools/${tool}`,
         label: dictionary.tools[tool].title
       }))
