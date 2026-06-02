@@ -257,7 +257,7 @@ const environmentRows = {
   ]
 } satisfies Record<Locale, { db: number; environment: string }[]>;
 
-const uiLabels = {
+const uiLabels: Record<Locale, { average?: string; current: string; environment: string; environments: string; history: string; maximum: string; minimum: string }> = {
   ar: { current: "الحالي", environment: "البيئة", environments: "مراجع البيئة", history: "آخر 30 ثانية", maximum: "الأقصى", minimum: "الأدنى" },
   de: { current: "Aktuell", environment: "Umgebung", environments: "Umgebungswerte", history: "Letzte 30 Sekunden", maximum: "Maximum", minimum: "Minimum" },
   en: { current: "Current", environment: "Environment", environments: "Environment reference", history: "Last 30 seconds", maximum: "Maximum", minimum: "Minimum" },
@@ -269,7 +269,7 @@ const uiLabels = {
   pt: { current: "Atual", environment: "Ambiente", environments: "Referencia de ambientes", history: "Ultimos 30 segundos", maximum: "Maximo", minimum: "Minimo" },
   ru: { current: "Текущий", environment: "Среда", environments: "Ориентиры среды", history: "Последние 30 секунд", maximum: "Максимум", minimum: "Минимум" },
   zh: { current: "当前", environment: "环境", environments: "环境参考", history: "最近30秒", maximum: "最大值", minimum: "最小值" }
-} satisfies Record<Locale, { average?: string; current: string; environment: string; environments: string; history: string; maximum: string; minimum: string }>;
+};
 
 type HistoryPoint = { db: number; time: number };
 
