@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Check, Music2 } from "lucide-react";
+import { ArrowRight, Check, Music2 } from "lucide-react";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { ToolNavigation } from "@/components/layout/ToolNavigation";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -185,12 +185,15 @@ export default async function ToolsIndexPage({ params }: PageProps) {
           <Link
             key={`${category.href}-${category.label}`}
             href={category.href}
-            className="flex items-center gap-3 rounded-lg border border-line bg-white px-4 py-3 shadow-soft transition hover:-translate-y-0.5 hover:border-mint hover:text-mint"
+            className="group flex items-center gap-3 rounded-lg border border-line bg-mint/5 px-4 py-3 shadow-soft transition hover:-translate-y-0.5 hover:border-mint hover:bg-white"
           >
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mint/12 text-mint">
               <Check size={17} aria-hidden />
             </span>
             <span className="font-semibold text-ink">{category.label}</span>
+            <span className="ml-auto text-ink/35 transition group-hover:translate-x-0.5 group-hover:text-mint">
+              <ArrowRight size={18} aria-hidden />
+            </span>
           </Link>
         ))}
       </div>
@@ -226,7 +229,7 @@ export default async function ToolsIndexPage({ params }: PageProps) {
 
       <div className="mt-8 grid gap-8">
         {hub.groups.map((group, index) => (
-          <section key={group.title} id={groupAnchorIds[index]}>
+          <section key={group.title} id={groupAnchorIds[index]} className="scroll-mt-28">
             <div className="max-w-3xl">
               <h2 className="text-2xl font-bold">{group.title}</h2>
               <p className="mt-2 text-base leading-7 text-ink/68">{group.description}</p>
