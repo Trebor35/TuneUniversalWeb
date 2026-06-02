@@ -22,67 +22,124 @@ type PageProps = { params: Promise<{ locale: string }> };
 const heroPlatformCopy: Record<
   Locale,
   {
-    categories: string[];
+    categories: { href: string; label: string }[];
     summary: string;
     trustLine: string;
   }
 > = {
   ar: {
-    categories: ["أجهزة ضبط", "ميترونومات", "أدوات صوتية", "أدوات موسيقية مساعدة"],
+    categories: [
+      { href: "#tune-instruments", label: "أجهزة ضبط" },
+      { href: "#rhythm-and-bpm", label: "ميترونومات" },
+      { href: "#rhythm-and-bpm", label: "أدوات صوتية" },
+      { href: "#chords-and-theory", label: "أدوات موسيقية مساعدة" }
+    ],
     summary: "منصة موسيقية متعددة اللغات للضبط والإيقاع وقياس الصوت والعمل على الأكوردات من أي جهاز.",
     trustLine: "مجاني • عبر الإنترنت • بدون تثبيت"
   },
   de: {
-    categories: ["Stimmgeräte", "Metronome", "Audiotools", "Musik-Utilities"],
+    categories: [
+      { href: "#tune-instruments", label: "Stimmgeräte" },
+      { href: "#rhythm-and-bpm", label: "Metronome" },
+      { href: "#rhythm-and-bpm", label: "Audiotools" },
+      { href: "#chords-and-theory", label: "Musik-Utilities" }
+    ],
     summary: "Eine mehrsprachige Musikplattform zum Stimmen, Üben von Rhythmus, Messen von Audio und Arbeiten mit Akkorden auf jedem Gerät.",
     trustLine: "Kostenlos • Online • Keine Installation"
   },
   en: {
-    categories: ["Tuners", "Metronomes", "Audio Tools", "Music Utilities"],
+    categories: [
+      { href: "#tune-instruments", label: "Tuners" },
+      { href: "#rhythm-and-bpm", label: "Metronomes" },
+      { href: "#rhythm-and-bpm", label: "Audio Tools" },
+      { href: "#chords-and-theory", label: "Music Utilities" }
+    ],
     summary: "A multilingual music platform for tuning, rhythm practice, audio checks and chord work on any device.",
     trustLine: "Free • Online • No installation"
   },
   es: {
-    categories: ["Afinadores", "Metrónomos", "Herramientas de audio", "Utilidades musicales"],
+    categories: [
+      { href: "#tune-instruments", label: "Afinadores" },
+      { href: "#rhythm-and-bpm", label: "Metrónomos" },
+      { href: "#rhythm-and-bpm", label: "Herramientas de audio" },
+      { href: "#chords-and-theory", label: "Utilidades musicales" }
+    ],
     summary: "Una plataforma musical multilingüe para afinar, practicar ritmo, medir audio y trabajar acordes desde cualquier dispositivo.",
     trustLine: "Gratis • Online • Sin instalación"
   },
   fr: {
-    categories: ["Accordeurs", "Métronomes", "Outils audio", "Utilitaires musicaux"],
+    categories: [
+      { href: "#tune-instruments", label: "Accordeurs" },
+      { href: "#rhythm-and-bpm", label: "Métronomes" },
+      { href: "#rhythm-and-bpm", label: "Outils audio" },
+      { href: "#chords-and-theory", label: "Utilitaires musicaux" }
+    ],
     summary: "Une plateforme musicale multilingue pour l'accordage, le rythme, les contrôles audio et le travail des accords sur tout appareil.",
     trustLine: "Gratuit • En ligne • Sans installation"
   },
   it: {
-    categories: ["Accordatori", "Metronomi", "Strumenti Audio", "Utility Musicali"],
+    categories: [
+      { href: "#tune-instruments", label: "Accordatori" },
+      { href: "#rhythm-and-bpm", label: "Metronomi" },
+      { href: "#rhythm-and-bpm", label: "Strumenti Audio" },
+      { href: "#chords-and-theory", label: "Utility Musicali" }
+    ],
     summary: "Una piattaforma musicale multilingua per accordare, studiare il ritmo, misurare l'audio e lavorare sugli accordi da qualsiasi dispositivo.",
     trustLine: "Gratuiti • Online • Nessuna installazione"
   },
   ja: {
-    categories: ["チューナー", "メトロノーム", "オーディオツール", "音楽ユーティリティ"],
+    categories: [
+      { href: "#tune-instruments", label: "チューナー" },
+      { href: "#rhythm-and-bpm", label: "メトロノーム" },
+      { href: "#rhythm-and-bpm", label: "オーディオツール" },
+      { href: "#chords-and-theory", label: "音楽ユーティリティ" }
+    ],
     summary: "あらゆるデバイスで使える、多言語対応のチューニング、リズム練習、音声チェック、コード作業向け音楽プラットフォームです。",
     trustLine: "無料 • オンライン • インストール不要"
   },
   ko: {
-    categories: ["튜너", "메트로놈", "오디오 도구", "음악 유틸리티"],
+    categories: [
+      { href: "#tune-instruments", label: "튜너" },
+      { href: "#rhythm-and-bpm", label: "메트로놈" },
+      { href: "#rhythm-and-bpm", label: "오디오 도구" },
+      { href: "#chords-and-theory", label: "음악 유틸리티" }
+    ],
     summary: "모든 기기에서 조율, 리듬 연습, 오디오 체크, 코드 작업을 할 수 있는 다국어 음악 플랫폼입니다.",
     trustLine: "무료 • 온라인 • 설치 불필요"
   },
   pt: {
-    categories: ["Afinadores", "Metrónomos", "Ferramentas de áudio", "Utilitários musicais"],
+    categories: [
+      { href: "#tune-instruments", label: "Afinadores" },
+      { href: "#rhythm-and-bpm", label: "Metrónomos" },
+      { href: "#rhythm-and-bpm", label: "Ferramentas de áudio" },
+      { href: "#chords-and-theory", label: "Utilitários musicais" }
+    ],
     summary: "Uma plataforma musical multilíngue para afinação, prática de ritmo, medições de áudio e trabalho com acordes em qualquer dispositivo.",
     trustLine: "Grátis • Online • Sem instalação"
   },
   ru: {
-    categories: ["Тюнеры", "Метрономы", "Аудиоинструменты", "Музыкальные утилиты"],
+    categories: [
+      { href: "#tune-instruments", label: "Тюнеры" },
+      { href: "#rhythm-and-bpm", label: "Метрономы" },
+      { href: "#rhythm-and-bpm", label: "Аудиоинструменты" },
+      { href: "#chords-and-theory", label: "Музыкальные утилиты" }
+    ],
     summary: "Многоязычная музыкальная платформа для настройки, работы с ритмом, проверки звука и транспонирования аккордов на любом устройстве.",
     trustLine: "Бесплатно • Онлайн • Без установки"
   },
   zh: {
-    categories: ["调音器", "节拍器", "音频工具", "音乐实用工具"],
+    categories: [
+      { href: "#tune-instruments", label: "调音器" },
+      { href: "#rhythm-and-bpm", label: "节拍器" },
+      { href: "#rhythm-and-bpm", label: "音频工具" },
+      { href: "#chords-and-theory", label: "音乐实用工具" }
+    ],
     summary: "一个多语言音乐平台，可在任何设备上完成调音、节奏练习、音频检测和和弦处理。",
     trustLine: "免费 • 在线 • 无需安装"
   }
 };
+
+const groupAnchorIds = ["tune-instruments", "rhythm-and-bpm", "chords-and-theory"] as const;
 
 const featuredInstrumentIds: Instrument[] = ["guitar", "bass"];
 const featuredInstrumentSet = new Set<Instrument>(featuredInstrumentIds);
@@ -125,15 +182,16 @@ export default async function ToolsIndexPage({ params }: PageProps) {
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">TuneUniversal</h1>
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {hero.categories.map((category) => (
-          <div
-            key={category}
-            className="flex items-center gap-3 rounded-lg border border-line bg-white px-4 py-3 shadow-soft"
+          <Link
+            key={`${category.href}-${category.label}`}
+            href={category.href}
+            className="flex items-center gap-3 rounded-lg border border-line bg-white px-4 py-3 shadow-soft transition hover:-translate-y-0.5 hover:border-mint hover:text-mint"
           >
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mint/12 text-mint">
               <Check size={17} aria-hidden />
             </span>
-            <span className="font-semibold text-ink">{category}</span>
-          </div>
+            <span className="font-semibold text-ink">{category.label}</span>
+          </Link>
         ))}
       </div>
       <p className="mt-6 max-w-4xl text-lg leading-8 text-ink/70">{hero.summary}</p>
@@ -167,8 +225,8 @@ export default async function ToolsIndexPage({ params }: PageProps) {
       </section>
 
       <div className="mt-8 grid gap-8">
-        {hub.groups.map((group) => (
-          <section key={group.title}>
+        {hub.groups.map((group, index) => (
+          <section key={group.title} id={groupAnchorIds[index]}>
             <div className="max-w-3xl">
               <h2 className="text-2xl font-bold">{group.title}</h2>
               <p className="mt-2 text-base leading-7 text-ink/68">{group.description}</p>
