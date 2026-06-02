@@ -132,9 +132,12 @@ const tuningGroupDefinitions: { guides: GuideSlug[]; key: "banjo" | "bass" | "gu
   {
     key: "guitar",
     guides: [
+      "standard-guitar-tuning",
       "common-guitar-tunings",
       "eb-standard-tuning",
+      "half-step-down-tuning",
       "d-standard-tuning",
+      "full-step-down-tuning",
       "drop-d-tuning",
       "drop-d-sharp-tuning",
       "drop-c-sharp-tuning",
@@ -147,8 +150,8 @@ const tuningGroupDefinitions: { guides: GuideSlug[]; key: "banjo" | "bass" | "gu
     ]
   },
   { key: "bass", guides: ["standard-bass-tuning", "five-string-bass-tuning"] },
-  { key: "ukulele", guides: ["low-g-ukulele-tuning", "d-ukulele-tuning"] },
-  { key: "banjo", guides: ["double-c-banjo-tuning", "sawmill-banjo-tuning"] }
+  { key: "ukulele", guides: ["ukulele-standard-tuning", "baritone-ukulele-tuning", "low-g-ukulele-tuning", "d-ukulele-tuning"] },
+  { key: "banjo", guides: ["banjo-open-g-tuning", "double-c-banjo-tuning", "sawmill-banjo-tuning"] }
 ];
 
 const tuningGroupCopy: Record<Locale, Record<(typeof tuningGroupDefinitions)[number]["key"], Omit<TuningHubGroup, "guides">>> = {

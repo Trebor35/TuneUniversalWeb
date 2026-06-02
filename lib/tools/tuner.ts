@@ -415,6 +415,16 @@ export const tuningPresets: Partial<Record<Instrument, TuningPreset[]>> = {
   ukulele: [
     { id: "standard", label: "Standard high G", notes: tunings.ukulele },
     {
+      id: "baritone",
+      label: "Baritone D G B E",
+      notes: [
+        { name: "D", octave: 3, frequency: 146.83 },
+        { name: "G", octave: 3, frequency: 196 },
+        { name: "B", octave: 3, frequency: 246.94 },
+        { name: "E", octave: 4, frequency: 329.63 }
+      ]
+    },
+    {
       id: "low-g",
       label: "Low G",
       notes: [

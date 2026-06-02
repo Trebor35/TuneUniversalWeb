@@ -40,8 +40,11 @@ export const utilityGuideSlugs = [
 ] as const;
 
 export const alternativeTuningGuideSlugs = [
+  "standard-guitar-tuning",
   "eb-standard-tuning",
+  "half-step-down-tuning",
   "d-standard-tuning",
+  "full-step-down-tuning",
   "drop-d-tuning",
   "drop-d-sharp-tuning",
   "drop-c-sharp-tuning",
@@ -49,6 +52,11 @@ export const alternativeTuningGuideSlugs = [
   "open-d-tuning",
   "open-g-tuning",
   "dadgad-tuning",
+  "ukulele-standard-tuning",
+  "baritone-ukulele-tuning",
+  "violin-standard-tuning",
+  "mandolin-standard-tuning",
+  "banjo-open-g-tuning",
   "drop-a-7-string-tuning",
   "drop-e-8-string-tuning",
   "low-g-ukulele-tuning",
@@ -70,10 +78,15 @@ type ExtraUtilityGuideSlug = Exclude<
 
 export type GuideContent = {
   description: string;
+  faq?: { answer: string; question: string }[];
   intro: string;
   keywords: string[];
+  noteRows?: { frequency: string; label: string; note: string }[];
+  relatedGuides?: GuideSlug[];
+  relatedTools?: { description: string; href: string; title: string }[];
   sections: { body: string; title: string }[];
   steps: string[];
+  commonMistakes?: string[];
   targetDescription?: string;
   targetPath?: string;
   targetTitle?: string;
@@ -760,8 +773,11 @@ const alternativeTuningGuides: Record<
   AlternativeTuningGuideSlug,
   { instrument: Instrument; presetId: string; label: string }
 > = {
+  "standard-guitar-tuning": { instrument: "guitar", presetId: "standard", label: "Standard" },
   "eb-standard-tuning": { instrument: "guitar", presetId: "half-step-down", label: "Eb Standard" },
+  "half-step-down-tuning": { instrument: "guitar", presetId: "half-step-down", label: "Half Step Down" },
   "d-standard-tuning": { instrument: "guitar", presetId: "whole-step-down", label: "D Standard" },
+  "full-step-down-tuning": { instrument: "guitar", presetId: "whole-step-down", label: "Full Step Down" },
   "drop-d-tuning": { instrument: "guitar", presetId: "drop-d", label: "Drop D" },
   "drop-d-sharp-tuning": { instrument: "guitar", presetId: "drop-d-sharp", label: "Drop D#" },
   "drop-c-sharp-tuning": { instrument: "guitar", presetId: "drop-c-sharp", label: "Drop C#" },
@@ -769,6 +785,11 @@ const alternativeTuningGuides: Record<
   "open-d-tuning": { instrument: "guitar", presetId: "open-d", label: "Open D" },
   "open-g-tuning": { instrument: "guitar", presetId: "open-g", label: "Open G" },
   "dadgad-tuning": { instrument: "guitar", presetId: "dadgad", label: "DADGAD" },
+  "ukulele-standard-tuning": { instrument: "ukulele", presetId: "standard", label: "Ukulele Standard" },
+  "baritone-ukulele-tuning": { instrument: "ukulele", presetId: "baritone", label: "Baritone Ukulele" },
+  "violin-standard-tuning": { instrument: "violin", presetId: "standard", label: "Violin Standard" },
+  "mandolin-standard-tuning": { instrument: "mandolin", presetId: "standard", label: "Mandolin Standard" },
+  "banjo-open-g-tuning": { instrument: "banjo", presetId: "open-g", label: "Banjo Open G" },
   "drop-a-7-string-tuning": { instrument: "7-string-guitar", presetId: "drop-a", label: "Drop A" },
   "drop-e-8-string-tuning": { instrument: "8-string-guitar", presetId: "drop-e", label: "Drop E" },
   "low-g-ukulele-tuning": { instrument: "ukulele", presetId: "low-g", label: "Low G" },
@@ -777,6 +798,10 @@ const alternativeTuningGuides: Record<
   "sawmill-banjo-tuning": { instrument: "banjo", presetId: "sawmill", label: "Sawmill" },
   "five-string-bass-tuning": { instrument: "bass", presetId: "five-string", label: "5-string low B" }
 };
+
+export const instrumentsSeoData = instrumentGuideSlugs;
+export const tuningsSeoData = alternativeTuningGuides;
+export const localizedSeoContent = { guideIndexContent, tuningGuideCopy, alternativeTuningLabels };
 
 const alternativeTuningLabels: Record<
   Locale,
@@ -923,6 +948,11 @@ function instrumentFromGuideSlug(guide: GuideSlug): Instrument | null {
   return instrumentIds.includes(instrument) ? instrument : null;
 }
 
+function instrumentGuideSlugForInstrument(instrument: Instrument): GuideSlug | null {
+  const slug = `how-to-tune-${instrument}` as GuideSlug;
+  return instrumentGuideSlugs.includes(slug as (typeof instrumentGuideSlugs)[number]) ? slug : null;
+}
+
 function tuningString(instrument: Instrument, locale: Locale) {
   return tuningStringFromNotes(tunings[instrument], locale);
 }
@@ -932,18 +962,207 @@ function tuningStringFromNotes(notes: TuningNote[], locale: Locale) {
   return notes.map((note) => formatNoteName(`${note.name}${note.octave ?? ""}`, notation, false)).join(" - ");
 }
 
+function noteRowsFromNotes(notes: TuningNote[], locale: Locale) {
+  return notes.map((note, index) => ({
+    label: `${index + 1}`,
+    note: formatNoteName(`${note.name}${note.octave ?? ""}`, locale === "it" || locale === "fr" || locale === "es" || locale === "pt" ? "latin" : "international"),
+    frequency: `${note.frequency.toFixed(2)} Hz`
+  }));
+}
+
+function localizedToolTitles(locale: Locale) {
+  return {
+    "bass-tuner": locale === "it" ? "Accordatore basso" : locale === "fr" ? "Accordeur basse" : locale === "es" ? "Afinador de bajo" : locale === "de" ? "Bass Tuner" : locale === "pt" ? "Afinador de baixo" : locale === "ja" ? "ベースチューナー" : locale === "ko" ? "베이스 튜너" : locale === "zh" ? "贝斯调音器" : locale === "ru" ? "Тюнер баса" : locale === "ar" ? "موالف الباس" : "Bass tuner",
+    "chord-transposer": locale === "it" ? "Traspositore accordi" : locale === "fr" ? "Transposeur d'accords" : locale === "es" ? "Transpositor de acordes" : locale === "de" ? "Akkord-Transposer" : locale === "pt" ? "Transpositor de acordes" : locale === "ja" ? "コード移調" : locale === "ko" ? "코드 조옮김" : locale === "zh" ? "和弦移调器" : locale === "ru" ? "Транспозитор аккордов" : locale === "ar" ? "ناقل الأوتار" : "Chord transposer",
+    "guitar-tuner": locale === "it" ? "Accordatore universale" : locale === "fr" ? "Accordeur universel" : locale === "es" ? "Afinador universal" : locale === "de" ? "Universal Tuner" : locale === "pt" ? "Afinador universal" : locale === "ja" ? "ユニバーサルチューナー" : locale === "ko" ? "유니버설 튜너" : locale === "zh" ? "通用调音器" : locale === "ru" ? "Универсальный тюнер" : locale === "ar" ? "الموالف العام" : "Universal tuner",
+    "metronome": locale === "it" ? "Metronomo" : locale === "fr" ? "Métronome" : locale === "es" ? "Metrónomo" : locale === "de" ? "Metronom" : locale === "pt" ? "Metrônomo" : locale === "ja" ? "メトロノーム" : locale === "ko" ? "메트로놈" : locale === "zh" ? "节拍器" : locale === "ru" ? "Метроном" : locale === "ar" ? "ميترونوم" : "Metronome",
+    "pitch-generator": locale === "it" ? "Pitch Generator" : locale === "fr" ? "Pitch Generator" : locale === "es" ? "Pitch Generator" : locale === "de" ? "Pitch Generator" : locale === "pt" ? "Pitch Generator" : locale === "ja" ? "Pitch Generator" : locale === "ko" ? "Pitch Generator" : locale === "zh" ? "Pitch Generator" : locale === "ru" ? "Pitch Generator" : locale === "ar" ? "مولد النغمة" : "Pitch Generator",
+    "sound-level-meter": locale === "it" ? "Fonometro" : locale === "fr" ? "Sonomètre" : locale === "es" ? "Sonómetro" : locale === "de" ? "Schallpegelmesser" : locale === "pt" ? "Medidor de som" : locale === "ja" ? "サウンドメーター" : locale === "ko" ? "사운드 레벨 미터" : locale === "zh" ? "分贝仪" : locale === "ru" ? "Шумомер" : locale === "ar" ? "مقياس الصوت" : "Sound meter",
+    "tap-bpm": locale === "it" ? "Tap BPM" : locale === "fr" ? "Tap BPM" : locale === "es" ? "Tap BPM" : locale === "de" ? "Tap BPM" : locale === "pt" ? "Tap BPM" : locale === "ja" ? "Tap BPM" : locale === "ko" ? "Tap BPM" : locale === "zh" ? "Tap BPM" : locale === "ru" ? "Tap BPM" : locale === "ar" ? "Tap BPM" : "Tap BPM",
+    "ukulele-tuner": locale === "it" ? "Accordatore ukulele" : locale === "fr" ? "Accordeur ukulélé" : locale === "es" ? "Afinador de ukulele" : locale === "de" ? "Ukulele Tuner" : locale === "pt" ? "Afinador de ukulele" : locale === "ja" ? "ウクレレチューナー" : locale === "ko" ? "우쿨렐레 튜너" : locale === "zh" ? "尤克里里调音器" : locale === "ru" ? "Тюнер укулеле" : locale === "ar" ? "موالف الأوكوليلي" : "Ukulele tuner"
+  } as Record<ToolSlug, string>;
+}
+
+function genericInstrumentFaq(locale: Locale, instrument: string, tuning: string) {
+  if (locale === "it") {
+    return [
+      { question: `Qual è l'accordatura standard di ${instrument}?`, answer: `${instrument} usa qui queste note di riferimento: ${tuning}.` },
+      { question: `Posso accordare ${instrument} dal telefono?`, answer: "Sì. Apri la guida e il relativo accordatore nel browser e consenti il microfono." }
+    ];
+  }
+  return [
+    { question: `What is the standard tuning for ${instrument}?`, answer: `${instrument} uses these reference notes here: ${tuning}.` },
+    { question: `Can I tune ${instrument} on mobile?`, answer: "Yes. Open the guide and related tuner in your browser and allow microphone access." }
+  ];
+}
+
+function genericTuningFaq(locale: Locale, name: string, instrument: string, tuning: string) {
+  if (locale === "it") {
+    return [
+      { question: `Quali note usa l'accordatura ${name}?`, answer: `Per ${instrument}, questa pagina usa: ${tuning}.` },
+      { question: `Serve un preset specifico?`, answer: "Se il preset è disponibile nel tuner puoi selezionarlo direttamente; in alternativa accorda ogni corda seguendo la tabella." }
+    ];
+  }
+  return [
+    { question: `Which notes does ${name} use?`, answer: `For ${instrument}, this page uses: ${tuning}.` },
+    { question: "Do I need a dedicated preset?", answer: "If the preset is available in the tuner, select it directly. Otherwise tune each string to the note table." }
+  ];
+}
+
+export const faqData = {
+  instrument: genericInstrumentFaq,
+  tuning: genericTuningFaq
+};
+
+function genericMistakes(locale: Locale, instrument: string) {
+  if (locale === "it") {
+    return [
+      `Suonare più di una corda di ${instrument} alla volta rende il rilevamento instabile.`,
+      "Accordare in una stanza rumorosa porta facilmente a letture sbagliate.",
+      "Fermarsi appena la nota cambia senza aspettare che si stabilizzi può lasciare lo strumento ancora scordato."
+    ];
+  }
+  return [
+    `Playing more than one ${instrument} string or note at once makes detection unstable.`,
+    "Tuning in a noisy room often leads to false readings.",
+    "Stopping as soon as the note changes without waiting for it to settle can leave the instrument slightly out of tune."
+  ];
+}
+
+function relatedToolsForGuide(locale: Locale, primaryTool: ToolSlug, targetPath?: string) {
+  const titles = localizedToolTitles(locale);
+  const tunerHref = targetPath ? `/${locale}/${targetPath}` : `/${locale}/tools/${primaryTool}`;
+  return [
+    { href: tunerHref, title: titles[primaryTool], description: locale === "it" ? "Apri il tool principale collegato a questa guida." : "Open the main tool related to this guide." },
+    { href: `/${locale}/tools/metronome`, title: titles.metronome, description: locale === "it" ? "Studia con BPM e suddivisioni stabili." : "Practice with stable BPM and subdivisions." },
+    { href: `/${locale}/tools/tap-bpm`, title: titles["tap-bpm"], description: locale === "it" ? "Calcola rapidamente il tempo medio di un brano." : "Estimate the average tempo of a song quickly." },
+    { href: `/${locale}/tools/sound-level-meter`, title: titles["sound-level-meter"], description: locale === "it" ? "Controlla il livello del suono e il rumore nella stanza." : "Check sound level and room noise." }
+  ];
+}
+
+function tuningUseText(locale: Locale, name: string, instrument: string) {
+  const lowerName = name.toLowerCase();
+  const useText =
+    lowerName.includes("drop")
+      ? locale === "it"
+        ? "Questa accordatura è utile per riff più pesanti, power chord rapidi e registri più bassi."
+        : "This tuning is useful for heavier riffs, quick power chords and a lower register."
+      : lowerName.includes("open") || lowerName.includes("dadgad")
+        ? locale === "it"
+          ? "Questa accordatura è utile per accordi aperti, droni e accompagnamenti più ricchi."
+          : "This tuning is useful for open chords, drone notes and richer accompaniment."
+        : locale === "it"
+          ? "Questa accordatura è utile quando vuoi rimanere vicino allo standard ma adattare l'estensione o la voce."
+          : "This tuning is useful when you want to stay close to standard while adapting range or vocal comfort.";
+
+  const genreText =
+    lowerName.includes("drop")
+      ? locale === "it"
+        ? "È comune in rock moderno, metal, hard rock e arrangiamenti più aggressivi."
+        : "It is common in modern rock, metal, hard rock and heavier arrangements."
+      : lowerName.includes("open") || lowerName.includes("dadgad")
+        ? locale === "it"
+          ? "È comune in folk, slide guitar, singer-songwriter e parti acustiche atmosferiche."
+          : "It is common in folk, slide guitar, singer-songwriter music and atmospheric acoustic parts."
+        : locale === "it"
+          ? `È comune quando ${instrument} deve restare familiare ma leggermente adattato al brano o alla tessitura vocale.`
+          : `It is common when ${instrument} needs to stay familiar while adapting to a song or vocal range.`;
+
+  return { genreText, useText };
+}
+
+function tuningSectionLabels(locale: Locale) {
+  switch (locale) {
+    case "it":
+      return {
+        commonGenres: "Generi comuni",
+        compatibleInstruments: "Strumenti compatibili",
+        practicalTips: "Consigli pratici"
+      };
+    case "fr":
+      return {
+        commonGenres: "Genres courants",
+        compatibleInstruments: "Instruments compatibles",
+        practicalTips: "Conseils pratiques"
+      };
+    case "es":
+      return {
+        commonGenres: "Géneros comunes",
+        compatibleInstruments: "Instrumentos compatibles",
+        practicalTips: "Consejos prácticos"
+      };
+    case "de":
+      return {
+        commonGenres: "Häufige Genres",
+        compatibleInstruments: "Passende Instrumente",
+        practicalTips: "Praktische Tipps"
+      };
+    case "pt":
+      return {
+        commonGenres: "Gêneros comuns",
+        compatibleInstruments: "Instrumentos compatíveis",
+        practicalTips: "Dicas práticas"
+      };
+    case "ja":
+      return {
+        commonGenres: "よく使われるジャンル",
+        compatibleInstruments: "対応する楽器",
+        practicalTips: "実践のコツ"
+      };
+    case "ko":
+      return {
+        commonGenres: "자주 쓰이는 장르",
+        compatibleInstruments: "호환 악기",
+        practicalTips: "실전 팁"
+      };
+    case "zh":
+      return {
+        commonGenres: "常见风格",
+        compatibleInstruments: "适用乐器",
+        practicalTips: "实用建议"
+      };
+    case "ru":
+      return {
+        commonGenres: "Типичные жанры",
+        compatibleInstruments: "Подходящие инструменты",
+        practicalTips: "Практические советы"
+      };
+    case "ar":
+      return {
+        commonGenres: "أنماط شائعة",
+        compatibleInstruments: "الآلات المناسبة",
+        practicalTips: "نصائح عملية"
+      };
+    default:
+      return {
+        commonGenres: "Common genres",
+        compatibleInstruments: "Compatible instruments",
+        practicalTips: "Practical tips"
+      };
+  }
+}
+
 function buildInstrumentGuide(locale: Locale, instrument: Instrument, guide: GuideSlug): GuideContent {
   const copy = tuningGuideCopy[locale];
   const label = getInstrumentLabel(instrument, locale);
   const tuning = tuningString(instrument, locale);
+  const targetPath = targetPathForInstrument(instrument);
   return {
     description: copy.description(label, tuning),
+    faq: genericInstrumentFaq(locale, label, tuning),
     intro: copy.intro(label, tuning),
     keywords: [...copy.keywords(label, tuning), tuning, "TuneUniversal"],
+    noteRows: noteRowsFromNotes(tunings[instrument], locale),
+    relatedGuides: alternativeTuningGuideSlugs.filter((slug) => {
+      const related = alternativeTuningFromGuideSlug(slug);
+      return related?.instrument === instrument;
+    }).slice(0, 4),
+    relatedTools: relatedToolsForGuide(locale, coreToolForInstrument(instrument), targetPath),
     sections: copy.sections(label, tuning),
     steps: copy.steps(label),
+    commonMistakes: genericMistakes(locale, label),
     targetDescription: copy.description(label, tuning),
-    targetPath: targetPathForInstrument(instrument),
+    targetPath,
     targetTitle: copy.targetTitle(label),
     title: copy.title(label),
     tool: coreToolForInstrument(instrument)
@@ -966,19 +1185,50 @@ function buildAlternativeTuningGuide(locale: Locale, guide: GuideSlug): GuideCon
   const tuning = tuningStringFromNotes(preset.notes, locale);
   const name = tuningGuide.label;
   const targetPath = targetPathForInstrument(tuningGuide.instrument);
+  const useContent = tuningUseText(locale, name, instrument);
+  const sectionLabels = tuningSectionLabels(locale);
+  const instrumentGuide = instrumentGuideSlugForInstrument(tuningGuide.instrument);
+  const similarTuningGuides = alternativeTuningGuideSlugs.filter((slug) => {
+    if (slug === guide) return false;
+    const related = alternativeTuningFromGuideSlug(slug);
+    return related?.instrument === tuningGuide.instrument;
+  }).slice(0, 3);
 
   return {
     description: copy.description(name, instrument, tuning),
+    faq: genericTuningFaq(locale, name, instrument, tuning),
     intro: copy.intro(name, instrument, tuning),
     keywords: [...copy.keywords(name, instrument, tuning), "alternate tuning", "guitar tuning", "TuneUniversal"],
+    noteRows: noteRowsFromNotes(preset.notes, locale),
+    relatedGuides: [instrumentGuide, ...similarTuningGuides].filter(Boolean) as GuideSlug[],
+    relatedTools: relatedToolsForGuide(locale, coreToolForInstrument(tuningGuide.instrument), targetPath),
     sections: [
       { title: copy.referenceTitle, body: tuning },
       {
+        title: sectionLabels.compatibleInstruments,
+        body:
+          locale === "it"
+            ? `Questa accordatura è pensata per ${instrument}. Se usi lo stesso registro o la stessa disposizione delle corde, puoi partire da queste note come riferimento.`
+            : `This tuning is designed for ${instrument}. If you use the same range or string layout, you can use these notes as your reference.`
+      },
+      {
         title: copy.setupTitle,
-        body: copy.description(name, instrument, tuning)
+        body: useContent.useText
+      },
+      {
+        title: sectionLabels.commonGenres,
+        body: useContent.genreText
+      },
+      {
+        title: sectionLabels.practicalTips,
+        body:
+          locale === "it"
+            ? "Accorda sempre dalla corda più grave alla più acuta, ricontrolla tutte le note alla fine e salva il preset se usi spesso questa accordatura."
+            : "Tune from the lowest string to the highest one, check all notes again at the end and save the preset if you use this tuning often."
       }
     ],
     steps: copy.steps(name, instrument),
+    commonMistakes: genericMistakes(locale, instrument),
     targetDescription: copy.description(name, instrument, tuning),
     targetPath,
     targetTitle: copy.targetTitle(name, instrument),
@@ -1003,8 +1253,11 @@ export function guidesForTool(tool: ToolSlug): GuideSlug[] {
   if (tool === "guitar-tuner") {
     return [
       "how-to-tune-guitar",
+      "standard-guitar-tuning",
       "eb-standard-tuning",
+      "half-step-down-tuning",
       "d-standard-tuning",
+      "full-step-down-tuning",
       "drop-d-tuning",
       "drop-c-tuning",
       "open-g-tuning",
@@ -1013,7 +1266,7 @@ export function guidesForTool(tool: ToolSlug): GuideSlug[] {
     ];
   }
   if (tool === "bass-tuner") return ["how-to-tune-bass", "standard-bass-tuning", "five-string-bass-tuning"];
-  if (tool === "ukulele-tuner") return ["how-to-tune-ukulele", "low-g-ukulele-tuning", "d-ukulele-tuning"];
+  if (tool === "ukulele-tuner") return ["how-to-tune-ukulele", "ukulele-standard-tuning", "baritone-ukulele-tuning", "low-g-ukulele-tuning", "d-ukulele-tuning"];
   if (tool === "metronome") return ["how-to-use-metronome", "metronome-subdivisions", "how-to-find-bpm"];
   if (tool === "tap-bpm") return ["how-to-find-bpm"];
   if (tool === "chord-transposer") return ["how-to-transpose-chords", "how-to-read-chords"];
