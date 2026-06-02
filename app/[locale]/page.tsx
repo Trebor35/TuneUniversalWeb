@@ -1,10 +1,18 @@
-import { redirect } from "next/navigation";
-import { defaultLocale, isLocale } from "@/lib/i18n/locales";
+import type { Metadata } from "next";
+import ToolsIndexPage, { generateStaticParams } from "./tools/page";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { isLocale } from "@/lib/i18n/locales";
+import { buildToolsIndexMetadata } from "@/lib/seo/metadata";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
-export default async function HomePage({ params }: PageProps) {
+export { generateStaticParams };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale: rawLocale } = await params;
-  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  redirect(`/${locale}/tools/guitar-tuner`);
+  if (!isLocale(rawLocale)) return {};
+  const dictionary = await getDictionary(rawLocale);
+  return buildToolsIndexMetadata(rawLocale, dictionary, "");
 }
+
+export default ToolsIndexPage;

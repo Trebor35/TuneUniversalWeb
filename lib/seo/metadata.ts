@@ -114,17 +114,19 @@ export function buildGuideIndexMetadata(locale: Locale): Metadata {
   };
 }
 
-export function buildToolsIndexMetadata(locale: Locale, dictionary: Dictionary): Metadata {
+export function buildToolsIndexMetadata(locale: Locale, dictionary: Dictionary, path = "tools"): Metadata {
   const content = toolsHubContent[locale];
+  const cleanPath = path.replace(/^\/+/, "");
+  const absoluteUrl = cleanPath ? `${siteUrl}/${locale}/${cleanPath}` : `${siteUrl}/${locale}`;
   return {
     title: `${content.title} | TuneUniversal`,
     description: content.description,
     keywords: [...content.keywords, ...homeKeywords[locale], "universal tuner", "online music tools"],
-    alternates: buildAlternates(locale, "tools"),
+    alternates: buildAlternates(locale, cleanPath),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
       description: content.description,
-      url: `${siteUrl}/${locale}/tools`,
+      url: absoluteUrl,
       siteName: "TuneUniversal",
       type: "website",
       locale
@@ -236,6 +238,7 @@ export function buildSongMetadata(locale: Locale, song: PublicDomainSong): Metad
 export function allLocalizedUrls() {
   const allToolPaths = Array.from(new Set([...toolSlugs, ...instrumentTunerSlugs]));
   return locales.flatMap((locale) => [
+    `/${locale}`,
     `/${locale}/tools`,
     ...allToolPaths.map((tool) => `/${locale}/tools/${tool}`),
     `/${locale}/tunings`,
