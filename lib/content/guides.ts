@@ -741,9 +741,23 @@ function utilityMetronome(locale: Locale): Omit<GuideContent, "targetPath"> {
 }
 
 function standardBassUtility(locale: Locale): Omit<GuideContent, "targetPath"> {
-  const guide = buildInstrumentGuide(locale, "bass", "standard-bass-tuning");
+  const label = getInstrumentLabel("bass", locale);
+  const tuning = tuningString("bass", locale);
+  const copy = tuningGuideCopy[locale];
+  const targetPath = targetPathForInstrument("bass");
   return {
-    ...guide,
+    description: copy.description(label, tuning),
+    faq: genericInstrumentFaq(locale, label, tuning),
+    intro: copy.intro(label, tuning),
+    keywords: [...copy.keywords(label, tuning), tuning, "standard bass tuning", "TuneUniversal"],
+    noteRows: noteRowsFromNotes(tunings.bass, locale),
+    relatedGuides: ["how-to-tune-bass", "five-string-bass-tuning"],
+    relatedTools: relatedToolsForGuide(locale, "bass-tuner", targetPath),
+    sections: copy.sections(label, tuning),
+    steps: copy.steps(label),
+    commonMistakes: genericMistakes(locale, label),
+    targetDescription: copy.description(label, tuning),
+    targetTitle: copy.targetTitle(label),
     title:
       locale === "it"
         ? "Accordatura basso standard"
@@ -765,7 +779,8 @@ function standardBassUtility(locale: Locale): Omit<GuideContent, "targetPath"> {
                         ? "표준 베이스 튜닝"
                         : locale === "ar"
                           ? "ضبط الباس القياسي"
-                          : "Standard bass tuning"
+                          : "Standard bass tuning",
+    tool: "bass-tuner"
   };
 }
 
