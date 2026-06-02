@@ -263,13 +263,13 @@ const uiLabels = {
   en: { current: "Current", environment: "Environment", environments: "Environment reference", history: "Last 30 seconds", maximum: "Maximum", minimum: "Minimum" },
   es: { current: "Actual", environment: "Ambiente", environments: "Referencia de ambientes", history: "Ultimos 30 segundos", maximum: "Maximo", minimum: "Minimo" },
   fr: { current: "Actuel", environment: "Environnement", environments: "Reference des environnements", history: "30 dernieres secondes", maximum: "Maximum", minimum: "Minimum" },
-  it: { current: "dB attuale", environment: "Ambiente", environments: "Ambienti di riferimento", history: "Storico ultimi 30 secondi", maximum: "dB massimo", minimum: "dB minimo" },
+  it: { average: "dB medio", current: "dB attuale", environment: "Ambiente", environments: "Ambienti di riferimento", history: "Storico ultimi 30 secondi", maximum: "dB massimo", minimum: "dB minimo" },
   ja: { current: "現在", environment: "環境", environments: "環境の目安", history: "過去30秒", maximum: "最大", minimum: "最小" },
   ko: { current: "현재", environment: "환경", environments: "환경 기준", history: "최근 30초", maximum: "최대", minimum: "최소" },
   pt: { current: "Atual", environment: "Ambiente", environments: "Referencia de ambientes", history: "Ultimos 30 segundos", maximum: "Maximo", minimum: "Minimo" },
   ru: { current: "Текущий", environment: "Среда", environments: "Ориентиры среды", history: "Последние 30 секунд", maximum: "Максимум", minimum: "Минимум" },
   zh: { current: "当前", environment: "环境", environments: "环境参考", history: "最近30秒", maximum: "最大值", minimum: "最小值" }
-} satisfies Record<Locale, { current: string; environment: string; environments: string; history: string; maximum: string; minimum: string }>;
+} satisfies Record<Locale, { average?: string; current: string; environment: string; environments: string; history: string; maximum: string; minimum: string }>;
 
 type HistoryPoint = { db: number; time: number };
 
@@ -400,7 +400,7 @@ export function SoundLevelMeter({ dictionary, locale }: { dictionary: Dictionary
           <p className="mt-1 text-3xl font-black">{stats.minimum || "--"} {labels.db}</p>
         </div>
         <div className="rounded-lg bg-paper p-4">
-          <p className="text-sm text-ink/60">{labels.average}</p>
+          <p className="text-sm text-ink/60">{extraLabels.average ?? labels.average}</p>
           <p className="mt-1 text-3xl font-black">{stats.average || "--"} {labels.db}</p>
         </div>
         <div className="rounded-lg bg-paper p-4">
