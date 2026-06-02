@@ -8,6 +8,7 @@ import { BassTuner } from "@/components/tools/BassTuner";
 import { ChordTransposer } from "@/components/tools/ChordTransposer";
 import { GuitarTuner } from "@/components/tools/GuitarTuner";
 import { Metronome } from "@/components/tools/Metronome";
+import { SoundLevelMeter } from "@/components/tools/SoundLevelMeter";
 import { TapBpm } from "@/components/tools/TapBpm";
 import { UkuleleTuner } from "@/components/tools/UkuleleTuner";
 import { getGuideContent, guidesForTool } from "@/lib/content/guides";
@@ -64,10 +65,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 function ToolComponent({
   dictionary,
   instrument,
+  locale,
   tool
 }: {
   dictionary: Awaited<ReturnType<typeof getDictionary>>;
   instrument?: Instrument;
+  locale: Locale;
   tool?: ToolSlug;
 }) {
   if (instrument) return <GuitarTuner dictionary={dictionary} instrument={instrument} />;
@@ -85,6 +88,8 @@ function ToolComponent({
       return <TapBpm dictionary={dictionary} />;
     case "chord-transposer":
       return <ChordTransposer dictionary={dictionary} />;
+    case "sound-level-meter":
+      return <SoundLevelMeter dictionary={dictionary} locale={locale} />;
     default:
       return null;
   }
@@ -108,7 +113,7 @@ export default async function ToolPage({ params }: PageProps) {
   const relatedTools: ToolSlug[] =
     coreTool && !tunerTools.includes(coreTool as (typeof tunerTools)[number])
       ? (["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"].filter((slug) => slug !== coreTool) as ToolSlug[])
-      : ["metronome", "tap-bpm", "chord-transposer"];
+      : ["metronome", "tap-bpm", "chord-transposer", "sound-level-meter"];
   const relatedGuides = coreTool ? guidesForTool(coreTool) : [];
 
   return (
@@ -132,7 +137,7 @@ export default async function ToolPage({ params }: PageProps) {
             <p className="mt-4 max-w-2xl break-words text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">{content.description}</p>
           </header>
           <div className="w-full min-w-0 max-w-full overflow-hidden">
-            <ToolComponent tool={coreTool ?? undefined} instrument={instrument ?? undefined} dictionary={dictionary} />
+            <ToolComponent tool={coreTool ?? undefined} instrument={instrument ?? undefined} dictionary={dictionary} locale={locale} />
           </div>
           <AdSlot variant="mobileBanner" className="lg:hidden" />
           <AdSlot className="hidden lg:flex" />

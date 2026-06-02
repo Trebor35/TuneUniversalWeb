@@ -160,6 +160,25 @@
           "answer": "Maiores, menores, sustenidos, bemois, setimas e sufixos comuns."
         }
       ]
+    },
+    "sound-level-meter": {
+      "title": "Medidor de dB online",
+      "description": "Meça o nível sonoro estimado em dB pelo microfone com sensibilidade ajustável.",
+      "howItWorks": [
+        "Permita o acesso ao microfone.",
+        "Ajuste a sensibilidade para calibrar a leitura.",
+        "Leia dB estimados, média e pico em tempo real."
+      ],
+      "faq": [
+        {
+          "question": "É um medidor certificado?",
+          "answer": "Não. Usa o microfone do navegador e fornece uma estimativa útil, não uma medição profissional dB SPL."
+        },
+        {
+          "question": "Como ajusto a sensibilidade?",
+          "answer": "Use o controle de sensibilidade/calibração se a leitura parecer alta ou baixa demais."
+        }
+      ]
     }
   }
 }

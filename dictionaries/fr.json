@@ -160,6 +160,25 @@
           "answer": "Majeurs, mineurs, dieses, bemols, septiemes et suffixes courants."
         }
       ]
+    },
+    "sound-level-meter": {
+      "title": "Sonomètre en ligne",
+      "description": "Mesurez le niveau sonore estimé en dB avec le micro et une sensibilité réglable.",
+      "howItWorks": [
+        "Autorisez l'accès au micro.",
+        "Réglez la sensibilité pour calibrer la lecture.",
+        "Lisez les dB estimés, la moyenne et le pic en temps réel."
+      ],
+      "faq": [
+        {
+          "question": "Est-ce un sonomètre certifié ?",
+          "answer": "Non. Il utilise le micro du navigateur et donne une estimation utile, pas une mesure professionnelle dB SPL."
+        },
+        {
+          "question": "Comment régler la sensibilité ?",
+          "answer": "Utilisez le curseur de sensibilité/calibration si la lecture semble trop haute ou trop basse."
+        }
+      ]
     }
   }
 }

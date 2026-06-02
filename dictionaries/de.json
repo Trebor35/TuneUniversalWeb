@@ -1,17 +1,184 @@
-﻿{
+{
   "localeName": "Deutsch",
-  "meta": { "title": "TuneUniversal - Kostenlose Musiktools", "description": "Instrumente stimmen, Tempo halten und Akkorde transponieren mit kostenlosen mehrsprachigen Musiktools." },
-  "nav": { "home": "Start", "tools": "Werkzeuge", "language": "Sprache" },
-  "hero": { "eyebrow": "Kostenlose Musik-Microtools", "title": "TuneUniversal", "description": "Ein schnelles internationales Labor fuer Stimmung, Tempo und Akkorde auf jedem Geraet.", "cta": "Tools ansehen" },
-  "home": { "toolHeading": "Musiktools", "faqHeading": "FAQ", "howHeading": "So funktioniert TuneUniversal" },
-  "tool": { "detectedNote": "Erkannter Ton", "frequency": "Frequenz", "cents": "Cents", "flat": "Zu tief", "sharp": "Zu hoch", "inTune": "Gestimmt", "requestMic": "Mikrofon aktivieren", "stopMic": "Mikrofon stoppen", "micError": "Mikrofonzugriff fehlgeschlagen. Bitte Browserrechte pruefen.", "bpm": "BPM", "start": "Start", "stop": "Stopp", "reset": "Reset", "tap": "Tap", "history": "Letzte Taps", "meter": "Taktart", "inputChords": "Akkordeingabe", "semitones": "Halbtoene", "outputChords": "Transponiertes Ergebnis" },
-  "common": { "howItWorks": "So funktioniert es", "faq": "FAQ", "otherTools": "Weitere Tools" },
+  "meta": {
+    "title": "TuneUniversal - Kostenlose Musiktools",
+    "description": "Instrumente stimmen, Tempo halten und Akkorde transponieren mit kostenlosen mehrsprachigen Musiktools."
+  },
+  "nav": {
+    "home": "Start",
+    "tools": "Werkzeuge",
+    "language": "Sprache"
+  },
+  "hero": {
+    "eyebrow": "Kostenlose Musik-Microtools",
+    "title": "TuneUniversal",
+    "description": "Ein schnelles internationales Labor fuer Stimmung, Tempo und Akkorde auf jedem Geraet.",
+    "cta": "Tools ansehen"
+  },
+  "home": {
+    "toolHeading": "Musiktools",
+    "faqHeading": "FAQ",
+    "howHeading": "So funktioniert TuneUniversal"
+  },
+  "tool": {
+    "detectedNote": "Erkannter Ton",
+    "frequency": "Frequenz",
+    "cents": "Cents",
+    "flat": "Zu tief",
+    "sharp": "Zu hoch",
+    "inTune": "Gestimmt",
+    "requestMic": "Mikrofon aktivieren",
+    "stopMic": "Mikrofon stoppen",
+    "micError": "Mikrofonzugriff fehlgeschlagen. Bitte Browserrechte pruefen.",
+    "bpm": "BPM",
+    "start": "Start",
+    "stop": "Stopp",
+    "reset": "Reset",
+    "tap": "Tap",
+    "history": "Letzte Taps",
+    "meter": "Taktart",
+    "inputChords": "Akkordeingabe",
+    "semitones": "Halbtoene",
+    "outputChords": "Transponiertes Ergebnis"
+  },
+  "common": {
+    "howItWorks": "So funktioniert es",
+    "faq": "FAQ",
+    "otherTools": "Weitere Tools"
+  },
   "tools": {
-    "guitar-tuner": { "title": "Online Gitarrenstimmgeraet", "description": "Stimme eine Standardgitarre schnell mit dem Mikrofon.", "howItWorks": ["Mikrofon erlauben.", "Eine Saite nach der anderen spielen.", "Stimmen, bis die Anzeige passt."], "faq": [{ "question": "Funktioniert es mobil?", "answer": "Ja, moderne mobile Browser mit Mikrofonzugriff werden unterstuetzt." }, { "question": "Welche Stimmung?", "answer": "TuneUniversal unterstuetzt die meisten gaengigen Gitarrenstimmungen, darunter Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D und Open G." }] },
-    "bass-tuner": { "title": "Online Bassstimmgeraet", "description": "Stimme einen viersaitigen Bass mit Echtzeit-Pitch-Erkennung.", "howItWorks": ["Mikrofon aktivieren.", "Eine klare leere Saite spielen.", "Zur Zielnote stimmen."], "faq": [{ "question": "Welche Saiten?", "answer": "Standard E A D G." }, { "question": "Brauche ich eine App?", "answer": "Nein, es laeuft im Browser." }] },
-    "ukulele-tuner": { "title": "Online Ukulele-Stimmgeraet", "description": "Stimme deine Ukulele in G C E A.", "howItWorks": ["Stimmgeraet starten.", "Eine Saite anschlagen.", "Zu tief, zu hoch oder gestimmt beachten."], "faq": [{ "question": "High-G enthalten?", "answer": "Ja, Standard High-G G C E A ist enthalten, mit weiteren Presets je nach gewaehltem Instrument." }, { "question": "Wird Audio gespeichert?", "answer": "Nein, die Analyse laeuft lokal im Browser." }] },
-    "metronome": { "title": "Online Metronom", "description": "Uebe mit regelbarer BPM, Akzenten und gaengigen Taktarten.", "howItWorks": ["BPM einstellen.", "Taktart waehlen.", "Click starten und dem betonten ersten Schlag folgen."], "faq": [{ "question": "Gibt es Tap Tempo?", "answer": "Ja, der Tap-Button schaetzt das Tempo." }, { "question": "Welche Taktarten?", "answer": "2/4, 3/4, 4/4 und 6/8." }] },
-    "tap-bpm": { "title": "Tap BPM Zaehler", "description": "Tippe zum Song und berechne die durchschnittliche BPM.", "howItWorks": ["Im Beat tippen.", "Die durchschnittliche BPM aktualisiert sich.", "Bei neuem Song zuruecksetzen."], "faq": [{ "question": "Wie viele Taps?", "answer": "Aktuelle Intervalle werden fuer stabile Werte genutzt." }, { "question": "Tastatur moeglich?", "answer": "Diese Version nutzt den Bildschirmbutton." }] },
-    "chord-transposer": { "title": "Akkord-Transposer", "description": "Transponiere Akkordfolgen in Halbtonschritten.", "howItWorks": ["Akkordsymbole einfuegen.", "-12 bis +12 Halbtoene waehlen.", "Ergebnis kopieren."], "faq": [{ "question": "Werden Bs unterstuetzt?", "answer": "Ja, b-Grundtoene werden zu Kreuz-Ausgabe normalisiert." }, { "question": "Welche Akkorde?", "answer": "Dur, Moll, Kreuze, Bs, Septakkorde und gaengige Suffixe." }] }
+    "guitar-tuner": {
+      "title": "Online Gitarrenstimmgeraet",
+      "description": "Stimme eine Standardgitarre schnell mit dem Mikrofon.",
+      "howItWorks": [
+        "Mikrofon erlauben.",
+        "Eine Saite nach der anderen spielen.",
+        "Stimmen, bis die Anzeige passt."
+      ],
+      "faq": [
+        {
+          "question": "Funktioniert es mobil?",
+          "answer": "Ja, moderne mobile Browser mit Mikrofonzugriff werden unterstuetzt."
+        },
+        {
+          "question": "Welche Stimmung?",
+          "answer": "TuneUniversal unterstuetzt die meisten gaengigen Gitarrenstimmungen, darunter Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D und Open G."
+        }
+      ]
+    },
+    "bass-tuner": {
+      "title": "Online Bassstimmgeraet",
+      "description": "Stimme einen viersaitigen Bass mit Echtzeit-Pitch-Erkennung.",
+      "howItWorks": [
+        "Mikrofon aktivieren.",
+        "Eine klare leere Saite spielen.",
+        "Zur Zielnote stimmen."
+      ],
+      "faq": [
+        {
+          "question": "Welche Saiten?",
+          "answer": "Standard E A D G."
+        },
+        {
+          "question": "Brauche ich eine App?",
+          "answer": "Nein, es laeuft im Browser."
+        }
+      ]
+    },
+    "ukulele-tuner": {
+      "title": "Online Ukulele-Stimmgeraet",
+      "description": "Stimme deine Ukulele in G C E A.",
+      "howItWorks": [
+        "Stimmgeraet starten.",
+        "Eine Saite anschlagen.",
+        "Zu tief, zu hoch oder gestimmt beachten."
+      ],
+      "faq": [
+        {
+          "question": "High-G enthalten?",
+          "answer": "Ja, Standard High-G G C E A ist enthalten, mit weiteren Presets je nach gewaehltem Instrument."
+        },
+        {
+          "question": "Wird Audio gespeichert?",
+          "answer": "Nein, die Analyse laeuft lokal im Browser."
+        }
+      ]
+    },
+    "metronome": {
+      "title": "Online Metronom",
+      "description": "Uebe mit regelbarer BPM, Akzenten und gaengigen Taktarten.",
+      "howItWorks": [
+        "BPM einstellen.",
+        "Taktart waehlen.",
+        "Click starten und dem betonten ersten Schlag folgen."
+      ],
+      "faq": [
+        {
+          "question": "Gibt es Tap Tempo?",
+          "answer": "Ja, der Tap-Button schaetzt das Tempo."
+        },
+        {
+          "question": "Welche Taktarten?",
+          "answer": "2/4, 3/4, 4/4 und 6/8."
+        }
+      ]
+    },
+    "tap-bpm": {
+      "title": "Tap BPM Zaehler",
+      "description": "Tippe zum Song und berechne die durchschnittliche BPM.",
+      "howItWorks": [
+        "Im Beat tippen.",
+        "Die durchschnittliche BPM aktualisiert sich.",
+        "Bei neuem Song zuruecksetzen."
+      ],
+      "faq": [
+        {
+          "question": "Wie viele Taps?",
+          "answer": "Aktuelle Intervalle werden fuer stabile Werte genutzt."
+        },
+        {
+          "question": "Tastatur moeglich?",
+          "answer": "Diese Version nutzt den Bildschirmbutton."
+        }
+      ]
+    },
+    "chord-transposer": {
+      "title": "Akkord-Transposer",
+      "description": "Transponiere Akkordfolgen in Halbtonschritten.",
+      "howItWorks": [
+        "Akkordsymbole einfuegen.",
+        "-12 bis +12 Halbtoene waehlen.",
+        "Ergebnis kopieren."
+      ],
+      "faq": [
+        {
+          "question": "Werden Bs unterstuetzt?",
+          "answer": "Ja, b-Grundtoene werden zu Kreuz-Ausgabe normalisiert."
+        },
+        {
+          "question": "Welche Akkorde?",
+          "answer": "Dur, Moll, Kreuze, Bs, Septakkorde und gaengige Suffixe."
+        }
+      ]
+    },
+    "sound-level-meter": {
+      "title": "Online-Schallpegelmesser",
+      "description": "Miss den geschätzten Mikrofon-Schallpegel in dB mit regelbarer Empfindlichkeit.",
+      "howItWorks": [
+        "Mikrofonzugriff erlauben.",
+        "Empfindlichkeit zur Kalibrierung einstellen.",
+        "Geschätzte dB, Durchschnitt und Spitze in Echtzeit ablesen."
+      ],
+      "faq": [
+        {
+          "question": "Ist es ein zertifiziertes Messgerät?",
+          "answer": "Nein. Es nutzt das Browser-Mikrofon und liefert eine nützliche Schätzung, keine professionelle dB-SPL-Messung."
+        },
+        {
+          "question": "Wie stelle ich die Empfindlichkeit ein?",
+          "answer": "Nutze den Empfindlichkeits-/Kalibrierungsregler, wenn der Wert zu hoch oder zu niedrig wirkt."
+        }
+      ]
+    }
   }
 }

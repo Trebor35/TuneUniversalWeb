@@ -42,10 +42,11 @@ export function buildHomeMetadata(locale: Locale, dictionary: Dictionary): Metad
 
 export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Dictionary): Metadata {
   const content = dictionary.tools[tool];
+  const keywords = toolKeywords[locale][tool] ?? [content.title, content.description, ...homeKeywords[locale]];
   return {
     title: `${content.title} | TuneUniversal`,
     description: content.description,
-    keywords: toolKeywords[locale][tool],
+    keywords,
     alternates: buildAlternates(locale, `tools/${tool}`),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
@@ -150,10 +151,11 @@ export function buildTuningHubMetadata(locale: Locale): Metadata {
 }
 
 export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: GuideContent): Metadata {
+  const relatedToolKeywords = toolKeywords[locale][content.tool] ?? [];
   return {
     title: `${content.title} | TuneUniversal`,
     description: content.description,
-    keywords: [...content.keywords, ...toolKeywords[locale][content.tool], ...homeKeywords[locale]],
+    keywords: [...content.keywords, ...relatedToolKeywords, ...homeKeywords[locale]],
     alternates: buildAlternates(locale, `guides/${guide}`),
     openGraph: {
       title: `${content.title} | TuneUniversal`,

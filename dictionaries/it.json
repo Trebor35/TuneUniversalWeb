@@ -1,26 +1,188 @@
-﻿{
+{
   "localeName": "Italiano",
-  "meta": { "title": "TuneUniversal - Strumenti musicali gratuiti", "description": "Accorda strumenti, tieni il tempo e trasponi accordi con tool musicali multilingua gratuiti." },
-  "nav": { "home": "Home", "tools": "Strumenti", "language": "Lingua" },
-  "hero": { "eyebrow": "Microtool musicali gratuiti", "title": "TuneUniversal", "description": "Un laboratorio internazionale rapido per accordatura, tempo e accordi su ogni dispositivo.", "cta": "Esplora gli strumenti" },
-  "home": { "toolHeading": "Strumenti musicali", "faqHeading": "FAQ", "howHeading": "Come funziona TuneUniversal" },
+  "meta": {
+    "title": "TuneUniversal - Strumenti musicali gratuiti",
+    "description": "Accorda strumenti, tieni il tempo e trasponi accordi con tool musicali multilingua gratuiti."
+  },
+  "nav": {
+    "home": "Home",
+    "tools": "Strumenti",
+    "language": "Lingua"
+  },
+  "hero": {
+    "eyebrow": "Microtool musicali gratuiti",
+    "title": "TuneUniversal",
+    "description": "Un laboratorio internazionale rapido per accordatura, tempo e accordi su ogni dispositivo.",
+    "cta": "Esplora gli strumenti"
+  },
+  "home": {
+    "toolHeading": "Strumenti musicali",
+    "faqHeading": "FAQ",
+    "howHeading": "Come funziona TuneUniversal"
+  },
   "tool": {
-    "detectedNote": "Nota rilevata", "frequency": "Frequenza", "cents": "Cent", "flat": "Calante", "sharp": "Crescente", "inTune": "Intonato",
-    "requestMic": "Attiva microfono", "stopMic": "Ferma microfono", "micError": "Accesso al microfono non riuscito. Controlla i permessi del browser e riprova.",
+    "detectedNote": "Nota rilevata",
+    "frequency": "Frequenza",
+    "cents": "Cent",
+    "flat": "Calante",
+    "sharp": "Crescente",
+    "inTune": "Intonato",
+    "requestMic": "Attiva microfono",
+    "stopMic": "Ferma microfono",
+    "micError": "Accesso al microfono non riuscito. Controlla i permessi del browser e riprova.",
     "micPermissionDenied": "Permesso microfono negato. Apri le impostazioni del sito accanto all'URL, consenti il microfono e ricarica la pagina.",
     "micNotFound": "Nessun microfono rilevato. Collega o abilita un microfono nelle impostazioni del sistema.",
     "micNotSupported": "Questo browser non espone l'accesso al microfono. Prova Chrome, Edge o Safari aggiornato.",
     "micNeedsSecureContext": "Il microfono richiede localhost o HTTPS. Apri la pagina da localhost oppure da un dominio HTTPS.",
-    "bpm": "BPM", "start": "Avvia", "stop": "Ferma", "reset": "Reset", "tap": "Tap", "history": "Ultimi tap", "meter": "Metro",
-    "inputChords": "Accordi in input", "semitones": "Semitoni", "outputChords": "Output trasposto"
+    "bpm": "BPM",
+    "start": "Avvia",
+    "stop": "Ferma",
+    "reset": "Reset",
+    "tap": "Tap",
+    "history": "Ultimi tap",
+    "meter": "Metro",
+    "inputChords": "Accordi in input",
+    "semitones": "Semitoni",
+    "outputChords": "Output trasposto"
   },
-  "common": { "howItWorks": "Come funziona", "faq": "FAQ", "otherTools": "Altri strumenti" },
+  "common": {
+    "howItWorks": "Come funziona",
+    "faq": "FAQ",
+    "otherTools": "Altri strumenti"
+  },
   "tools": {
-    "guitar-tuner": { "title": "Accordatore chitarra online", "description": "Usa il microfono per accordare rapidamente la chitarra standard.", "howItWorks": ["Consenti l'accesso al microfono.", "Suona una corda alla volta.", "Regola finche l'indicatore dice intonato."], "faq": [{ "question": "Funziona su mobile?", "answer": "Si, sono supportati i browser mobile moderni con accesso microfono." }, { "question": "Quale accordatura include?", "answer": "TuneUniversal supporta la maggior parte delle accordature comuni, tra cui Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D e Open G." }] },
-    "bass-tuner": { "title": "Accordatore basso online", "description": "Accorda un basso a quattro corde con rilevamento pitch in tempo reale.", "howItWorks": ["Attiva il microfono.", "Suona una corda a vuoto pulita.", "Accorda verso la nota target piu vicina."], "faq": [{ "question": "Quali corde sono supportate?", "answer": "Accordatura standard E A D G." }, { "question": "Serve un'app?", "answer": "No, funziona direttamente nel browser." }] },
-    "ukulele-tuner": { "title": "Accordatore ukulele online", "description": "Accorda l'ukulele in standard G C E A.", "howItWorks": ["Avvia l'accordatore.", "Pizzica una corda.", "Segui il feedback calante, crescente o intonato."], "faq": [{ "question": "Supporta high-G?", "answer": "Si, l'accordatura standard high-G G C E A e inclusa, con altri preset in base allo strumento selezionato." }, { "question": "L'audio viene registrato?", "answer": "No, l'analisi resta nel browser." }] },
-    "metronome": { "title": "Metronomo online", "description": "Studia con BPM regolabile, accenti e metri comuni.", "howItWorks": ["Imposta il BPM.", "Scegli il metro.", "Avvia il click e segui il primo beat accentato."], "faq": [{ "question": "Posso usare tap tempo?", "answer": "Si, il controllo tap stima il tempo." }, { "question": "Quali metri sono disponibili?", "answer": "2/4, 3/4, 4/4 e 6/8." }] },
-    "tap-bpm": { "title": "Conta BPM tap", "description": "Batti il tempo della musica e calcola il BPM medio.", "howItWorks": ["Premi tap sul beat.", "Il BPM medio si aggiorna automaticamente.", "Resetta quando inizi un nuovo brano."], "faq": [{ "question": "Quanti tap usa?", "answer": "Mantiene gli intervalli recenti per una stima stabile." }, { "question": "Posso usare la tastiera?", "answer": "Questa versione usa il pulsante a schermo." }] },
-    "chord-transposer": { "title": "Traspositore accordi", "description": "Trasponi progressioni di accordi su o giu per semitoni.", "howItWorks": ["Incolla gli accordi.", "Scegli i semitoni da -12 a +12.", "Copia il risultato trasposto."], "faq": [{ "question": "Supporta i bemolli?", "answer": "Si, le fondamentali bemolli vengono convertite in diesis." }, { "question": "Quali accordi funzionano?", "answer": "Maggiori, minori, diesis, bemolli, settime e suffissi comuni." }] }
+    "guitar-tuner": {
+      "title": "Accordatore chitarra online",
+      "description": "Usa il microfono per accordare rapidamente la chitarra standard.",
+      "howItWorks": [
+        "Consenti l'accesso al microfono.",
+        "Suona una corda alla volta.",
+        "Regola finche l'indicatore dice intonato."
+      ],
+      "faq": [
+        {
+          "question": "Funziona su mobile?",
+          "answer": "Si, sono supportati i browser mobile moderni con accesso microfono."
+        },
+        {
+          "question": "Quale accordatura include?",
+          "answer": "TuneUniversal supporta la maggior parte delle accordature comuni, tra cui Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D e Open G."
+        }
+      ]
+    },
+    "bass-tuner": {
+      "title": "Accordatore basso online",
+      "description": "Accorda un basso a quattro corde con rilevamento pitch in tempo reale.",
+      "howItWorks": [
+        "Attiva il microfono.",
+        "Suona una corda a vuoto pulita.",
+        "Accorda verso la nota target piu vicina."
+      ],
+      "faq": [
+        {
+          "question": "Quali corde sono supportate?",
+          "answer": "Accordatura standard E A D G."
+        },
+        {
+          "question": "Serve un'app?",
+          "answer": "No, funziona direttamente nel browser."
+        }
+      ]
+    },
+    "ukulele-tuner": {
+      "title": "Accordatore ukulele online",
+      "description": "Accorda l'ukulele in standard G C E A.",
+      "howItWorks": [
+        "Avvia l'accordatore.",
+        "Pizzica una corda.",
+        "Segui il feedback calante, crescente o intonato."
+      ],
+      "faq": [
+        {
+          "question": "Supporta high-G?",
+          "answer": "Si, l'accordatura standard high-G G C E A e inclusa, con altri preset in base allo strumento selezionato."
+        },
+        {
+          "question": "L'audio viene registrato?",
+          "answer": "No, l'analisi resta nel browser."
+        }
+      ]
+    },
+    "metronome": {
+      "title": "Metronomo online",
+      "description": "Studia con BPM regolabile, accenti e metri comuni.",
+      "howItWorks": [
+        "Imposta il BPM.",
+        "Scegli il metro.",
+        "Avvia il click e segui il primo beat accentato."
+      ],
+      "faq": [
+        {
+          "question": "Posso usare tap tempo?",
+          "answer": "Si, il controllo tap stima il tempo."
+        },
+        {
+          "question": "Quali metri sono disponibili?",
+          "answer": "2/4, 3/4, 4/4 e 6/8."
+        }
+      ]
+    },
+    "tap-bpm": {
+      "title": "Conta BPM tap",
+      "description": "Batti il tempo della musica e calcola il BPM medio.",
+      "howItWorks": [
+        "Premi tap sul beat.",
+        "Il BPM medio si aggiorna automaticamente.",
+        "Resetta quando inizi un nuovo brano."
+      ],
+      "faq": [
+        {
+          "question": "Quanti tap usa?",
+          "answer": "Mantiene gli intervalli recenti per una stima stabile."
+        },
+        {
+          "question": "Posso usare la tastiera?",
+          "answer": "Questa versione usa il pulsante a schermo."
+        }
+      ]
+    },
+    "chord-transposer": {
+      "title": "Traspositore accordi",
+      "description": "Trasponi progressioni di accordi su o giu per semitoni.",
+      "howItWorks": [
+        "Incolla gli accordi.",
+        "Scegli i semitoni da -12 a +12.",
+        "Copia il risultato trasposto."
+      ],
+      "faq": [
+        {
+          "question": "Supporta i bemolli?",
+          "answer": "Si, le fondamentali bemolli vengono convertite in diesis."
+        },
+        {
+          "question": "Quali accordi funzionano?",
+          "answer": "Maggiori, minori, diesis, bemolli, settime e suffissi comuni."
+        }
+      ]
+    },
+    "sound-level-meter": {
+      "title": "Fonometro online",
+      "description": "Misura il livello sonoro stimato in dB dal microfono con sensibilità regolabile.",
+      "howItWorks": [
+        "Consenti l'accesso al microfono.",
+        "Regola la sensibilità per calibrare la lettura.",
+        "Leggi dB stimati, media e picco in tempo reale."
+      ],
+      "faq": [
+        {
+          "question": "È un fonometro certificato?",
+          "answer": "No. Usa il microfono del browser e fornisce una stima utile per studio e ambiente, non una misura professionale dB SPL."
+        },
+        {
+          "question": "Come regolo la sensibilità?",
+          "answer": "Usa il cursore sensibilità/calibrazione se la lettura sembra troppo alta o troppo bassa rispetto al tuo ambiente."
+        }
+      ]
+    }
   }
 }

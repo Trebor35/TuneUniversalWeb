@@ -160,6 +160,25 @@
           "answer": "Mayores, menores, sostenidos, bemoles, septimas y sufijos comunes."
         }
       ]
+    },
+    "sound-level-meter": {
+      "title": "Sonómetro online",
+      "description": "Mide el nivel sonoro estimado en dB con el micrófono y sensibilidad ajustable.",
+      "howItWorks": [
+        "Permite el acceso al micrófono.",
+        "Ajusta la sensibilidad para calibrar la lectura.",
+        "Lee dB estimados, media y pico en tiempo real."
+      ],
+      "faq": [
+        {
+          "question": "¿Es un sonómetro certificado?",
+          "answer": "No. Usa el micrófono del navegador y ofrece una estimación útil, no una medición profesional dB SPL."
+        },
+        {
+          "question": "¿Cómo ajusto la sensibilidad?",
+          "answer": "Usa el control de sensibilidad/calibración si la lectura parece demasiado alta o baja."
+        }
+      ]
     }
   }
 }

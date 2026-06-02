@@ -24,7 +24,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["موالف عام", "أدوات موسيقية مجانية", "ميترونوم", "Tap BPM", "ناقل أوتار"],
     groups: [
       { title: "ضبط الآلات", description: "لضبط الآلات بالميكروفون أو اختيار آلة محددة.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "الإيقاع و BPM", description: "للدراسة بالميترونوم أو حساب سرعة أغنية.", tools: ["metronome", "tap-bpm"] },
+      { title: "الإيقاع و BPM", description: "للدراسة بالميترونوم أو حساب سرعة أغنية.", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "الأوتار والنظرية", description: "لتغيير مقام تقدمات الأوتار بسرعة.", tools: ["chord-transposer"] }
     ],
     faq: [
@@ -43,7 +43,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["universeller tuner", "kostenlose musiktools", "metronom online", "tap bpm", "akkorde transponieren"],
     groups: [
       { title: "Instrumente stimmen", description: "Für Mikrofon-Stimmung und instrumentenspezifische Referenznoten.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "Rhythmus und BPM", description: "Für Metronomtraining und schnelle Tempo-Schätzung.", tools: ["metronome", "tap-bpm"] },
+      { title: "Rhythmus und BPM", description: "Für Metronomtraining und schnelle Tempo-Schätzung.", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "Akkorde und Theorie", description: "Für schnelle Tonartwechsel in Akkordfolgen.", tools: ["chord-transposer"] }
     ],
     faq: [
@@ -62,7 +62,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["universal tuner", "free music tools", "online metronome", "tap bpm", "chord transposer"],
     groups: [
       { title: "Tune instruments", description: "For microphone tuning and instrument-specific reference notes.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "Rhythm and BPM", description: "For metronome practice and quick song tempo estimates.", tools: ["metronome", "tap-bpm"] },
+      { title: "Rhythm and BPM", description: "For metronome practice and quick song tempo estimates.", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "Chords and theory", description: "For changing key and moving chord progressions.", tools: ["chord-transposer"] }
     ],
     faq: [
@@ -81,7 +81,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["afinador universal", "herramientas musicales gratis", "metrónomo online", "tap bpm", "transpositor acordes"],
     groups: [
       { title: "Afinar instrumentos", description: "Para afinar con micrófono y usar notas de referencia por instrumento.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "Ritmo y BPM", description: "Para practicar con metrónomo y calcular tempo.", tools: ["metronome", "tap-bpm"] },
+      { title: "Ritmo y BPM", description: "Para practicar con metrónomo y calcular tempo.", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "Acordes y teoría", description: "Para cambiar tonalidad y mover progresiones.", tools: ["chord-transposer"] }
     ],
     faq: [
@@ -100,7 +100,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["accordeur universel", "outils musicaux gratuits", "métronome en ligne", "tap bpm", "transposeur accords"],
     groups: [
       { title: "Accorder les instruments", description: "Pour l'accordage au micro et les notes de référence par instrument.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "Rythme et BPM", description: "Pour travailler au métronome et estimer le tempo.", tools: ["metronome", "tap-bpm"] },
+      { title: "Rythme et BPM", description: "Pour travailler au métronome et estimer le tempo.", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "Accords et théorie", description: "Pour changer de tonalité et déplacer les progressions.", tools: ["chord-transposer"] }
     ],
     faq: [
@@ -119,7 +119,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["accordatore universale", "strumenti musicali gratis", "metronomo online", "tap bpm", "traspositore accordi"],
     groups: [
       { title: "Accordare strumenti", description: "Per accordare con il microfono e usare note di riferimento specifiche.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "Ritmo e BPM", description: "Per studiare con il metronomo e calcolare il tempo di un brano.", tools: ["metronome", "tap-bpm"] },
+      { title: "Ritmo e BPM", description: "Per studiare con il metronomo e calcolare il tempo di un brano.", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "Accordi e teoria", description: "Per cambiare tonalità e spostare progressioni di accordi.", tools: ["chord-transposer"] }
     ],
     faq: [
@@ -138,7 +138,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["ユニバーサルチューナー", "無料音楽ツール", "メトロノーム", "Tap BPM", "コード移調"],
     groups: [
       { title: "楽器を調律", description: "マイク調律と楽器別の基準音。", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "リズムと BPM", description: "メトロノーム練習とテンポ測定。", tools: ["metronome", "tap-bpm"] },
+      { title: "リズムと BPM", description: "メトロノーム練習とテンポ測定。", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "コードと理論", description: "キー変更とコード進行の移調。", tools: ["chord-transposer"] }
     ],
     faq: [
@@ -157,7 +157,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["유니버설 튜너", "무료 음악 도구", "메트로놈", "Tap BPM", "코드 조옮김"],
     groups: [
       { title: "악기 조율", description: "마이크 튜닝과 악기별 기준 음.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "리듬과 BPM", description: "메트로놈 연습과 템포 측정.", tools: ["metronome", "tap-bpm"] },
+      { title: "리듬과 BPM", description: "메트로놈 연습과 템포 측정.", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "코드와 이론", description: "키 변경과 코드 진행 조옮김.", tools: ["chord-transposer"] }
     ],
     faq: [
@@ -176,7 +176,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["afinador universal", "ferramentas musicais grátis", "metrônomo online", "tap bpm", "transpositor acordes"],
     groups: [
       { title: "Afinar instrumentos", description: "Para afinar com microfone e usar notas específicas.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "Ritmo e BPM", description: "Para praticar com metrônomo e calcular tempo.", tools: ["metronome", "tap-bpm"] },
+      { title: "Ritmo e BPM", description: "Para praticar com metrônomo e calcular tempo.", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "Acordes e teoria", description: "Para mudar tonalidade e mover progressões.", tools: ["chord-transposer"] }
     ],
     faq: [
@@ -195,7 +195,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["универсальный тюнер", "бесплатные музыкальные инструменты", "метроном", "Tap BPM", "транспозитор аккордов"],
     groups: [
       { title: "Настройка инструментов", description: "Для настройки через микрофон и опорных нот по инструментам.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "Ритм и BPM", description: "Для практики с метрономом и оценки темпа.", tools: ["metronome", "tap-bpm"] },
+      { title: "Ритм и BPM", description: "Для практики с метрономом и оценки темпа.", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "Аккорды и теория", description: "Для смены тональности и транспонирования.", tools: ["chord-transposer"] }
     ],
     faq: [
@@ -214,7 +214,7 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
     keywords: ["通用调音器", "免费音乐工具", "节拍器", "Tap BPM", "和弦移调器"],
     groups: [
       { title: "乐器调音", description: "使用麦克风和乐器参考音调音。", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
-      { title: "节奏和 BPM", description: "用于节拍器练习和速度估算。", tools: ["metronome", "tap-bpm"] },
+      { title: "节奏和 BPM", description: "用于节拍器练习和速度估算。", tools: ["metronome", "tap-bpm", "sound-level-meter"] },
       { title: "和弦与乐理", description: "用于改变调性和移动和弦进行。", tools: ["chord-transposer"] }
     ],
     faq: [
