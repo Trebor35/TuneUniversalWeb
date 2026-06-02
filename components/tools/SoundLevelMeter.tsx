@@ -1,7 +1,7 @@
 "use client";
 
 import { Mic, MicOff } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
 import { calculateRms, classifySoundLevel, rmsToEstimatedDb, type SoundLevel } from "@/lib/tools/soundMeter";
@@ -177,20 +177,126 @@ const copy = {
   }
 } as const;
 
+const environmentRows = {
+  ar: [
+    { db: 30, environment: "مكتبة" },
+    { db: 40, environment: "منزل هادئ" },
+    { db: 60, environment: "محادثة" },
+    { db: 80, environment: "حركة مرور" },
+    { db: 100, environment: "حفلة موسيقية" }
+  ],
+  de: [
+    { db: 30, environment: "Bibliothek" },
+    { db: 40, environment: "Ruhiges Zuhause" },
+    { db: 60, environment: "Gesprach" },
+    { db: 80, environment: "Verkehr" },
+    { db: 100, environment: "Konzert" }
+  ],
+  en: [
+    { db: 30, environment: "Library" },
+    { db: 40, environment: "Quiet home" },
+    { db: 60, environment: "Conversation" },
+    { db: 80, environment: "Traffic" },
+    { db: 100, environment: "Concert" }
+  ],
+  es: [
+    { db: 30, environment: "Biblioteca" },
+    { db: 40, environment: "Casa tranquila" },
+    { db: 60, environment: "Conversacion" },
+    { db: 80, environment: "Trafico" },
+    { db: 100, environment: "Concierto" }
+  ],
+  fr: [
+    { db: 30, environment: "Bibliotheque" },
+    { db: 40, environment: "Maison calme" },
+    { db: 60, environment: "Conversation" },
+    { db: 80, environment: "Trafic" },
+    { db: 100, environment: "Concert" }
+  ],
+  it: [
+    { db: 30, environment: "Biblioteca" },
+    { db: 40, environment: "Casa tranquilla" },
+    { db: 60, environment: "Conversazione" },
+    { db: 80, environment: "Traffico" },
+    { db: 100, environment: "Concerto" }
+  ],
+  ja: [
+    { db: 30, environment: "図書館" },
+    { db: 40, environment: "静かな家" },
+    { db: 60, environment: "会話" },
+    { db: 80, environment: "交通" },
+    { db: 100, environment: "コンサート" }
+  ],
+  ko: [
+    { db: 30, environment: "도서관" },
+    { db: 40, environment: "조용한 집" },
+    { db: 60, environment: "대화" },
+    { db: 80, environment: "교통" },
+    { db: 100, environment: "콘서트" }
+  ],
+  pt: [
+    { db: 30, environment: "Biblioteca" },
+    { db: 40, environment: "Casa tranquila" },
+    { db: 60, environment: "Conversa" },
+    { db: 80, environment: "Transito" },
+    { db: 100, environment: "Concerto" }
+  ],
+  ru: [
+    { db: 30, environment: "Библиотека" },
+    { db: 40, environment: "Тихий дом" },
+    { db: 60, environment: "Разговор" },
+    { db: 80, environment: "Трафик" },
+    { db: 100, environment: "Концерт" }
+  ],
+  zh: [
+    { db: 30, environment: "图书馆" },
+    { db: 40, environment: "安静的家" },
+    { db: 60, environment: "谈话" },
+    { db: 80, environment: "交通" },
+    { db: 100, environment: "音乐会" }
+  ]
+} satisfies Record<Locale, { db: number; environment: string }[]>;
+
+const uiLabels = {
+  ar: { current: "الحالي", environment: "البيئة", environments: "مراجع البيئة", history: "آخر 30 ثانية", maximum: "الأقصى", minimum: "الأدنى" },
+  de: { current: "Aktuell", environment: "Umgebung", environments: "Umgebungswerte", history: "Letzte 30 Sekunden", maximum: "Maximum", minimum: "Minimum" },
+  en: { current: "Current", environment: "Environment", environments: "Environment reference", history: "Last 30 seconds", maximum: "Maximum", minimum: "Minimum" },
+  es: { current: "Actual", environment: "Ambiente", environments: "Referencia de ambientes", history: "Ultimos 30 segundos", maximum: "Maximo", minimum: "Minimo" },
+  fr: { current: "Actuel", environment: "Environnement", environments: "Reference des environnements", history: "30 dernieres secondes", maximum: "Maximum", minimum: "Minimum" },
+  it: { current: "dB attuale", environment: "Ambiente", environments: "Ambienti di riferimento", history: "Storico ultimi 30 secondi", maximum: "dB massimo", minimum: "dB minimo" },
+  ja: { current: "現在", environment: "環境", environments: "環境の目安", history: "過去30秒", maximum: "最大", minimum: "最小" },
+  ko: { current: "현재", environment: "환경", environments: "환경 기준", history: "최근 30초", maximum: "최대", minimum: "최소" },
+  pt: { current: "Atual", environment: "Ambiente", environments: "Referencia de ambientes", history: "Ultimos 30 segundos", maximum: "Maximo", minimum: "Minimo" },
+  ru: { current: "Текущий", environment: "Среда", environments: "Ориентиры среды", history: "Последние 30 секунд", maximum: "Максимум", minimum: "Минимум" },
+  zh: { current: "当前", environment: "环境", environments: "环境参考", history: "最近30秒", maximum: "最大值", minimum: "最小值" }
+} satisfies Record<Locale, { current: string; environment: string; environments: string; history: string; maximum: string; minimum: string }>;
+
+type HistoryPoint = { db: number; time: number };
+
 export function SoundLevelMeter({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   const labels = copy[locale] ?? copy.en;
+  const extraLabels = uiLabels[locale] ?? uiLabels.en;
   const [active, setActive] = useState(false);
   const [db, setDb] = useState(0);
-  const [averageDb, setAverageDb] = useState(0);
   const [peakDb, setPeakDb] = useState(0);
+  const [history, setHistory] = useState<HistoryPoint[]>([]);
   const [sensitivity, setSensitivity] = useState(0);
   const [error, setError] = useState("");
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const frameRef = useRef<number | null>(null);
-  const historyRef = useRef<number[]>([]);
+  const lastHistoryAtRef = useRef(0);
   const sensitivityRef = useRef(sensitivity);
+  const stats = useMemo(() => {
+    if (!history.length) return { average: 0, maximum: 0, minimum: 0 };
+    const values = history.map((item) => item.db);
+    return {
+      average: Math.round(values.reduce((sum, item) => sum + item, 0) / values.length),
+      maximum: Math.max(...values),
+      minimum: Math.min(...values)
+    };
+  }, [history]);
 
   useEffect(() => () => stop(), []);
   useEffect(() => {
@@ -227,6 +333,8 @@ export function SoundLevelMeter({ dictionary, locale }: { dictionary: Dictionary
       streamRef.current = stream;
       audioContextRef.current = audioContext;
       analyserRef.current = analyser;
+      lastHistoryAtRef.current = 0;
+      setHistory([]);
       setActive(true);
       readLevel();
     } catch {
@@ -251,10 +359,12 @@ export function SoundLevelMeter({ dictionary, locale }: { dictionary: Dictionary
     const samples = new Float32Array(analyser.fftSize);
     analyser.getFloatTimeDomainData(samples);
     const nextDb = rmsToEstimatedDb(calculateRms(samples), sensitivityRef.current);
-    historyRef.current = [...historyRef.current.slice(-19), nextDb];
-    const nextAverage = Math.round(historyRef.current.reduce((sum, item) => sum + item, 0) / historyRef.current.length);
+    const now = Date.now();
+    if (now - lastHistoryAtRef.current > 300) {
+      lastHistoryAtRef.current = now;
+      setHistory((current) => [...current, { db: nextDb, time: now }].filter((point) => now - point.time <= 30000));
+    }
     setDb(nextDb);
-    setAverageDb(nextAverage);
     setPeakDb((current) => Math.max(current, nextDb));
     frameRef.current = requestAnimationFrame(readLevel);
   }
@@ -280,14 +390,57 @@ export function SoundLevelMeter({ dictionary, locale }: { dictionary: Dictionary
         </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-4">
         <div className="rounded-lg bg-paper p-4">
-          <p className="text-sm text-ink/60">{labels.average}</p>
-          <p className="mt-1 text-3xl font-black">{averageDb || "--"} {labels.db}</p>
+          <p className="text-sm text-ink/60">{extraLabels.current}</p>
+          <p className="mt-1 text-3xl font-black">{db || "--"} {labels.db}</p>
         </div>
         <div className="rounded-lg bg-paper p-4">
-          <p className="text-sm text-ink/60">{labels.peak}</p>
-          <p className="mt-1 text-3xl font-black">{peakDb || "--"} {labels.db}</p>
+          <p className="text-sm text-ink/60">{extraLabels.minimum}</p>
+          <p className="mt-1 text-3xl font-black">{stats.minimum || "--"} {labels.db}</p>
+        </div>
+        <div className="rounded-lg bg-paper p-4">
+          <p className="text-sm text-ink/60">{labels.average}</p>
+          <p className="mt-1 text-3xl font-black">{stats.average || "--"} {labels.db}</p>
+        </div>
+        <div className="rounded-lg bg-paper p-4">
+          <p className="text-sm text-ink/60">{extraLabels.maximum}</p>
+          <p className="mt-1 text-3xl font-black">{Math.max(peakDb, stats.maximum) || "--"} {labels.db}</p>
+        </div>
+      </div>
+
+      <div className="rounded-lg border border-line bg-white p-4">
+        <div className="flex items-center justify-between gap-3">
+          <p className="font-semibold">{extraLabels.history}</p>
+          <span className="text-sm font-bold text-ink/50">{history.length ? `${history.length}` : "--"}</span>
+        </div>
+        <div className="mt-4 flex h-32 items-end gap-1 rounded-md bg-paper p-3">
+          {Array.from({ length: 60 }).map((_, index) => {
+            const point = history[Math.max(0, history.length - 60) + index];
+            const height = point ? Math.max(4, Math.min(100, (point.db / 120) * 100)) : 4;
+            return (
+              <span
+                key={index}
+                className="flex-1 rounded-t bg-mint/80"
+                style={{ height: `${height}%`, opacity: point ? 1 : 0.18 }}
+                aria-hidden
+              />
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="overflow-hidden rounded-lg border border-line bg-white">
+        <p className="border-b border-line px-4 py-3 font-semibold">{extraLabels.environments}</p>
+        <div className="grid grid-cols-[90px_1fr] text-sm">
+          <div className="bg-paper px-4 py-2 font-bold">{labels.db}</div>
+          <div className="bg-paper px-4 py-2 font-bold">{extraLabels.environment}</div>
+          {environmentRows[locale].map((row) => (
+            <div key={row.db} className="contents">
+              <div className="border-t border-line px-4 py-3 font-bold">{row.db}</div>
+              <div className="border-t border-line px-4 py-3">{row.environment}</div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -315,7 +468,7 @@ export function SoundLevelMeter({ dictionary, locale }: { dictionary: Dictionary
           {active ? <MicOff size={18} aria-hidden /> : <Mic size={18} aria-hidden />}
           {active ? dictionary.tool.stopMic : dictionary.tool.requestMic}
         </Button>
-        <Button variant="secondary" onClick={() => setPeakDb(0)}>
+        <Button variant="secondary" onClick={() => { setPeakDb(0); setHistory([]); }}>
           {labels.resetPeak}
         </Button>
       </div>
