@@ -85,7 +85,7 @@ function ToolComponent({
     case "metronome":
       return <Metronome dictionary={dictionary} />;
     case "tap-bpm":
-      return <TapBpm dictionary={dictionary} />;
+      return <TapBpm dictionary={dictionary} locale={locale} />;
     case "chord-transposer":
       return <ChordTransposer dictionary={dictionary} />;
     case "sound-level-meter":
