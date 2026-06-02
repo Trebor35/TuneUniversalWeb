@@ -799,10 +799,6 @@ const alternativeTuningGuides: Record<
   "five-string-bass-tuning": { instrument: "bass", presetId: "five-string", label: "5-string low B" }
 };
 
-export const instrumentsSeoData = instrumentGuideSlugs;
-export const tuningsSeoData = alternativeTuningGuides;
-export const localizedSeoContent = { guideIndexContent, tuningGuideCopy, alternativeTuningLabels };
-
 const alternativeTuningLabels: Record<
   Locale,
   {
@@ -927,6 +923,10 @@ const alternativeTuningLabels: Record<
     targetTitle: (name, instrument) => `${instrument} 调音器 - ${name}`
   }
 };
+
+export const instrumentsSeoData = instrumentGuideSlugs;
+export const tuningsSeoData = alternativeTuningGuides;
+export const localizedSeoContent = { guideIndexContent, tuningGuideCopy, alternativeTuningLabels };
 
 function coreToolForInstrument(instrument: Instrument): ToolSlug {
   if (instrument === "bass") return "bass-tuner";
