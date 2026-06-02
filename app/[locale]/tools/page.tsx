@@ -13,25 +13,18 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildToolsIndexMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, faqItemsSchema } from "@/lib/seo/schema";
-import { instrumentIds } from "@/lib/tools/toolConfig";
+import { instrumentIds, type Instrument } from "@/lib/tools/toolConfig";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
-const instrumentSectionLabels: Record<Locale, string> = {
-  ar: "موالفات الآلات",
-  de: "Instrumenten-Tuner",
-  en: "Instrument tuners",
-  es: "Afinadores de instrumentos",
-  fr: "Accordeurs d'instruments",
-  it: "Accordatori per strumento",
-  ja: "楽器チューナー",
-  ko: "악기 튜너",
-  pt: "Afinadores de instrumentos",
-  ru: "Тюнеры для инструментов",
-  zh: "乐器调音器"
-};
+const featuredInstrumentIds: Instrument[] = ["guitar", "bass"];
+const featuredInstrumentSet = new Set<Instrument>(featuredInstrumentIds);
+const homeInstrumentIds: Instrument[] = [
+  ...featuredInstrumentIds,
+  ...instrumentIds.filter((instrument) => !featuredInstrumentSet.has(instrument))
+];
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -101,7 +94,30 @@ export default async function ToolsIndexPage({ params }: PageProps) {
               <p className="mt-2 text-base leading-7 text-ink/68">{group.description}</p>
             </div>
             <div className="mt-4">
-              <ToolNavigation locale={locale} dictionary={dictionary} tools={group.tools} />
+              {group.tools.includes("guitar-tuner") ? (
+                <nav className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3" aria-label={group.title}>
+                  {homeInstrumentIds.map((instrument) => {
+                    const content = getInstrumentTunerContent(locale, instrument);
+                    return (
+                      <Link
+                        key={instrument}
+                        href={`/${locale}/tools/${instrumentToTunerSlug(instrument)}`}
+                        className="group flex min-h-0 items-start gap-3 rounded-lg border border-line bg-white p-4 transition hover:-translate-y-0.5 hover:border-mint hover:shadow-soft sm:min-h-24"
+                      >
+                        <span className="mt-1 shrink-0 rounded-md bg-mint/10 p-2 text-mint">
+                          <Music2 size={18} aria-hidden />
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block break-words font-semibold">{content.title}</span>
+                          <span className="mt-1 block break-words text-sm leading-6 text-ink/68">{content.description}</span>
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </nav>
+              ) : (
+                <ToolNavigation locale={locale} dictionary={dictionary} tools={group.tools} />
+              )}
             </div>
           </section>
         ))}
@@ -110,31 +126,6 @@ export default async function ToolsIndexPage({ params }: PageProps) {
       <AdSlot variant="mobileBanner" className="mt-8 lg:hidden" />
       <AdSlot variant="rectangle" className="mx-auto mt-8 max-w-xl lg:hidden" />
       <AdSlot className="mt-8 hidden lg:flex" />
-
-      <section className="mt-10">
-        <h2 className="text-2xl font-bold">{instrumentSectionLabels[locale]}</h2>
-        <p className="mt-2 max-w-3xl text-base leading-7 text-ink/68">{hub.instrumentIntro}</p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {instrumentIds.map((instrument) => {
-            const content = getInstrumentTunerContent(locale, instrument);
-            return (
-              <Link
-                key={instrument}
-                href={`/${locale}/tools/${instrumentToTunerSlug(instrument)}`}
-                className="group flex min-h-0 items-start gap-3 rounded-lg border border-line bg-white p-4 transition hover:-translate-y-0.5 hover:border-mint hover:shadow-soft sm:min-h-24"
-              >
-                <span className="mt-1 shrink-0 rounded-md bg-mint/10 p-2 text-mint">
-                  <Music2 size={18} aria-hidden />
-                </span>
-                <span className="min-w-0">
-                  <span className="block break-words font-semibold">{content.title}</span>
-                  <span className="mt-1 block break-words text-sm leading-6 text-ink/68">{content.description}</span>
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
 
       <AdSlot className="mt-8" />
 
