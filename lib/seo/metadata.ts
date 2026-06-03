@@ -382,6 +382,385 @@ const instrumentMetadataOverrides: Partial<
   }
 };
 
+const priorityInstrumentMetadataOverrides: Partial<
+  Record<Locale, Partial<Record<string, { description: string; title: string }>>>
+> = {
+  ar: {
+    "7-string-guitar-tuner": {
+      title: "موالف جيتار 7 اوتار اونلاين | مجاني مع الميكروفون | TuneUniversal",
+      description: "اضبط جيتار 7 اوتار اونلاين مع الميكروفون ودعم الوتر المنخفض Si وقراءة واضحة للتدريب والريفات الحديثة."
+    },
+    "8-string-guitar-tuner": {
+      title: "موالف جيتار 8 اوتار اونلاين | مجاني | TuneUniversal",
+      description: "اضبط جيتار 8 اوتار اونلاين مع الميكروفون ونغمات مرجعية ودعم للضبطات الممتدة الحديثة."
+    },
+    "12-string-guitar-tuner": {
+      title: "موالف جيتار 12 وتر اونلاين | مجاني | TuneUniversal",
+      description: "اضبط جيتار 12 وتر اونلاين مع الميكروفون ونغمات مرجعية لمراجعة ازواج الاوتار والاكتافات."
+    },
+    "bass-tuner": {
+      title: "موالف باس اونلاين | مجاني | TuneUniversal",
+      description: "اضبط الباس اونلاين مع الميكروفون ونغمات مرجعية واضحة لاعدادات 4 و5 اوتار."
+    },
+    "violin-tuner": {
+      title: "موالف كمان اونلاين | مجاني | TuneUniversal",
+      description: "اضبط الكمان اونلاين مع الميكروفون ونغمات G D A E المرجعية للاستعمال اليومي."
+    },
+    "cello-tuner": {
+      title: "موالف تشيلو اونلاين | مجاني | TuneUniversal",
+      description: "اضبط التشيلو اونلاين مع الميكروفون ونغمات مرجعية واضحة للدراسة والبروفات."
+    },
+    "cimbalom-tuner": {
+      title: "موالف سيمبالوم اونلاين | TuneUniversal",
+      description: "استعمل موالف سيمبالوم اونلاين مع الميكروفون ونغمات مرجعية للصيانة المنتظمة والمراجعة السريعة."
+    },
+    "koto-tuner": {
+      title: "موالف كوتو اونلاين | TuneUniversal",
+      description: "استعمل موالف كوتو اونلاين مع الميكروفون ونغمات مرجعية لتثبيت الضبط بسرعة داخل المتصفح."
+    }
+  },
+  de: {
+    "7-string-guitar-tuner": {
+      title: "7-Saiter Gitarre online stimmen | Kostenloser Tuner | TuneUniversal",
+      description: "Stimme 7-Saiter Gitarre online mit tiefem H, Mikrofon-Erkennung und klarer Anzeige fuer moderne Riffs und taegliches Ueben."
+    },
+    "8-string-guitar-tuner": {
+      title: "8-Saiter Gitarre online stimmen | Kostenloser Tuner | TuneUniversal",
+      description: "Stimme 8-Saiter Gitarre online mit Mikrofon, Referenznoten und klarer Hilfe fuer moderne Extended-Range-Setups."
+    },
+    "12-string-guitar-tuner": {
+      title: "12-Saiter Gitarre online stimmen | Kostenloser Tuner | TuneUniversal",
+      description: "Stimme 12-Saiter Gitarre online mit Mikrofon, Referenznoten und Unterstuetzung fuer Oktavpaare und Doppelchore."
+    },
+    "bass-tuner": {
+      title: "Bass online stimmen | Kostenloser Tuner | TuneUniversal",
+      description: "Stimme Bass online mit Mikrofon, stabiler Tonerkennung und Referenznoten fuer 4- und 5-Saiter-Setups."
+    },
+    "violin-tuner": {
+      title: "Geige online stimmen | Kostenloser Tuner | TuneUniversal",
+      description: "Stimme Geige online mit Mikrofon und Referenznoten G D A E fuer den taeglichen Unterricht und schnelle Kontrolle."
+    },
+    "cello-tuner": {
+      title: "Cello online stimmen | Kostenloser Tuner | TuneUniversal",
+      description: "Stimme Cello online mit Mikrofon, Referenznoten und einer schnellen Browser-Loesung fuer Probe und Ueben."
+    },
+    "cimbalom-tuner": {
+      title: "Cimbalom online stimmen | TuneUniversal",
+      description: "Stimme Cimbalom online mit Mikrofon, Referenznoten und schneller Hilfe fuer regelmaessige Kontrolle im Browser."
+    },
+    "koto-tuner": {
+      title: "Koto online stimmen | TuneUniversal",
+      description: "Stimme Koto online mit Mikrofon und Referenznoten, um die Stimmung schnell und einfach im Browser zu pruefen."
+    }
+  },
+  en: {
+    "7-string-guitar-tuner": {
+      title: "7 String Guitar Tuner Online | Free Microphone Tuner | TuneUniversal",
+      description: "Tune 7 string guitar online with low B support, microphone pitch detection and a steadier display for daily practice and modern riffs."
+    },
+    "8-string-guitar-tuner": {
+      title: "8 String Guitar Tuner Online | Free Extended Range Tuner | TuneUniversal",
+      description: "Tune 8 string guitar online with microphone detection, reference notes and extended-range support for modern metal and low tunings."
+    },
+    "12-string-guitar-tuner": {
+      title: "12 String Guitar Tuner Online | Free Microphone Tuner | TuneUniversal",
+      description: "Tune 12 string guitar online with microphone help, reference notes and extra support for octave pairs and chorus-rich strings."
+    },
+    "bass-tuner": {
+      title: "Bass Tuner Online | Free 4 and 5 String Tuner | TuneUniversal",
+      description: "Tune bass online with your microphone, stable note detection and quick reference notes for 4 string and 5 string setups."
+    },
+    "violin-tuner": {
+      title: "Violin Tuner Online | Free G D A E Tuner | TuneUniversal",
+      description: "Tune violin online with browser microphone input, G D A E reference notes and a clear display for beginner-friendly daily tuning."
+    },
+    "cello-tuner": {
+      title: "Cello Tuner Online | Free Microphone Tuner | TuneUniversal",
+      description: "Tune cello online with microphone support, clear reference notes and a quick browser workflow for practice and rehearsal."
+    },
+    "cimbalom-tuner": {
+      title: "Cimbalom Tuner Online | Free Browser Tuner | TuneUniversal",
+      description: "Tune cimbalom online with microphone input, reference notes and a fast browser tuner for regular maintenance."
+    },
+    "koto-tuner": {
+      title: "Koto Tuner Online | Free Browser Tuner | TuneUniversal",
+      description: "Tune koto online with microphone input, reference notes and a fast browser workflow for everyday tuning practice."
+    }
+  },
+  es: {
+    "7-string-guitar-tuner": {
+      title: "Afinador de guitarra de 7 cuerdas online | Gratis | TuneUniversal",
+      description: "Afina guitarra de 7 cuerdas online con microfono, cuerda grave Si y lectura estable para practica y riffs modernos."
+    },
+    "8-string-guitar-tuner": {
+      title: "Afinador de guitarra de 8 cuerdas online | Gratis | TuneUniversal",
+      description: "Afina guitarra de 8 cuerdas online con microfono, notas de referencia y soporte para afinaciones extendidas modernas."
+    },
+    "12-string-guitar-tuner": {
+      title: "Afinador de guitarra de 12 cuerdas online | Gratis | TuneUniversal",
+      description: "Afina guitarra de 12 cuerdas online con microfono, notas de referencia y apoyo para pares de cuerdas y octavas."
+    },
+    "bass-tuner": {
+      title: "Afinador de bajo online | Gratis | TuneUniversal",
+      description: "Afina bajo online con microfono, deteccion estable y notas de referencia para configuraciones de 4 y 5 cuerdas."
+    },
+    "violin-tuner": {
+      title: "Afinador de violin online | Gratis | TuneUniversal",
+      description: "Afina violin online con microfono, notas G D A E y una lectura clara para estudio diario y principiantes."
+    },
+    "cello-tuner": {
+      title: "Afinador de violonchelo online | Gratis | TuneUniversal",
+      description: "Afina violonchelo online con microfono, notas de referencia claras y una forma rapida de revisar la afinacion en el navegador."
+    },
+    "cimbalom-tuner": {
+      title: "Afinador de cimbalom online | Gratis | TuneUniversal",
+      description: "Usa un afinador de cimbalom online con microfono y notas de referencia para mantenimiento regular y practica."
+    },
+    "koto-tuner": {
+      title: "Afinador de koto online | Gratis | TuneUniversal",
+      description: "Usa un afinador de koto online con microfono y notas de referencia para estudiar afinacion de forma rapida en el navegador."
+    }
+  },
+  fr: {
+    "7-string-guitar-tuner": {
+      title: "Accordeur guitare 7 cordes en ligne | Gratuit | TuneUniversal",
+      description: "Accordez une guitare 7 cordes en ligne avec micro, corde grave Si et lecture stable pour riffs modernes et travail quotidien."
+    },
+    "8-string-guitar-tuner": {
+      title: "Accordeur guitare 8 cordes en ligne | Gratuit | TuneUniversal",
+      description: "Accordez une guitare 8 cordes en ligne avec micro, notes de reference et aide claire pour les accordages etendus."
+    },
+    "12-string-guitar-tuner": {
+      title: "Accordeur guitare 12 cordes en ligne | Gratuit | TuneUniversal",
+      description: "Accordez une guitare 12 cordes en ligne avec micro, notes de reference et soutien pour les paires a l'octave."
+    },
+    "bass-tuner": {
+      title: "Accordeur basse en ligne | Gratuit | TuneUniversal",
+      description: "Accordez une basse en ligne avec micro, detection stable et notes de reference pour configurations 4 et 5 cordes."
+    },
+    "violin-tuner": {
+      title: "Accordeur violon en ligne | Gratuit | TuneUniversal",
+      description: "Accordez votre violon en ligne avec le micro du navigateur, les notes G D A E et une lecture simple pour l'etude quotidienne."
+    },
+    "cello-tuner": {
+      title: "Accordeur violoncelle en ligne | Gratuit | TuneUniversal",
+      description: "Accordez votre violoncelle en ligne avec micro, notes de reference claires et un flux rapide dans le navigateur."
+    },
+    "cimbalom-tuner": {
+      title: "Accordeur cimbalom en ligne | Gratuit | TuneUniversal",
+      description: "Accordez un cimbalom en ligne avec micro et notes de reference pour verifier rapidement l'accord quotidien."
+    },
+    "koto-tuner": {
+      title: "Accordeur koto en ligne | Gratuit | TuneUniversal",
+      description: "Accordez un koto en ligne avec micro, notes de reference et une aide simple pour l'accord quotidien."
+    }
+  },
+  it: {
+    "7-string-guitar-tuner": {
+      title: "Accordatore chitarra 7 corde gratis online | TuneUniversal",
+      description: "Accorda la chitarra 7 corde online con microfono, supporto per il Si basso e lettura stabile per riff moderni e studio quotidiano."
+    },
+    "8-string-guitar-tuner": {
+      title: "Accordatore chitarra 8 corde gratis online | TuneUniversal",
+      description: "Accorda la chitarra 8 corde online con microfono, note di riferimento e supporto per accordature estese e moderne."
+    },
+    "12-string-guitar-tuner": {
+      title: "Accordatore chitarra 12 corde gratis online | TuneUniversal",
+      description: "Accorda la chitarra 12 corde online con microfono, cori in ottava e note di riferimento utili per controllare ogni coppia."
+    },
+    "bass-tuner": {
+      title: "Accordatore basso gratis online | TuneUniversal",
+      description: "Accorda il basso online con microfono, rilevamento stabile e note di riferimento per setup a 4 e 5 corde."
+    },
+    "violin-tuner": {
+      title: "Accordatore violino gratis online | TuneUniversal",
+      description: "Accorda il violino online con microfono, note G D A E e una lettura chiara pensata per studio e utilizzo quotidiano."
+    },
+    "cello-tuner": {
+      title: "Accordatore violoncello gratis online | TuneUniversal",
+      description: "Accorda il violoncello online con microfono, note di riferimento chiare e un flusso rapido nel browser per studio e prove."
+    },
+    "cimbalom-tuner": {
+      title: "Accordatore cimbalom online | TuneUniversal",
+      description: "Usa un accordatore cimbalom online con microfono e note di riferimento per controlli rapidi e manutenzione regolare."
+    },
+    "koto-tuner": {
+      title: "Accordatore koto online | TuneUniversal",
+      description: "Usa un accordatore koto online con microfono e note di riferimento per verificare l'accordatura direttamente dal browser."
+    }
+  },
+  ja: {
+    "7-string-guitar-tuner": {
+      title: "オンライン 7弦ギターチューナー | 無料 | TuneUniversal",
+      description: "低い B 弦に対応した 7弦ギター用オンラインチューナー。マイク検出と安定表示で日々の練習に使えます。"
+    },
+    "8-string-guitar-tuner": {
+      title: "オンライン 8弦ギターチューナー | 無料 | TuneUniversal",
+      description: "マイク入力と基準音に対応した 8弦ギター用オンラインチューナー。低音域や拡張チューニングの確認に便利です。"
+    },
+    "12-string-guitar-tuner": {
+      title: "オンライン 12弦ギターチューナー | 無料 | TuneUniversal",
+      description: "オクターブペアやコース弦の確認に便利な 12弦ギター用オンラインチューナーです。"
+    },
+    "bass-tuner": {
+      title: "オンライン ベースチューナー | 無料 | TuneUniversal",
+      description: "4弦・5弦ベースに対応したオンラインチューナー。マイク検出と基準音で素早くチューニングできます。"
+    },
+    "violin-tuner": {
+      title: "オンライン バイオリンチューナー | 無料 | TuneUniversal",
+      description: "G D A E の基準音とマイク入力に対応したオンラインバイオリンチューナーです。"
+    },
+    "cello-tuner": {
+      title: "オンライン チェロチューナー | 無料 | TuneUniversal",
+      description: "チェロをオンラインで素早くチューニング。マイク入力と基準音で練習前に確認できます。"
+    },
+    "cimbalom-tuner": {
+      title: "オンライン ツィンバロムチューナー | TuneUniversal",
+      description: "ツィンバロムの調弦をブラウザで確認できるオンラインチューナー。マイク入力と基準音に対応します。"
+    },
+    "koto-tuner": {
+      title: "オンライン 箏チューナー | TuneUniversal",
+      description: "箏の調弦をオンラインで確認できるチューナー。マイク入力と基準音で日常の調整をすばやく行えます。"
+    }
+  },
+  ko: {
+    "7-string-guitar-tuner": {
+      title: "온라인 7현 기타 튜너 | 무료 | TuneUniversal",
+      description: "저음 B현을 지원하는 7현 기타용 온라인 튜너입니다. 마이크 감지와 안정된 표시로 연습과 리프 점검에 적합합니다."
+    },
+    "8-string-guitar-tuner": {
+      title: "온라인 8현 기타 튜너 | 무료 | TuneUniversal",
+      description: "마이크 입력과 기준음을 지원하는 8현 기타용 온라인 튜너로 확장 튜닝과 저음 세팅을 빠르게 확인할 수 있습니다."
+    },
+    "12-string-guitar-tuner": {
+      title: "온라인 12현 기타 튜너 | 무료 | TuneUniversal",
+      description: "옥타브 페어와 코러스 줄 점검에 유용한 12현 기타용 온라인 튜너입니다."
+    },
+    "bass-tuner": {
+      title: "온라인 베이스 튜너 | 무료 | TuneUniversal",
+      description: "4현과 5현 베이스에 맞춘 온라인 튜너로 마이크 감지와 기준음을 사용해 빠르게 튜닝할 수 있습니다."
+    },
+    "violin-tuner": {
+      title: "온라인 바이올린 튜너 | 무료 | TuneUniversal",
+      description: "G D A E 기준음과 마이크 입력을 지원하는 온라인 바이올린 튜너입니다."
+    },
+    "cello-tuner": {
+      title: "온라인 첼로 튜너 | 무료 | TuneUniversal",
+      description: "첼로를 온라인에서 빠르게 조율하세요. 마이크 입력과 기준음으로 연습 전 점검에 편리합니다."
+    },
+    "cimbalom-tuner": {
+      title: "온라인 침발롬 튜너 | TuneUniversal",
+      description: "침발롬의 조율을 브라우저에서 확인할 수 있는 온라인 튜너입니다. 마이크 입력과 기준음을 지원합니다."
+    },
+    "koto-tuner": {
+      title: "온라인 코토 튜너 | TuneUniversal",
+      description: "코토 조율을 빠르게 확인할 수 있는 온라인 튜너입니다. 마이크 입력과 기준음으로 일상 조율에 적합합니다."
+    }
+  },
+  pt: {
+    "7-string-guitar-tuner": {
+      title: "Afinador de guitarra de 7 cordas online | Gratis | TuneUniversal",
+      description: "Afine guitarra de 7 cordas online com microfone, suporte para a corda Si grave e leitura estavel para riffs modernos."
+    },
+    "8-string-guitar-tuner": {
+      title: "Afinador de guitarra de 8 cordas online | Gratis | TuneUniversal",
+      description: "Afine guitarra de 8 cordas online com microfone, notas de referencia e suporte para afinacoes estendidas modernas."
+    },
+    "12-string-guitar-tuner": {
+      title: "Afinador de guitarra de 12 cordas online | Gratis | TuneUniversal",
+      description: "Afine guitarra de 12 cordas online com microfone, notas de referencia e apoio para pares em oitava."
+    },
+    "bass-tuner": {
+      title: "Afinador de baixo online | Gratis | TuneUniversal",
+      description: "Afine baixo online com microfone, deteccao estavel e notas de referencia para configuracoes de 4 e 5 cordas."
+    },
+    "violin-tuner": {
+      title: "Afinador de violino online | Gratis | TuneUniversal",
+      description: "Afine violino online com microfone, notas G D A E e leitura clara para estudo e uso diario."
+    },
+    "cello-tuner": {
+      title: "Afinador de violoncelo online | Gratis | TuneUniversal",
+      description: "Afine violoncelo online com microfone, notas de referencia claras e um fluxo rapido no navegador."
+    },
+    "cimbalom-tuner": {
+      title: "Afinador de cimbalom online | Gratis | TuneUniversal",
+      description: "Use um afinador de cimbalom online com microfone e notas de referencia para manutencao regular e verificacao rapida."
+    },
+    "koto-tuner": {
+      title: "Afinador de koto online | Gratis | TuneUniversal",
+      description: "Use um afinador de koto online com microfone e notas de referencia para checar a afinacao diretamente no navegador."
+    }
+  },
+  ru: {
+    "7-string-guitar-tuner": {
+      title: "Online 7 string guitar tuner | TuneUniversal",
+      description: "Tune 7 string guitar online with low B support, microphone pitch detection and a stable browser display for practice."
+    },
+    "8-string-guitar-tuner": {
+      title: "Online 8 string guitar tuner | TuneUniversal",
+      description: "Tune 8 string guitar online with microphone input, reference notes and support for extended-range tuning setups."
+    },
+    "12-string-guitar-tuner": {
+      title: "Online 12 string guitar tuner | TuneUniversal",
+      description: "Tune a 12 string guitar online with microphone help, reference notes and stable support for octave-pair tuning."
+    },
+    "bass-tuner": {
+      title: "Online bass tuner | TuneUniversal",
+      description: "Tune bass online with microphone support, stable note detection and quick reference notes for 4 and 5 string setups."
+    },
+    "violin-tuner": {
+      title: "Online violin tuner | TuneUniversal",
+      description: "Tune violin online with browser microphone input, G D A E reference notes and a clear daily tuning workflow."
+    },
+    "cello-tuner": {
+      title: "Online cello tuner | TuneUniversal",
+      description: "Tune cello online with microphone support, clear reference notes and a quick browser workflow for practice and rehearsal."
+    },
+    "cimbalom-tuner": {
+      title: "Online cimbalom tuner | TuneUniversal",
+      description: "Tune cimbalom online with microphone input, reference notes and a fast browser tuner for regular maintenance."
+    },
+    "koto-tuner": {
+      title: "Online koto tuner | TuneUniversal",
+      description: "Tune koto online with microphone input, reference notes and a quick browser workflow for everyday tuning practice."
+    }
+  },
+  zh: {
+    "7-string-guitar-tuner": {
+      title: "在线七弦吉他调音器 | 免费 | TuneUniversal",
+      description: "使用在线七弦吉他调音器，通过麦克风识别低音 B 弦和其余弦的音高，适合现代演奏和日常练习。"
+    },
+    "8-string-guitar-tuner": {
+      title: "在线八弦吉他调音器 | 免费 | TuneUniversal",
+      description: "使用麦克风和参考音在线为八弦吉他调音，适合扩展音域和低音调弦设置。"
+    },
+    "12-string-guitar-tuner": {
+      title: "在线十二弦吉他调音器 | 免费 | TuneUniversal",
+      description: "在线为十二弦吉他调音，支持八度成对弦和合唱效果弦组的日常校准。"
+    },
+    "bass-tuner": {
+      title: "在线贝斯调音器 | 免费 | TuneUniversal",
+      description: "在线为贝斯调音，支持麦克风检测和参考音，适用于 4 弦与 5 弦配置。"
+    },
+    "violin-tuner": {
+      title: "在线小提琴调音器 | 免费 | TuneUniversal",
+      description: "使用浏览器麦克风和 G D A E 参考音在线调音，适合日常练习与初学者。"
+    },
+    "cello-tuner": {
+      title: "在线大提琴调音器 | 免费 | TuneUniversal",
+      description: "在线快速为大提琴调音，支持麦克风输入和清晰的参考音，适合练习前快速检查。"
+    },
+    "cimbalom-tuner": {
+      title: "在线扬琴调音器 | 免费 | TuneUniversal",
+      description: "使用在线扬琴调音器，通过麦克风和参考音进行快速校准和日常维护。"
+    },
+    "koto-tuner": {
+      title: "在线筝调音器 | 免费 | TuneUniversal",
+      description: "使用在线筝调音器，通过麦克风输入和参考音在浏览器中快速检查调弦状态。"
+    }
+  }
+};
+
 const guideMetadataOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, { description: string; title: string }>>>> = {
   en: {
     "d-standard-tuning": {
@@ -520,7 +899,7 @@ export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Di
 }
 
 export function buildInstrumentTunerMetadata(locale: Locale, slug: string, content: InstrumentTunerContent): Metadata {
-  const override = instrumentMetadataOverrides[locale]?.[slug];
+  const override = priorityInstrumentMetadataOverrides[locale]?.[slug] ?? instrumentMetadataOverrides[locale]?.[slug];
   const title = override?.title ?? `${content.title} | TuneUniversal`;
   const description = override?.description ?? content.description;
   return {
