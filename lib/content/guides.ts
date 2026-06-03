@@ -94,6 +94,8 @@ export type GuideContent = {
   tool: ToolSlug;
 };
 
+type GuideOverride = Partial<Omit<GuideContent, "tool">>;
+
 type TuningGuideCopy = {
   description: (instrument: string, tuning: string) => string;
   intro: (instrument: string, tuning: string) => string;
@@ -370,6 +372,130 @@ const utilityGuides: Record<Locale, Record<UtilityGuideSlug, Omit<GuideContent, 
     "standard-bass-tuning": standardBassUtility("zh")
   }
 };
+
+const guideContentOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, GuideOverride>>>> = {
+  en: {
+    "d-standard-tuning": {
+      intro:
+        "D Standard tuning lowers every guitar string by a full step to D G C F A D. It gives riffs a heavier voice while keeping interval shapes familiar.",
+      sections: [
+        {
+          title: "When players use D Standard",
+          body: "D Standard is common in heavy rock, metal and darker singer-songwriter arrangements where players want a lower register without changing every chord shape."
+        },
+        {
+          title: "Practical tuning tip",
+          body: "Tune from the lowest string upward, then play a few power chords to check that string tension and intonation feel even across the neck."
+        }
+      ]
+    },
+    "drop-c-tuning": {
+      intro:
+        "Drop C tuning gives you C G C F A D, making low power chords easy while keeping the upper strings close to familiar guitar shapes.",
+      sections: [
+        {
+          title: "Where Drop C is common",
+          body: "Drop C is popular in modern hard rock and metal because it combines a deep low string with chord shapes that still feel close to standard tuning."
+        },
+        {
+          title: "Before you start",
+          body: "If the strings feel loose, use a slightly heavier gauge. Tune slowly and re-check the low string after the others settle."
+        }
+      ]
+    },
+    "drop-d-tuning": {
+      intro:
+        "Drop D tuning changes standard guitar tuning to D A D G B E, giving you a heavier low string and easier one-finger power chords.",
+      sections: [
+        {
+          title: "Why guitarists use Drop D",
+          body: "Drop D is one of the easiest alternate tunings to learn because only the lowest string changes. It works well for rock riffs, acoustic writing and heavier rhythm parts."
+        },
+        {
+          title: "Quick check after tuning",
+          body: "Play the open sixth and fourth strings together. They should reinforce each other cleanly when the tuning is correct."
+        }
+      ]
+    },
+    "eb-standard-tuning": {
+      intro:
+        "Eb Standard lowers every guitar string by one semitone to Eb Ab Db Gb Bb Eb, giving a slightly softer feel and a lower vocal key.",
+      sections: [
+        {
+          title: "Why use Eb Standard",
+          body: "Many players use Eb Standard for a warmer, slightly darker sound and to reduce string tension without changing familiar chord and scale shapes."
+        },
+        {
+          title: "Best way to check it",
+          body: "Tune each string carefully, then test a few open chords and octaves to make sure the lower tension still feels balanced."
+        }
+      ]
+    },
+    "how-to-tune-12-string-guitar": {
+      intro:
+        "Use this guide to tune a 12 string guitar course by course, balance the octave pairs and keep the shimmer without making the strings feel unstable."
+    },
+    "how-to-tune-bass": {
+      intro:
+        "This bass tuning guide helps you lock in standard bass notes quickly, whether you play a 4-string practice bass or move between 4 and 5 string setups."
+    },
+    "how-to-tune-violin": {
+      intro:
+        "Tune violin strings to G D A E with the browser microphone, then use steady bow strokes or clean plucks so the pitch settles clearly."
+    },
+    "open-d-tuning": {
+      intro:
+        "Open D tuning gives you D A D F# A D, creating a full open chord that works beautifully for slide guitar, fingerstyle and songwriting.",
+      sections: [
+        {
+          title: "What Open D is good for",
+          body: "Open D is widely used for slide parts, drone notes and chord voicings that sound wider and more resonant than standard tuning."
+        },
+        {
+          title: "How to hear it quickly",
+          body: "After tuning, strum all strings open. If the tuning is correct, you should hear a full D major chord immediately."
+        }
+      ]
+    }
+  },
+  es: {
+    "common-guitar-tunings": {
+      intro:
+        "Esta guia resume las afinaciones de guitarra mas usadas para que puedas comparar Standard, Drop, Open y afinaciones graves antes de abrir el afinador."
+    },
+    "how-to-tune-12-string-guitar": {
+      intro:
+        "Aprende a afinar guitarra de 12 cuerdas por pares, controlar octavas y mantener un coro equilibrado sin perder estabilidad."
+    },
+    "how-to-tune-7-string-guitar": {
+      intro:
+        "Esta guia te ayuda a afinar guitarra de 7 cuerdas con cuerda grave Si, lectura estable y pasos simples para ensayo o practica."
+    },
+    "how-to-tune-8-string-guitar": {
+      intro:
+        "Usa esta guia para afinar guitarra de 8 cuerdas con microfono, revisar la cuerda mas grave y mantener claridad en afinaciones extendidas."
+    },
+    "how-to-tune-bass": {
+      intro:
+        "Afina bajo online con esta guia sencilla para notas estandar, lectura clara del microfono y comprobacion rapida de las cuerdas graves."
+    },
+    "standard-bass-tuning": {
+      intro:
+        "La afinacion estandar de bajo usa E A D G. Esta pagina te ayuda a reconocer las notas, comprobar cada cuerda y abrir el afinador correcto en un clic."
+    }
+  },
+  ru: {
+    "drop-c-sharp-tuning": {
+      intro:
+        "Drop C sharp lowers the guitar for a heavier register while keeping fast riff shapes practical. Use this page to check the exact notes before opening the tuner."
+    }
+  }
+};
+
+function applyGuideOverride(base: GuideContent, locale: Locale, guide: GuideSlug): GuideContent {
+  const override = guideContentOverrides[locale]?.[guide];
+  return override ? { ...base, ...override } : base;
+}
 
 function extraUtilityGuides(locale: Locale): Record<ExtraUtilityGuideSlug, Omit<GuideContent, "targetPath">> {
   const copy = {
@@ -1258,10 +1384,10 @@ export function isGuideSlug(value: string | undefined): value is GuideSlug {
 
 export function getGuideContent(locale: Locale, guide: GuideSlug): GuideContent {
   const instrument = instrumentFromGuideSlug(guide);
-  if (instrument) return buildInstrumentGuide(locale, instrument, guide);
+  if (instrument) return applyGuideOverride(buildInstrumentGuide(locale, instrument, guide), locale, guide);
   const alternativeGuide = buildAlternativeTuningGuide(locale, guide);
-  if (alternativeGuide) return alternativeGuide;
-  return utilityGuides[locale][guide as (typeof utilityGuideSlugs)[number]];
+  if (alternativeGuide) return applyGuideOverride(alternativeGuide, locale, guide);
+  return applyGuideOverride(utilityGuides[locale][guide as (typeof utilityGuideSlugs)[number]] as GuideContent, locale, guide);
 }
 
 export function guidesForTool(tool: ToolSlug): GuideSlug[] {

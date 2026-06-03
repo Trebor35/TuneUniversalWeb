@@ -112,6 +112,8 @@ export default async function ToolPage({ params }: PageProps) {
   const instrumentContent = instrument ? getInstrumentTunerContent(locale, instrument) : null;
   const content = coreTool ? dictionary.tools[coreTool] : instrumentContent!;
   const seoEnhancement = coreTool ? getToolSeoEnhancement(locale, coreTool) : null;
+  const heroTitle = seoEnhancement?.heroTitle ?? content.title;
+  const heroDescription = seoEnhancement?.heroDescription ?? content.description;
   const faqContent = seoEnhancement ? [...content.faq, ...seoEnhancement.faqs] : content.faq;
   const relatedTools: ToolSlug[] =
     coreTool && !tunerTools.includes(coreTool as (typeof tunerTools)[number])
@@ -136,8 +138,8 @@ export default async function ToolPage({ params }: PageProps) {
         <article className="w-full min-w-0 space-y-8 sm:space-y-10">
           <header className="min-w-0">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-mint sm:text-sm sm:tracking-[0.18em]">TuneUniversal</p>
-            <h1 className="mt-3 max-w-full break-words text-2xl font-black leading-tight sm:text-5xl">{content.title}</h1>
-            <p className="mt-4 max-w-2xl break-words text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">{content.description}</p>
+            <h1 className="mt-3 max-w-full break-words text-2xl font-black leading-tight sm:text-5xl">{heroTitle}</h1>
+            <p className="mt-4 max-w-2xl break-words text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">{heroDescription}</p>
           </header>
           <div className="w-full min-w-0 max-w-full overflow-hidden">
             <ToolComponent tool={coreTool ?? undefined} instrument={instrument ?? undefined} dictionary={dictionary} locale={locale} />

@@ -14,6 +14,133 @@ export type InstrumentTunerContent = {
   title: string;
 };
 
+type InstrumentTunerOverride = Partial<Omit<InstrumentTunerContent, "instrument">>;
+
+const instrumentTunerOverrides: Partial<Record<Locale, Partial<Record<Instrument, InstrumentTunerOverride>>>> = {
+  de: {
+    bass: {
+      description:
+        "Stimme 4- oder 5-Saiter-Bass online mit Mikrofon, stabiler Tonerkennung und schnellen Referenznoten fuer Probe und Ueben."
+    },
+    "8-string-guitar": {
+      description:
+        "Stimme 8-Saiter Gitarre online mit Mikrofon, Referenznoten und klarer Browser-Anzeige fuer Extended-Range-Riffs."
+    }
+  },
+  en: {
+    "12-string-guitar": {
+      description:
+        "Tune 12 string guitar online with microphone help, octave-pair reference notes and a steadier browser tuner for chorus-rich strings.",
+      faq: [
+        {
+          question: "Should I tune single strings or pairs?",
+          answer: "Start by checking one course at a time, then strum both strings together to confirm the octave pair sounds balanced."
+        },
+        {
+          question: "Can I use this for standard 12 string tuning?",
+          answer: "Yes. The page is built for standard 12 string reference notes and works well for quick daily tuning."
+        }
+      ],
+      title: "Online 12 string guitar tuner"
+    },
+    "8-string-guitar": {
+      description:
+        "Tune 8 string guitar online with microphone detection, reference notes and support for F# standard and other extended-range setups.",
+      faq: [
+        {
+          question: "Does it work for modern metal tunings?",
+          answer: "Yes. Start from the 8 string reference notes here, then fine-tune your preferred extended-range setup."
+        },
+        {
+          question: "Why is the low string harder to read?",
+          answer: "Very low notes need a clean attack and less room noise. Play one string clearly and let the pitch settle."
+        }
+      ],
+      title: "Online 8 string guitar tuner"
+    }
+  },
+  es: {
+    "7-string-guitar": {
+      description:
+        "Afina guitarra de 7 cuerdas online con microfono, cuerda grave Si y lectura estable para practica, ensayo y metal moderno."
+    },
+    "8-string-guitar": {
+      description:
+        "Afina guitarra de 8 cuerdas online con microfono, notas de referencia y ayuda clara para afinaciones extendidas."
+    },
+    "12-string-guitar": {
+      description:
+        "Afina guitarra de 12 cuerdas online con microfono, notas de referencia y apoyo para pares de cuerdas y octavas."
+    },
+    koto: {
+      description:
+        "Usa un afinador de koto online con microfono y notas de referencia para estudiar afinacion de forma rapida en el navegador."
+    }
+  },
+  fr: {
+    "7-string-guitar": {
+      description:
+        "Accordez une guitare 7 cordes en ligne avec micro, corde grave Si et lecture stable pour riffs modernes et pratique quotidienne."
+    },
+    "8-string-guitar": {
+      description:
+        "Accordez une guitare 8 cordes en ligne avec micro, notes de reference et aide claire pour les accordages etendus."
+    },
+    violin: {
+      description:
+        "Accordez votre violon en ligne avec le micro du navigateur, les notes G D A E et une lecture simple pour l'etude quotidienne."
+    }
+  },
+  it: {
+    "8-string-guitar": {
+      description:
+        "Accorda la chitarra 8 corde online con microfono, note di riferimento e supporto per accordature estese e moderne.",
+      faq: [
+        {
+          question: "Supporta anche accordature moderne per metal?",
+          answer: "Si. Puoi partire dalle note di riferimento della 8 corde e poi rifinire la tua accordatura estesa preferita."
+        },
+        {
+          question: "Perche la corda piu bassa e piu difficile da leggere?",
+          answer: "Le note molto gravi richiedono un attacco pulito e poco rumore di fondo. Suona una corda alla volta e aspetta che si stabilizzi."
+        }
+      ]
+    },
+    "12-string-guitar": {
+      description:
+        "Accorda la chitarra 12 corde online con microfono, cori in ottava e note di riferimento utili per controllare ogni coppia.",
+      faq: [
+        {
+          question: "Meglio controllare corde singole o coppie?",
+          answer: "Conviene accordare prima una corda per volta e poi verificare la coppia insieme, cosi senti subito se il coro e bilanciato."
+        },
+        {
+          question: "Va bene per l'accordatura standard della 12 corde?",
+          answer: "Si. Questa pagina nasce proprio per l'accordatura standard della chitarra 12 corde."
+        }
+      ]
+    }
+  },
+  ru: {
+    cello: {
+      description:
+        "Tune cello online with microphone support, clear reference notes and a quick browser workflow for practice and rehearsal."
+    },
+    cimbalom: {
+      description:
+        "Tune cimbalom online with microphone input, reference notes and a fast browser tuner for regular maintenance."
+    },
+    guitar: {
+      description:
+        "Tune guitar online with free chromatic microphone detection, reference notes and help for standard and alternate tunings."
+    },
+    "12-string-guitar": {
+      description:
+        "Tune a 12 string guitar online with microphone help, reference notes and stable support for octave-pair tuning."
+    }
+  }
+};
+
 const templates: Record<
   Locale,
   {
@@ -156,7 +283,7 @@ export function getInstrumentTunerContent(locale: Locale, instrument: Instrument
   const label = getInstrumentLabel(instrument, locale);
   const tuning = tunings[instrument].map((note) => formatNoteName(`${note.name}${note.octave ?? ""}`, "latin", false)).join(" - ");
   const template = templates[locale];
-  return {
+  const baseContent: InstrumentTunerContent = {
     description: template.description(label, tuning),
     faq: template.faq(label, tuning),
     howItWorks: template.howItWorks(label),
@@ -164,4 +291,6 @@ export function getInstrumentTunerContent(locale: Locale, instrument: Instrument
     keywords: template.keywords(label),
     title: template.title(label)
   };
+  const override = instrumentTunerOverrides[locale]?.[instrument];
+  return override ? { ...baseContent, ...override, instrument } : baseContent;
 }

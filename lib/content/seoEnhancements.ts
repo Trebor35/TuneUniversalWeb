@@ -13,6 +13,8 @@ export type SeoFaq = {
 
 export type ToolSeoEnhancement = {
   faqs: SeoFaq[];
+  heroDescription?: string;
+  heroTitle?: string;
   sections: SeoBlock[];
 };
 
@@ -314,6 +316,14 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
 
   if (tool === "guitar-tuner") {
     return {
+      heroDescription:
+        locale === "it"
+          ? "Accorda chitarra classica, acustica o elettrica con microfono, note di riferimento e supporto per Standard, Drop D, Eb, D Standard, Open D e Open G."
+          : locale === "en"
+            ? "Tune acoustic, electric or classical guitar with microphone pitch detection, reference notes and support for standard, Drop D, Eb, D Standard, Open D and Open G."
+            : undefined,
+      heroTitle:
+        locale === "it" ? "Accordatore universale per chitarra online" : locale === "en" ? "Universal online guitar tuner" : undefined,
       faqs: copy.guitarFaqs,
       sections: [copy.guitarSetup, copy.accuracy, copy.chords]
     };
@@ -321,6 +331,14 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
 
   if (tool === "metronome") {
     return {
+      heroDescription:
+        locale === "it"
+          ? "Studia con un metronomo online completo: BPM precisi, suddivisioni, accenti, Tap Tempo e cicli progressivi per aumentare la velocita con controllo."
+          : locale === "en"
+            ? "Practice with a full online metronome featuring precise BPM control, subdivisions, accents, Tap Tempo and progressive speed cycles."
+            : undefined,
+      heroTitle:
+        locale === "it" ? "Metronomo online con BPM e suddivisioni" : locale === "en" ? "Online metronome with BPM and subdivisions" : undefined,
       faqs: copy.metronomeFaqs,
       sections: [copy.metronomePractice, copy.metronomeRoutine]
     };
@@ -328,6 +346,13 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
 
   if (tool === "tap-bpm") {
     return {
+      heroDescription:
+        locale === "it"
+          ? "Batti il tempo di un brano, ottieni BPM istantaneo e medio, copia il risultato e passa subito al metronomo."
+          : locale === "en"
+            ? "Tap along to any song, get instant and average BPM, copy the result and move straight into metronome practice."
+            : undefined,
+      heroTitle: locale === "it" ? "Conta BPM tap online" : locale === "en" ? "Tap BPM counter online" : undefined,
       faqs: copy.tapFaqs,
       sections: [copy.tapUse]
     };
@@ -335,6 +360,14 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
 
   if (tool === "chord-transposer") {
     return {
+      heroDescription:
+        locale === "it"
+          ? "Trasponi progressioni di accordi per semitoni, mantieni slash chord, scegli diesis o bemolli e copia subito il nuovo giro."
+          : locale === "en"
+            ? "Transpose chord progressions by semitone, keep slash chords intact, choose sharps or flats and copy the new progression instantly."
+            : undefined,
+      heroTitle:
+        locale === "it" ? "Traspositore accordi online per tonalita" : locale === "en" ? "Online chord transposer for key changes" : undefined,
       faqs: copy.transposeFaqs,
       sections: [copy.transposeUse, copy.chords]
     };
