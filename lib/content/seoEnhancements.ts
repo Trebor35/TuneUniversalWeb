@@ -311,19 +311,262 @@ const toolSeoLabels: Record<
   }
 };
 
+const toolHeroCopy: Record<
+  Locale,
+  Record<"guitar-tuner" | "metronome" | "tap-bpm" | "chord-transposer", { description: string; title: string }>
+> = {
+  ar: {
+    "guitar-tuner": {
+      title: "موالِف جيتار أونلاين مع ميكروفون",
+      description:
+        "اضبط الجيتار الكلاسيكي أو الكهربائي أو الأكوستك باستخدام الميكروفون، مع دعم للضبط القياسي وDrop D وEb وD Standard وOpen D وOpen G."
+    },
+    metronome: {
+      title: "ميترونوم أونلاين مع BPM وتقسيمات",
+      description:
+        "تدرّب مع ميترونوم أونلاين كامل يحتوي على BPM دقيق، نبرات، موازين، تقسيمات، Tap Tempo ودورات تصاعدية للسرعة."
+    },
+    "tap-bpm": {
+      title: "عداد Tap BPM أونلاين",
+      description:
+        "انقر مع إيقاع أي أغنية لتحصل على BPM فوري ومتوسط BPM، ثم انسخ النتيجة وانتقل مباشرة إلى الميترونوم."
+    },
+    "chord-transposer": {
+      title: "ناقل أوتار أونلاين لتغيير المقام",
+      description:
+        "انقل تقدمات الأوتار بنصف نغمة، حافظ على slash chords، اختر الديز أو البيمول وانسخ النتيجة فوراً."
+    }
+  },
+  de: {
+    "guitar-tuner": {
+      title: "Gitarren Tuner online mit Mikrofon",
+      description:
+        "Stimme akustische, elektrische oder klassische Gitarre online mit Mikrofon, Referenznoten und Support fuer Standard, Drop D, Eb, D Standard, Open D und Open G."
+    },
+    metronome: {
+      title: "Online Metronom mit BPM und Unterteilungen",
+      description:
+        "Uebe mit einem vollstaendigen Online-Metronom mit praezisem BPM, Akzenten, Taktarten, Unterteilungen, Tap Tempo und progressiven Trainingszyklen."
+    },
+    "tap-bpm": {
+      title: "Tap BPM Zaehler online",
+      description:
+        "Tippe den Puls eines Songs, erhalte sofortiges und durchschnittliches BPM, kopiere das Ergebnis und gehe direkt zum Metronom."
+    },
+    "chord-transposer": {
+      title: "Akkord-Transposer online fuer Tonarten",
+      description:
+        "Transponiere Akkordfolgen in Halbtönen, erhalte Slash Chords, waehle Kreuz oder B und kopiere die neue Folge sofort."
+    }
+  },
+  en: {
+    "guitar-tuner": {
+      title: "Universal online guitar tuner",
+      description:
+        "Tune acoustic, electric or classical guitar with microphone pitch detection, reference notes and support for standard, Drop D, Eb, D Standard, Open D and Open G."
+    },
+    metronome: {
+      title: "Online metronome with BPM and subdivisions",
+      description:
+        "Practice with a full online metronome featuring precise BPM control, subdivisions, accents, Tap Tempo and progressive speed cycles."
+    },
+    "tap-bpm": {
+      title: "Tap BPM counter online",
+      description:
+        "Tap along to any song, get instant and average BPM, copy the result and move straight into metronome practice."
+    },
+    "chord-transposer": {
+      title: "Online chord transposer for key changes",
+      description:
+        "Transpose chord progressions by semitone, keep slash chords intact, choose sharps or flats and copy the new progression instantly."
+    }
+  },
+  es: {
+    "guitar-tuner": {
+      title: "Afinador de guitarra online con microfono",
+      description:
+        "Afina guitarra acustica, electrica o clasica online con microfono, notas de referencia y soporte para Standard, Drop D, Eb, D Standard, Open D y Open G."
+    },
+    metronome: {
+      title: "Metronomo online con BPM y subdivisiones",
+      description:
+        "Practica con un metronomo online completo con BPM preciso, acentos, compases, subdivisiones, Tap Tempo y ciclos progresivos."
+    },
+    "tap-bpm": {
+      title: "Contador Tap BPM online",
+      description:
+        "Toca el pulso de cualquier cancion, obtén BPM instantaneo y medio, copia el resultado y pasa directo al metronomo."
+    },
+    "chord-transposer": {
+      title: "Transpositor de acordes online por tonalidad",
+      description:
+        "Transpone progresiones de acordes por semitonos, conserva slash chords, elige sostenidos o bemoles y copia el resultado al instante."
+    }
+  },
+  fr: {
+    "guitar-tuner": {
+      title: "Accordeur guitare en ligne avec micro",
+      description:
+        "Accordez guitare acoustique, electrique ou classique en ligne avec le micro, des notes de reference et le support Standard, Drop D, Eb, D Standard, Open D et Open G."
+    },
+    metronome: {
+      title: "Metronome en ligne avec BPM et subdivisions",
+      description:
+        "Travaillez avec un metronome en ligne complet : BPM precis, accents, mesures, subdivisions, Tap Tempo et cycles progressifs."
+    },
+    "tap-bpm": {
+      title: "Compteur Tap BPM en ligne",
+      description:
+        "Tapez le tempo d'un morceau, obtenez un BPM instantane et moyen, copiez le resultat et passez directement au metronome."
+    },
+    "chord-transposer": {
+      title: "Transposeur d'accords en ligne pour tonalite",
+      description:
+        "Transposez des suites d'accords par demi-tons, conservez les slash chords, choisissez diese ou bemol et copiez le nouveau resultat."
+    }
+  },
+  it: {
+    "guitar-tuner": {
+      title: "Accordatore universale per chitarra online",
+      description:
+        "Accorda chitarra classica, acustica o elettrica con microfono, note di riferimento e supporto per Standard, Drop D, Eb, D Standard, Open D e Open G."
+    },
+    metronome: {
+      title: "Metronomo online con BPM e suddivisioni",
+      description:
+        "Studia con un metronomo online completo: BPM precisi, suddivisioni, accenti, Tap Tempo e cicli progressivi per aumentare la velocita con controllo."
+    },
+    "tap-bpm": {
+      title: "Conta BPM tap online",
+      description:
+        "Batti il tempo di un brano, ottieni BPM istantaneo e medio, copia il risultato e passa subito al metronomo."
+    },
+    "chord-transposer": {
+      title: "Traspositore accordi online per tonalita",
+      description:
+        "Trasponi progressioni di accordi per semitoni, mantieni slash chord, scegli diesis o bemolli e copia subito il nuovo giro."
+    }
+  },
+  ja: {
+    "guitar-tuner": {
+      title: "マイク対応ギター チューナー",
+      description:
+        "クラシック、アコースティック、エレキギターをブラウザで調弦。Standard、Drop D、Eb、D Standard、Open D、Open G に対応します。"
+    },
+    metronome: {
+      title: "BPM と細分化付きオンラインメトロノーム",
+      description:
+        "正確な BPM、アクセント、拍子、細分化、Tap Tempo、段階的な練習サイクルを備えたオンラインメトロノームです。"
+    },
+    "tap-bpm": {
+      title: "Tap BPM カウンター",
+      description:
+        "曲に合わせてタップし、瞬時の BPM と平均 BPM を確認。結果をコピーしてそのままメトロノーム練習へ進めます。"
+    },
+    "chord-transposer": {
+      title: "キー変更用オンラインコード移調",
+      description:
+        "コード進行を半音単位で移調し、スラッシュコードを保ったまま、シャープやフラットを選んで結果をすぐコピーできます。"
+    }
+  },
+  ko: {
+    "guitar-tuner": {
+      title: "마이크 지원 온라인 기타 튜너",
+      description:
+        "클래식, 어쿠스틱, 일렉 기타를 브라우저에서 조율하세요. Standard, Drop D, Eb, D Standard, Open D, Open G 를 지원합니다."
+    },
+    metronome: {
+      title: "BPM 과 세분화가 있는 온라인 메트로놈",
+      description:
+        "정확한 BPM, 액센트, 박자, 세분화, Tap Tempo, 점진적 속도 루틴을 갖춘 온라인 메트로놈으로 연습하세요."
+    },
+    "tap-bpm": {
+      title: "온라인 Tap BPM 카운터",
+      description:
+        "노래 박자에 맞춰 탭하면 즉시 BPM 과 평균 BPM 을 확인하고, 결과를 복사해 바로 메트로놈 연습으로 이어갈 수 있습니다."
+    },
+    "chord-transposer": {
+      title: "키 변경용 온라인 코드 조옮김",
+      description:
+        "코드 진행을 반음 단위로 조옮기고 slash chord 를 유지한 채 샵 또는 플랫 형식을 골라 결과를 즉시 복사하세요."
+    }
+  },
+  pt: {
+    "guitar-tuner": {
+      title: "Afinador de guitarra online com microfone",
+      description:
+        "Afine guitarra classica, acustica ou eletrica online com microfone, notas de referencia e suporte para Standard, Drop D, Eb, D Standard, Open D e Open G."
+    },
+    metronome: {
+      title: "Metronomo online com BPM e subdivisoes",
+      description:
+        "Pratique com um metronomo online completo com BPM preciso, acentos, compassos, subdivisoes, Tap Tempo e ciclos progressivos."
+    },
+    "tap-bpm": {
+      title: "Contador Tap BPM online",
+      description:
+        "Toque o pulso de qualquer musica, veja BPM instantaneo e medio, copie o resultado e siga direto para o metronomo."
+    },
+    "chord-transposer": {
+      title: "Transpositor de acordes online por tonalidade",
+      description:
+        "Transponha progressões de acordes por semitons, mantenha slash chords, escolha sustenidos ou bemóis e copie o resultado rapidamente."
+    }
+  },
+  ru: {
+    "guitar-tuner": {
+      title: "Онлайн тюнер для гитары с микрофоном",
+      description:
+        "Настраивайте классическую, акустическую или электрогитару в браузере с микрофоном и поддержкой Standard, Drop D, Eb, D Standard, Open D и Open G."
+    },
+    metronome: {
+      title: "Онлайн метроном с BPM и делениями",
+      description:
+        "Тренируйтесь с онлайн-метрономом: точный BPM, акценты, размеры, деления, Tap Tempo и постепенные циклы скорости."
+    },
+    "tap-bpm": {
+      title: "Онлайн счётчик Tap BPM",
+      description:
+        "Нажимайте в такт песне, получайте мгновенный и средний BPM, копируйте результат и сразу переходите к метрономной практике."
+    },
+    "chord-transposer": {
+      title: "Онлайн транспозитор аккордов для тональности",
+      description:
+        "Транспонируйте аккордовые последовательности по полутонам, сохраняйте slash chords, выбирайте диезы или бемоли и сразу копируйте результат."
+    }
+  },
+  zh: {
+    "guitar-tuner": {
+      title: "带麦克风的在线吉他调音器",
+      description:
+        "在浏览器中为古典、民谣或电吉他调音，支持 Standard、Drop D、Eb、D Standard、Open D 和 Open G。"
+    },
+    metronome: {
+      title: "带 BPM 和细分的在线节拍器",
+      description:
+        "使用完整的在线节拍器练习：精准 BPM、重音、拍号、细分、Tap Tempo 和渐进式提速循环。"
+    },
+    "tap-bpm": {
+      title: "在线 Tap BPM 计数器",
+      description:
+        "跟着歌曲点击节拍，立即查看瞬时 BPM 和平均 BPM，复制结果后直接进入节拍器练习。"
+    },
+    "chord-transposer": {
+      title: "用于转调的在线和弦移调器",
+      description:
+        "按半音转调和弦进行，保留 slash chord，选择升号或降号表示，并立即复制新的结果。"
+    }
+  }
+};
+
 export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEnhancement | null {
   const copy = toolSeoLabels[locale];
+  const hero = toolHeroCopy[locale];
 
   if (tool === "guitar-tuner") {
     return {
-      heroDescription:
-        locale === "it"
-          ? "Accorda chitarra classica, acustica o elettrica con microfono, note di riferimento e supporto per Standard, Drop D, Eb, D Standard, Open D e Open G."
-          : locale === "en"
-            ? "Tune acoustic, electric or classical guitar with microphone pitch detection, reference notes and support for standard, Drop D, Eb, D Standard, Open D and Open G."
-            : undefined,
-      heroTitle:
-        locale === "it" ? "Accordatore universale per chitarra online" : locale === "en" ? "Universal online guitar tuner" : undefined,
+      heroDescription: hero["guitar-tuner"].description,
+      heroTitle: hero["guitar-tuner"].title,
       faqs: copy.guitarFaqs,
       sections: [copy.guitarSetup, copy.accuracy, copy.chords]
     };
@@ -331,14 +574,8 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
 
   if (tool === "metronome") {
     return {
-      heroDescription:
-        locale === "it"
-          ? "Studia con un metronomo online completo: BPM precisi, suddivisioni, accenti, Tap Tempo e cicli progressivi per aumentare la velocita con controllo."
-          : locale === "en"
-            ? "Practice with a full online metronome featuring precise BPM control, subdivisions, accents, Tap Tempo and progressive speed cycles."
-            : undefined,
-      heroTitle:
-        locale === "it" ? "Metronomo online con BPM e suddivisioni" : locale === "en" ? "Online metronome with BPM and subdivisions" : undefined,
+      heroDescription: hero.metronome.description,
+      heroTitle: hero.metronome.title,
       faqs: copy.metronomeFaqs,
       sections: [copy.metronomePractice, copy.metronomeRoutine]
     };
@@ -346,13 +583,8 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
 
   if (tool === "tap-bpm") {
     return {
-      heroDescription:
-        locale === "it"
-          ? "Batti il tempo di un brano, ottieni BPM istantaneo e medio, copia il risultato e passa subito al metronomo."
-          : locale === "en"
-            ? "Tap along to any song, get instant and average BPM, copy the result and move straight into metronome practice."
-            : undefined,
-      heroTitle: locale === "it" ? "Conta BPM tap online" : locale === "en" ? "Tap BPM counter online" : undefined,
+      heroDescription: hero["tap-bpm"].description,
+      heroTitle: hero["tap-bpm"].title,
       faqs: copy.tapFaqs,
       sections: [copy.tapUse]
     };
@@ -360,14 +592,8 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
 
   if (tool === "chord-transposer") {
     return {
-      heroDescription:
-        locale === "it"
-          ? "Trasponi progressioni di accordi per semitoni, mantieni slash chord, scegli diesis o bemolli e copia subito il nuovo giro."
-          : locale === "en"
-            ? "Transpose chord progressions by semitone, keep slash chords intact, choose sharps or flats and copy the new progression instantly."
-            : undefined,
-      heroTitle:
-        locale === "it" ? "Traspositore accordi online per tonalita" : locale === "en" ? "Online chord transposer for key changes" : undefined,
+      heroDescription: hero["chord-transposer"].description,
+      heroTitle: hero["chord-transposer"].title,
       faqs: copy.transposeFaqs,
       sections: [copy.transposeUse, copy.chords]
     };

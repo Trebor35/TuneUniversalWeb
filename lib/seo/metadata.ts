@@ -31,6 +31,28 @@ const homeMetadataOverrides: Partial<Record<Locale, { description: string; title
 };
 
 const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { description: string; title: string }>>>> = {
+  ar: {
+    "chord-transposer": {
+      title: "ناقل الاوتار اونلاين | تغيير المقام بانصاف النغمات | TuneUniversal",
+      description:
+        "انقل الاوتار اونلاين بانصاف النغمات، مع دعم slash chords واختيار الدييز او البيمول ونسخ النتيجة فورا."
+    },
+    "guitar-tuner": {
+      title: "موالف جيتار مجاني اونلاين | موالف كروماتيك بالميكروفون | TuneUniversal",
+      description:
+        "اضبط الجيتار اونلاين بموالف كروماتيك مجاني مع كشف طبقة الصوت بالميكروفون وعرض السنتات والنتات والضبطات البديلة."
+    },
+    metronome: {
+      title: "مترونوم اونلاين مجاني | BPM والتقسيمات ودورة التمرين | TuneUniversal",
+      description:
+        "تدرّب بمترونوم اونلاين مجاني مع تحكم BPM والنبرات والايقاعات والتقسيمات وTap Tempo ودورات سرعة تدريجية."
+    },
+    "tap-bpm": {
+      title: "Tap BPM اونلاين | اعرف سرعة الاغنية بسرعة | TuneUniversal",
+      description:
+        "اضغط مع الموسيقى لمعرفة متوسط BPM بسرعة، ثم انسخ النتيجة وانتقل مباشرة الى التمرين بالمترونوم."
+    }
+  },
   en: {
     "chord-transposer": {
       title: "Chord Transposer Online | Change Key by Semitones | TuneUniversal",
@@ -53,6 +75,72 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
         "Tap along to music, find the average BPM in seconds, copy the tempo and move straight into metronome practice."
     }
   },
+  de: {
+    "chord-transposer": {
+      title: "Akkord-Transposer online | Tonart nach Halbtönen ändern | TuneUniversal",
+      description:
+        "Transponiere Akkorde online nach Halbtönen, behalte Slash-Chords bei, wähle Kreuze oder Bs und kopiere das Ergebnis sofort."
+    },
+    "guitar-tuner": {
+      title: "Kostenloser Gitarren-Tuner online | Chromatisches Stimmgerät mit Mikrofon | TuneUniversal",
+      description:
+        "Stimme Gitarre online mit kostenlosem chromatischem Tuner, Mikrofon-Erkennung, Cent-Anzeige, Notenerkennung und alternativen Stimmungen."
+    },
+    metronome: {
+      title: "Online-Metronom kostenlos | BPM, Unterteilungen und Übungszyklus | TuneUniversal",
+      description:
+        "Übe mit einem kostenlosen Online-Metronom mit BPM-Steuerung, Betonungen, Taktarten, Unterteilungen, Tap Tempo und Steigerungsroutine."
+    },
+    "tap-bpm": {
+      title: "Tap BPM online | Songtempo schnell finden | TuneUniversal",
+      description:
+        "Tippe zum Song mit, ermittle den durchschnittlichen BPM-Wert in Sekunden, kopiere das Tempo und starte direkt mit dem Metronom."
+    }
+  },
+  es: {
+    "chord-transposer": {
+      title: "Transpositor de acordes online | Cambia tonalidad por semitonos | TuneUniversal",
+      description:
+        "Transpone acordes online por semitonos, conserva slash chords, elige sostenidos o bemoles y copia el resultado al instante."
+    },
+    "guitar-tuner": {
+      title: "Afinador de guitarra gratis online | Cromatico con microfono | TuneUniversal",
+      description:
+        "Afina guitarra online con un afinador cromatico gratis, deteccion por microfono, cents, notas y afinaciones alternativas en el navegador."
+    },
+    metronome: {
+      title: "Metronomo online gratis | BPM, subdivisiones y ciclo de practica | TuneUniversal",
+      description:
+        "Practica con un metronomo online gratis con BPM ajustable, acentos, compases, subdivisiones, Tap Tempo y ciclos progresivos."
+    },
+    "tap-bpm": {
+      title: "Tap BPM online | Encuentra el tempo de una cancion | TuneUniversal",
+      description:
+        "Marca el pulso con la musica, calcula el BPM medio en segundos, copia el tempo y pasa al metronomo enseguida."
+    }
+  },
+  fr: {
+    "chord-transposer": {
+      title: "Transposeur d'accords en ligne | Changer la tonalite par demi-tons | TuneUniversal",
+      description:
+        "Transposez des accords en ligne par demi-tons, conservez les slash chords, choisissez diese ou bemol et copiez le resultat instantanement."
+    },
+    "guitar-tuner": {
+      title: "Accordeur guitare gratuit en ligne | Chromatique avec micro | TuneUniversal",
+      description:
+        "Accordez la guitare en ligne avec un accordeur chromatique gratuit, detection micro, cents, notes et accordages alternatifs dans le navigateur."
+    },
+    metronome: {
+      title: "Metronome en ligne gratuit | BPM, subdivisions et cycle d'exercice | TuneUniversal",
+      description:
+        "Travaillez avec un metronome en ligne gratuit, controle du BPM, accents, signatures rythmiques, subdivisions, Tap Tempo et progression."
+    },
+    "tap-bpm": {
+      title: "Tap BPM en ligne | Trouver rapidement le tempo d'un morceau | TuneUniversal",
+      description:
+        "Tapez le rythme d'un morceau, calculez le BPM moyen en quelques secondes, copiez le tempo et passez au metronome."
+    }
+  },
   it: {
     "chord-transposer": {
       title: "Traspositore accordi online | Cambia tonalita per semitoni | TuneUniversal",
@@ -68,6 +156,121 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "Metronomo online gratis | BPM, suddivisioni e ciclo studio | TuneUniversal",
       description:
         "Studia con un metronomo online gratuito con BPM regolabile, accenti, metriche, suddivisioni, Tap Tempo e ciclo progressivo."
+    },
+    "tap-bpm": {
+      title: "Tap BPM online | Trova subito il tempo di un brano | TuneUniversal",
+      description:
+        "Batti il tempo della musica, calcola il BPM medio in pochi secondi, copia il valore e passa subito al metronomo."
+    }
+  },
+  ja: {
+    "chord-transposer": {
+      title: "コード移調ツール オンライン | 半音ごとにキー変更 | TuneUniversal",
+      description:
+        "コードを半音単位でオンライン移調。スラッシュコードも保持し、シャープ/フラットを選んで結果をすぐコピーできます。"
+    },
+    "guitar-tuner": {
+      title: "無料ギターチューナー オンライン | マイク対応クロマチック | TuneUniversal",
+      description:
+        "マイクで音程検出できる無料のオンラインギターチューナー。セント表示、音名表示、代替チューニングにも対応。"
+    },
+    metronome: {
+      title: "無料メトロノーム オンライン | BPM・細分化・練習サイクル | TuneUniversal",
+      description:
+        "BPM調整、アクセント、拍子、細分化、Tap Tempo、段階的スピード練習に対応した無料オンラインメトロノーム。"
+    },
+    "tap-bpm": {
+      title: "Tap BPM オンライン | 曲のテンポをすばやく計測 | TuneUniversal",
+      description:
+        "音楽に合わせてタップし、平均BPMをすばやく計算。結果をコピーしてそのままメトロノーム練習へ進めます。"
+    }
+  },
+  ko: {
+    "chord-transposer": {
+      title: "코드 트랜스포저 온라인 | 반음 단위로 키 변경 | TuneUniversal",
+      description:
+        "코드를 반음 단위로 온라인 전조하고 slash chord도 유지하며 샵/플랫 형식을 선택해 결과를 바로 복사하세요."
+    },
+    "guitar-tuner": {
+      title: "무료 기타 튜너 온라인 | 마이크 지원 크로매틱 튜너 | TuneUniversal",
+      description:
+        "마이크 피치 감지, 센트 표시, 음 이름, 대체 튜닝을 지원하는 무료 온라인 기타 튜너로 브라우저에서 바로 튜닝하세요."
+    },
+    metronome: {
+      title: "무료 온라인 메트로놈 | BPM, 서브디비전, 연습 사이클 | TuneUniversal",
+      description:
+        "BPM 조절, 액센트, 박자표, 서브디비전, Tap Tempo, 점진적 속도 훈련을 지원하는 무료 온라인 메트로놈입니다."
+    },
+    "tap-bpm": {
+      title: "Tap BPM 온라인 | 곡 템포 빠르게 찾기 | TuneUniversal",
+      description:
+        "음악에 맞춰 탭해 평균 BPM을 빠르게 계산하고 값을 복사한 뒤 바로 메트로놈 연습으로 이어가세요."
+    }
+  },
+  pt: {
+    "chord-transposer": {
+      title: "Transpositor de acordes online | Mude a tonalidade por semitons | TuneUniversal",
+      description:
+        "Transponha acordes online por semitons, mantenha slash chords, escolha sustenidos ou bemóis e copie o resultado na hora."
+    },
+    "guitar-tuner": {
+      title: "Afinador de guitarra gratis online | Cromatico com microfone | TuneUniversal",
+      description:
+        "Afine guitarra online com afinador cromatico gratis, deteccao por microfone, cents, notas e afinacoes alternativas direto no navegador."
+    },
+    metronome: {
+      title: "Metronomo online gratis | BPM, subdivisoes e ciclo de estudo | TuneUniversal",
+      description:
+        "Estude com um metronomo online gratis com BPM ajustavel, acentos, compassos, subdivisoes, Tap Tempo e ciclo progressivo."
+    },
+    "tap-bpm": {
+      title: "Tap BPM online | Descubra rapido o tempo da musica | TuneUniversal",
+      description:
+        "Toque no pulso da musica, calcule o BPM medio em segundos, copie o valor e passe direto para o metronomo."
+    }
+  },
+  ru: {
+    "chord-transposer": {
+      title: "Chord transposer online | Change key by semitones | TuneUniversal",
+      description:
+        "Transpose chords online by semitones, keep slash chords intact, choose sharps or flats and copy the result instantly."
+    },
+    "guitar-tuner": {
+      title: "Online guitar tuner | Free chromatic tuner with microphone | TuneUniversal",
+      description:
+        "Tune guitar online with microphone pitch detection, cents display, note recognition and support for standard and alternate tunings."
+    },
+    metronome: {
+      title: "Online metronome | Free BPM, subdivisions and practice cycle | TuneUniversal",
+      description:
+        "Practice with a free online metronome featuring BPM control, accents, time signatures, subdivisions, Tap Tempo and speed cycles."
+    },
+    "tap-bpm": {
+      title: "Tap BPM online | Find song tempo fast | TuneUniversal",
+      description:
+        "Tap along to music, calculate the average BPM in seconds, copy the tempo and move straight into metronome practice."
+    }
+  },
+  zh: {
+    "chord-transposer": {
+      title: "在线和弦移调器 | 按半音更改调性 | TuneUniversal",
+      description:
+        "在线按半音移调和弦，保留 slash chord，支持升号和降号格式，并可立即复制结果。"
+    },
+    "guitar-tuner": {
+      title: "免费在线吉他调音器 | 支持麦克风的半音调音器 | TuneUniversal",
+      description:
+        "使用免费的在线半音吉他调音器，通过麦克风检测音高，查看音分、音名和常见替代调弦。"
+    },
+    metronome: {
+      title: "免费在线节拍器 | BPM、细分与练习循环 | TuneUniversal",
+      description:
+        "免费在线节拍器，支持 BPM 调节、重音、拍号、细分、Tap Tempo 和渐进式练习循环。"
+    },
+    "tap-bpm": {
+      title: "在线 Tap BPM | 快速计算歌曲速度 | TuneUniversal",
+      description:
+        "跟着音乐点击节拍，快速计算平均 BPM，复制结果后可直接进入节拍器练习。"
     }
   }
 };
