@@ -1287,3 +1287,13 @@ export function guidesForTool(tool: ToolSlug): GuideSlug[] {
   if (tool === "chord-transposer") return ["how-to-transpose-chords", "how-to-read-chords"];
   return [];
 }
+
+export function guidesForInstrument(instrument: Instrument): GuideSlug[] {
+  const primaryGuide = instrumentGuideSlugForInstrument(instrument);
+  const relatedTunings = alternativeTuningGuideSlugs.filter((slug) => {
+    const related = alternativeTuningFromGuideSlug(slug);
+    return related?.instrument === instrument;
+  });
+
+  return [primaryGuide, ...relatedTunings].filter(Boolean) as GuideSlug[];
+}

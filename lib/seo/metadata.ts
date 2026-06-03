@@ -12,6 +12,131 @@ import { homeKeywords, toolKeywords } from "@/lib/seo/keywords";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
+const homeMetadataOverrides: Partial<Record<Locale, { description: string; title: string }>> = {
+  de: {
+    title: "Kostenlose Musik-Tools online | Stimmgerät, Metronom, BPM | TuneUniversal",
+    description:
+      "Kostenlose Musik-Tools online: universelles Stimmgerät, Metronom, Tap BPM, Sound Meter, Akkord-Transposer und Stimmhilfen für viele Instrumente."
+  },
+  en: {
+    title: "Free Music Tools Online | Tuner, Metronome, BPM | TuneUniversal",
+    description:
+      "Free music tools online: universal tuner, metronome, Tap BPM, sound meter, chord transposer and tuning help for guitar, bass, ukulele and more."
+  },
+  it: {
+    title: "Strumenti musicali gratis online | Accordatore, metronomo, BPM | TuneUniversal",
+    description:
+      "Suite gratuita di strumenti musicali online: accordatore universale, metronomo, Tap BPM, fonometro, pitch generator e utility per accordature e accordi."
+  }
+};
+
+const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { description: string; title: string }>>>> = {
+  en: {
+    "chord-transposer": {
+      title: "Chord Transposer Online | Change Key by Semitones | TuneUniversal",
+      description:
+        "Transpose chords online by semitones, keep slash chords intact, switch between sharps and flats, and copy the result instantly."
+    },
+    "guitar-tuner": {
+      title: "Free Guitar Tuner Online | Chromatic Tuner with Microphone | TuneUniversal",
+      description:
+        "Tune guitar online with a free chromatic tuner, microphone pitch detection, cents display, alternate tunings and note recognition in your browser."
+    },
+    metronome: {
+      title: "Online Metronome | Free BPM, Subdivisions and Practice Cycle | TuneUniversal",
+      description:
+        "Practice with a free online metronome featuring BPM control, accents, time signatures, subdivisions, Tap Tempo and progressive speed cycles."
+    }
+  },
+  it: {
+    "chord-transposer": {
+      title: "Traspositore accordi online | Cambia tonalità per semitoni | TuneUniversal",
+      description:
+        "Trasponi accordi online per semitoni, mantieni slash chord, scegli diesis o bemolli e copia subito il risultato."
+    },
+    "guitar-tuner": {
+      title: "Accordatore chitarra gratis online | Cromatico con microfono | TuneUniversal",
+      description:
+        "Accorda la chitarra online con un accordatore cromatico gratuito, rilevamento microfono, cents, note e accordature alternative direttamente nel browser."
+    },
+    metronome: {
+      title: "Metronomo online gratis | BPM, suddivisioni e ciclo studio | TuneUniversal",
+      description:
+        "Studia con un metronomo online gratuito con BPM regolabile, accenti, metriche, suddivisioni, Tap Tempo e ciclo progressivo per aumentare velocità."
+    }
+  }
+};
+
+const instrumentMetadataOverrides: Partial<
+  Record<Locale, Partial<Record<string, { description: string; title: string }>>>
+> = {
+  en: {
+    "8-string-guitar-tuner": {
+      title: "8 String Guitar Tuner Online | F# Standard and Drop E | TuneUniversal",
+      description:
+        "Tune 8 string guitar online with microphone detection, reference notes for F# standard and extended-range tuning support in your browser."
+    }
+  },
+  es: {
+    "8-string-guitar-tuner": {
+      title: "Afinador de guitarra de 8 cuerdas online | Gratis | TuneUniversal",
+      description:
+        "Afina guitarra de 8 cuerdas online con micrófono, notas de referencia y afinación extendida para práctica moderna y metal."
+    }
+  },
+  ru: {
+    "12-string-guitar-tuner": {
+      title: "Тюнер 12-струнной гитары онлайн | TuneUniversal",
+      description:
+        "Настройте 12-струнную гитару онлайн через микрофон с опорными нотами, устойчивым определением высоты и бесплатным браузерным тюнером."
+    },
+    "cello-tuner": {
+      title: "Тюнер виолончели онлайн | Бесплатно | TuneUniversal",
+      description:
+        "Бесплатный онлайн-тюнер для виолончели с микрофоном, эталонными нотами и удобной настройкой прямо в браузере."
+    },
+    "cimbalom-tuner": {
+      title: "Тюнер цимбал онлайн | TuneUniversal",
+      description:
+        "Настраивайте цимбалы онлайн с помощью микрофона, ориентируйтесь по опорным нотам и используйте бесплатный тюнер TuneUniversal."
+    }
+  }
+};
+
+const guideMetadataOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, { description: string; title: string }>>>> = {
+  en: {
+    "drop-c-tuning": {
+      title: "Drop C Tuning for Guitar | Notes and Free Online Tuner | TuneUniversal",
+      description:
+        "See Drop C tuning notes for guitar, when to use it, common genres and open the free online tuner with reference strings."
+    },
+    "drop-d-tuning": {
+      title: "Drop D Tuning for Guitar | Notes and Free Online Tuner | TuneUniversal",
+      description:
+        "Learn Drop D tuning notes for guitar, common uses, quick setup tips and open the free online tuner directly from the guide."
+    },
+    "open-d-tuning": {
+      title: "Open D Tuning for Guitar | Notes, Chords and Online Tuner | TuneUniversal",
+      description:
+        "Open D tuning guide with string notes, practical uses, common genres and a free online tuner to tune each string quickly."
+    }
+  },
+  es: {
+    "standard-bass-tuning": {
+      title: "Afinación estándar de bajo | Notas y afinador online | TuneUniversal",
+      description:
+        "Consulta la afinación estándar del bajo, las notas por cuerda, errores comunes y abre el afinador online gratis."
+    }
+  },
+  ru: {
+    "drop-c-sharp-tuning": {
+      title: "Строй Drop C# | Ноты и онлайн-тюнер | TuneUniversal",
+      description:
+        "Гид по строю Drop C#: опорные ноты, когда использовать, жанры и быстрый переход к онлайн-тюнеру."
+    }
+  }
+};
+
 export function buildAlternates(locale: Locale, path = ""): Metadata["alternates"] {
   const cleanPath = path ? `/${path.replace(/^\//, "")}` : "";
   return {
@@ -24,14 +149,17 @@ export function buildAlternates(locale: Locale, path = ""): Metadata["alternates
 }
 
 export function buildHomeMetadata(locale: Locale, dictionary: Dictionary): Metadata {
+  const override = homeMetadataOverrides[locale];
+  const title = override?.title ?? dictionary.meta.title;
+  const description = override?.description ?? dictionary.meta.description;
   return {
-    title: dictionary.meta.title,
-    description: dictionary.meta.description,
+    title,
+    description,
     keywords: homeKeywords[locale],
     alternates: buildAlternates(locale),
     openGraph: {
-      title: dictionary.meta.title,
-      description: dictionary.meta.description,
+      title,
+      description,
       url: `${siteUrl}/${locale}`,
       siteName: "TuneUniversal",
       type: "website",
@@ -42,15 +170,18 @@ export function buildHomeMetadata(locale: Locale, dictionary: Dictionary): Metad
 
 export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Dictionary): Metadata {
   const content = dictionary.tools[tool];
+  const override = toolMetadataOverrides[locale]?.[tool];
   const keywords = toolKeywords[locale][tool] ?? [content.title, content.description, ...homeKeywords[locale]];
+  const title = override?.title ?? `${content.title} | TuneUniversal`;
+  const description = override?.description ?? content.description;
   return {
-    title: `${content.title} | TuneUniversal`,
-    description: content.description,
+    title,
+    description,
     keywords,
     alternates: buildAlternates(locale, `tools/${tool}`),
     openGraph: {
-      title: `${content.title} | TuneUniversal`,
-      description: content.description,
+      title,
+      description,
       url: `${siteUrl}/${locale}/tools/${tool}`,
       siteName: "TuneUniversal",
       type: "article",
@@ -60,14 +191,17 @@ export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Di
 }
 
 export function buildInstrumentTunerMetadata(locale: Locale, slug: string, content: InstrumentTunerContent): Metadata {
+  const override = instrumentMetadataOverrides[locale]?.[slug];
+  const title = override?.title ?? `${content.title} | TuneUniversal`;
+  const description = override?.description ?? content.description;
   return {
-    title: `${content.title} | TuneUniversal`,
-    description: content.description,
+    title,
+    description,
     keywords: [...content.keywords, ...homeKeywords[locale]],
     alternates: buildAlternates(locale, `tools/${slug}`),
     openGraph: {
-      title: `${content.title} | TuneUniversal`,
-      description: content.description,
+      title,
+      description,
       url: `${siteUrl}/${locale}/tools/${slug}`,
       siteName: "TuneUniversal",
       type: "article",
@@ -154,14 +288,17 @@ export function buildTuningHubMetadata(locale: Locale): Metadata {
 
 export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: GuideContent): Metadata {
   const relatedToolKeywords = toolKeywords[locale][content.tool] ?? [];
+  const override = guideMetadataOverrides[locale]?.[guide];
+  const title = override?.title ?? `${content.title} | TuneUniversal`;
+  const description = override?.description ?? content.description;
   return {
-    title: `${content.title} | TuneUniversal`,
-    description: content.description,
+    title,
+    description,
     keywords: [...content.keywords, ...relatedToolKeywords, ...homeKeywords[locale]],
     alternates: buildAlternates(locale, `guides/${guide}`),
     openGraph: {
-      title: `${content.title} | TuneUniversal`,
-      description: content.description,
+      title,
+      description,
       url: `${siteUrl}/${locale}/guides/${guide}`,
       siteName: "TuneUniversal",
       type: "article",

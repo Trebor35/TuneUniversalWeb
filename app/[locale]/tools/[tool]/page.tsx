@@ -12,7 +12,7 @@ import { PitchGenerator } from "@/components/tools/PitchGenerator";
 import { SoundLevelMeter } from "@/components/tools/SoundLevelMeter";
 import { TapBpm } from "@/components/tools/TapBpm";
 import { UkuleleTuner } from "@/components/tools/UkuleleTuner";
-import { getGuideContent, guidesForTool } from "@/lib/content/guides";
+import { getGuideContent, guidesForInstrument, guidesForTool } from "@/lib/content/guides";
 import {
   getInstrumentTunerContent,
   instrumentFromTunerSlug,
@@ -117,7 +117,7 @@ export default async function ToolPage({ params }: PageProps) {
     coreTool && !tunerTools.includes(coreTool as (typeof tunerTools)[number])
       ? (["guitar-tuner", "metronome", "tap-bpm", "sound-level-meter", "pitch-generator", "chord-transposer"].filter((slug) => slug !== coreTool) as ToolSlug[])
       : ["metronome", "tap-bpm", "chord-transposer", "sound-level-meter", "pitch-generator"];
-  const relatedGuides = coreTool ? guidesForTool(coreTool) : [];
+  const relatedGuides = coreTool ? guidesForTool(coreTool) : instrument ? guidesForInstrument(instrument) : [];
 
   return (
     <main className="mx-auto w-full max-w-7xl overflow-hidden px-2 py-8 sm:px-4 sm:py-10">
