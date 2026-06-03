@@ -515,8 +515,125 @@ const guideContentOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, Gu
   }
 };
 
+function searchConsolePriorityGuideOverrides(locale: Locale): Partial<Record<GuideSlug, GuideOverride>> {
+  const copy = {
+    ar: {
+      twelve: ["كيفية ضبط جيتار 12 وتر", "اضبط جيتار 12 وتر زوجاً بعد زوج مع مرجع واضح للأوكتافات والطبقة الأساسية.", "هذه الصفحة تشرح طريقة ضبط جيتار 12 وتر خطوة بخطوة حتى تبقى الأزواج متناغمة ومتوازنة من دون إحساس غير ثابت في الشد."],
+      eight: ["كيفية ضبط جيتار 8 أوتار", "اضبط جيتار 8 أوتار عبر المتصفح مع دعم للنغمات المنخفضة والضبط الحديث الممتد.", "استخدم هذا الدليل عندما تريد قراءة أوضح للوترين المنخفضين والحفاظ على دقة النغمات في الضبط الممتد."],
+      cello: ["كيفية ضبط التشيلو", "اضبط التشيلو أونلاين على C G D A مع خطوات بسيطة تساعدك على قراءة أكثر ثباتاً.", "هذا الدليل مناسب للمبتدئين الذين يريدون ضبط التشيلو بسرعة ثم التأكد من توازن كل وتر قبل التدريب أو الدرس."],
+      dropCSharp: ["دليل ضبط Drop C#", "تعرف على نغمات Drop C# ومتى يستخدم هذا الضبط للجيتار الثقيل والريفات الحديثة.", "ضبط Drop C# يخفض المجال مع الحفاظ على أشكال عملية للريفات السريعة. استخدم هذه الصفحة لفحص النغمات ثم افتح الموالف."],
+      subdiv: ["دليل تقسيمات الميترونوم", "تدرب على الثنائيات والثلاثيات والرباعيات داخل النبضة لتحسين الإحساس الإيقاعي.", "إذا كان العد مع الميترونوم يبدو جامداً، فالتقسيمات تساعدك على سماع المسافات داخل كل نبضة بدقة أكبر."]
+    },
+    de: {
+      twelve: ["12-saitige Gitarre stimmen", "Stimme eine 12-saitige Gitarre online mit klaren Referenznoten fuer Grund- und Oktavpaare.", "Diese Seite zeigt dir, wie du jede Saitenpaarung sauber abstimmst, damit Chorus und Schimmer kontrolliert bleiben."],
+      eight: ["8-saitige Gitarre stimmen", "Stimme eine 8-Saiter-Gitarre online mit Hilfe fuer tiefe Saiten und moderne Extended-Range-Setups.", "Nutze diesen Guide, wenn du die tiefen Saiten stabil lesen und eine saubere Extended-Range-Stimmung aufbauen willst."],
+      cello: ["Cello stimmen", "Stimme Cello online auf C G D A mit Browser-Mikrofon und einfachen Schritten fuer den Alltag.", "Der Guide hilft dir, jede Cellosaite einzeln zu kontrollieren und am Ende den Gesamtklang noch einmal sauber zu pruefen."],
+      dropCSharp: ["Drop C# Tuning Guide", "Lerne die exakten Noten von Drop C# und wann diese Gitarrenstimmung fuer harte Riffs sinnvoll ist.", "Drop C# ist beliebt fuer moderne, tiefere Gitarrenparts. Hier findest du die Saiten, Hinweise und den direkten Weg zum Tuner."],
+      subdiv: ["Metronom-Unterteilungen Guide", "Arbeite Duolen, Triolen und Vierergruppen systematisch mit einem Online-Metronom.", "Wenn sich der Klick zu grob anfuehlt, helfen Unterteilungen dabei, den inneren Puls und das Timing genauer zu entwickeln."]
+    },
+    en: {
+      twelve: ["How to tune a 12 string guitar", "Tune a 12 string guitar online with clear reference notes for standard strings and octave pairs.", "This guide shows you how to balance each course so the shimmer of a 12 string stays rich, stable and easy to control."],
+      eight: ["How to tune an 8 string guitar", "Tune an 8 string guitar online with better support for low strings and extended-range metal setups.", "Use this page when you need a clearer method for the lowest strings and want a steadier reading for modern 8 string tuning."],
+      cello: ["How to tune a cello", "Tune cello strings to C G D A online with a simple microphone workflow for practice and lessons.", "This guide helps you check each cello string one at a time, then confirm the overall balance before you start playing."],
+      dropCSharp: ["Drop C sharp tuning guide", "Learn the exact notes of Drop C# tuning and when guitarists use it for heavier modern riffs.", "Drop C sharp tuning lowers the register while keeping fast riff shapes practical. Check the notes here, then open the tuner."],
+      subdiv: ["Metronome subdivisions guide", "Practice duplets, triplets and quadruplets with an online metronome to improve internal timing.", "If the main click feels too broad, subdivisions make it easier to hear the rhythm inside every beat and clean up your timing."]
+    },
+    es: {
+      twelve: ["Cómo afinar guitarra de 12 cuerdas", "Afina guitarra de 12 cuerdas online con notas de referencia claras para cuerdas simples y pares en octava.", "Esta guía te ayuda a equilibrar cada par para mantener el brillo típico de la 12 cuerdas sin perder estabilidad."],
+      eight: ["Cómo afinar guitarra de 8 cuerdas", "Afina guitarra de 8 cuerdas online con mejor apoyo para cuerdas graves y afinaciones modernas extendidas.", "Usa esta página si quieres una lectura más firme en las cuerdas bajas y un método claro para afinaciones de rango extendido."],
+      cello: ["Cómo afinar violonchelo", "Afina violonchelo online en C G D A con micrófono del navegador y pasos fáciles para estudio diario.", "La guía te ayuda a revisar cada cuerda del cello por separado y luego confirmar el equilibrio general antes de tocar."],
+      dropCSharp: ["Guía de afinación Drop C#", "Aprende las notas exactas de Drop C# y cuándo se usa esta afinación de guitarra para riffs más pesados.", "Drop C# baja el registro y mantiene formas prácticas para riffs rápidos. Aquí puedes revisar las notas y abrir el afinador."],
+      subdiv: ["Guía de subdivisiones del metrónomo", "Practica duinas, tresillos y cuatrillos con un metrónomo online para mejorar el pulso interno.", "Si el click principal te parece demasiado amplio, las subdivisiones te ayudan a escuchar mejor el ritmo dentro de cada pulso."]
+    },
+    fr: {
+      twelve: ["Comment accorder une guitare 12 cordes", "Accordez une guitare 12 cordes en ligne avec des notes de référence claires pour les paires et les octaves.", "Cette page vous aide à équilibrer chaque chœur pour garder la brillance d'une 12 cordes sans sensation instable."],
+      eight: ["Comment accorder une guitare 8 cordes", "Accordez une guitare 8 cordes en ligne avec une meilleure aide pour les cordes graves et les accordages étendus.", "Utilisez ce guide si vous voulez une lecture plus stable sur les graves et une méthode claire pour les réglages modernes."],
+      cello: ["Comment accorder un violoncelle", "Accordez un violoncelle en ligne en C G D A avec le micro du navigateur et des étapes simples.", "Le guide vous aide à contrôler chaque corde du violoncelle séparément puis à vérifier l'équilibre général avant de jouer."],
+      dropCSharp: ["Guide de l'accordage Drop C#", "Découvrez les notes exactes du Drop C# et les contextes où cet accordage guitare est le plus utile.", "Le Drop C# donne un registre plus grave tout en gardant des formes rapides pour les riffs. Vérifiez les notes ici avant d'ouvrir l'accordeur."],
+      subdiv: ["Guide des subdivisions du métronome", "Travaillez duos, triolets et groupes de quatre avec un métronome en ligne pour affiner le tempo.", "Si le clic principal semble trop large, les subdivisions vous aident à mieux sentir le rythme entre chaque battement."]
+    },
+    it: {
+      twelve: ["Come accordare la chitarra 12 corde", "Accorda la chitarra 12 corde online con note di riferimento chiare per cori standard e coppie in ottava.", "Questa guida ti aiuta a bilanciare ogni coppia di corde per mantenere il classico shimmer della 12 corde senza perdere stabilità."],
+      eight: ["Come accordare la chitarra 8 corde", "Accorda la chitarra 8 corde online con un supporto migliore per le corde più gravi e le accordature moderne estese.", "Usa questa pagina se vuoi una lettura più stabile sulle corde basse e un metodo chiaro per l'accordatura di una 8 corde."],
+      cello: ["Come accordare il violoncello", "Accorda il violoncello online in Do Sol Re La con microfono del browser e passaggi semplici da seguire.", "La guida ti aiuta a controllare una corda alla volta e poi a verificare l'equilibrio generale del violoncello prima di studiare."],
+      dropCSharp: ["Guida accordatura Drop C#", "Scopri le note esatte della Drop C# e quando usarla per riff più pesanti e sonorità moderne.", "La Drop C# abbassa il registro mantenendo forme pratiche per riff veloci. Qui puoi controllare le note e aprire subito l'accordatore."],
+      subdiv: ["Guida alle suddivisioni del metronomo", "Studia duine, terzine e quartine con un metronomo online per migliorare il tempo interno.", "Se il click principale ti sembra troppo largo, le suddivisioni ti aiutano a sentire meglio il ritmo dentro ogni battito."]
+    },
+    ja: {
+      twelve: ["12弦ギターのチューニング方法", "12弦ギターの各コースとオクターブペアをオンラインで確認しながら調弦できます。", "このガイドでは、12弦ギター特有のきらびやかな響きを保ちながら各ペアを安定して合わせる方法を説明します。"],
+      eight: ["8弦ギターのチューニング方法", "低音弦や拡張レンジ向けセットアップに対応した形で8弦ギターをオンライン調弦します。", "最低音弦の読み取りを安定させたい時や、モダンな8弦チューニングを整えたい時に使えるガイドです。"],
+      cello: ["チェロのチューニング方法", "チェロを C G D A にオンラインで合わせるためのシンプルな手順をまとめています。", "このガイドではチェロの各弦を順番に確認し、最後に全体のバランスを聞き直す流れを紹介します。"],
+      dropCSharp: ["Drop C# チューニングガイド", "Drop C# の正確な音名と、よりヘヴィなギターリフで使われる理由を解説します。", "Drop C# は音域を下げつつ高速リフの形を保ちやすい調弦です。ここで音を確認してからチューナーを開けます。"],
+      subdiv: ["メトロノーム細分化ガイド", "2連・3連・4連をオンラインメトロノームで練習し、内部の拍感を強化します。", "メインのクリックだけでは粗く感じる時、細分化を使うと各拍の中のリズムをより正確に感じられます。"]
+    },
+    ko: {
+      twelve: ["12현 기타 튜닝 방법", "12현 기타의 기본현과 옥타브 페어를 온라인에서 확인하며 조율하는 방법입니다.", "이 가이드는 12현 특유의 화사한 울림을 살리면서 각 코스를 안정적으로 맞추는 데 도움을 줍니다."],
+      eight: ["8현 기타 튜닝 방법", "저음현과 확장 레인지 세팅에 맞춰 8현 기타를 온라인에서 조율하는 방법입니다.", "가장 낮은 현의 판독을 더 안정적으로 보고 싶거나 모던한 8현 세팅을 정리하고 싶을 때 유용합니다."],
+      cello: ["첼로 튜닝 방법", "브라우저 마이크를 이용해 첼로를 C G D A 로 맞추는 간단한 단계별 가이드입니다.", "각 첼로 현을 하나씩 확인한 뒤 전체 밸런스를 다시 들어 보는 흐름으로 구성되어 있습니다."],
+      dropCSharp: ["Drop C# 튜닝 가이드", "Drop C#의 정확한 음과 더 무거운 기타 리프에 자주 쓰이는 이유를 정리했습니다.", "Drop C#은 음역을 낮추면서도 빠른 리프 운지를 유지하기 쉬운 세팅입니다. 여기서 음을 확인하고 바로 튜너로 이동할 수 있습니다."],
+      subdiv: ["메트로놈 세분화 가이드", "2연음, 3연음, 4연음을 온라인 메트로놈으로 연습해 내부 박감을 강화합니다.", "메인 클릭만으로는 거칠게 느껴질 때 세분화를 쓰면 각 박 안의 리듬을 더 정확하게 들을 수 있습니다."]
+    },
+    pt: {
+      twelve: ["Como afinar guitarra de 12 cordas", "Afine guitarra de 12 cordas online com notas de referência claras para pares e oitavas.", "Este guia ajuda a equilibrar cada curso para manter o brilho típico da 12 cordas sem deixar a afinação instável."],
+      eight: ["Como afinar guitarra de 8 cordas", "Afine guitarra de 8 cordas online com melhor apoio para cordas graves e afinações estendidas modernas.", "Use esta página quando quiser uma leitura mais estável nas cordas baixas e um método claro para setups de 8 cordas."],
+      cello: ["Como afinar violoncelo", "Afine violoncelo online em C G D A com microfone do navegador e passos simples.", "O guia ajuda a conferir cada corda do cello separadamente e depois revisar o equilíbrio geral antes do estudo."],
+      dropCSharp: ["Guia de afinação Drop C#", "Veja as notas exatas da Drop C# e quando essa afinação de guitarra faz mais sentido para riffs pesados.", "Drop C# abaixa o registro sem perder formas práticas para riffs rápidos. Aqui você revisa as notas e abre o afinador."],
+      subdiv: ["Guia de subdivisões do metrônomo", "Pratique duínas, tercinas e quartinas com um metrônomo online para melhorar o pulso interno.", "Se o clique principal parecer amplo demais, as subdivisões ajudam a sentir melhor o ritmo dentro de cada batida."]
+    },
+    ru: {
+      twelve: ["Как настроить 12-струнную гитару", "Настройте 12-струнную гитару онлайн с понятными опорными нотами для основных и октавных пар.", "Эта страница помогает выровнять каждую пару струн так, чтобы сохранить характерное сияние 12-струнной гитары без нестабильности."],
+      eight: ["Как настроить 8-струнную гитару", "Настройте 8-струнную гитару онлайн с лучшей поддержкой для низких струн и расширенных современных строев.", "Используйте это руководство, если хотите более стабильное считывание низких струн и понятный способ настройки 8-струнной гитары."],
+      cello: ["Как настроить виолончель", "Настройте виолончель онлайн в C G D A с помощью микрофона браузера и простых шагов.", "Руководство помогает проверить каждую струну виолончели по отдельности и затем услышать общий баланс перед занятием."],
+      dropCSharp: ["Гид по строю Drop C#", "Узнайте точные ноты строя Drop C# и когда он особенно полезен для более тяжёлых гитарных риффов.", "Drop C# понижает регистр, но сохраняет удобные формы для быстрых риффов. Здесь можно проверить ноты и сразу открыть тюнер."],
+      subdiv: ["Гид по делениям метронома", "Практикуйте дуоли, триоли и группы по четыре с онлайн-метрономом, чтобы укрепить внутренний пульс.", "Если одного основного клика мало, деления помогают точнее услышать ритм внутри каждой доли."]
+    },
+    zh: {
+      twelve: ["如何给12弦吉他调音", "使用清晰的参考音在线调整12弦吉他的标准弦组和八度配对。", "这份指南会帮助你把每一组弦调得更平衡，让12弦吉他的明亮合唱感稳定又清晰。"],
+      eight: ["如何给8弦吉他调音", "在线为8弦吉他调音，更好地处理低音弦和现代扩展音域设置。", "如果你想让最低音弦的读数更稳定，或者需要更清楚的8弦调音流程，这页会很有帮助。"],
+      cello: ["如何给大提琴调音", "用浏览器麦克风把大提琴调到 C G D A，并按简单步骤逐根检查。", "这份指南帮助你逐根确认大提琴的音高，然后再整体听一遍平衡感后开始练习。"],
+      dropCSharp: ["Drop C# 调弦指南", "了解 Drop C# 的准确音名，以及它为何常用于更厚重的现代吉他 riff。", "Drop C# 会降低音域，同时保留适合快速 riff 的实用指型。你可以先在这里确认音名，再打开调音器。"],
+      subdiv: ["节拍器细分练习指南", "用在线节拍器练习二连音、三连音和四连音，提升内部节奏感。", "如果只有主点击还不够细，细分练习会帮助你更准确地听见每一拍内部的节奏。"]
+    }
+  }[locale];
+
+  return {
+    "how-to-tune-12-string-guitar": {
+      title: copy.twelve[0],
+      description: copy.twelve[1],
+      intro: copy.twelve[2],
+      relatedGuides: ["standard-guitar-tuning", "how-to-tune-guitar", "guitar-tuner-with-microphone"]
+    },
+    "how-to-tune-8-string-guitar": {
+      title: copy.eight[0],
+      description: copy.eight[1],
+      intro: copy.eight[2],
+      relatedGuides: ["drop-e-8-string-tuning", "how-to-tune-guitar", "chromatic-tuner-guide"]
+    },
+    "how-to-tune-cello": {
+      title: copy.cello[0],
+      description: copy.cello[1],
+      intro: copy.cello[2],
+      relatedGuides: ["how-to-tune-violin", "chromatic-tuner-guide"]
+    },
+    "drop-c-sharp-tuning": {
+      title: copy.dropCSharp[0],
+      description: copy.dropCSharp[1],
+      intro: copy.dropCSharp[2],
+      relatedGuides: ["drop-c-tuning", "d-standard-tuning", "how-to-tune-guitar"]
+    },
+    "metronome-subdivisions": {
+      title: copy.subdiv[0],
+      description: copy.subdiv[1],
+      intro: copy.subdiv[2],
+      relatedGuides: ["how-to-use-metronome", "metronome-for-guitar", "how-to-find-bpm"]
+    }
+  };
+}
+
 function applyGuideOverride(base: GuideContent, locale: Locale, guide: GuideSlug): GuideContent {
-  const override = guideContentOverrides[locale]?.[guide];
+  const priorityOverride = searchConsolePriorityGuideOverrides(locale)[guide];
+  const manualOverride = guideContentOverrides[locale]?.[guide];
+  const override = priorityOverride || manualOverride ? { ...priorityOverride, ...manualOverride } : null;
   return override ? { ...base, ...override } : base;
 }
 
