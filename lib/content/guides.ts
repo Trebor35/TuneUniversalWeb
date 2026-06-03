@@ -36,7 +36,12 @@ export const utilityGuideSlugs = [
   "how-to-read-chords",
   "how-to-transpose-chords",
   "common-guitar-tunings",
-  "metronome-subdivisions"
+  "metronome-subdivisions",
+  "chromatic-tuner-guide",
+  "guitar-tuner-with-microphone",
+  "metronome-for-guitar",
+  "sound-meter-db-guide",
+  "pitch-generator-guide"
 ] as const;
 
 export const alternativeTuningGuideSlugs = [
@@ -73,7 +78,14 @@ type AlternativeTuningGuideSlug = (typeof alternativeTuningGuideSlugs)[number];
 type UtilityGuideSlug = (typeof utilityGuideSlugs)[number];
 type ExtraUtilityGuideSlug = Exclude<
   UtilityGuideSlug,
-  "standard-bass-tuning" | "how-to-use-metronome" | "how-to-find-bpm"
+  | "standard-bass-tuning"
+  | "how-to-use-metronome"
+  | "how-to-find-bpm"
+  | "chromatic-tuner-guide"
+  | "guitar-tuner-with-microphone"
+  | "metronome-for-guitar"
+  | "sound-meter-db-guide"
+  | "pitch-generator-guide"
 >;
 
 export type GuideContent = {
@@ -309,66 +321,77 @@ const utilityGuides: Record<Locale, Record<UtilityGuideSlug, Omit<GuideContent, 
       tool: "metronome"
     },
     ...extraUtilityGuides("ar"),
+    ...queryDrivenUtilityGuides("ar"),
     "standard-bass-tuning": standardBassUtility("ar")
   },
   de: {
     "how-to-find-bpm": utilityBpm("de"),
     "how-to-use-metronome": utilityMetronome("de"),
     ...extraUtilityGuides("de"),
+    ...queryDrivenUtilityGuides("de"),
     "standard-bass-tuning": standardBassUtility("de")
   },
   en: {
     "how-to-find-bpm": utilityBpm("en"),
     "how-to-use-metronome": utilityMetronome("en"),
     ...extraUtilityGuides("en"),
+    ...queryDrivenUtilityGuides("en"),
     "standard-bass-tuning": standardBassUtility("en")
   },
   es: {
     "how-to-find-bpm": utilityBpm("es"),
     "how-to-use-metronome": utilityMetronome("es"),
     ...extraUtilityGuides("es"),
+    ...queryDrivenUtilityGuides("es"),
     "standard-bass-tuning": standardBassUtility("es")
   },
   fr: {
     "how-to-find-bpm": utilityBpm("fr"),
     "how-to-use-metronome": utilityMetronome("fr"),
     ...extraUtilityGuides("fr"),
+    ...queryDrivenUtilityGuides("fr"),
     "standard-bass-tuning": standardBassUtility("fr")
   },
   it: {
     "how-to-find-bpm": utilityBpm("it"),
     "how-to-use-metronome": utilityMetronome("it"),
     ...extraUtilityGuides("it"),
+    ...queryDrivenUtilityGuides("it"),
     "standard-bass-tuning": standardBassUtility("it")
   },
   ja: {
     "how-to-find-bpm": utilityBpm("ja"),
     "how-to-use-metronome": utilityMetronome("ja"),
     ...extraUtilityGuides("ja"),
+    ...queryDrivenUtilityGuides("ja"),
     "standard-bass-tuning": standardBassUtility("ja")
   },
   ko: {
     "how-to-find-bpm": utilityBpm("ko"),
     "how-to-use-metronome": utilityMetronome("ko"),
     ...extraUtilityGuides("ko"),
+    ...queryDrivenUtilityGuides("ko"),
     "standard-bass-tuning": standardBassUtility("ko")
   },
   pt: {
     "how-to-find-bpm": utilityBpm("pt"),
     "how-to-use-metronome": utilityMetronome("pt"),
     ...extraUtilityGuides("pt"),
+    ...queryDrivenUtilityGuides("pt"),
     "standard-bass-tuning": standardBassUtility("pt")
   },
   ru: {
     "how-to-find-bpm": utilityBpm("ru"),
     "how-to-use-metronome": utilityMetronome("ru"),
     ...extraUtilityGuides("ru"),
+    ...queryDrivenUtilityGuides("ru"),
     "standard-bass-tuning": standardBassUtility("ru")
   },
   zh: {
     "how-to-find-bpm": utilityBpm("zh"),
     "how-to-use-metronome": utilityMetronome("zh"),
     ...extraUtilityGuides("zh"),
+    ...queryDrivenUtilityGuides("zh"),
     "standard-bass-tuning": standardBassUtility("zh")
   }
 };
@@ -812,6 +835,250 @@ function extraUtilityGuides(locale: Locale): Record<ExtraUtilityGuideSlug, Omit<
       targetTitle: ui.metronomeTool,
       targetDescription: copy.subdiv[1],
       tool: "metronome"
+    }
+  };
+}
+
+type QueryDrivenGuideSlug =
+  | "chromatic-tuner-guide"
+  | "guitar-tuner-with-microphone"
+  | "metronome-for-guitar"
+  | "sound-meter-db-guide"
+  | "pitch-generator-guide";
+
+function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, Omit<GuideContent, "targetPath">> {
+  const copy = {
+    ar: {
+      chromatic: ["دليل الموالف الكروماتيكي", "تعرف على استخدام موالف كروماتيكي لالتقاط اي نغمة بسرعة.", "استخدم هذا الدليل عندما تريد ضبط الجيتار او الكمان او اي الة لحنية نغمة بنغمة."],
+      microphone: ["موالف جيتار بالميكروفون", "استخدم ميكروفون المتصفح لالتقاط نغمة الجيتار بدون تطبيق اضافي.", "هذه الصفحة تشرح كيف تحصل على قراءة اكثر ثباتا عند ضبط الجيتار بالميكروفون."],
+      metronomeGuitar: ["مترونوم للجيتار", "تدرب على الريف والتمارين والاربيجيو بالجيتار مع BPM واضح.", "استخدم المترونوم للجيتار عندما تريد بناء توقيت ثابت وزيادة السرعة تدريجيا."],
+      sound: ["دليل قياس الصوت بالديسيبل", "استخدم الفونومتر لقياس مستوى الصوت في الغرفة بشكل تقديري.", "هذا الدليل مناسب للتحقق من ضوضاء الغرفة ومستوى التدريب والفرق بين البيئات الهادئة والصاخبة."],
+      pitch: ["مولد ترددات اونلاين", "شغل نغمة ثابتة من 20Hz الى 20000Hz للتدريب والفحص الصوتي.", "استخدم مولد الترددات لتمرين الاذن او لمطابقة نغمة مرجعية بسرعة."]
+    },
+    de: {
+      chromatic: ["Chromatisches Stimmgeraet Guide", "Lerne, wie ein chromatischer Tuner jede Note schnell erkennt.", "Nutze diesen Guide, wenn du Gitarre, Violine oder andere Melodieinstrumente Note fuer Note stimmen willst."],
+      microphone: ["Gitarren Tuner mit Mikrofon", "Nutze das Browser-Mikrofon, um Gitarrentoene ohne App zu erkennen.", "Diese Seite zeigt, wie du beim Stimmen mit Mikrofon eine stabilere Anzeige bekommst."],
+      metronomeGuitar: ["Metronom fuer Gitarre", "Uebe Riffs, Technik und Arpeggios mit klarem BPM fuer Gitarre.", "Nutze ein Gitarren-Metronom, wenn du sauberes Timing aufbauen und das Tempo schrittweise steigern willst."],
+      sound: ["dB Meter Guide", "Nutze das Sound Meter, um die Lautstaerke im Raum geschaetzt in dB zu pruefen.", "Dieser Guide hilft dir, Zimmergeraesche, Uebelautstaerke und typische dB-Bereiche besser einzuordnen."],
+      pitch: ["Pitch Generator online", "Erzeuge einen konstanten Ton von 20 Hz bis 20000 Hz fuer Gehoertraining und Audiotests.", "Nutze den Pitch Generator als Referenzton oder fuer schnelle Audio-Checks im Browser."]
+    },
+    en: {
+      chromatic: ["Chromatic tuner guide", "Learn when to use a chromatic tuner to catch any note quickly and accurately.", "Use this guide when you want to tune guitar, violin or any pitched instrument note by note with a browser tuner."],
+      microphone: ["Guitar tuner with microphone", "Use your browser microphone to detect guitar pitch without installing an app.", "This page explains how to get a steadier reading when tuning guitar with a microphone online."],
+      metronomeGuitar: ["Metronome for guitar practice", "Practice riffs, picking and chord changes with a guitar-friendly online metronome.", "Use a metronome for guitar when you want steadier timing, cleaner rhythm and a controlled speed-building routine."],
+      sound: ["Sound meter dB guide", "Measure estimated room volume in dB and compare quiet practice, conversation and loud environments.", "This guide helps you use the sound meter for room checks, practice volume and quick dB comparisons."],
+      pitch: ["Pitch generator online guide", "Generate a steady tone from 20 Hz to 20000 Hz for ear training, reference pitch and audio checks.", "Use the pitch generator when you need a fixed reference tone, hearing test sweep or quick speaker check in the browser."]
+    },
+    es: {
+      chromatic: ["Guia de afinador cromatico", "Aprende cuando usar un afinador cromatico para detectar cualquier nota con rapidez.", "Usa esta guia si quieres afinar guitarra, violin u otro instrumento nota por nota en el navegador."],
+      microphone: ["Afinador de guitarra con microfono", "Usa el microfono del navegador para detectar la afinacion de la guitarra sin instalar una app.", "Esta pagina explica como conseguir una lectura mas estable al afinar guitarra con microfono online."],
+      metronomeGuitar: ["Metronomo para guitarra", "Practica riffs, picking y cambios de acordes con un metronomo online pensado para guitarra.", "Usa el metronomo para guitarra cuando quieras mejorar tempo, limpieza ritmica y velocidad progresiva."],
+      sound: ["Guia de sonometro en dB", "Mide el volumen estimado de una habitacion en dB y compara ambientes tranquilos o ruidosos.", "Esta guia te ayuda a usar el sonometro para revisar ruido de sala, volumen de practica y referencias de dB."],
+      pitch: ["Guia de generador de tono online", "Genera un tono fijo de 20 Hz a 20000 Hz para entrenamiento auditivo y pruebas de audio.", "Usa el generador de tono como referencia rapida, barrido simple o comprobacion de altavoces en el navegador."]
+    },
+    fr: {
+      chromatic: ["Guide de l'accordeur chromatique", "Apprenez quand utiliser un accordeur chromatique pour reconnaitre n'importe quelle note.", "Utilisez ce guide si vous voulez accorder guitare, violon ou autre instrument note par note dans le navigateur."],
+      microphone: ["Accordeur guitare avec micro", "Utilisez le micro du navigateur pour detecter la hauteur de la guitare sans application.", "Cette page explique comment obtenir une lecture plus stable avec un accordeur guitare en ligne au microphone."],
+      metronomeGuitar: ["Metronome pour guitare", "Travaillez riffs, picking et changements d'accords avec un metronome en ligne pour guitare.", "Utilisez le metronome pour guitare pour construire un tempo regulier et augmenter la vitesse progressivement."],
+      sound: ["Guide du sonometre en dB", "Mesurez le volume estime d'une piece en dB et comparez differents environnements.", "Ce guide vous aide a utiliser le sonometre pour controler le bruit de la piece et le volume de travail."],
+      pitch: ["Guide du generateur de frequence", "Generez un son fixe de 20 Hz a 20000 Hz pour l'oreille et les tests audio.", "Utilisez le generateur de frequence comme note de reference, balayage simple ou verification audio dans le navigateur."]
+    },
+    it: {
+      chromatic: ["Guida accordatore cromatico", "Scopri quando usare un accordatore cromatico per riconoscere qualsiasi nota con precisione.", "Usa questa guida quando vuoi accordare chitarra, violino o un altro strumento nota per nota direttamente nel browser."],
+      microphone: ["Accordatore chitarra con microfono", "Usa il microfono del browser per rilevare l'intonazione della chitarra senza installare app.", "Questa pagina spiega come ottenere una lettura piu stabile quando accordi la chitarra online con il microfono."],
+      metronomeGuitar: ["Metronomo per chitarra", "Studia riff, plettrate e cambi di accordi con un metronomo online pensato per chitarra.", "Usa il metronomo per chitarra quando vuoi migliorare tempo, precisione ritmica e velocita in modo controllato."],
+      sound: ["Guida fonometro in dB", "Misura il volume stimato di una stanza in dB e confronta ambienti tranquilli o rumorosi.", "Questa guida ti aiuta a usare il fonometro per controllare rumore, volume di studio e riferimenti pratici in decibel."],
+      pitch: ["Guida pitch generator online", "Genera una nota fissa da 20 Hz a 20000 Hz per orecchio, riferimento e controlli audio.", "Usa il pitch generator come nota di riferimento, sweep semplice o controllo rapido di casse e cuffie nel browser."]
+    },
+    ja: {
+      chromatic: ["クロマチックチューナーガイド", "あらゆる音を素早く確認するためのクロマチックチューナーの使い方です。", "ギター、バイオリン、その他の楽器を1音ずつ確認したいときに使えるガイドです。"],
+      microphone: ["マイク対応ギターチューナー", "ブラウザのマイクでギターの音程を検出する方法を説明します。", "オンラインでギターを合わせるときに、より安定した読み取りを得るためのガイドです。"],
+      metronomeGuitar: ["ギター練習用メトロノーム", "リフ、ピッキング、コードチェンジの練習に役立つガイドです。", "ギターのテンポ感を整え、少しずつ速度を上げたいときに使えます。"],
+      sound: ["dBサウンドメーターガイド", "部屋の音量をdBで目安として確認するための使い方です。", "静かな部屋、会話、交通音などを比較しながら音量感をつかむためのガイドです。"],
+      pitch: ["ピッチジェネレーターガイド", "20Hzから20000Hzまでの固定音を出す使い方をまとめています。", "耳のトレーニング、基準音、簡単なオーディオチェックに使えるガイドです。"]
+    },
+    ko: {
+      chromatic: ["크로매틱 튜너 가이드", "어떤 음이든 빠르게 확인할 수 있는 크로매틱 튜너 사용법입니다.", "기타, 바이올린 등 음정을 한 음씩 맞추고 싶을 때 유용한 가이드입니다."],
+      microphone: ["마이크 기타 튜너", "브라우저 마이크로 기타 음정을 감지하는 방법을 설명합니다.", "온라인 기타 튜닝에서 더 안정적인 읽기를 얻는 데 도움이 되는 가이드입니다."],
+      metronomeGuitar: ["기타용 메트로놈", "리프, 피킹, 코드 체인지 연습에 맞는 메트로놈 사용 가이드입니다.", "기타 타이밍을 안정시키고 속도를 점진적으로 올리고 싶을 때 사용합니다."],
+      sound: ["dB 사운드 미터 가이드", "방의 음량을 dB 기준으로 확인하는 방법을 안내합니다.", "연습 볼륨, 방 소음, 일상 환경의 음량 차이를 빠르게 비교할 수 있습니다."],
+      pitch: ["피치 제너레이터 가이드", "20Hz에서 20000Hz까지 고정 톤을 만드는 방법을 설명합니다.", "귀 훈련, 기준음, 간단한 오디오 체크에 사용할 수 있는 가이드입니다."]
+    },
+    pt: {
+      chromatic: ["Guia do afinador cromatico", "Aprenda quando usar um afinador cromatico para reconhecer qualquer nota rapidamente.", "Use este guia quando quiser afinar guitarra, violino ou outro instrumento nota por nota no navegador."],
+      microphone: ["Afinador de guitarra com microfone", "Use o microfone do navegador para detectar a altura da guitarra sem instalar app.", "Esta pagina explica como conseguir uma leitura mais estavel ao afinar guitarra online com microfone."],
+      metronomeGuitar: ["Metronomo para guitarra", "Pratique riffs, palhetada e trocas de acordes com um metronomo online para guitarra.", "Use o metronomo para guitarra quando quiser melhorar tempo, precisao ritmica e velocidade de forma progressiva."],
+      sound: ["Guia do medidor de som em dB", "Meça o volume estimado de um ambiente em dB e compare situacoes mais calmas ou mais altas.", "Este guia ajuda a usar o medidor de som para ruido da sala, volume de estudo e referencias praticas em dB."],
+      pitch: ["Guia do gerador de frequencia", "Gere um tom fixo de 20 Hz a 20000 Hz para ouvido, referencia e testes de audio.", "Use o gerador de frequencia como tom de referencia, varredura simples ou conferencia rapida de caixas e fones."]
+    },
+    ru: {
+      chromatic: ["Гид по хроматическому тюнеру", "Узнайте, когда использовать хроматический тюнер для любой ноты.", "Используйте этот гид, если хотите настраивать гитару, скрипку или другой инструмент по одной ноте."],
+      microphone: ["Гитарный тюнер с микрофоном", "Используйте микрофон браузера, чтобы определить высоту гитары без приложения.", "Эта страница объясняет, как получить более стабильное считывание при онлайн-настройке гитары."],
+      metronomeGuitar: ["Метроном для гитары", "Тренируйте риффы, штрихи и смену аккордов с онлайн-метрономом для гитары.", "Используйте метроном для гитары, чтобы укрепить чувство времени и постепенно повышать скорость."],
+      sound: ["Гид по dB шумомеру", "Измеряйте примерную громкость комнаты в dB и сравнивайте разные условия.", "Этот гид помогает использовать шумомер для контроля громкости занятий и фонового шума."],
+      pitch: ["Гид по генератору тона", "Создавайте устойчивый тон от 20 Hz до 20000 Hz для слуха и аудиопроверок.", "Используйте генератор тона как опорный звук, простой sweep или быстрый тест динамиков."]
+    },
+    zh: {
+      chromatic: ["半音调音器指南", "了解何时使用半音调音器来快速识别任意音高。", "如果你想在浏览器里逐音调节吉他、小提琴或其他乐器，可以先看这份指南。"],
+      microphone: ["带麦克风的吉他调音器", "使用浏览器麦克风检测吉他音高，无需安装应用。", "这页会说明如何在在线吉他调音时获得更稳定的读数。"],
+      metronomeGuitar: ["吉他练习节拍器", "用适合吉他的在线节拍器练习riff、拨弦和换和弦。", "当你想提升节奏稳定性并逐步提速时，可以先看这份吉他节拍器指南。"],
+      sound: ["dB声音计指南", "测量房间的大致dB音量，并比较安静与嘈杂环境。", "这份指南适合用来检查练习音量、房间噪声和常见分贝参考。"],
+      pitch: ["在线音高发生器指南", "生成20Hz到20000Hz的固定音，用于听力训练和音频检查。", "当你需要参考音、简单扫频或快速检查扬声器时，可以使用这份指南。"]
+    }
+  }[locale];
+
+  const englishShared = {
+    chromaticSteps: ["Open the tuner.", "Play one note at a time.", "Watch the detected note and cents.", "Adjust until the pitch settles in tune."],
+    microphoneSteps: ["Open the guitar tuner.", "Allow microphone access.", "Pick one string clearly.", "Wait for the reading to settle before adjusting."],
+    metronomeSteps: ["Choose a comfortable BPM.", "Start with simple downbeats.", "Practice riffs or chord changes in time.", "Raise the speed only after several clean rounds."],
+    soundSteps: ["Allow microphone access.", "Choose a stable room position.", "Watch current, minimum, maximum and average dB.", "Use the graph to compare the last 30 seconds."],
+    pitchSteps: ["Choose a frequency.", "Set a safe volume.", "Start the tone.", "Stop it when you finish the test or exercise."],
+    whyTitle: "When to use it",
+    tipTitle: "Practical tip"
+  };
+
+  const italianShared = {
+    chromaticSteps: ["Apri l'accordatore.", "Suona una nota alla volta.", "Osserva nota rilevata e cents.", "Correggi finche la lettura si stabilizza intonata."],
+    microphoneSteps: ["Apri l'accordatore per chitarra.", "Consenti il microfono.", "Pizzica una corda in modo pulito.", "Aspetta che la lettura si stabilizzi prima di correggere."],
+    metronomeSteps: ["Scegli un BPM comodo.", "Parti con accenti semplici.", "Studia riff o cambi di accordi a tempo.", "Aumenta la velocita solo dopo diversi giri puliti."],
+    soundSteps: ["Consenti il microfono.", "Scegli una posizione stabile nella stanza.", "Controlla dB attuale, minimo, massimo e medio.", "Usa il grafico per confrontare gli ultimi 30 secondi."],
+    pitchSteps: ["Scegli la frequenza.", "Imposta un volume sicuro.", "Avvia il tono.", "Ferma il segnale quando finisci il test o l'esercizio."],
+    whyTitle: "Quando usarlo",
+    tipTitle: "Consiglio pratico"
+  };
+
+  const shared = locale === "it" ? italianShared : englishShared;
+
+  return {
+    "chromatic-tuner-guide": {
+      title: copy.chromatic[0],
+      description: copy.chromatic[1],
+      intro: copy.chromatic[2],
+      keywords: [copy.chromatic[0], "chromatic tuner", "online tuner", "TuneUniversal"],
+      steps: shared.chromaticSteps,
+      sections: [
+        {
+          title: shared.whyTitle,
+          body:
+            locale === "it"
+              ? "Un accordatore cromatico e utile quando non vuoi limitarti alle sole corde standard e hai bisogno di riconoscere qualsiasi nota o accordatura."
+              : "A chromatic tuner helps when you do not want to rely only on standard strings and need to detect any note or alternate tuning."
+        },
+        {
+          title: shared.tipTitle,
+          body:
+            locale === "it"
+              ? "Suona una sola nota per volta e riduci il rumore ambientale: il rilevamento diventa molto piu stabile."
+              : "Play one note at a time and reduce background noise so pitch detection stays steadier."
+        }
+      ],
+      relatedGuides: ["standard-guitar-tuning", "how-to-tune-guitar", "how-to-tune-violin"],
+      relatedTools: relatedToolsForGuide(locale, "guitar-tuner", "tools/guitar-tuner"),
+      tool: "guitar-tuner"
+    },
+    "guitar-tuner-with-microphone": {
+      title: copy.microphone[0],
+      description: copy.microphone[1],
+      intro: copy.microphone[2],
+      keywords: [copy.microphone[0], "guitar tuner with microphone", "online guitar tuner", "TuneUniversal"],
+      steps: shared.microphoneSteps,
+      sections: [
+        {
+          title: shared.whyTitle,
+          body:
+            locale === "it"
+              ? "Il microfono del browser e il modo piu rapido per accordare senza cavi, app o pedali aggiuntivi."
+              : "A browser microphone is one of the fastest ways to tune without extra cables, apps or pedals."
+        },
+        {
+          title: shared.tipTitle,
+          body:
+            locale === "it"
+              ? "Tieni la chitarra vicino al telefono o al laptop, suona una corda alla volta e lascia decadere la nota prima di regolare."
+              : "Keep the guitar close to the phone or laptop, play one string at a time and let the note ring before adjusting."
+        }
+      ],
+      relatedGuides: ["how-to-tune-guitar", "standard-guitar-tuning", "drop-d-tuning"],
+      relatedTools: relatedToolsForGuide(locale, "guitar-tuner", "tools/guitar-tuner"),
+      tool: "guitar-tuner"
+    },
+    "metronome-for-guitar": {
+      title: copy.metronomeGuitar[0],
+      description: copy.metronomeGuitar[1],
+      intro: copy.metronomeGuitar[2],
+      keywords: [copy.metronomeGuitar[0], "guitar metronome", "online metronome", "TuneUniversal"],
+      steps: shared.metronomeSteps,
+      sections: [
+        {
+          title: shared.whyTitle,
+          body:
+            locale === "it"
+              ? "Un metronomo per chitarra serve per migliorare groove, plettrata, precisione dei riff e pulizia nei cambi di accordi."
+              : "A guitar metronome helps you improve groove, picking control, riff accuracy and cleaner chord changes."
+        },
+        {
+          title: shared.tipTitle,
+          body:
+            locale === "it"
+              ? "Lavora prima su quarti e ottavi, poi aggiungi suddivisioni e cicli progressivi per salire di velocita."
+              : "Start with quarter notes and eighths, then add subdivisions and progressive cycles to build speed."
+        }
+      ],
+      relatedGuides: ["how-to-use-metronome", "metronome-subdivisions", "how-to-find-bpm"],
+      relatedTools: relatedToolsForGuide(locale, "metronome"),
+      tool: "metronome"
+    },
+    "sound-meter-db-guide": {
+      title: copy.sound[0],
+      description: copy.sound[1],
+      intro: copy.sound[2],
+      keywords: [copy.sound[0], "sound meter db", "online db meter", "TuneUniversal"],
+      steps: shared.soundSteps,
+      sections: [
+        {
+          title: shared.whyTitle,
+          body:
+            locale === "it"
+              ? "Il fonometro e utile per controllare il volume della stanza, il livello di pratica e la differenza tra ambienti silenziosi e rumorosi."
+              : "A sound meter is useful for checking room loudness, practice volume and the difference between quiet and noisy environments."
+        },
+        {
+          title: shared.tipTitle,
+          body:
+            locale === "it"
+              ? "Lascia il telefono o il computer fermo per qualche secondo: media, minimo e massimo diventano piu affidabili."
+              : "Keep the device still for a few seconds so average, minimum and maximum readings become more useful."
+        }
+      ],
+      relatedGuides: ["how-to-find-bpm"],
+      relatedTools: relatedToolsForGuide(locale, "sound-level-meter"),
+      tool: "sound-level-meter"
+    },
+    "pitch-generator-guide": {
+      title: copy.pitch[0],
+      description: copy.pitch[1],
+      intro: copy.pitch[2],
+      keywords: [copy.pitch[0], "pitch generator", "tone generator", "TuneUniversal"],
+      steps: shared.pitchSteps,
+      sections: [
+        {
+          title: shared.whyTitle,
+          body:
+            locale === "it"
+              ? "Un pitch generator e utile per ear training, note di riferimento, controlli rapidi di casse, cuffie e frequenze specifiche."
+              : "A pitch generator is useful for ear training, reference notes and quick checks of speakers, headphones and specific frequencies."
+        },
+        {
+          title: shared.tipTitle,
+          body:
+            locale === "it"
+              ? "Parti sempre con volume basso, soprattutto sulle frequenze acute, poi alzalo solo quanto basta."
+              : "Always start at a low volume, especially at high frequencies, and raise it only as much as needed."
+        }
+      ],
+      relatedGuides: ["chromatic-tuner-guide", "how-to-find-bpm"],
+      relatedTools: relatedToolsForGuide(locale, "pitch-generator"),
+      tool: "pitch-generator"
     }
   };
 }
@@ -1393,6 +1660,8 @@ export function getGuideContent(locale: Locale, guide: GuideSlug): GuideContent 
 export function guidesForTool(tool: ToolSlug): GuideSlug[] {
   if (tool === "guitar-tuner") {
     return [
+      "chromatic-tuner-guide",
+      "guitar-tuner-with-microphone",
       "how-to-tune-guitar",
       "standard-guitar-tuning",
       "eb-standard-tuning",
@@ -1408,9 +1677,11 @@ export function guidesForTool(tool: ToolSlug): GuideSlug[] {
   }
   if (tool === "bass-tuner") return ["how-to-tune-bass", "standard-bass-tuning", "five-string-bass-tuning"];
   if (tool === "ukulele-tuner") return ["how-to-tune-ukulele", "ukulele-standard-tuning", "baritone-ukulele-tuning", "low-g-ukulele-tuning", "d-ukulele-tuning"];
-  if (tool === "metronome") return ["how-to-use-metronome", "metronome-subdivisions", "how-to-find-bpm"];
+  if (tool === "metronome") return ["metronome-for-guitar", "how-to-use-metronome", "metronome-subdivisions", "how-to-find-bpm"];
   if (tool === "tap-bpm") return ["how-to-find-bpm"];
   if (tool === "chord-transposer") return ["how-to-transpose-chords", "how-to-read-chords"];
+  if (tool === "sound-level-meter") return ["sound-meter-db-guide"];
+  if (tool === "pitch-generator") return ["pitch-generator-guide", "chromatic-tuner-guide"];
   return [];
 }
 
