@@ -10,17 +10,10 @@ import {
   guideSlugs,
   isGuideSlug
 } from "@/lib/content/guides";
-import {
-  getGuideFollowUpQuestions,
-  getGuideSearchIntentTargets,
-  searchIntentLabels,
-  type SearchIntentTarget
-} from "@/lib/content/internalLinking";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildGuideMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, faqItemsSchema, guideSchema } from "@/lib/seo/schema";
-import { tuningHubContent } from "@/lib/content/tuningHub";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
@@ -83,6 +76,90 @@ const guideUi: Record<
   zh: { commonMistakes: "常见错误", frequency: "频率", note: "音名", notesTable: "弦与音名表", openTool: "打开工具", relatedGuides: "相关指南", relatedTools: "相关工具", stringLabel: "弦 / 位置" }
 };
 
+const guideIntentLabels: Record<
+  Locale,
+  {
+    questionsDescription: string;
+    questionsTitle: string;
+    searchesDescription: string;
+    searchesTitle: string;
+  }
+> = {
+  ar: {
+    questionsDescription: "Ø£Ø³Ø¦Ù„Ø© Ø¨Ø³ÙŠØ·Ø© Ù„Ù…ØªØ§Ø¨Ø¹Ø© Ø§Ù„ØªØ¹Ù„Ù‘Ù… Ø¨Ø¹Ø¯ Ù‡Ø°Ù‡ Ø§Ù„ØµÙØ­Ø©.",
+    questionsTitle: "Ø£Ø³Ø¦Ù„Ø© Ù…Ø±ØªØ¨Ø·Ø©",
+    searchesDescription: "ØµÙØ­Ø§Øª Ø¯Ø§Ø®Ù„ÙŠØ© Ù…ÙÙŠØ¯Ø© ØªÙƒÙ…Ù„ Ù‡Ø°Ø§ Ø§Ù„Ø¯Ù„ÙŠÙ„.",
+    searchesTitle: "Ø±ÙˆØ§Ø¨Ø· Ù…ÙÙŠØ¯Ø©"
+  },
+  de: {
+    questionsDescription: "Kurze Anschlussfragen, die direkt nach diesem Guide sinnvoll sind.",
+    questionsTitle: "NÃ¤chste Fragen",
+    searchesDescription: "Interne Seiten, die dieses Thema gut ergÃ¤nzen.",
+    searchesTitle: "Verwandte Seiten"
+  },
+  en: {
+    questionsDescription: "Short follow-up questions that make the next step clearer.",
+    questionsTitle: "Related questions",
+    searchesDescription: "Internal pages that naturally extend this guide.",
+    searchesTitle: "Related searches"
+  },
+  es: {
+    questionsDescription: "Preguntas breves para continuar despues de esta guia.",
+    questionsTitle: "Preguntas relacionadas",
+    searchesDescription: "Paginas internas que amplian este tema de forma natural.",
+    searchesTitle: "Busquedas relacionadas"
+  },
+  fr: {
+    questionsDescription: "Petites questions utiles pour continuer apres ce guide.",
+    questionsTitle: "Questions associees",
+    searchesDescription: "Pages internes qui prolongent naturellement ce sujet.",
+    searchesTitle: "Recherches associees"
+  },
+  it: {
+    questionsDescription: "Domande rapide che aiutano a capire cosa fare subito dopo questa guida.",
+    questionsTitle: "Domande correlate",
+    searchesDescription: "Pagine interne che estendono in modo naturale il tema di questa guida.",
+    searchesTitle: "Ricerche correlate"
+  },
+  ja: {
+    questionsDescription: "ã“ã®ã‚¬ã‚¤ãƒ‰ã®æ¬¡ã«å½¹ç«‹ã¤çŸ­ã„è³ªå•ã§ã™ã€‚",
+    questionsTitle: "é–¢é€£ã™ã‚‹è³ªå•",
+    searchesDescription: "ã“ã®ãƒ†ãƒ¼ãƒžã‚’è‡ªç„¶ã«åºƒã’ã‚‹å†…éƒ¨ãƒšãƒ¼ã‚¸ã§ã™ã€‚",
+    searchesTitle: "é–¢é€£æ¤œç´¢"
+  },
+  ko: {
+    questionsDescription: "ì´ ê°€ì´ë“œ ë‹¤ìŒì— ë°”ë¡œ ë„ì›€ì´ ë  ì§ˆë¬¸ì…ë‹ˆë‹¤.",
+    questionsTitle: "ê´€ë ¨ ì§ˆë¬¸",
+    searchesDescription: "ì´ ì£¼ì œë¥¼ ìžì—°ìŠ¤ëŸ½ê²Œ í™•ìž¥í•˜ëŠ” ë‚´ë¶€ íŽ˜ì´ì§€ë“¤ìž…ë‹ˆë‹¤.",
+    searchesTitle: "ê´€ë ¨ ê²€ìƒ‰"
+  },
+  pt: {
+    questionsDescription: "Perguntas curtas para continuar logo apos este guia.",
+    questionsTitle: "Perguntas relacionadas",
+    searchesDescription: "Paginas internas que ampliam este assunto de forma natural.",
+    searchesTitle: "Pesquisas relacionadas"
+  },
+  ru: {
+    questionsDescription: "ÐšÐ¾Ñ€Ð¾Ñ‚ÐºÐ¸Ðµ Ð²Ð¾Ð¿Ñ€Ð¾ÑÑ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð¿Ð¾Ð¼Ð¾Ð³Ð°ÑŽÑ‚ Ð¿Ð¾Ð½ÑÑ‚ÑŒ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ ÑˆÐ°Ð³ Ð¿Ð¾ÑÐ»Ðµ ÑÑ‚Ð¾Ð³Ð¾ Ð³Ð°Ð¹Ð´Ð°.",
+    questionsTitle: "Ð¡Ð²ÑÐ·Ð°Ð½Ð½Ñ‹Ðµ Ð²Ð¾Ð¿Ñ€Ð¾ÑÑ‹",
+    searchesDescription: "Ð’Ð½ÑƒÑ‚Ñ€ÐµÐ½Ð½Ð¸Ðµ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ ÐµÑÑ‚ÐµÑÑ‚Ð²ÐµÐ½Ð½Ð¾ Ð´Ð¾Ð¿Ð¾Ð»Ð½ÑÑŽÑ‚ ÑÑ‚Ñƒ Ñ‚ÐµÐ¼Ñƒ.",
+    searchesTitle: "Ð¡Ð²ÑÐ·Ð°Ð½Ð½Ñ‹Ðµ Ð¿Ð¾Ð¸ÑÐºÐ¸"
+  },
+  zh: {
+    questionsDescription: "å¸®ä½ ç»§ç»­å­¦ä¹ çš„ç®€çŸ­ä¸‹ä¸€æ­¥é—®é¢˜ã€‚",
+    questionsTitle: "ç›¸å…³é—®é¢˜",
+    searchesDescription: "è¿™äº›å†…éƒ¨é¡µé¢å¯ä»¥è‡ªç„¶å»¶ä¼¸è¿™ç¯‡æŒ‡å—çš„ä¸»é¢˜ã€‚",
+    searchesTitle: "ç›¸å…³æœç´¢"
+  }
+};
+
+type GuideFollowUp = {
+  answer: string;
+  href: string;
+  label: string;
+  question: string;
+};
+
 export function generateStaticParams() {
   return locales.flatMap((locale) => guideSlugs.map((guide) => ({ locale, guide })));
 }
@@ -103,58 +180,45 @@ export default async function GuidePage({ params }: PageProps) {
   const content = getGuideContent(locale, guideSlug);
   const ui = guideUi[locale];
   const indexContent = guideIndexContent[locale];
-  const intentLabels = searchIntentLabels[locale];
+  const intentLabels = guideIntentLabels[locale];
   const tool = dictionary.tools[content.tool];
   const toolHref = `/${locale}/${content.targetPath ?? `tools/${content.tool}`}`;
   const toolTitle = content.targetTitle ?? tool.title;
   const toolDescription = content.targetDescription ?? tool.description;
   const continueLabels = guideContinueLabels[locale];
-  const searchTargets = getGuideSearchIntentTargets(guideSlug);
-  const followUpQuestions = getGuideFollowUpQuestions(locale, guideSlug);
   const relatedTuningGuides = (content.relatedGuides ?? []).filter((guide) =>
     alternativeTuningGuideSlugs.includes(guide as (typeof alternativeTuningGuideSlugs)[number])
   );
   const relatedPracticeGuides = (content.relatedGuides ?? []).filter((guide) => !relatedTuningGuides.includes(guide));
-
-  const resolveTarget = (target: SearchIntentTarget) => {
-    if (target.type === "guide") {
-      const guideContent = getGuideContent(locale, target.slug);
-      return {
-        description: guideContent.description,
-        href: `/${locale}/guides/${target.slug}`,
-        title: guideContent.title
-      };
+  const relatedSearchGuides = [...relatedPracticeGuides, ...relatedTuningGuides]
+    .filter((guide, index, source) => source.indexOf(guide) === index)
+    .slice(0, 4);
+  const followUpQuestions: GuideFollowUp[] = [
+    {
+      answer:
+        locale === "it"
+          ? "Dopo questa guida, il passo piu utile e aprire il tool pratico per applicare subito le note o l'accordatura."
+          : "After reading this guide, the most useful next step is to open the practical tool and apply the notes or tuning right away.",
+      href: toolHref,
+      label: toolTitle,
+      question:
+        locale === "it"
+          ? "Qual e il passo pratico successivo?"
+          : "What is the next practical step?"
+    },
+    {
+      answer:
+        locale === "it"
+          ? "Vale la pena confrontare anche altre guide o accordature vicine, cosi capisci piu rapidamente cosa usare davvero."
+          : "It is worth comparing nearby guides or tunings so you can decide faster what to use in real practice.",
+      href: `/${locale}/guides`,
+      label: continueLabels.allGuides,
+      question:
+        locale === "it"
+          ? "Conviene confrontare anche altre varianti?"
+          : "Should you compare nearby variants too?"
     }
-
-    if (target.type === "tool") {
-      const toolContent = dictionary.tools[target.slug];
-      return {
-        description: toolContent.description,
-        href: `/${locale}/tools/${target.slug}`,
-        title: toolContent.title
-      };
-    }
-
-    return {
-      description:
-        target.slug === "guides"
-          ? indexContent.description
-          : target.slug === "tunings"
-            ? tuningHubContent[locale].description
-            : target.slug === "songs"
-              ? dictionary.nav.home
-              : dictionary.hero.description,
-      href: `/${locale}/${target.slug}`,
-      title:
-        target.slug === "guides"
-          ? indexContent.title
-          : target.slug === "tunings"
-            ? tuningHubContent[locale].title
-            : target.slug === "songs"
-              ? dictionary.nav.home
-              : dictionary.nav.tools
-    };
-  };
+  ];
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10 sm:py-14">
@@ -301,17 +365,17 @@ export default async function GuidePage({ params }: PageProps) {
         </section>
       )}
 
-      {searchTargets.length ? (
+      {relatedSearchGuides.length ? (
         <section className="mt-8 rounded-lg border border-line bg-white p-5 shadow-soft">
           <h2 className="text-2xl font-bold">{intentLabels.searchesTitle}</h2>
           <p className="mt-3 leading-7 text-ink/72">{intentLabels.searchesDescription}</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {searchTargets.map((target) => {
-              const resolved = resolveTarget(target);
+            {relatedSearchGuides.map((guide) => {
+              const resolved = getGuideContent(locale, guide);
               return (
                 <Link
-                  key={`${target.type}-${target.slug}`}
-                  href={resolved.href}
+                  key={guide}
+                  href={`/${locale}/guides/${guide}`}
                   className="rounded-lg border border-line bg-mint/5 p-4 transition hover:border-mint hover:bg-white"
                 >
                   <p className="font-semibold">{resolved.title}</p>
@@ -328,20 +392,15 @@ export default async function GuidePage({ params }: PageProps) {
           <h2 className="text-2xl font-bold">{intentLabels.questionsTitle}</h2>
           <p className="mt-3 leading-7 text-ink/72">{intentLabels.questionsDescription}</p>
           <div className="mt-4 grid gap-3">
-            {followUpQuestions.map((item) => {
-              const resolved = item.target ? resolveTarget(item.target) : null;
-              return (
-                <article key={item.question} className="rounded-lg border border-line bg-mint/4 p-4">
-                  <h3 className="font-semibold">{item.question}</h3>
-                  <p className="mt-2 leading-7 text-ink/72">{item.answer}</p>
-                  {resolved ? (
-                    <Link className="mt-3 inline-flex text-sm font-semibold text-mint hover:underline" href={resolved.href}>
-                      {resolved.title}
-                    </Link>
-                  ) : null}
-                </article>
-              );
-            })}
+            {followUpQuestions.map((item) => (
+              <article key={item.question} className="rounded-lg border border-line bg-mint/4 p-4">
+                <h3 className="font-semibold">{item.question}</h3>
+                <p className="mt-2 leading-7 text-ink/72">{item.answer}</p>
+                <Link className="mt-3 inline-flex text-sm font-semibold text-mint hover:underline" href={item.href}>
+                  {item.label}
+                </Link>
+              </article>
+            ))}
           </div>
         </section>
       ) : null}

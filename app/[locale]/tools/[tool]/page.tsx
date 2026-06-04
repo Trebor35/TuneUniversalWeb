@@ -15,25 +15,16 @@ import { UkuleleTuner } from "@/components/tools/UkuleleTuner";
 import {
   alternativeTuningGuideSlugs,
   getGuideContent,
-  guideIndexContent,
   guidesForInstrument,
   guidesForTool
 } from "@/lib/content/guides";
-import {
-  clusterSectionLabels,
-  getToolClusterGuides,
-  getToolFollowUpQuestions,
-  getToolSearchIntentTargets,
-  searchIntentLabels,
-  type SearchIntentTarget
-} from "@/lib/content/internalLinking";
+import { clusterSectionLabels, getToolClusterGuides } from "@/lib/content/internalLinking";
 import {
   getInstrumentTunerContent,
   instrumentFromTunerSlug,
   instrumentTunerSlugs
 } from "@/lib/content/instrumentTuners";
 import { getToolSeoEnhancement } from "@/lib/content/seoEnhancements";
-import { tuningHubContent } from "@/lib/content/tuningHub";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildInstrumentTunerMetadata, buildToolMetadata } from "@/lib/seo/metadata";
@@ -73,6 +64,90 @@ const guideHeadings: Record<Locale, string> = {
   pt: "Guias relacionados",
   ru: "Связанные руководства",
   zh: "相关指南"
+};
+
+const toolIntentLabels: Record<
+  Locale,
+  {
+    questionsDescription: string;
+    questionsTitle: string;
+    searchesDescription: string;
+    searchesTitle: string;
+  }
+> = {
+  ar: {
+    questionsDescription: "Ø£Ø³Ø¦Ù„Ø© Ø³Ø±ÙŠØ¹Ø© Ù„Ù„Ø§Ù†ØªÙ‚Ø§Ù„ Ø¥Ù„Ù‰ Ø§Ù„Ø®Ø·ÙˆØ© Ø§Ù„ØªØ§Ù„ÙŠØ©.",
+    questionsTitle: "Ø£Ø³Ø¦Ù„Ø© Ù…Ø±ØªØ¨Ø·Ø©",
+    searchesDescription: "Ø±ÙˆØ§Ø¨Ø· Ø¯Ø§Ø®Ù„ÙŠØ© Ù…ÙÙŠØ¯Ø© Ù„Ù…Ù† ÙŠØ³ØªØ®Ø¯Ù… Ù‡Ø°Ù‡ Ø§Ù„Ø£Ø¯Ø§Ø©.",
+    searchesTitle: "Ø±ÙˆØ§Ø¨Ø· Ù…ÙÙŠØ¯Ø©"
+  },
+  de: {
+    questionsDescription: "Kurze Anschlussfragen, die beim Weiterlernen helfen.",
+    questionsTitle: "NÃ¤chste Fragen",
+    searchesDescription: "Interne Seiten, die inhaltlich gut zu diesem Tool passen.",
+    searchesTitle: "NÃ¼tzliche nÃ¤chste Seiten"
+  },
+  en: {
+    questionsDescription: "Short follow-up questions to keep practice moving.",
+    questionsTitle: "Related questions",
+    searchesDescription: "Internal pages that naturally match the next step after this tool.",
+    searchesTitle: "Related searches"
+  },
+  es: {
+    questionsDescription: "Preguntas breves para seguir practicando sin perder el hilo.",
+    questionsTitle: "Preguntas relacionadas",
+    searchesDescription: "Paginas internas que encajan bien como siguiente paso despues de esta herramienta.",
+    searchesTitle: "Busquedas relacionadas"
+  },
+  fr: {
+    questionsDescription: "Petites questions utiles pour continuer juste apres cet outil.",
+    questionsTitle: "Questions associees",
+    searchesDescription: "Pages internes qui correspondent bien a l'etape suivante.",
+    searchesTitle: "Recherches associees"
+  },
+  it: {
+    questionsDescription: "Domande rapide per capire qual e il passo successivo piu utile.",
+    questionsTitle: "Domande correlate",
+    searchesDescription: "Pagine interne che si collegano bene a questo tool e alla pratica successiva.",
+    searchesTitle: "Ricerche correlate"
+  },
+  ja: {
+    questionsDescription: "ã“ã®ãƒ„ãƒ¼ãƒ«ã®æ¬¡ã«å½¹ç«‹ã¤çŸ­ã„è³ªå•ã§ã™ã€‚",
+    questionsTitle: "é–¢é€£ã™ã‚‹è³ªå•",
+    searchesDescription: "æ¬¡ã«è¦‹ã‚‹ã®ã«åˆã†å†…éƒ¨ãƒšãƒ¼ã‚¸ã§ã™ã€‚",
+    searchesTitle: "é–¢é€£æ¤œç´¢"
+  },
+  ko: {
+    questionsDescription: "ì´ ë„êµ¬ ë‹¤ìŒì— ë°”ë¡œ ë„ì›€ì´ ë  ì§ˆë¬¸ì…ë‹ˆë‹¤.",
+    questionsTitle: "ê´€ë ¨ ì§ˆë¬¸",
+    searchesDescription: "ë‹¤ìŒ ë‹¨ê³„ì— ë§žëŠ” ë‚´ë¶€ íŽ˜ì´ì§€ë¥¼ ëª¨ì•˜ìŠµë‹ˆë‹¤.",
+    searchesTitle: "ê´€ë ¨ ê²€ìƒ‰"
+  },
+  pt: {
+    questionsDescription: "Perguntas curtas para continuar a pratica com mais clareza.",
+    questionsTitle: "Perguntas relacionadas",
+    searchesDescription: "Paginas internas que fazem sentido como proximo passo depois desta ferramenta.",
+    searchesTitle: "Pesquisas relacionadas"
+  },
+  ru: {
+    questionsDescription: "ÐšÐ¾Ñ€Ð¾Ñ‚ÐºÐ¸Ðµ Ð²Ð¾Ð¿Ñ€Ð¾ÑÑ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð¿Ð¾Ð¼Ð¾Ð³Ð°ÑŽÑ‚ Ð¿Ð¾Ð½ÑÑ‚ÑŒ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ ÑˆÐ°Ð³.",
+    questionsTitle: "Ð¡Ð²ÑÐ·Ð°Ð½Ð½Ñ‹Ðµ Ð²Ð¾Ð¿Ñ€Ð¾ÑÑ‹",
+    searchesDescription: "Ð’Ð½ÑƒÑ‚Ñ€ÐµÐ½Ð½Ð¸Ðµ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ñ…Ð¾Ñ€Ð¾ÑˆÐ¾ Ð´Ð¾Ð¿Ð¾Ð»Ð½ÑÑŽÑ‚ ÑÑ‚Ð¾Ñ‚ Ð¸Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚.",
+    searchesTitle: "Ð¡Ð²ÑÐ·Ð°Ð½Ð½Ñ‹Ðµ Ð¿Ð¾Ð¸ÑÐºÐ¸"
+  },
+  zh: {
+    questionsDescription: "å¸®ä½ ç»§ç»­ç»ƒä¹ çš„ç®€çŸ­ä¸‹ä¸€æ­¥é—®é¢˜ã€‚",
+    questionsTitle: "ç›¸å…³é—®é¢˜",
+    searchesDescription: "è¿™äº›å†…éƒ¨é¡µé¢å¾ˆé€‚åˆä½œä¸ºä½¿ç”¨è¿™ä¸ªå·¥å…·åŽçš„ä¸‹ä¸€æ­¥ã€‚",
+    searchesTitle: "ç›¸å…³æœç´¢"
+  }
+};
+
+type ToolFollowUp = {
+  answer: string;
+  href: string;
+  label: string;
+  question: string;
 };
 
 export function generateStaticParams() {
@@ -145,9 +220,7 @@ export default async function ToolPage({ params }: PageProps) {
   const content = coreTool ? dictionary.tools[coreTool] : instrumentContent!;
   const pageLabels = toolPageLabels[locale];
   const clusterLabels = clusterSectionLabels[locale];
-  const intentLabels = searchIntentLabels[locale];
-  const guideHub = guideIndexContent[locale];
-  const tuningHub = tuningHubContent[locale];
+  const intentLabels = toolIntentLabels[locale];
   const seoEnhancement = coreTool ? getToolSeoEnhancement(locale, coreTool) : null;
   const heroTitle = seoEnhancement?.heroTitle ?? content.title;
   const heroDescription = seoEnhancement?.heroDescription ?? content.description;
@@ -160,54 +233,67 @@ export default async function ToolPage({ params }: PageProps) {
   const clusterGuides = (coreTool ? getToolClusterGuides(coreTool) : getToolClusterGuides(rawTool)).filter(
     (guide, index, source) => source.indexOf(guide) === index
   );
-  const searchTargets = (coreTool ? getToolSearchIntentTargets(coreTool) : getToolSearchIntentTargets(rawTool)).filter(
-    (target, index, source) => source.findIndex((item) => item.type === target.type && item.slug === target.slug) === index
-  );
-  const followUpQuestions = coreTool ? getToolFollowUpQuestions(locale, coreTool) : getToolFollowUpQuestions(locale, rawTool);
   const relatedTuningGuides = relatedGuides.filter((guide) =>
     alternativeTuningGuideSlugs.includes(guide as (typeof alternativeTuningGuideSlugs)[number])
   );
   const relatedPracticeGuides = relatedGuides.filter((guide) => !relatedTuningGuides.includes(guide));
-
-  const resolveTarget = (target: SearchIntentTarget) => {
-    if (target.type === "guide") {
-      const guideContent = getGuideContent(locale, target.slug);
-      return {
-        description: guideContent.description,
-        href: `/${locale}/guides/${target.slug}`,
-        title: guideContent.title
-      };
-    }
-
-    if (target.type === "tool") {
-      const toolContent = dictionary.tools[target.slug];
-      return {
-        description: toolContent.description,
-        href: `/${locale}/tools/${target.slug}`,
-        title: toolContent.title
-      };
-    }
-
-    return {
-      description:
-        target.slug === "guides"
-          ? guideHub.description
-          : target.slug === "tunings"
-            ? tuningHub.description
-            : target.slug === "songs"
-              ? dictionary.hero.description
-              : dictionary.hero.description,
-      href: `/${locale}/${target.slug}`,
-      title:
-        target.slug === "guides"
-          ? guideHub.title
-          : target.slug === "tunings"
-            ? tuningHub.title
-            : target.slug === "songs"
-              ? dictionary.nav.home
-              : dictionary.nav.tools
-    };
-  };
+  const relatedSearchGuides = [...relatedPracticeGuides, ...relatedTuningGuides]
+    .filter((guide, index, source) => source.indexOf(guide) === index)
+    .slice(0, 4);
+  const followUpQuestions: ToolFollowUp[] =
+    coreTool === "metronome"
+      ? [
+          {
+            answer:
+              locale === "it"
+                ? "Per iniziare in modo stabile, parti dagli ottavi regolari e poi passa a terzine o sedicesimi."
+                : "For a stable start, begin with straight eighth notes and move to triplets or sixteenths later.",
+            href: `/${locale}/guides/metronome-subdivisions`,
+            label: getGuideContent(locale, "metronome-subdivisions").title,
+            question:
+              locale === "it"
+                ? "Da quale suddivisione conviene partire?"
+                : "Which subdivision should you practice first?"
+          },
+          {
+            answer:
+              locale === "it"
+                ? "Puoi usare Tap BPM per stimare il tempo del brano e poi studiarlo subito col metronomo."
+                : "You can estimate the song tempo with Tap BPM and then practice it right away with the metronome.",
+            href: `/${locale}/tools/tap-bpm`,
+            label: dictionary.tools["tap-bpm"].title,
+            question:
+              locale === "it"
+                ? "Conviene trovare prima il BPM del brano?"
+                : "Should you find the BPM of the song first?"
+          }
+        ]
+      : [
+          {
+            answer:
+              locale === "it"
+                ? "Dopo questo tool, il passo piu utile di solito e aprire una guida pratica collegata o una pagina di accordature."
+                : "After this tool, the most useful next step is usually a related practical guide or a tuning page.",
+            href: `/${locale}/guides`,
+            label: pageLabels.allGuides,
+            question:
+              locale === "it"
+                ? "Qual e il passo successivo piu utile?"
+                : "What is the most useful next step?"
+          },
+          {
+            answer:
+              locale === "it"
+                ? "Se stai studiando un brano, affiancare metronomo o Tap BPM rende l'allenamento molto piu concreto."
+                : "If you are practicing a song, pairing this with the metronome or Tap BPM usually makes practice more effective.",
+            href: `/${locale}/tools/metronome`,
+            label: dictionary.tools.metronome.title,
+            question:
+              locale === "it"
+                ? "Quale altro tool conviene aprire insieme?"
+                : "Which other tool should you open alongside this one?"
+          }
+        ];
 
   return (
     <main className="mx-auto w-full max-w-7xl overflow-hidden px-2 py-8 sm:px-4 sm:py-10">
@@ -335,18 +421,18 @@ export default async function ToolPage({ params }: PageProps) {
               </div>
             </section>
           )}
-          {searchTargets.length > 0 && (
+          {relatedSearchGuides.length > 0 && (
             <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
               <h2 className="text-2xl font-bold">{intentLabels.searchesTitle}</h2>
               <p className="mt-3 leading-7 text-ink/72">{intentLabels.searchesDescription}</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {searchTargets.map((target) => {
-                  const resolved = resolveTarget(target);
+                {relatedSearchGuides.map((guide) => {
+                  const resolved = getGuideContent(locale, guide);
                   return (
                     <Link
-                      key={`${target.type}-${target.slug}`}
+                      key={guide}
                       className="rounded-lg border border-line bg-mint/5 p-4 transition hover:border-mint hover:bg-white"
-                      href={resolved.href}
+                      href={`/${locale}/guides/${guide}`}
                     >
                       <span className="block font-semibold">{resolved.title}</span>
                       <span className="mt-1 block text-sm leading-6 text-ink/68">{resolved.description}</span>
@@ -361,20 +447,15 @@ export default async function ToolPage({ params }: PageProps) {
               <h2 className="text-2xl font-bold">{intentLabels.questionsTitle}</h2>
               <p className="mt-3 leading-7 text-ink/72">{intentLabels.questionsDescription}</p>
               <div className="mt-4 grid gap-3">
-                {followUpQuestions.map((item) => {
-                  const resolved = item.target ? resolveTarget(item.target) : null;
-                  return (
-                    <article key={item.question} className="rounded-lg border border-line bg-mint/4 p-4">
-                      <h3 className="font-semibold">{item.question}</h3>
-                      <p className="mt-2 leading-7 text-ink/72">{item.answer}</p>
-                      {resolved ? (
-                        <Link className="mt-3 inline-flex text-sm font-semibold text-mint hover:underline" href={resolved.href}>
-                          {resolved.title}
-                        </Link>
-                      ) : null}
-                    </article>
-                  );
-                })}
+                {followUpQuestions.map((item) => (
+                  <article key={item.question} className="rounded-lg border border-line bg-mint/4 p-4">
+                    <h3 className="font-semibold">{item.question}</h3>
+                    <p className="mt-2 leading-7 text-ink/72">{item.answer}</p>
+                    <Link className="mt-3 inline-flex text-sm font-semibold text-mint hover:underline" href={item.href}>
+                      {item.label}
+                    </Link>
+                  </article>
+                ))}
               </div>
             </section>
           )}
