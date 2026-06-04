@@ -8,7 +8,8 @@ import {
   getGuideContent,
   guideIndexContent,
   guideSlugs,
-  isGuideSlug
+  isGuideSlug,
+  type GuideSlug
 } from "@/lib/content/guides";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
@@ -186,11 +187,13 @@ export default async function GuidePage({ params }: PageProps) {
   const toolTitle = content.targetTitle ?? tool.title;
   const toolDescription = content.targetDescription ?? tool.description;
   const continueLabels = guideContinueLabels[locale];
-  const relatedTuningGuides = (content.relatedGuides ?? []).filter((guide) =>
+  const relatedTuningGuides: GuideSlug[] = (content.relatedGuides ?? []).filter((guide): guide is GuideSlug =>
     alternativeTuningGuideSlugs.includes(guide as (typeof alternativeTuningGuideSlugs)[number])
   );
-  const relatedPracticeGuides = (content.relatedGuides ?? []).filter((guide) => !relatedTuningGuides.includes(guide));
-  const relatedSearchGuides = [...relatedPracticeGuides, ...relatedTuningGuides]
+  const relatedPracticeGuides: GuideSlug[] = (content.relatedGuides ?? []).filter(
+    (guide): guide is GuideSlug => !relatedTuningGuides.includes(guide as GuideSlug)
+  );
+  const relatedSearchGuides: GuideSlug[] = [...relatedPracticeGuides, ...relatedTuningGuides]
     .filter((guide, index, source) => source.indexOf(guide) === index)
     .slice(0, 4);
   const followUpQuestions: GuideFollowUp[] = [

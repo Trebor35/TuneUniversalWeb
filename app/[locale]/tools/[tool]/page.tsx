@@ -15,6 +15,7 @@ import { UkuleleTuner } from "@/components/tools/UkuleleTuner";
 import {
   alternativeTuningGuideSlugs,
   getGuideContent,
+  type GuideSlug,
   guidesForInstrument,
   guidesForTool
 } from "@/lib/content/guides";
@@ -233,11 +234,13 @@ export default async function ToolPage({ params }: PageProps) {
   const clusterGuides = (coreTool ? getToolClusterGuides(coreTool) : getToolClusterGuides(rawTool)).filter(
     (guide, index, source) => source.indexOf(guide) === index
   );
-  const relatedTuningGuides = relatedGuides.filter((guide) =>
+  const relatedTuningGuides: GuideSlug[] = relatedGuides.filter((guide): guide is GuideSlug =>
     alternativeTuningGuideSlugs.includes(guide as (typeof alternativeTuningGuideSlugs)[number])
   );
-  const relatedPracticeGuides = relatedGuides.filter((guide) => !relatedTuningGuides.includes(guide));
-  const relatedSearchGuides = [...relatedPracticeGuides, ...relatedTuningGuides]
+  const relatedPracticeGuides: GuideSlug[] = relatedGuides.filter(
+    (guide): guide is GuideSlug => !relatedTuningGuides.includes(guide as GuideSlug)
+  );
+  const relatedSearchGuides: GuideSlug[] = [...relatedPracticeGuides, ...relatedTuningGuides]
     .filter((guide, index, source) => source.indexOf(guide) === index)
     .slice(0, 4);
   const followUpQuestions: ToolFollowUp[] =
