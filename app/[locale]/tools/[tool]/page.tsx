@@ -18,6 +18,7 @@ import {
   guidesForInstrument,
   guidesForTool
 } from "@/lib/content/guides";
+import { clusterSectionLabels, getToolClusterGuides } from "@/lib/content/internalLinking";
 import {
   getInstrumentTunerContent,
   instrumentFromTunerSlug,
@@ -134,6 +135,7 @@ export default async function ToolPage({ params }: PageProps) {
   const instrumentContent = instrument ? getInstrumentTunerContent(locale, instrument) : null;
   const content = coreTool ? dictionary.tools[coreTool] : instrumentContent!;
   const pageLabels = toolPageLabels[locale];
+  const clusterLabels = clusterSectionLabels[locale];
   const seoEnhancement = coreTool ? getToolSeoEnhancement(locale, coreTool) : null;
   const heroTitle = seoEnhancement?.heroTitle ?? content.title;
   const heroDescription = seoEnhancement?.heroDescription ?? content.description;
@@ -143,6 +145,9 @@ export default async function ToolPage({ params }: PageProps) {
       ? (["guitar-tuner", "metronome", "tap-bpm", "sound-level-meter", "pitch-generator", "chord-transposer"].filter((slug) => slug !== coreTool) as ToolSlug[])
       : ["metronome", "tap-bpm", "chord-transposer", "sound-level-meter", "pitch-generator"];
   const relatedGuides = coreTool ? guidesForTool(coreTool) : instrument ? guidesForInstrument(instrument) : [];
+  const clusterGuides = (coreTool ? getToolClusterGuides(coreTool) : getToolClusterGuides(rawTool)).filter(
+    (guide, index, source) => source.indexOf(guide) === index
+  );
   const relatedTuningGuides = relatedGuides.filter((guide) =>
     alternativeTuningGuideSlugs.includes(guide as (typeof alternativeTuningGuideSlugs)[number])
   );
@@ -243,6 +248,27 @@ export default async function ToolPage({ params }: PageProps) {
                     <Link
                       key={guide}
                       className="rounded-lg border border-line bg-white p-4 transition hover:border-mint hover:shadow-soft"
+                      href={`/${locale}/guides/${guide}`}
+                    >
+                      <span className="block font-semibold">{guideContent.title}</span>
+                      <span className="mt-1 block text-sm leading-6 text-ink/68">{guideContent.description}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+          {clusterGuides.length > 0 && (
+            <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
+              <h2 className="text-2xl font-bold">{clusterLabels.toolGuidesTitle}</h2>
+              <p className="mt-3 leading-7 text-ink/72">{clusterLabels.toolGuidesDescription}</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {clusterGuides.map((guide) => {
+                  const guideContent = getGuideContent(locale, guide);
+                  return (
+                    <Link
+                      key={guide}
+                      className="rounded-lg border border-line bg-mint/5 p-4 transition hover:border-mint hover:bg-white"
                       href={`/${locale}/guides/${guide}`}
                     >
                       <span className="block font-semibold">{guideContent.title}</span>

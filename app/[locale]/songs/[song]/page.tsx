@@ -5,6 +5,7 @@ import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ChordHowTo } from "@/components/songs/ChordHowTo";
 import { getGuideContent } from "@/lib/content/guides";
+import { clusterSectionLabels, getSongClusterGuides, getSongClusterTools } from "@/lib/content/internalLinking";
 import {
   getPublicDomainSong,
   isPublicDomainSongSlug,
@@ -63,7 +64,9 @@ export default async function SongPage({ params }: PageProps) {
   const dictionary = await getDictionary(locale);
   const song = getPublicDomainSong(rawSong);
   const labels = songPageLabels[locale];
-  const guideSlugs = ["how-to-read-chords", "metronome-subdivisions", "common-guitar-tunings"] as const;
+  const clusterLabels = clusterSectionLabels[locale];
+  const guideSlugs = getSongClusterGuides(song.slug);
+  const practiceTools = getSongClusterTools(song.slug);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
@@ -161,7 +164,8 @@ export default async function SongPage({ params }: PageProps) {
           </section>
 
           <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
-            <h2 className="text-2xl font-bold">{labels.relatedGuides}</h2>
+            <h2 className="text-2xl font-bold">{clusterLabels.songGuidesTitle}</h2>
+            <p className="mt-3 leading-7 text-ink/72">{clusterLabels.songGuidesDescription}</p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {guideSlugs.map((guide) => {
                 const guideContent = getGuideContent(locale, guide);
@@ -185,17 +189,14 @@ export default async function SongPage({ params }: PageProps) {
         <aside className="min-w-0 lg:sticky lg:top-24 lg:self-start">
           <AdSlot variant="rectangle" className="mb-6 hidden lg:flex" />
           <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
-            <h2 className="text-xl font-bold">{ui.tools}</h2>
+            <h2 className="text-xl font-bold">{clusterLabels.songToolsTitle}</h2>
+            <p className="mt-3 text-sm leading-6 text-ink/72">{clusterLabels.songToolsDescription}</p>
             <div className="mt-4 grid gap-2">
-              <Link className="rounded-md bg-paper px-3 py-2 font-semibold hover:text-mint" href={`/${locale}/tools/guitar-tuner`}>
-                {dictionary.tools["guitar-tuner"].title}
-              </Link>
-              <Link className="rounded-md bg-paper px-3 py-2 font-semibold hover:text-mint" href={`/${locale}/tools/metronome`}>
-                {dictionary.tools.metronome.title}
-              </Link>
-              <Link className="rounded-md bg-paper px-3 py-2 font-semibold hover:text-mint" href={`/${locale}/tools/chord-transposer`}>
-                {dictionary.tools["chord-transposer"].title}
-              </Link>
+              {practiceTools.map((tool) => (
+                <Link key={tool} className="rounded-md bg-paper px-3 py-2 font-semibold hover:text-mint" href={`/${locale}/tools/${tool}`}>
+                  {dictionary.tools[tool].title}
+                </Link>
+              ))}
             </div>
           </section>
         </aside>

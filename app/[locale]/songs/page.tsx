@@ -5,6 +5,7 @@ import { Music2 } from "lucide-react";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getGuideContent } from "@/lib/content/guides";
+import { clusterSectionLabels, getSongClusterGuides, getSongClusterTools } from "@/lib/content/internalLinking";
 import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
 import { hubEnhancements } from "@/lib/content/seoEnhancements";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -86,10 +87,14 @@ export default async function SongsIndexPage({ params }: PageProps) {
   const locale = rawLocale as Locale;
   const ui = songsUi[locale];
   const labels = songsBridgeLabels[locale];
+  const clusterLabels = clusterSectionLabels[locale];
   const dictionary = await getDictionary(locale);
   const childrenSongs = publicDomainSongSlugs.filter((slug) => getPublicDomainSong(slug).audience === "children");
   const generalSongs = publicDomainSongSlugs.filter((slug) => getPublicDomainSong(slug).audience !== "children");
-  const guideSlugs = ["how-to-read-chords", "metronome-subdivisions", "common-guitar-tunings"] as const;
+  const guideSlugs = Array.from(
+    new Set(publicDomainSongSlugs.flatMap((slug) => getSongClusterGuides(slug)))
+  );
+  const practiceTools = Array.from(new Set(publicDomainSongSlugs.flatMap((slug) => getSongClusterTools(slug))));
   const renderSongCard = (slug: (typeof publicDomainSongSlugs)[number]) => {
     const song = getPublicDomainSong(slug);
     return (
@@ -170,9 +175,10 @@ export default async function SongsIndexPage({ params }: PageProps) {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-2xl font-bold">{labels.practiceTools}</h2>
+        <h2 className="text-2xl font-bold">{clusterLabels.songToolsTitle}</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-ink/72">{clusterLabels.songToolsDescription}</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {(["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"] as const).map((tool) => (
+          {practiceTools.map((tool) => (
             <Link
               key={tool}
               href={`/${locale}/tools/${tool}`}
@@ -186,7 +192,8 @@ export default async function SongsIndexPage({ params }: PageProps) {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-2xl font-bold">{labels.learningGuides}</h2>
+        <h2 className="text-2xl font-bold">{clusterLabels.songGuidesTitle}</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-ink/72">{clusterLabels.songGuidesDescription}</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {guideSlugs.map((guide) => {
             const guideContent = getGuideContent(locale, guide);
