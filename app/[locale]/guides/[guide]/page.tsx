@@ -3,7 +3,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getGuideContent, guideIndexContent, guideSlugs, isGuideSlug } from "@/lib/content/guides";
+import {
+  alternativeTuningGuideSlugs,
+  getGuideContent,
+  guideIndexContent,
+  guideSlugs,
+  isGuideSlug
+} from "@/lib/content/guides";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildGuideMetadata } from "@/lib/seo/metadata";
@@ -12,6 +18,37 @@ import { breadcrumbSchema, faqItemsSchema, guideSchema } from "@/lib/seo/schema"
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
 type PageProps = { params: Promise<{ locale: string; guide: string }> };
+
+const guideContinueLabels: Record<
+  Locale,
+  { allGuides: string; allTools: string; continueLearning: string; continueLearningDescription: string; tuningHub: string }
+> = {
+  ar: { allGuides: "كل الأدلة", allTools: "كل الأدوات", continueLearning: "واصل التعلّم", continueLearningDescription: "من هذه الصفحة يمكنك الانتقال مباشرة إلى الأداة العملية أو إلى أدلة وضبطات مرتبطة.", tuningHub: "مركز الضبطات" },
+  de: { allGuides: "Alle Guides", allTools: "Alle Tools", continueLearning: "Sinnvoll weitermachen", continueLearningDescription: "Von hier aus kannst du direkt zum passenden Tool, zu ähnlichen Guides oder zum Tuning-Hub wechseln.", tuningHub: "Tuning-Hub" },
+  en: { allGuides: "All guides", allTools: "All tools", continueLearning: "Continue from here", continueLearningDescription: "Use this page as a bridge to the practical tool, closely related guides and the matching tuning hub.", tuningHub: "Tuning hub" },
+  es: { allGuides: "Todas las guías", allTools: "Todas las herramientas", continueLearning: "Seguir desde aquí", continueLearningDescription: "Desde esta página puedes pasar directamente a la herramienta, a otras guías útiles y al hub de afinaciones.", tuningHub: "Hub de afinaciones" },
+  fr: { allGuides: "Tous les guides", allTools: "Tous les outils", continueLearning: "Continuer depuis ici", continueLearningDescription: "Cette page relie l'explication, l'outil pratique, les guides proches et le hub des accordages.", tuningHub: "Hub des accordages" },
+  it: { allGuides: "Tutte le guide", allTools: "Tutti i tool", continueLearning: "Continua da qui", continueLearningDescription: "Da questa pagina puoi passare subito al tool pratico, ad altre guide utili e all’hub delle accordature collegate.", tuningHub: "Hub accordature" },
+  ja: { allGuides: "すべてのガイド", allTools: "すべてのツール", continueLearning: "次に見るページ", continueLearningDescription: "このページから実践ツール、関連ガイド、チューニングハブへ移動できます。", tuningHub: "チューニングハブ" },
+  ko: { allGuides: "모든 가이드", allTools: "모든 도구", continueLearning: "여기서 계속", continueLearningDescription: "이 페이지는 실전 도구, 관련 가이드, 튜닝 허브로 이어주는 다리 역할을 합니다.", tuningHub: "튜닝 허브" },
+  pt: { allGuides: "Todos os guias", allTools: "Todas as ferramentas", continueLearning: "Continue daqui", continueLearningDescription: "Use esta página para seguir para a ferramenta prática, guias relacionados e o hub de afinações.", tuningHub: "Hub de afinações" },
+  ru: { allGuides: "Все гайды", allTools: "Все инструменты", continueLearning: "Куда перейти дальше", continueLearningDescription: "С этой страницы можно сразу перейти к практическому инструменту, связанным гайдам и хабу строев.", tuningHub: "Хаб строев" },
+  zh: { allGuides: "全部指南", allTools: "全部工具", continueLearning: "从这里继续", continueLearningDescription: "这页可以把你直接带到实用工具、相关指南以及对应的调弦中心。", tuningHub: "调弦中心" }
+};
+
+const relatedTuningHeadings: Record<Locale, string> = {
+  ar: "ضبطات مرتبطة",
+  de: "Verwandte Stimmungen",
+  en: "Related tunings",
+  es: "Afinaciones relacionadas",
+  fr: "Accordages liés",
+  it: "Accordature correlate",
+  ja: "関連チューニング",
+  ko: "관련 튜닝",
+  pt: "Afinações relacionadas",
+  ru: "Связанные строи",
+  zh: "相关调弦"
+};
 
 const guideUi: Record<
   Locale,
@@ -62,6 +99,11 @@ export default async function GuidePage({ params }: PageProps) {
   const toolHref = `/${locale}/${content.targetPath ?? `tools/${content.tool}`}`;
   const toolTitle = content.targetTitle ?? tool.title;
   const toolDescription = content.targetDescription ?? tool.description;
+  const continueLabels = guideContinueLabels[locale];
+  const relatedTuningGuides = (content.relatedGuides ?? []).filter((guide) =>
+    alternativeTuningGuideSlugs.includes(guide as (typeof alternativeTuningGuideSlugs)[number])
+  );
+  const relatedPracticeGuides = (content.relatedGuides ?? []).filter((guide) => !relatedTuningGuides.includes(guide));
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10 sm:py-14">
@@ -85,6 +127,31 @@ export default async function GuidePage({ params }: PageProps) {
         <Link className="mt-5 inline-flex rounded-md bg-ink px-4 py-3 font-bold text-white" href={toolHref}>
           {toolTitle}
         </Link>
+      </section>
+
+      <section className="mt-8 rounded-lg border border-line bg-white p-5 shadow-soft">
+        <h2 className="text-2xl font-bold">{continueLabels.continueLearning}</h2>
+        <p className="mt-3 leading-7 text-ink/72">{continueLabels.continueLearningDescription}</p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          <Link
+            href={toolHref}
+            className="rounded-lg border border-line bg-mint/5 p-4 font-semibold transition hover:border-mint hover:bg-white"
+          >
+            {toolTitle}
+          </Link>
+          <Link
+            href={`/${locale}/guides`}
+            className="rounded-lg border border-line bg-mint/5 p-4 font-semibold transition hover:border-mint hover:bg-white"
+          >
+            {continueLabels.allGuides}
+          </Link>
+          <Link
+            href={`/${locale}/tunings`}
+            className="rounded-lg border border-line bg-mint/5 p-4 font-semibold transition hover:border-mint hover:bg-white"
+          >
+            {continueLabels.tuningHub}
+          </Link>
+        </div>
       </section>
 
       {content.noteRows?.length ? (
@@ -197,11 +264,28 @@ export default async function GuidePage({ params }: PageProps) {
         </section>
       ) : null}
 
-      {content.relatedGuides?.length ? (
+      {relatedPracticeGuides.length ? (
         <section className="mt-8">
           <h2 className="text-2xl font-bold">{ui.relatedGuides}</h2>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {content.relatedGuides.map((guide) => {
+            {relatedPracticeGuides.map((guide) => {
+              const related = getGuideContent(locale, guide);
+              return (
+                <Link key={guide} href={`/${locale}/guides/${guide}`} className="rounded-lg border border-line bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-mint">
+                  <p className="font-bold">{related.title}</p>
+                  <p className="mt-2 leading-7 text-ink/72">{related.description}</p>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+
+      {relatedTuningGuides.length ? (
+        <section className="mt-8">
+          <h2 className="text-2xl font-bold">{relatedTuningHeadings[locale]}</h2>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {relatedTuningGuides.map((guide) => {
               const related = getGuideContent(locale, guide);
               return (
                 <Link key={guide} href={`/${locale}/guides/${guide}`} className="rounded-lg border border-line bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-mint">
