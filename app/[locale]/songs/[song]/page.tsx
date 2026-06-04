@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ChordHowTo } from "@/components/songs/ChordHowTo";
+import { getGuideContent } from "@/lib/content/guides";
 import {
   getPublicDomainSong,
   isPublicDomainSongSlug,
@@ -18,6 +19,30 @@ import { breadcrumbSchema, musicCompositionSchema } from "@/lib/seo/schema";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
 type PageProps = { params: Promise<{ locale: string; song: string }> };
+
+const songPageLabels: Record<
+  Locale,
+  {
+    continueLearning: string;
+    continueLearningDescription: string;
+    allSongs: string;
+    allGuides: string;
+    allTools: string;
+    relatedGuides: string;
+  }
+> = {
+  ar: { continueLearning: "واصل من هنا", continueLearningDescription: "استخدم هذه الصفحة للانتقال من اللحن إلى الإيقاع والأكوردات والدروس الأساسية.", allSongs: "كل المقطوعات", allGuides: "كل الأدلة", allTools: "كل الأدوات", relatedGuides: "أدلة مفيدة" },
+  de: { continueLearning: "Hier sinnvoll weitergehen", continueLearningDescription: "Nutze diese Song-Seite als Brücke zu Rhythmus, Akkorden und den wichtigsten Lern-Guides.", allSongs: "Alle Songs", allGuides: "Alle Guides", allTools: "Alle Tools", relatedGuides: "Hilfreiche Guides" },
+  en: { continueLearning: "Continue from here", continueLearningDescription: "Use this song page as a bridge into rhythm, chords and the most useful learning guides.", allSongs: "All songs", allGuides: "All guides", allTools: "All tools", relatedGuides: "Helpful guides" },
+  es: { continueLearning: "Sigue desde aquí", continueLearningDescription: "Usa esta página de canción como puente hacia ritmo, acordes y las guías más útiles para estudiar.", allSongs: "Todas las canciones", allGuides: "Todas las guías", allTools: "Todas las herramientas", relatedGuides: "Guías útiles" },
+  fr: { continueLearning: "Continuer depuis ici", continueLearningDescription: "Utilisez cette page comme passerelle vers le rythme, les accords et les guides d’apprentissage les plus utiles.", allSongs: "Tous les morceaux", allGuides: "Tous les guides", allTools: "Tous les outils", relatedGuides: "Guides utiles" },
+  it: { continueLearning: "Continua da qui", continueLearningDescription: "Usa questa pagina come ponte verso ritmo, accordi e guide fondamentali per studiare meglio il brano.", allSongs: "Tutti gli spartiti", allGuides: "Tutte le guide", allTools: "Tutti i tool", relatedGuides: "Guide utili" },
+  ja: { continueLearning: "次に見るページ", continueLearningDescription: "この曲ページからリズム、コード、基礎ガイドへ自然に進めます。", allSongs: "すべての曲", allGuides: "すべてのガイド", allTools: "すべてのツール", relatedGuides: "役立つガイド" },
+  ko: { continueLearning: "여기서 계속", continueLearningDescription: "이 곡 페이지를 리듬, 코드, 핵심 학습 가이드로 자연스럽게 이어서 활용할 수 있습니다.", allSongs: "모든 곡", allGuides: "모든 가이드", allTools: "모든 도구", relatedGuides: "유용한 가이드" },
+  pt: { continueLearning: "Continue daqui", continueLearningDescription: "Use esta página de música como ponte para ritmo, acordes e os guias mais úteis para estudar melhor.", allSongs: "Todas as músicas", allGuides: "Todos os guias", allTools: "Todas as ferramentas", relatedGuides: "Guias úteis" },
+  ru: { continueLearning: "Куда перейти дальше", continueLearningDescription: "Используйте эту страницу песни как мост к ритму, аккордам и самым полезным учебным гайдам.", allSongs: "Все песни", allGuides: "Все гайды", allTools: "Все инструменты", relatedGuides: "Полезные гайды" },
+  zh: { continueLearning: "从这里继续", continueLearningDescription: "把这首曲目的页面继续连到节奏、和弦和最实用的学习指南。", allSongs: "全部曲目", allGuides: "全部指南", allTools: "全部工具", relatedGuides: "实用指南" }
+};
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => publicDomainSongSlugs.map((song) => ({ locale, song })));
@@ -37,6 +62,8 @@ export default async function SongPage({ params }: PageProps) {
   const ui = songsUi[locale];
   const dictionary = await getDictionary(locale);
   const song = getPublicDomainSong(rawSong);
+  const labels = songPageLabels[locale];
+  const guideSlugs = ["how-to-read-chords", "metronome-subdivisions", "common-guitar-tunings"] as const;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
@@ -110,11 +137,46 @@ export default async function SongPage({ params }: PageProps) {
             </ul>
           </section>
 
+          <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
+            <h2 className="text-2xl font-bold">{labels.continueLearning}</h2>
+            <p className="mt-3 leading-7 text-ink/72">{labels.continueLearningDescription}</p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              <Link href={`/${locale}/songs`} className="rounded-lg border border-line bg-mint/5 p-4 font-semibold transition hover:border-mint hover:bg-white">
+                {labels.allSongs}
+              </Link>
+              <Link href={`/${locale}/tools`} className="rounded-lg border border-line bg-mint/5 p-4 font-semibold transition hover:border-mint hover:bg-white">
+                {labels.allTools}
+              </Link>
+              <Link href={`/${locale}/guides`} className="rounded-lg border border-line bg-mint/5 p-4 font-semibold transition hover:border-mint hover:bg-white">
+                {labels.allGuides}
+              </Link>
+            </div>
+          </section>
+
           <AdSlot variant="rectangle" className="mx-auto max-w-xl lg:hidden" />
 
           <section className="rounded-lg border border-line bg-white p-5">
             <h2 className="text-xl font-bold">{ui.source}</h2>
             <p className="mt-3 leading-7 text-ink/72">{song.sourceNote}</p>
+          </section>
+
+          <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
+            <h2 className="text-2xl font-bold">{labels.relatedGuides}</h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {guideSlugs.map((guide) => {
+                const guideContent = getGuideContent(locale, guide);
+                return (
+                  <Link
+                    key={guide}
+                    href={`/${locale}/guides/${guide}`}
+                    className="rounded-lg border border-line bg-paper p-4 transition hover:border-mint hover:bg-white"
+                  >
+                    <p className="font-bold">{guideContent.title}</p>
+                    <p className="mt-2 leading-7 text-ink/72">{guideContent.description}</p>
+                  </Link>
+                );
+              })}
+            </div>
           </section>
 
           <AdSlot />

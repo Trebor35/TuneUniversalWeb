@@ -4,8 +4,10 @@ import { notFound } from "next/navigation";
 import { Music2 } from "lucide-react";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { getGuideContent } from "@/lib/content/guides";
 import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
 import { hubEnhancements } from "@/lib/content/seoEnhancements";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildSongsIndexMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
@@ -40,6 +42,31 @@ const generalSectionLabels: Record<Locale, string> = {
   zh: "更多公有领域曲目"
 };
 
+const songsBridgeLabels: Record<
+  Locale,
+  {
+    continueLearning: string;
+    continueLearningDescription: string;
+    allGuides: string;
+    allTools: string;
+    tunings: string;
+    practiceTools: string;
+    learningGuides: string;
+  }
+> = {
+  ar: { continueLearning: "واصل من هنا", continueLearningDescription: "اربط صفحات المقطوعات بالأدوات العملية والإيقاع والقراءة الموسيقية للحصول على دراسة يومية أوضح.", allGuides: "كل الأدلة", allTools: "كل الأدوات", tunings: "الضبطات", practiceTools: "أدوات للتدريب", learningGuides: "أدلة مفيدة" },
+  de: { continueLearning: "Hier sinnvoll weitergehen", continueLearningDescription: "Verbinde diese Song-Seiten mit praktischen Tools, Rhythmusarbeit und grundlegenden Musik-Guides.", allGuides: "Alle Guides", allTools: "Alle Tools", tunings: "Stimmungen", practiceTools: "Tools zum Üben", learningGuides: "Hilfreiche Guides" },
+  en: { continueLearning: "Continue from here", continueLearningDescription: "Connect these song pages with practical tools, rhythm work and core music guides for daily practice.", allGuides: "All guides", allTools: "All tools", tunings: "Tunings", practiceTools: "Practice tools", learningGuides: "Helpful guides" },
+  es: { continueLearning: "Sigue desde aquí", continueLearningDescription: "Conecta estas páginas de canciones con herramientas prácticas, trabajo rítmico y guías base para practicar mejor.", allGuides: "Todas las guías", allTools: "Todas las herramientas", tunings: "Afinaciones", practiceTools: "Herramientas para practicar", learningGuides: "Guías útiles" },
+  fr: { continueLearning: "Continuer depuis ici", continueLearningDescription: "Reliez ces pages de morceaux aux outils pratiques, au travail rythmique et aux guides musicaux essentiels.", allGuides: "Tous les guides", allTools: "Tous les outils", tunings: "Accordages", practiceTools: "Outils pour travailler", learningGuides: "Guides utiles" },
+  it: { continueLearning: "Continua da qui", continueLearningDescription: "Collega queste pagine spartiti ai tool pratici, al lavoro sul ritmo e alle guide musicali più utili per studiare meglio.", allGuides: "Tutte le guide", allTools: "Tutti i tool", tunings: "Accordature", practiceTools: "Tool per esercitarti", learningGuides: "Guide utili" },
+  ja: { continueLearning: "次に見るページ", continueLearningDescription: "曲ページから実用ツール、リズム練習、基礎ガイドへ自然につなげて毎日の練習に使えます。", allGuides: "すべてのガイド", allTools: "すべてのツール", tunings: "チューニング", practiceTools: "練習ツール", learningGuides: "役立つガイド" },
+  ko: { continueLearning: "여기서 계속", continueLearningDescription: "이 곡 페이지를 실전 도구, 리듬 연습, 핵심 음악 가이드와 연결해 더 자연스럽게 공부할 수 있습니다.", allGuides: "모든 가이드", allTools: "모든 도구", tunings: "튜닝", practiceTools: "연습용 도구", learningGuides: "유용한 가이드" },
+  pt: { continueLearning: "Continue daqui", continueLearningDescription: "Ligue estas páginas de músicas a ferramentas práticas, trabalho de ritmo e guias musicais essenciais.", allGuides: "Todos os guias", allTools: "Todas as ferramentas", tunings: "Afinações", practiceTools: "Ferramentas de prática", learningGuides: "Guias úteis" },
+  ru: { continueLearning: "Куда перейти дальше", continueLearningDescription: "Свяжите страницы песен с практическими инструментами, ритмом и базовыми музыкальными гайдами для ежедневной практики.", allGuides: "Все гайды", allTools: "Все инструменты", tunings: "Строи", practiceTools: "Инструменты для практики", learningGuides: "Полезные гайды" },
+  zh: { continueLearning: "从这里继续", continueLearningDescription: "把这些曲目页和实用工具、节奏练习以及基础音乐指南连起来，更适合日常练习。", allGuides: "全部指南", allTools: "全部工具", tunings: "调弦", practiceTools: "练习工具", learningGuides: "实用指南" }
+};
+
 type PageProps = { params: Promise<{ locale: string }> };
 
 export function generateStaticParams() {
@@ -58,8 +85,11 @@ export default async function SongsIndexPage({ params }: PageProps) {
 
   const locale = rawLocale as Locale;
   const ui = songsUi[locale];
+  const labels = songsBridgeLabels[locale];
+  const dictionary = await getDictionary(locale);
   const childrenSongs = publicDomainSongSlugs.filter((slug) => getPublicDomainSong(slug).audience === "children");
   const generalSongs = publicDomainSongSlugs.filter((slug) => getPublicDomainSong(slug).audience !== "children");
+  const guideSlugs = ["how-to-read-chords", "metronome-subdivisions", "common-guitar-tunings"] as const;
   const renderSongCard = (slug: (typeof publicDomainSongSlugs)[number]) => {
     const song = getPublicDomainSong(slug);
     return (
@@ -106,6 +136,22 @@ export default async function SongsIndexPage({ params }: PageProps) {
         <p className="mt-3 rounded-md bg-mint/10 p-3 text-sm leading-6 text-ink/70">{ui.legalNote}</p>
       </section>
 
+      <section className="mt-8 rounded-lg border border-line bg-white p-5 shadow-soft">
+        <h2 className="text-2xl font-bold">{labels.continueLearning}</h2>
+        <p className="mt-3 leading-7 text-ink/72">{labels.continueLearningDescription}</p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          <Link href={`/${locale}/tools`} className="rounded-lg border border-line bg-mint/5 p-4 font-semibold transition hover:border-mint hover:bg-white">
+            {labels.allTools}
+          </Link>
+          <Link href={`/${locale}/guides`} className="rounded-lg border border-line bg-mint/5 p-4 font-semibold transition hover:border-mint hover:bg-white">
+            {labels.allGuides}
+          </Link>
+          <Link href={`/${locale}/tunings`} className="rounded-lg border border-line bg-mint/5 p-4 font-semibold transition hover:border-mint hover:bg-white">
+            {labels.tunings}
+          </Link>
+        </div>
+      </section>
+
       <AdSlot variant="mobileBanner" className="mt-8 lg:hidden" />
       <AdSlot variant="rectangle" className="mx-auto mt-8 hidden max-w-xl lg:flex" />
 
@@ -120,6 +166,41 @@ export default async function SongsIndexPage({ params }: PageProps) {
         <h2 className="text-2xl font-bold">{generalSectionLabels[locale]}</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {generalSongs.map(renderSongCard)}
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-bold">{labels.practiceTools}</h2>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {(["guitar-tuner", "metronome", "tap-bpm", "chord-transposer"] as const).map((tool) => (
+            <Link
+              key={tool}
+              href={`/${locale}/tools/${tool}`}
+              className="rounded-lg border border-line bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-mint"
+            >
+              <p className="font-bold">{dictionary.tools[tool].title}</p>
+              <p className="mt-2 leading-7 text-ink/72">{dictionary.tools[tool].description}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-2xl font-bold">{labels.learningGuides}</h2>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {guideSlugs.map((guide) => {
+            const guideContent = getGuideContent(locale, guide);
+            return (
+              <Link
+                key={guide}
+                href={`/${locale}/guides/${guide}`}
+                className="rounded-lg border border-line bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-mint"
+              >
+                <p className="font-bold">{guideContent.title}</p>
+                <p className="mt-2 leading-7 text-ink/72">{guideContent.description}</p>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
