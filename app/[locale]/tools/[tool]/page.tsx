@@ -15,16 +15,25 @@ import { UkuleleTuner } from "@/components/tools/UkuleleTuner";
 import {
   alternativeTuningGuideSlugs,
   getGuideContent,
+  guideIndexContent,
   guidesForInstrument,
   guidesForTool
 } from "@/lib/content/guides";
-import { clusterSectionLabels, getToolClusterGuides } from "@/lib/content/internalLinking";
+import {
+  clusterSectionLabels,
+  getToolClusterGuides,
+  getToolFollowUpQuestions,
+  getToolSearchIntentTargets,
+  searchIntentLabels,
+  type SearchIntentTarget
+} from "@/lib/content/internalLinking";
 import {
   getInstrumentTunerContent,
   instrumentFromTunerSlug,
   instrumentTunerSlugs
 } from "@/lib/content/instrumentTuners";
 import { getToolSeoEnhancement } from "@/lib/content/seoEnhancements";
+import { tuningHubContent } from "@/lib/content/tuningHub";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildInstrumentTunerMetadata, buildToolMetadata } from "@/lib/seo/metadata";
@@ -136,6 +145,9 @@ export default async function ToolPage({ params }: PageProps) {
   const content = coreTool ? dictionary.tools[coreTool] : instrumentContent!;
   const pageLabels = toolPageLabels[locale];
   const clusterLabels = clusterSectionLabels[locale];
+  const intentLabels = searchIntentLabels[locale];
+  const guideHub = guideIndexContent[locale];
+  const tuningHub = tuningHubContent[locale];
   const seoEnhancement = coreTool ? getToolSeoEnhancement(locale, coreTool) : null;
   const heroTitle = seoEnhancement?.heroTitle ?? content.title;
   const heroDescription = seoEnhancement?.heroDescription ?? content.description;
@@ -148,10 +160,55 @@ export default async function ToolPage({ params }: PageProps) {
   const clusterGuides = (coreTool ? getToolClusterGuides(coreTool) : getToolClusterGuides(rawTool)).filter(
     (guide, index, source) => source.indexOf(guide) === index
   );
+  const searchTargets = (coreTool ? getToolSearchIntentTargets(coreTool) : getToolSearchIntentTargets(rawTool)).filter(
+    (target, index, source) =>
+      source.findIndex((item) => item.type === target.type && ("slug" in item ? item.slug === ("slug" in target ? target.slug : "") : item.href === ("href" in target ? target.href : ""))) === index
+  );
+  const followUpQuestions = coreTool ? getToolFollowUpQuestions(locale, coreTool) : getToolFollowUpQuestions(locale, rawTool);
   const relatedTuningGuides = relatedGuides.filter((guide) =>
     alternativeTuningGuideSlugs.includes(guide as (typeof alternativeTuningGuideSlugs)[number])
   );
   const relatedPracticeGuides = relatedGuides.filter((guide) => !relatedTuningGuides.includes(guide));
+
+  const resolveTarget = (target: SearchIntentTarget) => {
+    if (target.type === "guide") {
+      const guideContent = getGuideContent(locale, target.slug);
+      return {
+        description: guideContent.description,
+        href: `/${locale}/guides/${target.slug}`,
+        title: guideContent.title
+      };
+    }
+
+    if (target.type === "tool") {
+      const toolContent = dictionary.tools[target.slug];
+      return {
+        description: toolContent.description,
+        href: `/${locale}/tools/${target.slug}`,
+        title: toolContent.title
+      };
+    }
+
+    return {
+      description:
+        target.slug === "guides"
+          ? guideHub.description
+          : target.slug === "tunings"
+            ? tuningHub.description
+            : target.slug === "songs"
+              ? dictionary.hero.description
+              : dictionary.hero.description,
+      href: `/${locale}/${target.slug}`,
+      title:
+        target.slug === "guides"
+          ? guideHub.title
+          : target.slug === "tunings"
+            ? tuningHub.title
+            : target.slug === "songs"
+              ? dictionary.nav.home
+              : dictionary.nav.tools
+    };
+  };
 
   return (
     <main className="mx-auto w-full max-w-7xl overflow-hidden px-2 py-8 sm:px-4 sm:py-10">
@@ -274,6 +331,49 @@ export default async function ToolPage({ params }: PageProps) {
                       <span className="block font-semibold">{guideContent.title}</span>
                       <span className="mt-1 block text-sm leading-6 text-ink/68">{guideContent.description}</span>
                     </Link>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+          {searchTargets.length > 0 && (
+            <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
+              <h2 className="text-2xl font-bold">{intentLabels.searchesTitle}</h2>
+              <p className="mt-3 leading-7 text-ink/72">{intentLabels.searchesDescription}</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {searchTargets.map((target) => {
+                  const resolved = resolveTarget(target);
+                  return (
+                    <Link
+                      key={`${target.type}-${"slug" in target ? target.slug : target.href}`}
+                      className="rounded-lg border border-line bg-mint/5 p-4 transition hover:border-mint hover:bg-white"
+                      href={resolved.href}
+                    >
+                      <span className="block font-semibold">{resolved.title}</span>
+                      <span className="mt-1 block text-sm leading-6 text-ink/68">{resolved.description}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+          {followUpQuestions.length > 0 && (
+            <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
+              <h2 className="text-2xl font-bold">{intentLabels.questionsTitle}</h2>
+              <p className="mt-3 leading-7 text-ink/72">{intentLabels.questionsDescription}</p>
+              <div className="mt-4 grid gap-3">
+                {followUpQuestions.map((item) => {
+                  const resolved = item.target ? resolveTarget(item.target) : null;
+                  return (
+                    <article key={item.question} className="rounded-lg border border-line bg-mint/4 p-4">
+                      <h3 className="font-semibold">{item.question}</h3>
+                      <p className="mt-2 leading-7 text-ink/72">{item.answer}</p>
+                      {resolved ? (
+                        <Link className="mt-3 inline-flex text-sm font-semibold text-mint hover:underline" href={resolved.href}>
+                          {resolved.title}
+                        </Link>
+                      ) : null}
+                    </article>
                   );
                 })}
               </div>

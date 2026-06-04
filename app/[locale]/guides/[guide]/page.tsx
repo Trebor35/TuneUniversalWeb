@@ -10,10 +10,17 @@ import {
   guideSlugs,
   isGuideSlug
 } from "@/lib/content/guides";
+import {
+  getGuideFollowUpQuestions,
+  getGuideSearchIntentTargets,
+  searchIntentLabels,
+  type SearchIntentTarget
+} from "@/lib/content/internalLinking";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
 import { buildGuideMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, faqItemsSchema, guideSchema } from "@/lib/seo/schema";
+import { tuningHubContent } from "@/lib/content/tuningHub";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
@@ -95,15 +102,58 @@ export default async function GuidePage({ params }: PageProps) {
   const content = getGuideContent(locale, rawGuide);
   const ui = guideUi[locale];
   const indexContent = guideIndexContent[locale];
+  const intentLabels = searchIntentLabels[locale];
   const tool = dictionary.tools[content.tool];
   const toolHref = `/${locale}/${content.targetPath ?? `tools/${content.tool}`}`;
   const toolTitle = content.targetTitle ?? tool.title;
   const toolDescription = content.targetDescription ?? tool.description;
   const continueLabels = guideContinueLabels[locale];
+  const searchTargets = getGuideSearchIntentTargets(rawGuide);
+  const followUpQuestions = getGuideFollowUpQuestions(locale, rawGuide);
   const relatedTuningGuides = (content.relatedGuides ?? []).filter((guide) =>
     alternativeTuningGuideSlugs.includes(guide as (typeof alternativeTuningGuideSlugs)[number])
   );
   const relatedPracticeGuides = (content.relatedGuides ?? []).filter((guide) => !relatedTuningGuides.includes(guide));
+
+  const resolveTarget = (target: SearchIntentTarget) => {
+    if (target.type === "guide") {
+      const guideContent = getGuideContent(locale, target.slug);
+      return {
+        description: guideContent.description,
+        href: `/${locale}/guides/${target.slug}`,
+        title: guideContent.title
+      };
+    }
+
+    if (target.type === "tool") {
+      const toolContent = dictionary.tools[target.slug];
+      return {
+        description: toolContent.description,
+        href: `/${locale}/tools/${target.slug}`,
+        title: toolContent.title
+      };
+    }
+
+    return {
+      description:
+        target.slug === "guides"
+          ? indexContent.description
+          : target.slug === "tunings"
+            ? tuningHubContent[locale].description
+            : target.slug === "songs"
+              ? dictionary.nav.home
+              : dictionary.hero.description,
+      href: `/${locale}/${target.slug}`,
+      title:
+        target.slug === "guides"
+          ? indexContent.title
+          : target.slug === "tunings"
+            ? tuningHubContent[locale].title
+            : target.slug === "songs"
+              ? dictionary.nav.home
+              : dictionary.nav.tools
+    };
+  };
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10 sm:py-14">
@@ -249,6 +299,51 @@ export default async function GuidePage({ params }: PageProps) {
           </Link>
         </section>
       )}
+
+      {searchTargets.length ? (
+        <section className="mt-8 rounded-lg border border-line bg-white p-5 shadow-soft">
+          <h2 className="text-2xl font-bold">{intentLabels.searchesTitle}</h2>
+          <p className="mt-3 leading-7 text-ink/72">{intentLabels.searchesDescription}</p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {searchTargets.map((target) => {
+              const resolved = resolveTarget(target);
+              return (
+                <Link
+                  key={`${target.type}-${"slug" in target ? target.slug : target.href}`}
+                  href={resolved.href}
+                  className="rounded-lg border border-line bg-mint/5 p-4 transition hover:border-mint hover:bg-white"
+                >
+                  <p className="font-semibold">{resolved.title}</p>
+                  <p className="mt-2 text-sm leading-6 text-ink/68">{resolved.description}</p>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+
+      {followUpQuestions.length ? (
+        <section className="mt-8 rounded-lg border border-line bg-white p-5 shadow-soft">
+          <h2 className="text-2xl font-bold">{intentLabels.questionsTitle}</h2>
+          <p className="mt-3 leading-7 text-ink/72">{intentLabels.questionsDescription}</p>
+          <div className="mt-4 grid gap-3">
+            {followUpQuestions.map((item) => {
+              const resolved = item.target ? resolveTarget(item.target) : null;
+              return (
+                <article key={item.question} className="rounded-lg border border-line bg-mint/4 p-4">
+                  <h3 className="font-semibold">{item.question}</h3>
+                  <p className="mt-2 leading-7 text-ink/72">{item.answer}</p>
+                  {resolved ? (
+                    <Link className="mt-3 inline-flex text-sm font-semibold text-mint hover:underline" href={resolved.href}>
+                      {resolved.title}
+                    </Link>
+                  ) : null}
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
 
       {content.faq?.length ? (
         <section className="mt-8">
