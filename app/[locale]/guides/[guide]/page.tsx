@@ -98,8 +98,9 @@ export default async function GuidePage({ params }: PageProps) {
   if (!isLocale(rawLocale) || !isGuideSlug(rawGuide)) notFound();
 
   const locale = rawLocale as Locale;
+  const guideSlug = rawGuide as (typeof guideSlugs)[number];
   const dictionary = await getDictionary(locale);
-  const content = getGuideContent(locale, rawGuide);
+  const content = getGuideContent(locale, guideSlug);
   const ui = guideUi[locale];
   const indexContent = guideIndexContent[locale];
   const intentLabels = searchIntentLabels[locale];
@@ -108,8 +109,8 @@ export default async function GuidePage({ params }: PageProps) {
   const toolTitle = content.targetTitle ?? tool.title;
   const toolDescription = content.targetDescription ?? tool.description;
   const continueLabels = guideContinueLabels[locale];
-  const searchTargets = getGuideSearchIntentTargets(rawGuide);
-  const followUpQuestions = getGuideFollowUpQuestions(locale, rawGuide);
+  const searchTargets = getGuideSearchIntentTargets(guideSlug);
+  const followUpQuestions = getGuideFollowUpQuestions(locale, guideSlug);
   const relatedTuningGuides = (content.relatedGuides ?? []).filter((guide) =>
     alternativeTuningGuideSlugs.includes(guide as (typeof alternativeTuningGuideSlugs)[number])
   );
@@ -157,13 +158,13 @@ export default async function GuidePage({ params }: PageProps) {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-10 sm:py-14">
-      <JsonLd data={guideSchema(locale, rawGuide, content)} />
+      <JsonLd data={guideSchema(locale, guideSlug, content)} />
       {content.faq?.length ? <JsonLd data={faqItemsSchema(content.faq)} /> : null}
       <JsonLd
         data={breadcrumbSchema([
           { name: "TuneUniversal", url: `${siteUrl}/${locale}` },
           { name: indexContent.title, url: `${siteUrl}/${locale}/guides` },
-          { name: content.title, url: `${siteUrl}/${locale}/guides/${rawGuide}` }
+          { name: content.title, url: `${siteUrl}/${locale}/guides/${guideSlug}` }
         ])}
       />
       <p className="text-xs font-bold uppercase tracking-[0.18em] text-mint">TuneUniversal Guide</p>
