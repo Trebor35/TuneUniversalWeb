@@ -309,7 +309,7 @@ export default async function GuidePage({ params }: PageProps) {
               const resolved = resolveTarget(target);
               return (
                 <Link
-                  key={`${target.type}-${"slug" in target ? target.slug : target.href}`}
+                  key={`${target.type}-${target.slug}`}
                   href={resolved.href}
                   className="rounded-lg border border-line bg-mint/5 p-4 transition hover:border-mint hover:bg-white"
                 >

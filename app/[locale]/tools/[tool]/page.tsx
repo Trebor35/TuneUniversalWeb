@@ -161,8 +161,7 @@ export default async function ToolPage({ params }: PageProps) {
     (guide, index, source) => source.indexOf(guide) === index
   );
   const searchTargets = (coreTool ? getToolSearchIntentTargets(coreTool) : getToolSearchIntentTargets(rawTool)).filter(
-    (target, index, source) =>
-      source.findIndex((item) => item.type === target.type && ("slug" in item ? item.slug === ("slug" in target ? target.slug : "") : item.href === ("href" in target ? target.href : ""))) === index
+    (target, index, source) => source.findIndex((item) => item.type === target.type && item.slug === target.slug) === index
   );
   const followUpQuestions = coreTool ? getToolFollowUpQuestions(locale, coreTool) : getToolFollowUpQuestions(locale, rawTool);
   const relatedTuningGuides = relatedGuides.filter((guide) =>
@@ -345,7 +344,7 @@ export default async function ToolPage({ params }: PageProps) {
                   const resolved = resolveTarget(target);
                   return (
                     <Link
-                      key={`${target.type}-${"slug" in target ? target.slug : target.href}`}
+                      key={`${target.type}-${target.slug}`}
                       className="rounded-lg border border-line bg-mint/5 p-4 transition hover:border-mint hover:bg-white"
                       href={resolved.href}
                     >
