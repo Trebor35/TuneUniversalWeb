@@ -761,6 +761,383 @@ const priorityInstrumentMetadataOverrides: Partial<
   }
 };
 
+const priorityGuideMetadataOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, { description: string; title: string }>>>> = {
+  ar: {
+    "how-to-tune-bass": {
+      title: "كيفية ضبط الباس أونلاين | دليل 4 و5 أوتار | TuneUniversal",
+      description: "اضبط الباس أونلاين على E A D G مع خطوات واضحة ودعم مناسب للباس 4 أوتار و5 أوتار."
+    },
+    "how-to-tune-violin": {
+      title: "كيفية ضبط الكمان أونلاين | دليل G D A E | TuneUniversal",
+      description: "اضبط الكمان أونلاين على G D A E مع خطوات بسيطة وقراءة أوضح للمبتدئين والاستعمال اليومي."
+    },
+    "standard-bass-tuning": {
+      title: "الضبط القياسي للباس | E A D G | TuneUniversal",
+      description: "تعرف على ضبط الباس القياسي E A D G ولماذا يبقى الإعداد الأساسي الأكثر استخدامًا بين العازفين."
+    },
+    "common-guitar-tunings": {
+      title: "أشهر ضبطات الجيتار | Standard و Drop D و Open D | TuneUniversal",
+      description: "راجع أشهر ضبطات الجيتار مثل Standard وDrop D وEb Standard وOpen D وOpen G في صفحة واحدة."
+    },
+    "drop-d-tuning": {
+      title: "دليل ضبط Drop D | D A D G B E | TuneUniversal",
+      description: "اضبط الجيتار على Drop D للحصول على وتر منخفض أقوى وPower Chords أسهل مع الاحتفاظ بإحساس قريب من الضبط القياسي."
+    },
+    "drop-c-tuning": {
+      title: "دليل ضبط Drop C | نغمات واستخدامات | TuneUniversal",
+      description: "تعرف على نغمات Drop C ومتى يستخدم هذا الضبط للروك والميتال الحديث والريفات الثقيلة."
+    },
+    "open-d-tuning": {
+      title: "دليل ضبط Open D | أوتار مفتوحة وسلايد | TuneUniversal",
+      description: "استخدم Open D للحصول على أوتار مفتوحة رنانة وصوت أوسع وأشكال مريحة للسلايد والفينغرستايل."
+    },
+    "eb-standard-tuning": {
+      title: "دليل ضبط Eb Standard | نصف درجة لأسفل | TuneUniversal",
+      description: "اخفض كل أوتار الجيتار نصف درجة إلى Eb Ab Db Gb Bb Eb لتحصل على شد أخف وصوت أدفأ."
+    }
+  },
+  de: {
+    "how-to-tune-bass": {
+      title: "Bass online stimmen | Guide fuer 4 und 5 Saiten | TuneUniversal",
+      description: "Stimme Bass online auf E A D G mit klaren Schritten und hilfreicher Unterstuetzung fuer 4- und 5-Saiter."
+    },
+    "how-to-tune-violin": {
+      title: "Violine online stimmen | G D A E Guide | TuneUniversal",
+      description: "Stimme Violine online auf G D A E mit einfachen Schritten und stabilerer Mikrofon-Erkennung fuer den Alltag."
+    },
+    "standard-bass-tuning": {
+      title: "Standard-Bass-Stimmung | E A D G | TuneUniversal",
+      description: "Sieh dir die Standard-Bass-Stimmung E A D G an und erfahre, warum sie weiterhin das haeufigste Grundsetup ist."
+    },
+    "common-guitar-tunings": {
+      title: "Haeufige Gitarrenstimmungen | Standard, Drop D, Open D | TuneUniversal",
+      description: "Vergleiche Standard, Drop D, Eb Standard, Open D und Open G in einer kompakten Gitarrenstimmungs-Uebersicht."
+    },
+    "drop-d-tuning": {
+      title: "Drop D Tuning Guide | D A D G B E | TuneUniversal",
+      description: "Stimme Gitarre auf Drop D fuer tiefere Riffs und einfachere Powerchords, ohne weit von Standard entfernt zu sein."
+    },
+    "drop-c-tuning": {
+      title: "Drop C Tuning Guide | Noten und Einsatz | TuneUniversal",
+      description: "Lerne die Noten von Drop C und warum diese Stimmung fuer modernen Rock und Metal so beliebt ist."
+    },
+    "open-d-tuning": {
+      title: "Open D Tuning Guide | Offene Saiten und Slide | TuneUniversal",
+      description: "Nutze Open D fuer resonante offene Saiten, Slide-Gitarre und breite akustische Akkordfarben."
+    },
+    "eb-standard-tuning": {
+      title: "Eb Standard Tuning Guide | Halbton tiefer | TuneUniversal",
+      description: "Senke alle Gitarrensaiten um einen Halbton auf Eb Ab Db Gb Bb Eb fuer weichere Spannung und tieferen Klang."
+    }
+  },
+  en: {
+    "how-to-tune-bass": {
+      title: "How to Tune a Bass Online | 4 and 5 String Guide | TuneUniversal",
+      description: "Tune bass online to E A D G with clear steps and practical help for both 4 string and 5 string setups."
+    },
+    "how-to-tune-violin": {
+      title: "How to Tune a Violin Online | G D A E Guide | TuneUniversal",
+      description: "Tune violin online to G D A E with simple steps and a steadier microphone workflow for daily practice."
+    },
+    "standard-bass-tuning": {
+      title: "Standard Bass Tuning Guide | E A D G | TuneUniversal",
+      description: "See the standard bass tuning E A D G and learn why it remains the default setup for most bass players."
+    },
+    "common-guitar-tunings": {
+      title: "Common Guitar Tunings | Standard, Drop D, Open D | TuneUniversal",
+      description: "Compare Standard, Drop D, Eb Standard, Open D and Open G in one practical guide to common guitar tunings."
+    },
+    "drop-d-tuning": {
+      title: "Drop D Tuning Guide | D A D G B E | TuneUniversal",
+      description: "Tune guitar to Drop D for heavier low riffs and easier power chords while keeping the rest of the neck familiar."
+    },
+    "drop-c-tuning": {
+      title: "Drop C Tuning Guide | Notes and Uses | TuneUniversal",
+      description: "Learn the exact Drop C notes and why this tuning is so common in modern rock and metal rhythm guitar."
+    },
+    "open-d-tuning": {
+      title: "Open D Tuning Guide | Open Strings and Slide Guitar | TuneUniversal",
+      description: "Use Open D tuning for resonant open strings, slide guitar and wider acoustic chord voicings."
+    },
+    "eb-standard-tuning": {
+      title: "Eb Standard Tuning Guide | Half Step Down Guitar | TuneUniversal",
+      description: "Lower every guitar string by a semitone to Eb Ab Db Gb Bb Eb for softer tension and a darker overall voice."
+    }
+  },
+  es: {
+    "how-to-tune-bass": {
+      title: "Como afinar bajo online | Guia para 4 y 5 cuerdas | TuneUniversal",
+      description: "Afina bajo online en E A D G con pasos claros y ayuda practica para configuraciones de 4 y 5 cuerdas."
+    },
+    "how-to-tune-violin": {
+      title: "Como afinar violin online | Guia G D A E | TuneUniversal",
+      description: "Afina violin online en G D A E con pasos sencillos y una lectura de microfono mas estable para uso diario."
+    },
+    "standard-bass-tuning": {
+      title: "Afinacion estandar de bajo | E A D G | TuneUniversal",
+      description: "Consulta la afinacion estandar del bajo E A D G y descubre por que sigue siendo la base mas usada."
+    },
+    "common-guitar-tunings": {
+      title: "Afinaciones comunes de guitarra | Standard, Drop D y Open D | TuneUniversal",
+      description: "Compara Standard, Drop D, Eb Standard, Open D y Open G en una guia practica de afinaciones comunes."
+    },
+    "drop-d-tuning": {
+      title: "Guia de afinacion Drop D | D A D G B E | TuneUniversal",
+      description: "Afina la guitarra en Drop D para riffs graves y power chords mas faciles sin alejarte demasiado del tacto estandar."
+    },
+    "drop-c-tuning": {
+      title: "Guia de afinacion Drop C | Notas y usos | TuneUniversal",
+      description: "Aprende las notas exactas de Drop C y por que esta afinacion es tan comun en rock moderno y metal."
+    },
+    "open-d-tuning": {
+      title: "Guia de afinacion Open D | Cuerdas abiertas y slide | TuneUniversal",
+      description: "Usa Open D para cuerdas abiertas resonantes, slide y voicings acusticos mas amplios."
+    },
+    "eb-standard-tuning": {
+      title: "Guia de afinacion Eb Standard | Medio tono abajo | TuneUniversal",
+      description: "Baja todas las cuerdas medio tono a Eb Ab Db Gb Bb Eb para una tension mas suave y un timbre mas grave."
+    }
+  },
+  fr: {
+    "how-to-tune-bass": {
+      title: "Comment accorder une basse en ligne | Guide 4 et 5 cordes | TuneUniversal",
+      description: "Accordez une basse en ligne en E A D G avec des etapes claires et une aide pratique pour les basses 4 et 5 cordes."
+    },
+    "how-to-tune-violin": {
+      title: "Comment accorder un violon en ligne | Guide G D A E | TuneUniversal",
+      description: "Accordez un violon en ligne en G D A E avec des etapes simples et une lecture micro plus stable au quotidien."
+    },
+    "standard-bass-tuning": {
+      title: "Accordage standard de basse | E A D G | TuneUniversal",
+      description: "Retrouvez l'accordage standard de basse E A D G et pourquoi il reste la base la plus utilisee."
+    },
+    "common-guitar-tunings": {
+      title: "Accordages courants de guitare | Standard, Drop D, Open D | TuneUniversal",
+      description: "Comparez Standard, Drop D, Eb Standard, Open D et Open G dans un guide pratique des accordages de guitare."
+    },
+    "drop-d-tuning": {
+      title: "Guide de l'accordage Drop D | D A D G B E | TuneUniversal",
+      description: "Accordez la guitare en Drop D pour des riffs plus graves et des power chords plus faciles tout en gardant des repères familiers."
+    },
+    "drop-c-tuning": {
+      title: "Guide de l'accordage Drop C | Notes et usages | TuneUniversal",
+      description: "Apprenez les notes exactes du Drop C et pourquoi cet accordage est si present en rock moderne et metal."
+    },
+    "open-d-tuning": {
+      title: "Guide de l'accordage Open D | Cordes ouvertes et slide | TuneUniversal",
+      description: "Utilisez l'Open D pour des cordes ouvertes resonantes, le slide et des accords acoustiques plus larges."
+    },
+    "eb-standard-tuning": {
+      title: "Guide de l'accordage Eb Standard | Un demi-ton plus bas | TuneUniversal",
+      description: "Baissez chaque corde d'un demi-ton vers Eb Ab Db Gb Bb Eb pour une tension plus souple et un timbre plus sombre."
+    }
+  },
+  it: {
+    "how-to-tune-bass": {
+      title: "Come accordare il basso online | Guida 4 e 5 corde | TuneUniversal",
+      description: "Accorda il basso online in Mi La Re Sol con passaggi chiari e supporto pratico per setup a 4 e 5 corde."
+    },
+    "how-to-tune-violin": {
+      title: "Come accordare il violino online | Guida Sol Re La Mi | TuneUniversal",
+      description: "Accorda il violino online in Sol Re La Mi con passaggi semplici e una lettura del microfono piu stabile."
+    },
+    "standard-bass-tuning": {
+      title: "Accordatura standard del basso | E A D G | TuneUniversal",
+      description: "Scopri l'accordatura standard del basso E A D G e perche resta la base piu usata dai bassisti."
+    },
+    "common-guitar-tunings": {
+      title: "Accordature comuni per chitarra | Standard, Drop D, Open D | TuneUniversal",
+      description: "Confronta Standard, Drop D, Eb Standard, Open D e Open G in una guida pratica sulle accordature comuni per chitarra."
+    },
+    "drop-d-tuning": {
+      title: "Guida accordatura Drop D | Re La Re Sol Si Mi | TuneUniversal",
+      description: "Accorda la chitarra in Drop D per riff piu gravi e power chord piu facili mantenendo un feeling vicino allo standard."
+    },
+    "drop-c-tuning": {
+      title: "Guida accordatura Drop C | Note e usi | TuneUniversal",
+      description: "Impara le note esatte della Drop C e perche questa accordatura e cosi usata in rock moderno e metal."
+    },
+    "open-d-tuning": {
+      title: "Guida accordatura Open D | Corde aperte e slide | TuneUniversal",
+      description: "Usa la Open D per corde aperte piu risonanti, slide e voicing acustici piu ampi."
+    },
+    "eb-standard-tuning": {
+      title: "Guida accordatura Eb Standard | Mezzo tono sotto | TuneUniversal",
+      description: "Abbassa tutte le corde di un semitono su Eb Ab Db Gb Bb Eb per meno tensione e un timbro piu scuro."
+    }
+  },
+  ja: {
+    "how-to-tune-bass": {
+      title: "ベースをオンラインでチューニングする方法 | 4弦・5弦ガイド | TuneUniversal",
+      description: "4弦・5弦ベースに対応しながら E A D G を基準にオンラインでベースを調弦するためのガイドです。"
+    },
+    "how-to-tune-violin": {
+      title: "バイオリンをオンラインでチューニングする方法 | G D A E ガイド | TuneUniversal",
+      description: "G D A E を基準に、初心者でも使いやすい手順でオンライン調弦できるバイオリンガイドです。"
+    },
+    "standard-bass-tuning": {
+      title: "標準ベースチューニングガイド | E A D G | TuneUniversal",
+      description: "標準ベースチューニング E A D G と、それが今でも多くのベーシストの基本である理由をまとめています。"
+    },
+    "common-guitar-tunings": {
+      title: "よく使われるギターチューニング | Standard・Drop D・Open D | TuneUniversal",
+      description: "Standard、Drop D、Eb Standard、Open D、Open G をひとつの実用ガイドで比較できます。"
+    },
+    "drop-d-tuning": {
+      title: "Drop D チューニングガイド | D A D G B E | TuneUniversal",
+      description: "ギターを Drop D にして、より重い低音リフと扱いやすいパワーコードを得るためのガイドです。"
+    },
+    "drop-c-tuning": {
+      title: "Drop C チューニングガイド | 音名と使いどころ | TuneUniversal",
+      description: "Drop C の正確な音名と、ロックやメタルでこのチューニングが選ばれる理由を確認できます。"
+    },
+    "open-d-tuning": {
+      title: "Open D チューニングガイド | 開放弦とスライド | TuneUniversal",
+      description: "Open D は開放弦の響き、スライド、広がりのあるアコースティックコードに向いています。"
+    },
+    "eb-standard-tuning": {
+      title: "Eb Standard チューニングガイド | 半音下げギター | TuneUniversal",
+      description: "すべての弦を半音下げて Eb Ab Db Gb Bb Eb にし、やわらかいテンションと少し低い響きを得ます。"
+    }
+  },
+  ko: {
+    "how-to-tune-bass": {
+      title: "온라인으로 베이스 튜닝하는 방법 | 4현·5현 가이드 | TuneUniversal",
+      description: "4현과 5현 세팅을 고려하면서 E A D G 기준으로 베이스를 온라인 조율하는 가이드입니다."
+    },
+    "how-to-tune-violin": {
+      title: "온라인으로 바이올린 튜닝하는 방법 | G D A E 가이드 | TuneUniversal",
+      description: "G D A E 기준으로 초보자도 따라가기 쉬운 단계로 바이올린을 온라인 조율할 수 있습니다."
+    },
+    "standard-bass-tuning": {
+      title: "스탠다드 베이스 튜닝 가이드 | E A D G | TuneUniversal",
+      description: "스탠다드 베이스 튜닝 E A D G 와 이것이 여전히 가장 널리 쓰이는 기본 세팅인 이유를 정리했습니다."
+    },
+    "common-guitar-tunings": {
+      title: "자주 쓰는 기타 튜닝 | Standard, Drop D, Open D | TuneUniversal",
+      description: "Standard, Drop D, Eb Standard, Open D, Open G 를 한 페이지에서 비교하는 실용 가이드입니다."
+    },
+    "drop-d-tuning": {
+      title: "Drop D 튜닝 가이드 | D A D G B E | TuneUniversal",
+      description: "기타를 Drop D 로 맞춰 더 무거운 저음 리프와 쉬운 파워코드를 만드는 방법을 정리했습니다."
+    },
+    "drop-c-tuning": {
+      title: "Drop C 튜닝 가이드 | 음과 활용법 | TuneUniversal",
+      description: "Drop C 의 정확한 음과 모던 록, 메탈에서 자주 쓰이는 이유를 확인하세요."
+    },
+    "open-d-tuning": {
+      title: "Open D 튜닝 가이드 | 개방현과 슬라이드 | TuneUniversal",
+      description: "Open D 는 개방현 울림, 슬라이드 연주, 더 넓은 어쿠스틱 코드 보이싱에 적합합니다."
+    },
+    "eb-standard-tuning": {
+      title: "Eb Standard 튜닝 가이드 | 반음 내린 기타 | TuneUniversal",
+      description: "모든 줄을 반음씩 내려 Eb Ab Db Gb Bb Eb 로 맞춰 더 부드러운 장력과 약간 낮은 음색을 얻습니다."
+    }
+  },
+  pt: {
+    "how-to-tune-bass": {
+      title: "Como afinar baixo online | Guia 4 e 5 cordas | TuneUniversal",
+      description: "Afine baixo online em E A D G com passos claros e ajuda pratica para configuracoes de 4 e 5 cordas."
+    },
+    "how-to-tune-violin": {
+      title: "Como afinar violino online | Guia G D A E | TuneUniversal",
+      description: "Afine violino online em G D A E com passos simples e uma leitura de microfone mais estavel."
+    },
+    "standard-bass-tuning": {
+      title: "Afinacao padrao de baixo | E A D G | TuneUniversal",
+      description: "Veja a afinacao padrao do baixo E A D G e por que ela continua sendo a base mais usada pelos baixistas."
+    },
+    "common-guitar-tunings": {
+      title: "Afinacoes comuns de guitarra | Standard, Drop D, Open D | TuneUniversal",
+      description: "Compare Standard, Drop D, Eb Standard, Open D e Open G em um guia pratico de afinacoes comuns."
+    },
+    "drop-d-tuning": {
+      title: "Guia de afinacao Drop D | D A D G B E | TuneUniversal",
+      description: "Afine a guitarra em Drop D para riffs graves e power chords mais faceis mantendo uma sensacao familiar."
+    },
+    "drop-c-tuning": {
+      title: "Guia de afinacao Drop C | Notas e usos | TuneUniversal",
+      description: "Aprenda as notas exatas da Drop C e por que ela e tao comum no rock moderno e no metal."
+    },
+    "open-d-tuning": {
+      title: "Guia de afinacao Open D | Cordas soltas e slide | TuneUniversal",
+      description: "Use Open D para cordas soltas ressonantes, slide e aberturas acusticas mais amplas."
+    },
+    "eb-standard-tuning": {
+      title: "Guia de afinacao Eb Standard | Meio tom abaixo | TuneUniversal",
+      description: "Baixe todas as cordas meio tom para Eb Ab Db Gb Bb Eb e obtenha menos tensao com um timbre mais escuro."
+    }
+  },
+  ru: {
+    "how-to-tune-bass": {
+      title: "How to tune a bass online | TuneUniversal",
+      description: "Tune bass online to E A D G with clear steps and practical help for both 4 string and 5 string setups."
+    },
+    "how-to-tune-violin": {
+      title: "How to tune a violin online | TuneUniversal",
+      description: "Tune violin online to G D A E with simple steps and a steadier microphone workflow for daily practice."
+    },
+    "standard-bass-tuning": {
+      title: "Standard bass tuning guide | TuneUniversal",
+      description: "See the standard bass tuning E A D G and learn why it remains the default setup for most bass players."
+    },
+    "common-guitar-tunings": {
+      title: "Common guitar tunings | TuneUniversal",
+      description: "Compare Standard, Drop D, Eb Standard, Open D and Open G in one practical guide to common guitar tunings."
+    },
+    "drop-d-tuning": {
+      title: "Drop D tuning guide | TuneUniversal",
+      description: "Tune guitar to Drop D for heavier low riffs and easier power chords while keeping the rest of the neck familiar."
+    },
+    "drop-c-tuning": {
+      title: "Drop C tuning guide | TuneUniversal",
+      description: "Learn the exact Drop C notes and why this tuning is so common in modern rock and metal rhythm guitar."
+    },
+    "open-d-tuning": {
+      title: "Open D tuning guide | TuneUniversal",
+      description: "Use Open D tuning for resonant open strings, slide guitar and wider acoustic chord voicings."
+    },
+    "eb-standard-tuning": {
+      title: "Eb Standard tuning guide | TuneUniversal",
+      description: "Lower every guitar string by a semitone to Eb Ab Db Gb Bb Eb for softer tension and a darker overall voice."
+    }
+  },
+  zh: {
+    "how-to-tune-bass": {
+      title: "如何在线给贝斯调音 | 4弦与5弦指南 | TuneUniversal",
+      description: "用清晰步骤在线把贝斯调到 E A D G，并兼顾 4 弦与 5 弦配置。"
+    },
+    "how-to-tune-violin": {
+      title: "如何在线给小提琴调音 | G D A E 指南 | TuneUniversal",
+      description: "以 G D A E 为基准，按简单步骤在线调好小提琴，适合初学者和日常练习。"
+    },
+    "standard-bass-tuning": {
+      title: "标准贝斯调弦指南 | E A D G | TuneUniversal",
+      description: "查看标准贝斯调弦 E A D G，并了解它为何仍然是多数贝斯手的默认基础。"
+    },
+    "common-guitar-tunings": {
+      title: "常见吉他调弦 | Standard、Drop D、Open D | TuneUniversal",
+      description: "在一页中比较 Standard、Drop D、Eb Standard、Open D 和 Open G。"
+    },
+    "drop-d-tuning": {
+      title: "Drop D 调弦指南 | D A D G B E | TuneUniversal",
+      description: "把吉他调成 Drop D，获得更厚实的低音 riff 和更容易的 power chord。"
+    },
+    "drop-c-tuning": {
+      title: "Drop C 调弦指南 | 音名与用途 | TuneUniversal",
+      description: "了解 Drop C 的准确音名，以及它为何常用于现代摇滚和金属。"
+    },
+    "open-d-tuning": {
+      title: "Open D 调弦指南 | 开放弦与 Slide | TuneUniversal",
+      description: "Open D 适合更有共鸣的空弦、slide 演奏以及更宽广的原声和弦。"
+    },
+    "eb-standard-tuning": {
+      title: "Eb Standard 调弦指南 | 半音下调吉他 | TuneUniversal",
+      description: "把所有吉他弦降半音到 Eb Ab Db Gb Bb Eb，得到更柔和的张力和更低沉的音色。"
+    }
+  }
+};
+
 const guideMetadataOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, { description: string; title: string }>>>> = {
   en: {
     "d-standard-tuning": {
@@ -996,7 +1373,7 @@ export function buildTuningHubMetadata(locale: Locale): Metadata {
 
 export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: GuideContent): Metadata {
   const relatedToolKeywords = toolKeywords[locale][content.tool] ?? [];
-  const override = guideMetadataOverrides[locale]?.[guide];
+  const override = priorityGuideMetadataOverrides[locale]?.[guide] ?? guideMetadataOverrides[locale]?.[guide];
   const title = override?.title ?? `${content.title} | TuneUniversal`;
   const description = override?.description ?? content.description;
   return {

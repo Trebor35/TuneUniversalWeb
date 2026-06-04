@@ -630,10 +630,177 @@ function searchConsolePriorityGuideOverrides(locale: Locale): Partial<Record<Gui
   };
 }
 
+function guideCtrRecoveryOverrides(locale: Locale): Partial<Record<GuideSlug, GuideOverride>> {
+  const copy = {
+    ar: {
+      bass: ["كيفية ضبط الباس", "اضبط الباس أونلاين على E A D G مع دعم واضح لإعدادات 4 و5 أوتار.", "هذه الصفحة تساعدك على ضبط كل وتر في الباس بسرعة، ثم التحقق من توازن الآلة قبل التدريب أو البروفة."],
+      violin: ["كيفية ضبط الكمان", "اضبط الكمان أونلاين على G D A E مع خطوات بسيطة مناسبة للمبتدئين.", "استخدم هذا الدليل عندما تريد قراءة أوضح من الميكروفون وضبطًا يوميًا سريعًا للكمان."],
+      bassStd: ["دليل الضبط القياسي للباس", "تعرف على نغمات الباس القياسية E A D G ومتى تستخدم هذا الضبط الأكثر شيوعًا.", "الضبط القياسي للباس هو نقطة البداية لمعظم العازفين لأنه متوازن وسهل الدمج مع الدروس والتمارين المعتادة."],
+      tunings: ["أشهر ضبطات الجيتار", "راجع Standard و Drop D و Eb Standard و Open D و Open G في صفحة واحدة.", "هذا الدليل يجمع أشهر ضبطات الجيتار لمساعدتك على اختيار الإحساس المناسب للصوت أو الأسلوب قبل فتح الموالف."],
+      dropD: ["دليل ضبط Drop D", "اضبط الجيتار على D A D G B E للحصول على وتر منخفض أقوى وريفات أسهل.", "Drop D من أكثر الضبطات انتشارًا لأنه يعطيك صوتًا أثقل مع الحفاظ على أغلب أشكال العزف المألوفة."],
+      dropC: ["دليل ضبط Drop C", "تعرف على نغمات Drop C ومتى يستخدم هذا الضبط للروك والميتال الحديث.", "Drop C يجمع بين طبقة منخفضة قوية وسهولة استخدام أشكال قريبة من الضبط القياسي على الأوتار العليا."],
+      openD: ["دليل ضبط Open D", "استخدم Open D للحصول على أوتار مفتوحة رنانة وأشكال سهلة للسلايد والفينغرستايل.", "Open D مناسب عندما تريد كوردًا مفتوحًا غنيًا وصوتًا واسعًا للأغاني الهادئة أو العزف بالسلايد."],
+      eb: ["دليل ضبط Eb Standard", "اخفض كل أوتار الجيتار نصف درجة إلى Eb Ab Db Gb Bb Eb للحصول على شد أخف وصوت أدفأ.", "Eb Standard شائع عندما تريد راحة أكبر في الغناء أو إحساسًا أخف تحت الأصابع من دون تغيير كبير في الأشكال."]
+    },
+    de: {
+      bass: ["Bass online stimmen", "Stimme Bass online auf E A D G mit klarer Hilfe fuer 4- und 5-Saiter-Setups.", "Dieser Guide hilft dir, jede Basssaite schnell zu pruefen und danach den Gesamtklang vor Probe oder Ueben sauber abzugleichen."],
+      violin: ["Violine online stimmen", "Stimme Violine online auf G D A E mit einfachen Schritten fuer Alltag und Unterricht.", "Nutze diese Seite, wenn du eine stabilere Mikrofonanzeige und einen einfachen Ablauf fuer das taegliche Stimmen suchst."],
+      bassStd: ["Standard-Bass-Stimmung Guide", "Sieh dir die Standard-Bass-Stimmung E A D G an und erfahre, warum sie fuer die meisten Songs die beste Basis ist.", "Die Standard-Stimmung ist fuer die meisten Bassisten der Ausgangspunkt, weil sie ausgewogen ist und mit den meisten Uebungen und Songs sofort funktioniert."],
+      tunings: ["Haeufige Gitarrenstimmungen", "Vergleiche Standard, Drop D, Eb Standard, Open D und Open G in einer kompakten Uebersicht.", "Dieser Guide sammelt beliebte Gitarrenstimmungen, damit du vor dem Oeffnen des Tuners schneller die passende Klangfarbe findest."],
+      dropD: ["Drop D Tuning Guide", "Stimme Gitarre auf D A D G B E fuer tiefere Riffs und einfachere Powerchords.", "Drop D ist eine der beliebtesten Alternativstimmungen, weil sie sofort mehr Tiefe gibt und trotzdem nah an Standard bleibt."],
+      dropC: ["Drop C Tuning Guide", "Lerne die Noten von Drop C und wann diese Stimmung fuer modernen Rock und Metal sinnvoll ist.", "Drop C kombiniert eine tiefe Basssaite mit Griffbildern, die sich auf den oberen Saiten noch vertraut anfuehlen."],
+      openD: ["Open D Tuning Guide", "Nutze Open D fuer offene Resonanz, Slide-Gitarre und weite Akkordklangfarben.", "Open D passt gut zu Fingerstyle, Slide und Songs, bei denen offene Saiten stark mitschwingen sollen."],
+      eb: ["Eb Standard Tuning Guide", "Senke alle Gitarrensaiten um einen Halbton auf Eb Ab Db Gb Bb Eb fuer weichere Spannung und tieferen Klang.", "Eb Standard ist beliebt, wenn du etwas tiefer singen willst oder sich die Gitarre entspannter anfuehlen soll, ohne die Griffbilder neu zu lernen."]
+    },
+    en: {
+      bass: ["How to tune a bass online", "Tune bass online to E A D G with clearer help for 4 string and 5 string setups.", "This guide helps you check each bass string quickly, then confirm the overall balance before practice, rehearsal or recording."],
+      violin: ["How to tune a violin online", "Tune violin online to G D A E with simple steps that work well for beginners and daily warmups.", "Use this guide when you want a steadier microphone reading and a straightforward routine for everyday violin tuning."],
+      bassStd: ["Standard bass tuning guide", "See the standard bass tuning E A D G and learn why it is still the default setup for most bass players.", "Standard bass tuning is the safest starting point for lessons, band practice and most song material because it stays balanced and familiar."],
+      tunings: ["Common guitar tunings", "Compare Standard, Drop D, Eb Standard, Open D and Open G in one practical guitar tuning guide.", "This page brings together the guitar tunings players search for most often, so you can choose a sound quickly before opening the tuner."],
+      dropD: ["Drop D tuning guide", "Tune guitar to D A D G B E for heavier low riffs and faster one-finger power chords.", "Drop D remains one of the most common alternate tunings because it adds weight to the low string without making the rest of the neck feel unfamiliar."],
+      dropC: ["Drop C tuning guide", "Learn the exact Drop C notes and when players use this tuning for modern rock and metal.", "Drop C gives you a lower register while keeping familiar upper-string shapes, which is why it works so well for heavy riffs and modern rhythm parts."],
+      openD: ["Open D tuning guide", "Use Open D tuning for resonant open strings, slide guitar and wider acoustic chord voicings.", "Open D is useful when you want a full open-chord sound, easier slide shapes and a more spacious acoustic feel."],
+      eb: ["Eb Standard tuning guide", "Lower every guitar string by a semitone to Eb Ab Db Gb Bb Eb for softer tension and a darker voice.", "Eb Standard is common when players want a slightly lower singing range or a looser feel without relearning standard chord shapes."]
+    },
+    es: {
+      bass: ["Cómo afinar bajo online", "Afina bajo online en E A D G con ayuda más clara para configuraciones de 4 y 5 cuerdas.", "Esta guía te ayuda a revisar cada cuerda del bajo con rapidez y luego confirmar el equilibrio general antes de ensayar o estudiar."],
+      violin: ["Cómo afinar violín online", "Afina violín online en G D A E con pasos sencillos pensados para principiantes y estudio diario.", "Usa esta guía si quieres una lectura más estable del micrófono y un método simple para afinar violín todos los días."],
+      bassStd: ["Guía de afinación estándar de bajo", "Consulta la afinación estándar E A D G y por qué sigue siendo la base más usada por los bajistas.", "La afinación estándar del bajo es el punto de partida más seguro para clases, ensayo y la mayoría del repertorio habitual."],
+      tunings: ["Afinaciones comunes de guitarra", "Compara Standard, Drop D, Eb Standard, Open D y Open G en una sola guía práctica.", "Aquí encuentras las afinaciones de guitarra más buscadas para elegir rápidamente la sonoridad adecuada antes de abrir el afinador."],
+      dropD: ["Guía de afinación Drop D", "Afina la guitarra en D A D G B E para riffs graves y power chords más fáciles.", "Drop D es una de las afinaciones alternativas más populares porque añade profundidad sin alejarte demasiado de las posiciones habituales."],
+      dropC: ["Guía de afinación Drop C", "Aprende las notas exactas de Drop C y cuándo se usa en rock moderno y metal.", "Drop C baja el registro de la guitarra pero mantiene posiciones conocidas en las cuerdas agudas, por eso funciona tan bien para riffs pesados."],
+      openD: ["Guía de afinación Open D", "Usa Open D para cuerdas abiertas resonantes, slide y acordes acústicos más amplios.", "Open D va muy bien para fingerstyle, slide y canciones donde quieres un acorde abierto grande y lleno."],
+      eb: ["Guía de afinación Eb Standard", "Baja todas las cuerdas medio tono a Eb Ab Db Gb Bb Eb para una tensión más suave y un color más grave.", "Eb Standard es habitual cuando buscas una voz un poco más baja o una sensación más blanda sin cambiar por completo las formas de acordes."]
+    },
+    fr: {
+      bass: ["Comment accorder une basse en ligne", "Accordez une basse en ligne en E A D G avec une aide plus claire pour les basses 4 et 5 cordes.", "Ce guide vous aide à vérifier chaque corde de basse rapidement puis à contrôler l'équilibre général avant le travail ou la répétition."],
+      violin: ["Comment accorder un violon en ligne", "Accordez un violon en ligne en G D A E avec des étapes simples adaptées aux débutants et au travail quotidien.", "Utilisez cette page si vous voulez une lecture micro plus stable et une routine claire pour accorder le violon chaque jour."],
+      bassStd: ["Guide de l'accordage standard de basse", "Retrouvez l'accordage standard E A D G et pourquoi il reste la base la plus utilisée chez les bassistes.", "L'accordage standard de basse est la référence la plus sûre pour les cours, les répétitions et la majorité des morceaux courants."],
+      tunings: ["Accordages courants de guitare", "Comparez Standard, Drop D, Eb Standard, Open D et Open G dans un seul guide pratique.", "Cette page réunit les accordages guitare les plus recherchés pour vous aider à choisir rapidement la bonne couleur sonore avant d'ouvrir l'accordeur."],
+      dropD: ["Guide de l'accordage Drop D", "Accordez la guitare en D A D G B E pour obtenir un grave plus puissant et des power chords plus simples.", "Le Drop D est l'un des accordages alternatifs les plus populaires parce qu'il ajoute de la profondeur sans rendre le manche étrange."],
+      dropC: ["Guide de l'accordage Drop C", "Apprenez les notes exactes du Drop C et quand l'utiliser pour le rock moderne et le metal.", "Le Drop C abaisse le registre tout en gardant des formes familières sur les cordes aiguës, ce qui le rend pratique pour les riffs lourds."],
+      openD: ["Guide de l'accordage Open D", "Utilisez l'Open D pour les cordes ouvertes résonantes, le slide et des accords acoustiques plus larges.", "L'Open D convient bien au fingerstyle, au slide et aux morceaux où l'on cherche un grand accord ouvert et chantant."],
+      eb: ["Guide de l'accordage Eb Standard", "Baissez chaque corde d'un demi-ton vers Eb Ab Db Gb Bb Eb pour une tension plus souple et un timbre plus sombre.", "Eb Standard est utile quand on veut chanter un peu plus bas ou obtenir une guitare plus souple sans changer complètement ses repères."]
+    },
+    it: {
+      bass: ["Come accordare il basso online", "Accorda il basso online in Mi La Re Sol con un supporto più chiaro per setup a 4 e 5 corde.", "Questa guida ti aiuta a controllare ogni corda del basso rapidamente e poi a verificare l'equilibrio generale prima di studiare o provare."],
+      violin: ["Come accordare il violino online", "Accorda il violino online in Sol Re La Mi con passaggi semplici adatti a principianti e studio quotidiano.", "Usa questa guida se vuoi una lettura più stabile del microfono e una routine chiara per l'accordatura quotidiana del violino."],
+      bassStd: ["Guida all'accordatura standard del basso", "Scopri l'accordatura standard del basso E A D G e perché resta la base più usata dai bassisti.", "L'accordatura standard del basso è il punto di partenza più sicuro per lezioni, sala prove e la maggior parte del repertorio comune."],
+      tunings: ["Accordature comuni per chitarra", "Confronta Standard, Drop D, Eb Standard, Open D e Open G in un'unica guida pratica.", "Questa pagina raccoglie le accordature per chitarra più cercate, così puoi scegliere più in fretta il carattere sonoro giusto prima di aprire l'accordatore."],
+      dropD: ["Guida accordatura Drop D", "Accorda la chitarra in Re La Re Sol Si Mi per ottenere riff più gravi e power chord più rapidi.", "La Drop D è una delle accordature alternative più usate perché aggiunge profondità alla corda bassa senza rendere estranee le altre forme."],
+      dropC: ["Guida accordatura Drop C", "Impara le note esatte della Drop C e quando usarla per rock moderno e metal.", "La Drop C abbassa il registro della chitarra ma lascia forme ancora familiari sulle corde alte, per questo funziona bene nei riff pesanti."],
+      openD: ["Guida accordatura Open D", "Usa la Open D per corde aperte più risonanti, slide e voicing acustici più ampi.", "La Open D è utile quando vuoi un accordo aperto più grande, un suono più largo e forme comode per slide e fingerstyle."],
+      eb: ["Guida accordatura Eb Standard", "Abbassa tutte le corde di un semitono su Eb Ab Db Gb Bb Eb per meno tensione e un timbro più scuro.", "La Eb Standard è comune quando vuoi cantare leggermente più basso o ottenere una sensazione più morbida sotto le dita senza cambiare diteggiature."]
+    },
+    ja: {
+      bass: ["ベースをオンラインでチューニングする方法", "4弦・5弦ベースに対応しながら E A D G を基準にオンラインでベースを調弦するためのガイドです。", "このガイドでは各ベース弦をすばやく確認し、最後に全体のバランスを整えてから練習やリハーサルに入る流れを紹介します。"],
+      violin: ["バイオリンをオンラインでチューニングする方法", "G D A E を基準に、初心者でも使いやすい手順でオンライン調弦できます。", "毎日のバイオリン調弦をもっと安定して行いたい時に使える、シンプルで分かりやすいガイドです。"],
+      bassStd: ["標準ベースチューニングガイド", "標準ベースチューニング E A D G と、それが今でも多くのベーシストの基本である理由をまとめています。", "標準ベースチューニングは、レッスン・バンド練習・一般的な曲に最も合わせやすい出発点です。"],
+      tunings: ["よく使われるギターチューニング", "Standard、Drop D、Eb Standard、Open D、Open G をひとつの実用ガイドで比較できます。", "よく検索されるギターチューニングをまとめているので、チューナーを開く前に欲しい音の方向性を選びやすくなります。"],
+      dropD: ["Drop D チューニングガイド", "ギターを D A D G B E にして、低音リフとワンフィンガーのパワーコードを扱いやすくします。", "Drop D は低音の迫力を加えながら、他の弦では標準に近い感覚を保てるため、とても人気のある変則チューニングです。"],
+      dropC: ["Drop C チューニングガイド", "Drop C の正確な音名と、ロックやメタルでよく使われる理由を確認できます。", "Drop C は低音域を広げつつ高音弦側の運指を大きく変えずに済むため、ヘヴィなリフに向いています。"],
+      openD: ["Open D チューニングガイド", "Open D は開放弦の響き、スライド、広がりのあるアコースティックコードに向いています。", "開放感のある大きなコード感や、スライド向けの弾きやすさを求める時に Open D はとても便利です。"],
+      eb: ["Eb Standard チューニングガイド", "すべての弦を半音下げて Eb Ab Db Gb Bb Eb にし、やわらかいテンションと少し低めの響きを得ます。", "Eb Standard は、少し低い歌いやすいレンジや、標準より少し緩い弾き心地を求める時によく使われます。"]
+    },
+    ko: {
+      bass: ["온라인으로 베이스 튜닝하는 방법", "4현과 5현 세팅을 고려하면서 E A D G 기준으로 베이스를 온라인 조율하는 가이드입니다.", "이 가이드는 각 베이스 줄을 빠르게 확인한 뒤 전체 밸런스를 다시 점검하고 연습이나 합주에 들어가도록 도와줍니다."],
+      violin: ["온라인으로 바이올린 튜닝하는 방법", "G D A E 기준으로 초보자도 따라가기 쉬운 단계로 바이올린을 온라인 조율할 수 있습니다.", "바이올린을 매일 더 안정적으로 튜닝하고 싶을 때 쓰기 좋은 간단하고 명확한 가이드입니다."],
+      bassStd: ["스탠다드 베이스 튜닝 가이드", "스탠다드 베이스 튜닝 E A D G 와 이것이 여전히 가장 널리 쓰이는 기본 세팅인 이유를 정리했습니다.", "스탠다드 베이스 튜닝은 레슨, 밴드 연습, 일반적인 곡 연주에 가장 무난하게 시작할 수 있는 기준점입니다."],
+      tunings: ["자주 쓰는 기타 튜닝", "Standard, Drop D, Eb Standard, Open D, Open G 를 한 페이지에서 비교하는 실용 가이드입니다.", "자주 검색되는 기타 튜닝을 모아 두었기 때문에 튜너를 열기 전에 원하는 사운드 방향을 빠르게 고를 수 있습니다."],
+      dropD: ["Drop D 튜닝 가이드", "기타를 D A D G B E 로 맞춰 더 무거운 저음 리프와 쉬운 파워코드를 만들 수 있습니다.", "Drop D 는 저음을 강화하면서도 다른 줄의 감각은 표준 튜닝과 가깝게 유지할 수 있어서 매우 널리 쓰입니다."],
+      dropC: ["Drop C 튜닝 가이드", "Drop C 의 정확한 음과 모던 록, 메탈에서 자주 쓰이는 이유를 확인하세요.", "Drop C 는 음역을 낮추면서도 높은 줄 쪽 운지는 비교적 익숙하게 유지할 수 있어 헤비한 리프에 잘 맞습니다."],
+      openD: ["Open D 튜닝 가이드", "Open D 는 개방현 울림, 슬라이드 연주, 더 넓은 어쿠스틱 코드 보이싱에 적합합니다.", "더 넓고 울림 있는 오픈 코드 사운드나 슬라이드 연주를 원할 때 Open D 는 매우 유용한 선택입니다."],
+      eb: ["Eb Standard 튜닝 가이드", "모든 줄을 반음씩 내려 Eb Ab Db Gb Bb Eb 로 맞춰 더 부드러운 장력과 약간 낮은 음색을 얻습니다.", "Eb Standard 는 조금 더 낮은 보컬 범위가 필요하거나 손가락 아래 느낌을 조금 더 부드럽게 만들고 싶을 때 자주 사용됩니다."]
+    },
+    pt: {
+      bass: ["Como afinar baixo online", "Afine baixo online em E A D G com ajuda mais clara para configurações de 4 e 5 cordas.", "Este guia ajuda você a conferir cada corda do baixo rapidamente e depois revisar o equilíbrio geral antes de estudar ou ensaiar."],
+      violin: ["Como afinar violino online", "Afine violino online em G D A E com passos simples pensados para iniciantes e estudo diário.", "Use este guia quando quiser uma leitura mais estável do microfone e uma rotina clara para afinar violino todos os dias."],
+      bassStd: ["Guia da afinação padrão de baixo", "Veja a afinação padrão do baixo E A D G e por que ela continua sendo a base mais usada pelos baixistas.", "A afinação padrão do baixo é o ponto de partida mais seguro para aulas, ensaios e a maior parte do repertório comum."],
+      tunings: ["Afinações comuns de guitarra", "Compare Standard, Drop D, Eb Standard, Open D e Open G em um único guia prático.", "Esta página reúne as afinações de guitarra mais procuradas para ajudar você a escolher mais rápido o timbre certo antes de abrir o afinador."],
+      dropD: ["Guia de afinação Drop D", "Afine a guitarra em D A D G B E para riffs graves e power chords mais fáceis.", "Drop D é uma das afinações alternativas mais populares porque adiciona peso à corda grave sem deixar o braço estranho."],
+      dropC: ["Guia de afinação Drop C", "Aprenda as notas exatas da Drop C e quando ela faz sentido para rock moderno e metal.", "Drop C abaixa o registro da guitarra e ainda mantém formas familiares nas cordas agudas, o que a torna ótima para riffs pesados."],
+      openD: ["Guia de afinação Open D", "Use Open D para cordas soltas ressonantes, slide e aberturas acústicas mais amplas.", "Open D funciona muito bem para fingerstyle, slide e músicas em que você quer um acorde aberto grande e cheio."],
+      eb: ["Guia de afinação Eb Standard", "Baixe todas as cordas meio tom para Eb Ab Db Gb Bb Eb e obtenha menos tensão com um timbre mais escuro.", "Eb Standard é comum quando você quer cantar um pouco mais grave ou sentir a guitarra mais macia sem reaprender formas."]
+    },
+    ru: {
+      bass: ["How to tune a bass online", "Tune bass online to E A D G with clearer help for 4 string and 5 string setups.", "This guide helps you check each bass string quickly, then confirm the overall balance before practice, rehearsal or recording."],
+      violin: ["How to tune a violin online", "Tune violin online to G D A E with simple steps that work well for beginners and daily warmups.", "Use this guide when you want a steadier microphone reading and a straightforward routine for everyday violin tuning."],
+      bassStd: ["Standard bass tuning guide", "See the standard bass tuning E A D G and learn why it is still the default setup for most bass players.", "Standard bass tuning is the safest starting point for lessons, band practice and most song material because it stays balanced and familiar."],
+      tunings: ["Common guitar tunings", "Compare Standard, Drop D, Eb Standard, Open D and Open G in one practical guitar tuning guide.", "This page brings together the guitar tunings players search for most often, so you can choose a sound quickly before opening the tuner."],
+      dropD: ["Drop D tuning guide", "Tune guitar to D A D G B E for heavier low riffs and faster one-finger power chords.", "Drop D remains one of the most common alternate tunings because it adds weight to the low string without making the rest of the neck feel unfamiliar."],
+      dropC: ["Drop C tuning guide", "Learn the exact Drop C notes and when players use this tuning for modern rock and metal.", "Drop C gives you a lower register while keeping familiar upper-string shapes, which is why it works so well for heavy riffs and modern rhythm parts."],
+      openD: ["Open D tuning guide", "Use Open D tuning for resonant open strings, slide guitar and wider acoustic chord voicings.", "Open D is useful when you want a full open-chord sound, easier slide shapes and a more spacious acoustic feel."],
+      eb: ["Eb Standard tuning guide", "Lower every guitar string by a semitone to Eb Ab Db Gb Bb Eb for softer tension and a darker voice.", "Eb Standard is common when players want a slightly lower singing range or a looser feel without relearning standard chord shapes."]
+    },
+    zh: {
+      bass: ["如何在线给贝斯调音", "用更清晰的步骤在线把贝斯调到 E A D G，并兼顾 4 弦与 5 弦配置。", "这份指南会帮助你快速检查每一根贝斯弦，然后在练习、排练或录音前再次确认整体平衡。"],
+      violin: ["如何在线给小提琴调音", "以 G D A E 为基准，按简单步骤在线调好小提琴，适合初学者和日常练习。", "如果你想要更稳定的麦克风读数，并建立一套清晰的小提琴日常调音流程，这页会很有帮助。"],
+      bassStd: ["标准贝斯调弦指南", "查看标准贝斯调弦 E A D G，并了解它为何仍然是多数贝斯手的默认基础。", "标准贝斯调弦是课程、乐队排练和大多数常见曲目的稳妥起点，因为它平衡、熟悉又通用。"],
+      tunings: ["常见吉他调弦", "在一页中比较 Standard、Drop D、Eb Standard、Open D 和 Open G。", "这份指南整理了最常被搜索的吉他调弦方式，方便你在打开调音器之前先选好想要的声音方向。"],
+      dropD: ["Drop D 调弦指南", "把吉他调成 D A D G B E，获得更厚实的低音 riff 和更容易的 power chord。", "Drop D 是最常见的替代调弦之一，因为它能增强低音力度，同时又不会让其他弦位变得陌生。"],
+      dropC: ["Drop C 调弦指南", "了解 Drop C 的准确音名，以及它为何常用于现代摇滚和金属。", "Drop C 可以降低整体音域，同时保留高音弦侧较熟悉的按法，因此很适合厚重 riff 和现代节奏演奏。"],
+      openD: ["Open D 调弦指南", "Open D 适合更有共鸣的空弦、slide 演奏以及更宽广的原声和弦。", "当你想获得更大的开放和弦感、更适合 slide 的指型和更宽阔的原声氛围时，Open D 很值得使用。"],
+      eb: ["Eb Standard 调弦指南", "把所有吉他弦降半音到 Eb Ab Db Gb Bb Eb，得到更柔和的张力和更低沉的音色。", "Eb Standard 常用于想要稍微降低演唱音区，或想让手感更柔和、又不想重学标准按法的时候。"]
+    }
+  }[locale];
+
+  return {
+    "how-to-tune-bass": {
+      title: copy.bass[0],
+      description: copy.bass[1],
+      intro: copy.bass[2],
+      relatedGuides: ["standard-bass-tuning", "five-string-bass-tuning", "how-to-find-bpm"]
+    },
+    "how-to-tune-violin": {
+      title: copy.violin[0],
+      description: copy.violin[1],
+      intro: copy.violin[2],
+      relatedGuides: ["violin-standard-tuning", "chromatic-tuner-guide", "how-to-tune-cello"]
+    },
+    "standard-bass-tuning": {
+      title: copy.bassStd[0],
+      description: copy.bassStd[1],
+      intro: copy.bassStd[2],
+      relatedGuides: ["how-to-tune-bass", "five-string-bass-tuning", "chromatic-tuner-guide"]
+    },
+    "common-guitar-tunings": {
+      title: copy.tunings[0],
+      description: copy.tunings[1],
+      intro: copy.tunings[2],
+      relatedGuides: ["standard-guitar-tuning", "drop-d-tuning", "open-d-tuning", "open-g-tuning", "eb-standard-tuning"]
+    },
+    "drop-d-tuning": {
+      title: copy.dropD[0],
+      description: copy.dropD[1],
+      intro: copy.dropD[2],
+      relatedGuides: ["standard-guitar-tuning", "drop-c-tuning", "common-guitar-tunings"]
+    },
+    "drop-c-tuning": {
+      title: copy.dropC[0],
+      description: copy.dropC[1],
+      intro: copy.dropC[2],
+      relatedGuides: ["drop-d-tuning", "drop-c-sharp-tuning", "d-standard-tuning"]
+    },
+    "open-d-tuning": {
+      title: copy.openD[0],
+      description: copy.openD[1],
+      intro: copy.openD[2],
+      relatedGuides: ["open-g-tuning", "dadgad-tuning", "common-guitar-tunings"]
+    },
+    "eb-standard-tuning": {
+      title: copy.eb[0],
+      description: copy.eb[1],
+      intro: copy.eb[2],
+      relatedGuides: ["half-step-down-tuning", "d-standard-tuning", "common-guitar-tunings"]
+    }
+  };
+}
+
 function applyGuideOverride(base: GuideContent, locale: Locale, guide: GuideSlug): GuideContent {
   const priorityOverride = searchConsolePriorityGuideOverrides(locale)[guide];
+  const ctrOverride = guideCtrRecoveryOverrides(locale)[guide];
   const manualOverride = guideContentOverrides[locale]?.[guide];
-  const override = priorityOverride || manualOverride ? { ...priorityOverride, ...manualOverride } : null;
+  const override = priorityOverride || ctrOverride || manualOverride ? { ...priorityOverride, ...ctrOverride, ...manualOverride } : null;
   return override ? { ...base, ...override } : base;
 }
 
