@@ -6,6 +6,11 @@ export type SeoBlock = {
   title: string;
 };
 
+export type SeoHighlight = {
+  label: string;
+  value: string;
+};
+
 export type SeoFaq = {
   answer: string;
   question: string;
@@ -15,7 +20,524 @@ export type ToolSeoEnhancement = {
   faqs: SeoFaq[];
   heroDescription?: string;
   heroTitle?: string;
+  highlights?: SeoHighlight[];
+  quickAnswers?: SeoBlock[];
   sections: SeoBlock[];
+};
+
+const toolContextualModules: Record<
+  Locale,
+  Record<
+    "guitar-tuner" | "metronome" | "tap-bpm" | "chord-transposer",
+    { highlights: SeoHighlight[]; quickAnswers: SeoBlock[] }
+  >
+> = {
+  ar: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "المصدر", value: "ميكروفون + نغمات مرجعية" },
+        { label: "الأنماط", value: "Standard و Drop و Open" },
+        { label: "الآلات", value: "كلاسيك وأكوستك وكهربائي" }
+      ],
+      quickAnswers: [
+        { title: "هل يناسب الضبط السريع؟", body: "نعم. فعّل الميكروفون واعزف وترا واحدا فقط كل مرة حتى تستقر القراءة بسرعة." },
+        { title: "ما الضبط التالي المفيد؟", body: "بعد Standard جرّب Drop D للريفات المنخفضة أو Eb Standard إذا أردت خفض الطبقة العامة." }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "السرعة", value: "BPM دقيق مع Tap Tempo" },
+        { label: "الإيقاع", value: "Accents + subdivisions" },
+        { label: "التمرين", value: "دورة تصاعدية حتى السرعة الهدف" }
+      ],
+      quickAnswers: [
+        { title: "بأي BPM أبدأ؟", body: "ابدأ بسرعة تستطيع العزف عليها بنظافة وهدوء ثم ارفع السرعة تدريجيا." },
+        { title: "لماذا أستخدم التقسيمات؟", body: "التقسيمات تجعل النبض الداخلي أوضح وتساعد كثيرا على الثبات والدقة." }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "القراءة", value: "BPM لحظي ومتوسط" },
+        { label: "النسخ", value: "نسخ النتيجة مباشرة" },
+        { label: "التدفق", value: "انتقال سريع إلى المترونوم" }
+      ],
+      quickAnswers: [
+        { title: "كم نقرة أحتاج؟", body: "ثماني نقرات أو أكثر تعطي غالبا متوسطا أدق وأكثر ثباتا." },
+        { title: "هل يعمل مع أغنية تعمل الآن؟", body: "نعم، إذا بقيت تنقر على نفس موضع النبضة طوال الوقت." }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "النطاق", value: "من -12 إلى +12 نصف نغمة" },
+        { label: "العرض", value: "دييز أو بيمول" },
+        { label: "الدعم", value: "Slash chords وجودة الوتر" }
+      ],
+      quickAnswers: [
+        { title: "هل تبقى جودة الوتر كما هي؟", body: "نعم. يتغير الجذر فقط بينما تبقى m و7 وmaj7 وsus4 وadd9 وغيرها بدون تغيير." },
+        { title: "هل يصلح لنص كامل مع أسطر؟", body: "نعم. يحافظ على الفراغات والأسطر ويغيّر فقط ما يتعرف عليه كأوتار." }
+      ]
+    }
+  },
+  de: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "Eingang", value: "Mikrofon + Referenztöne" },
+        { label: "Stimmungen", value: "Standard, Drop und Open" },
+        { label: "Gitarren", value: "Klassik, Akustik, E-Gitarre" }
+      ],
+      quickAnswers: [
+        { title: "Taugt das für schnelles Stimmen?", body: "Ja. Mikrofon aktivieren, eine Saite klar anschlagen und kurz warten, bis die Anzeige stabil wird." },
+        { title: "Welche Stimmung als Nächstes?", body: "Nach Standard ist Drop D meist der einfachste nächste Schritt, Eb Standard senkt das gesamte Instrument." }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "Tempo", value: "Präzises BPM + Tap Tempo" },
+        { label: "Rhythmus", value: "Akzente und Unterteilungen" },
+        { label: "Routine", value: "Steigerung bis Zieltempo" }
+      ],
+      quickAnswers: [
+        { title: "Mit welchem BPM starte ich?", body: "Starte in einem Tempo, das noch sauber und locker bleibt, und erhöhe dann in kleinen Schritten." },
+        { title: "Wozu sind Unterteilungen gut?", body: "Sie machen den inneren Puls hörbarer und helfen bei Timing, Groove und Konstanz." }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "Messung", value: "Sofortiger und mittlerer BPM" },
+        { label: "Kopieren", value: "Ergebnis mit einem Klick" },
+        { label: "Weiter", value: "Direkt zum Metronom" }
+      ],
+      quickAnswers: [
+        { title: "Wie viele Taps sind genug?", body: "Acht oder mehr Taps liefern normalerweise einen viel stabileren Durchschnitt." },
+        { title: "Geht das mit laufender Musik?", body: "Ja, solange du immer denselben Puls triffst und nicht zwischen Zählzeiten springst." }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "Bereich", value: "-12 bis +12 Halbtöne" },
+        { label: "Ausgabe", value: "Kreuze oder Bs" },
+        { label: "Support", value: "Slash Chords und Akkordqualität" }
+      ],
+      quickAnswers: [
+        { title: "Bleibt die Akkordqualität erhalten?", body: "Ja. Nur der Grundton wandert, Zusätze wie m, 7, maj7, sus4 oder add9 bleiben erhalten." },
+        { title: "Funktioniert das mit ganzen Leadsheets?", body: "Ja. Zeilenumbrüche und Abstände bleiben erhalten, unbekannte Wörter werden nicht verändert." }
+      ]
+    }
+  },
+  en: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "Input", value: "Microphone + reference notes" },
+        { label: "Tunings", value: "Standard, Drop and Open" },
+        { label: "Best for", value: "Classical, acoustic and electric" }
+      ],
+      quickAnswers: [
+        { title: "Is this good for fast tuning?", body: "Yes. Turn on the microphone, play one string clearly and wait a moment for the reading to settle before adjusting." },
+        { title: "Which tuning should you try next?", body: "After standard tuning, Drop D is the easiest next move for lower riffs, while Eb Standard lowers the whole instrument." }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "Tempo", value: "Precise BPM + Tap Tempo" },
+        { label: "Rhythm", value: "Accents and subdivisions" },
+        { label: "Routine", value: "Practice cycle to target BPM" }
+      ],
+      quickAnswers: [
+        { title: "What BPM should beginners start with?", body: "Start at the fastest tempo where you can still play cleanly and relaxed, then raise it in small steps." },
+        { title: "Why use subdivisions?", body: "Subdivisions make the inner pulse clearer and help a lot with timing, groove and consistency." }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "Readout", value: "Instant and average BPM" },
+        { label: "Copy", value: "Copy the result in one tap" },
+        { label: "Next step", value: "Jump straight into metronome practice" }
+      ],
+      quickAnswers: [
+        { title: "How many taps are enough?", body: "Eight or more taps usually give you a much steadier average than a very short sample." },
+        { title: "Can you measure a live song?", body: "Yes, as long as you keep tapping the same pulse point consistently." }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "Range", value: "-12 to +12 semitones" },
+        { label: "Output", value: "Sharps or flats" },
+        { label: "Support", value: "Slash chords and chord quality" }
+      ],
+      quickAnswers: [
+        { title: "Does it keep chord quality?", body: "Yes. Only the root note moves, while m, 7, maj7, sus4, add9 and similar chord qualities stay intact." },
+        { title: "Can you transpose full lyrics and chord sheets?", body: "Yes. The tool preserves spacing and line breaks, and leaves non-chord words unchanged." }
+      ]
+    }
+  },
+  es: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "Entrada", value: "Micrófono + notas de referencia" },
+        { label: "Afinaciones", value: "Standard, Drop y Open" },
+        { label: "Ideal para", value: "Clásica, acústica y eléctrica" }
+      ],
+      quickAnswers: [
+        { title: "¿Sirve para afinar rápido?", body: "Sí. Activa el micrófono, toca una cuerda cada vez y espera un momento a que la lectura se estabilice." },
+        { title: "¿Qué afinación probar después?", body: "Después de Standard, Drop D suele ser el paso más fácil; Eb Standard sirve para bajar todo el instrumento." }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "Tempo", value: "BPM preciso + Tap Tempo" },
+        { label: "Ritmo", value: "Acentos y subdivisiones" },
+        { label: "Rutina", value: "Ciclo progresivo hasta el BPM objetivo" }
+      ],
+      quickAnswers: [
+        { title: "¿Con qué BPM empiezo?", body: "Empieza en el tempo más rápido en el que aún toques limpio y relajado, y luego sube poco a poco." },
+        { title: "¿Por qué usar subdivisiones?", body: "Las subdivisiones aclaran el pulso interno y ayudan mucho con precisión, groove y estabilidad." }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "Lectura", value: "BPM instantáneo y promedio" },
+        { label: "Copia", value: "Copia del resultado en un toque" },
+        { label: "Siguiente paso", value: "Paso directo al metrónomo" }
+      ],
+      quickAnswers: [
+        { title: "¿Cuántos taps hacen falta?", body: "Ocho o más taps suelen dar una media bastante más estable que una muestra muy corta." },
+        { title: "¿Sirve para música en vivo?", body: "Sí, siempre que pulses el mismo punto del pulso sin desplazarte entre tiempos." }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "Rango", value: "De -12 a +12 semitonos" },
+        { label: "Salida", value: "Sostenidos o bemoles" },
+        { label: "Soporte", value: "Slash chords y calidad" }
+      ],
+      quickAnswers: [
+        { title: "¿Mantiene la calidad del acorde?", body: "Sí. Solo cambia la nota base; m, 7, maj7, sus4, add9 y otros sufijos permanecen iguales." },
+        { title: "¿Funciona con letras y acordes juntos?", body: "Sí. Mantiene espacios y saltos de línea, y deja intactas las palabras que no reconoce como acordes." }
+      ]
+    }
+  },
+  fr: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "Entrée", value: "Micro + notes de référence" },
+        { label: "Accordages", value: "Standard, Drop et Open" },
+        { label: "Idéal pour", value: "Classique, acoustique, électrique" }
+      ],
+      quickAnswers: [
+        { title: "Est-ce utile pour accorder vite ?", body: "Oui. Activez le micro, jouez une corde à la fois et attendez que la lecture se stabilise." },
+        { title: "Quel accordage essayer ensuite ?", body: "Après le standard, Drop D est souvent le plus simple à tester, puis Eb Standard pour baisser l'ensemble." }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "Tempo", value: "BPM précis + Tap Tempo" },
+        { label: "Rythme", value: "Accents et subdivisions" },
+        { label: "Routine", value: "Cycle progressif jusqu'au BPM cible" }
+      ],
+      quickAnswers: [
+        { title: "À quel BPM commencer ?", body: "Commencez au tempo le plus rapide que vous pouvez garder propre et détendu, puis montez progressivement." },
+        { title: "Pourquoi travailler les subdivisions ?", body: "Elles clarifient le pouls interne et aident beaucoup sur la précision et le groove." }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "Mesure", value: "BPM instantané et moyen" },
+        { label: "Copie", value: "Copie en un geste" },
+        { label: "Suite", value: "Passage direct au métronome" }
+      ],
+      quickAnswers: [
+        { title: "Combien de taps faut-il ?", body: "Huit taps ou plus donnent en général une moyenne bien plus stable qu'un échantillon très court." },
+        { title: "Peut-on mesurer une chanson en direct ?", body: "Oui, si vous tapez toujours au même endroit du pouls sans dériver." }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "Plage", value: "De -12 à +12 demi-tons" },
+        { label: "Sortie", value: "Dièses ou bémols" },
+        { label: "Support", value: "Slash chords et qualité d'accord" }
+      ],
+      quickAnswers: [
+        { title: "La qualité de l'accord reste-t-elle ?", body: "Oui. Seule la fondamentale bouge ; m, 7, maj7, sus4, add9 et les autres suffixes restent identiques." },
+        { title: "Peut-on transposer une grille complète ?", body: "Oui. Les espaces et retours à la ligne sont conservés, et les mots non reconnus restent inchangés." }
+      ]
+    }
+  },
+  it: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "Ingresso", value: "Microfono + note di riferimento" },
+        { label: "Accordature", value: "Standard, Drop e Open" },
+        { label: "Ideale per", value: "Classica, acustica ed elettrica" }
+      ],
+      quickAnswers: [
+        { title: "Va bene per accordare velocemente?", body: "Sì. Attiva il microfono, suona una corda alla volta e aspetta che la lettura si stabilizzi prima di correggere." },
+        { title: "Quale accordatura conviene provare dopo?", body: "Dopo la standard, Drop D è il passo più facile per riff più bassi, mentre Eb Standard abbassa tutto lo strumento." }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "Tempo", value: "BPM preciso + Tap Tempo" },
+        { label: "Ritmo", value: "Accenti e suddivisioni" },
+        { label: "Routine", value: "Ciclo progressivo fino al BPM target" }
+      ],
+      quickAnswers: [
+        { title: "A quanti BPM conviene partire?", body: "Parti dalla velocità più alta in cui riesci ancora a suonare pulito e rilassato, poi aumenta poco alla volta." },
+        { title: "Perché usare le suddivisioni?", body: "Le suddivisioni rendono più chiaro il battito interno e aiutano tanto su precisione, groove e stabilità." }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "Lettura", value: "BPM istantaneo e medio" },
+        { label: "Copia", value: "Copi il risultato in un tocco" },
+        { label: "Passaggio", value: "Vai subito al metronomo" }
+      ],
+      quickAnswers: [
+        { title: "Quanti tap servono davvero?", body: "Otto tap o più danno di solito una media molto più stabile di una sequenza troppo corta." },
+        { title: "Posso usarlo mentre ascolto un brano?", body: "Sì, se batti sempre sullo stesso punto del pulsare senza spostarti tra battere e levare." }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "Range", value: "Da -12 a +12 semitoni" },
+        { label: "Output", value: "Diesis o bemolli" },
+        { label: "Supporto", value: "Slash chord e qualità accordo" }
+      ],
+      quickAnswers: [
+        { title: "Mantiene la qualità dell'accordo?", body: "Sì. Sposta solo la fondamentale, mentre m, 7, maj7, sus4, add9 e gli altri suffissi restano invariati." },
+        { title: "Funziona anche con testo e accordi insieme?", body: "Sì. Mantiene spazi e righe del testo e lascia inalterate le parole che non riconosce come accordi." }
+      ]
+    }
+  },
+  ja: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "入力", value: "マイク + 参照音" },
+        { label: "チューニング", value: "Standard / Drop / Open" },
+        { label: "用途", value: "クラシック・アコースティック・エレキ" }
+      ],
+      quickAnswers: [
+        { title: "素早く合わせるのに向いていますか？", body: "はい。マイクをオンにして1本ずつ鳴らし、表示が落ち着いてから調整すると速く安定します。" },
+        { title: "次に試すべきチューニングは？", body: "標準の次は Drop D が最も試しやすく、全体を少し低くしたいなら Eb Standard も使いやすいです。" }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "テンポ", value: "正確な BPM + Tap Tempo" },
+        { label: "リズム", value: "アクセントと細分化" },
+        { label: "練習", value: "目標 BPM まで段階的に上げる" }
+      ],
+      quickAnswers: [
+        { title: "最初は何 BPM で練習しますか？", body: "無理なくきれいに弾ける最速テンポから始め、少しずつ上げていくのが効果的です。" },
+        { title: "細分化を使う理由は？", body: "各拍の中の脈を感じやすくなり、タイミングやグルーヴの安定につながります。" }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "表示", value: "瞬間 BPM と平均 BPM" },
+        { label: "コピー", value: "結果をすぐコピー" },
+        { label: "次の動き", value: "そのままメトロノームへ" }
+      ],
+      quickAnswers: [
+        { title: "何回タップすれば十分ですか？", body: "8回以上タップすると、短いサンプルより平均値がかなり安定しやすくなります。" },
+        { title: "再生中の曲でも使えますか？", body: "はい。同じ拍の位置を一定してタップすれば、実用的な BPM をつかめます。" }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "範囲", value: "-12 から +12 半音" },
+        { label: "表示", value: "シャープ / フラット切替" },
+        { label: "対応", value: "スラッシュコードと和音品質" }
+      ],
+      quickAnswers: [
+        { title: "コードの性質は保たれますか？", body: "はい。動くのはルート音だけで、m、7、maj7、sus4、add9 などの情報はそのまま残ります。" },
+        { title: "歌詞付きのコード譜にも使えますか？", body: "はい。改行や空白を保ちつつ、コードとして認識した部分だけを変換します。" }
+      ]
+    }
+  },
+  ko: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "입력", value: "마이크 + 기준음" },
+        { label: "튜닝", value: "Standard / Drop / Open" },
+        { label: "대상", value: "클래식, 어쿠스틱, 일렉" }
+      ],
+      quickAnswers: [
+        { title: "빠르게 튜닝할 때도 좋나요?", body: "네. 마이크를 켜고 한 줄씩 또렷하게 연주한 뒤 표시가 안정되면 바로 조정하면 됩니다." },
+        { title: "다음엔 어떤 튜닝을 써볼까요?", body: "스탠더드 다음에는 Drop D가 가장 쉽고, 전체를 낮추고 싶다면 Eb Standard도 좋습니다." }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "템포", value: "정확한 BPM + Tap Tempo" },
+        { label: "리듬", value: "액센트와 세분화" },
+        { label: "루틴", value: "목표 BPM까지 점진적 상승" }
+      ],
+      quickAnswers: [
+        { title: "몇 BPM부터 시작하나요?", body: "깨끗하고 편하게 연주할 수 있는 가장 빠른 속도에서 시작한 뒤 조금씩 올리는 것이 좋습니다." },
+        { title: "세분화를 왜 쓰나요?", body: "박 안쪽의 맥박이 더 선명해져서 타이밍과 그루브를 안정시키는 데 큰 도움이 됩니다." }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "측정", value: "즉시 BPM과 평균 BPM" },
+        { label: "복사", value: "결과를 바로 복사" },
+        { label: "다음 단계", value: "바로 메트로놈으로 이동" }
+      ],
+      quickAnswers: [
+        { title: "몇 번 정도 탭해야 하나요?", body: "8번 이상 탭하면 매우 짧은 샘플보다 평균 BPM이 훨씬 안정적으로 잡힙니다." },
+        { title: "재생 중인 곡에도 쓸 수 있나요?", body: "네. 같은 박 위치를 일정하게 탭하면 실전용 BPM을 빠르게 찾을 수 있습니다." }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "범위", value: "-12에서 +12 반음" },
+        { label: "출력", value: "샾 / 플랫 선택" },
+        { label: "지원", value: "슬래시 코드와 코드 성질 유지" }
+      ],
+      quickAnswers: [
+        { title: "코드 성질은 그대로 남나요?", body: "네. 루트만 이동하고 m, 7, maj7, sus4, add9 같은 정보는 그대로 유지됩니다." },
+        { title: "가사와 코드가 함께 있어도 되나요?", body: "네. 줄바꿈과 공백을 유지하면서 코드로 인식한 부분만 바꿉니다." }
+      ]
+    }
+  },
+  pt: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "Entrada", value: "Microfone + notas de referência" },
+        { label: "Afinações", value: "Standard, Drop e Open" },
+        { label: "Ideal para", value: "Clássica, acústica e elétrica" }
+      ],
+      quickAnswers: [
+        { title: "Serve para afinar rápido?", body: "Sim. Ative o microfone, toque uma corda por vez e espere a leitura estabilizar antes de ajustar." },
+        { title: "Qual afinação testar depois?", body: "Depois da standard, Drop D é o passo mais fácil para riffs graves, e Eb Standard baixa todo o instrumento." }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "Tempo", value: "BPM preciso + Tap Tempo" },
+        { label: "Ritmo", value: "Acentos e subdivisões" },
+        { label: "Rotina", value: "Ciclo progressivo até o alvo" }
+      ],
+      quickAnswers: [
+        { title: "Com qual BPM devo começar?", body: "Comece no tempo mais rápido em que você ainda toca limpo e relaxado, depois aumente gradualmente." },
+        { title: "Por que usar subdivisões?", body: "As subdivisões deixam o pulso interno mais claro e ajudam bastante em precisão e groove." }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "Leitura", value: "BPM instantâneo e médio" },
+        { label: "Cópia", value: "Copie o resultado em um toque" },
+        { label: "Próximo passo", value: "Ir direto para o metrônomo" }
+      ],
+      quickAnswers: [
+        { title: "Quantos taps bastam?", body: "Oito ou mais taps costumam gerar uma média muito mais estável do que uma amostra curta." },
+        { title: "Dá para medir música tocando agora?", body: "Sim, desde que você toque sempre no mesmo ponto do pulso sem oscilar." }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "Faixa", value: "De -12 a +12 semitons" },
+        { label: "Saída", value: "Sustenidos ou bemóis" },
+        { label: "Suporte", value: "Slash chords e qualidade" }
+      ],
+      quickAnswers: [
+        { title: "A qualidade do acorde continua igual?", body: "Sim. Só a nota base muda, enquanto m, 7, maj7, sus4, add9 e outros sufixos permanecem." },
+        { title: "Funciona com letra e cifra juntas?", body: "Sim. Mantém espaços e quebras de linha e altera apenas o que reconhece como acorde." }
+      ]
+    }
+  },
+  ru: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "Источник", value: "Микрофон + опорные ноты" },
+        { label: "Строи", value: "Standard, Drop и Open" },
+        { label: "Подходит для", value: "Классики, акустики, электрогитары" }
+      ],
+      quickAnswers: [
+        { title: "Подходит для быстрой настройки?", body: "Да. Включите микрофон, извлекайте по одной струне и дайте показанию немного стабилизироваться." },
+        { title: "Какой строй попробовать дальше?", body: "После стандартного строя проще всего перейти к Drop D, а Eb Standard хорошо подходит для общего понижения." }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "Темп", value: "Точный BPM + Tap Tempo" },
+        { label: "Ритм", value: "Акценты и деления" },
+        { label: "Режим", value: "Плавный цикл до целевого BPM" }
+      ],
+      quickAnswers: [
+        { title: "С какого BPM начинать?", body: "Начинайте с темпа, где вы ещё играете чисто и спокойно, и повышайте его небольшими шагами." },
+        { title: "Зачем нужны деления?", body: "Они делают внутренний пульс понятнее и сильно помогают с таймингом и грувом." }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "Показания", value: "Мгновенный и средний BPM" },
+        { label: "Копирование", value: "Копия результата в один клик" },
+        { label: "Дальше", value: "Сразу к метрономной практике" }
+      ],
+      quickAnswers: [
+        { title: "Сколько нажатий достаточно?", body: "Обычно восемь и больше нажатий дают заметно более стабильный средний BPM." },
+        { title: "Можно ли измерять живую песню?", body: "Да, если вы постоянно попадаете в одну и ту же точку пульса." }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "Диапазон", value: "От -12 до +12 полутонов" },
+        { label: "Вывод", value: "Диезы или бемоли" },
+        { label: "Поддержка", value: "Slash chords и качество аккорда" }
+      ],
+      quickAnswers: [
+        { title: "Качество аккорда сохраняется?", body: "Да. Меняется только корень, а m, 7, maj7, sus4, add9 и другие обозначения остаются прежними." },
+        { title: "Работает с полным текстом и аккордами?", body: "Да. Пробелы и строки сохраняются, а слова, не похожие на аккорды, не меняются." }
+      ]
+    }
+  },
+  zh: {
+    "guitar-tuner": {
+      highlights: [
+        { label: "输入", value: "麦克风 + 参考音" },
+        { label: "调弦", value: "Standard、Drop、Open" },
+        { label: "适合", value: "古典、民谣、电吉他" }
+      ],
+      quickAnswers: [
+        { title: "适合快速调音吗？", body: "适合。打开麦克风后一次只弹一根弦，等读数稳定再微调，会更快更准。" },
+        { title: "下一步该试什么调弦？", body: "标准调弦之后，Drop D 最容易上手；如果想整体更低，可以试 Eb Standard。" }
+      ]
+    },
+    metronome: {
+      highlights: [
+        { label: "速度", value: "精准 BPM + Tap Tempo" },
+        { label: "节奏", value: "重音与细分" },
+        { label: "练习", value: "逐步提升到目标 BPM" }
+      ],
+      quickAnswers: [
+        { title: "初学者该从多少 BPM 开始？", body: "先从你还能保持干净和放松的速度开始，再一点点往上加。" },
+        { title: "为什么要练细分？", body: "细分能让每一拍内部的脉冲更清楚，对节奏稳定和律动感帮助很大。" }
+      ]
+    },
+    "tap-bpm": {
+      highlights: [
+        { label: "读数", value: "即时 BPM 与平均 BPM" },
+        { label: "复制", value: "一键复制结果" },
+        { label: "下一步", value: "直接进入节拍器练习" }
+      ],
+      quickAnswers: [
+        { title: "需要点几次才够？", body: "通常点八次或更多，平均 BPM 会比很短的样本稳定得多。" },
+        { title: "能测正在播放的歌曲吗？", body: "可以，只要你始终点在同一个脉冲位置。" }
+      ]
+    },
+    "chord-transposer": {
+      highlights: [
+        { label: "范围", value: "-12 到 +12 半音" },
+        { label: "输出", value: "升号或降号" },
+        { label: "支持", value: "slash chord 与和弦性质" }
+      ],
+      quickAnswers: [
+        { title: "会保留和弦性质吗？", body: "会。工具只移动根音，m、7、maj7、sus4、add9 等后缀都会保留下来。" },
+        { title: "能处理整页歌词和和弦吗？", body: "可以。它会保留空格和换行，只转换识别为和弦的部分。" }
+      ]
+    }
+  }
 };
 
 const toolSeoLabels: Record<
@@ -562,12 +1084,15 @@ const toolHeroCopy: Record<
 export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEnhancement | null {
   const copy = toolSeoLabels[locale];
   const hero = toolHeroCopy[locale];
+  const context = toolContextualModules[locale];
 
   if (tool === "guitar-tuner") {
     return {
       heroDescription: hero["guitar-tuner"].description,
       heroTitle: hero["guitar-tuner"].title,
       faqs: copy.guitarFaqs,
+      highlights: context["guitar-tuner"].highlights,
+      quickAnswers: context["guitar-tuner"].quickAnswers,
       sections: [copy.guitarSetup, copy.accuracy, copy.chords]
     };
   }
@@ -577,6 +1102,8 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
       heroDescription: hero.metronome.description,
       heroTitle: hero.metronome.title,
       faqs: copy.metronomeFaqs,
+      highlights: context.metronome.highlights,
+      quickAnswers: context.metronome.quickAnswers,
       sections: [copy.metronomePractice, copy.metronomeRoutine]
     };
   }
@@ -586,6 +1113,8 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
       heroDescription: hero["tap-bpm"].description,
       heroTitle: hero["tap-bpm"].title,
       faqs: copy.tapFaqs,
+      highlights: context["tap-bpm"].highlights,
+      quickAnswers: context["tap-bpm"].quickAnswers,
       sections: [copy.tapUse]
     };
   }
@@ -595,6 +1124,8 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
       heroDescription: hero["chord-transposer"].description,
       heroTitle: hero["chord-transposer"].title,
       faqs: copy.transposeFaqs,
+      highlights: context["chord-transposer"].highlights,
+      quickAnswers: context["chord-transposer"].quickAnswers,
       sections: [copy.transposeUse, copy.chords]
     };
   }

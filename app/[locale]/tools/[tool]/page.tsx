@@ -67,6 +67,83 @@ const guideHeadings: Record<Locale, string> = {
   zh: "相关指南"
 };
 
+const contextualSectionLabels: Record<
+  Locale,
+  {
+    highlightsDescription: string;
+    highlightsTitle: string;
+    quickAnswersDescription: string;
+    quickAnswersTitle: string;
+  }
+> = {
+  ar: {
+    highlightsDescription: "Ù†Ù‚Ø§Ø· Ø³Ø±ÙŠØ¹Ø© ØªØ¹Ø·ÙŠÙƒ ÙÙƒØ±Ø© ÙˆØ§Ø¶Ø­Ø© Ø¹Ù† ÙƒÙŠÙÙŠØ© Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù‡Ø°Ù‡ Ø§Ù„Ø£Ø¯Ø§Ø©.",
+    highlightsTitle: "Ù†Ø¸Ø±Ø© Ø³Ø±ÙŠØ¹Ø©",
+    quickAnswersDescription: "Ø¥Ø¬Ø§Ø¨Ø§Øª Ù…Ø®ØªØµØ±Ø© Ø¹Ù„Ù‰ Ø§Ù„Ø£Ø³Ø¦Ù„Ø© Ø§Ù„ØªÙŠ ØªØ³Ø§Ø¹Ø¯Ùƒ Ø¹Ù„Ù‰ Ø§Ù„Ø¨Ø¯Ø¡ Ø¨Ø´ÙƒÙ„ Ø£Ø³Ø±Ø¹.",
+    quickAnswersTitle: "Ø¥Ø¬Ø§Ø¨Ø§Øª Ø³Ø±ÙŠØ¹Ø©"
+  },
+  de: {
+    highlightsDescription: "Die wichtigsten Punkte auf einen Blick, bevor du tiefer einsteigst.",
+    highlightsTitle: "Auf einen Blick",
+    quickAnswersDescription: "Kurze Antworten auf typische Einstiegsfragen zu diesem Tool.",
+    quickAnswersTitle: "Schnelle Antworten"
+  },
+  en: {
+    highlightsDescription: "The key details to understand this tool at a glance.",
+    highlightsTitle: "At a glance",
+    quickAnswersDescription: "Short answers to the most common first-step questions.",
+    quickAnswersTitle: "Quick answers"
+  },
+  es: {
+    highlightsDescription: "Los puntos clave para entender esta herramienta de un vistazo.",
+    highlightsTitle: "Resumen rápido",
+    quickAnswersDescription: "Respuestas breves a las preguntas más comunes para empezar mejor.",
+    quickAnswersTitle: "Respuestas rápidas"
+  },
+  fr: {
+    highlightsDescription: "Les points essentiels pour comprendre l'outil en un coup d'œil.",
+    highlightsTitle: "En bref",
+    quickAnswersDescription: "Réponses courtes aux questions les plus fréquentes pour bien commencer.",
+    quickAnswersTitle: "Réponses rapides"
+  },
+  it: {
+    highlightsDescription: "I dettagli chiave per capire subito come usare questo tool.",
+    highlightsTitle: "In breve",
+    quickAnswersDescription: "Risposte rapide alle domande più comuni prima di iniziare.",
+    quickAnswersTitle: "Risposte rapide"
+  },
+  ja: {
+    highlightsDescription: "ã“ã®ãƒ„ãƒ¼ãƒ«ã®è¦ç‚¹ã‚’çŸ­ãã¾ã¨ã‚ã¦ç¢ºèªã§ãã¾ã™ã€‚",
+    highlightsTitle: "ã²ã¨ç›®ã§",
+    quickAnswersDescription: "ã¯ã˜ã‚ã‚‹å‰ã«å½¹ç«‹ã¤ã‚ˆãã‚ã‚‹è³ªå•ã¸ã®ç°¡å˜ãªç­”ãˆã§ã™ã€‚",
+    quickAnswersTitle: "ã™ãåˆ†ã‹ã‚‹ç­”ãˆ"
+  },
+  ko: {
+    highlightsDescription: "ì´ ë„êµ¬ë¥¼ ë¹ ë¥´ê²Œ ì´í•´í•  ìˆ˜ ìžˆëŠ” í•µì‹¬ í¬ì¸íŠ¸ë¥¼ ëª¨ì•˜ìŠµë‹ˆë‹¤.",
+    highlightsTitle: "í•œëˆˆì—",
+    quickAnswersDescription: "ì‹œìž‘í•˜ê¸° ì „ ìžì£¼ ë‚˜ì˜¤ëŠ” ì§ˆë¬¸ì— ëŒ€í•œ ì§§ê³  ì‹¤ìš©ì ì¸ ë‹µë³€ìž…ë‹ˆë‹¤.",
+    quickAnswersTitle: "ë¹ ë¥¸ ë‹µë³€"
+  },
+  pt: {
+    highlightsDescription: "Os pontos principais para entender esta ferramenta rapidamente.",
+    highlightsTitle: "Visão rápida",
+    quickAnswersDescription: "Respostas curtas para as dúvidas mais comuns antes de começar.",
+    quickAnswersTitle: "Respostas rápidas"
+  },
+  ru: {
+    highlightsDescription: "Главные моменты, чтобы быстро понять, как пользоваться этим инструментом.",
+    highlightsTitle: "Коротко",
+    quickAnswersDescription: "Краткие ответы на частые вопросы перед началом работы.",
+    quickAnswersTitle: "Быстрые ответы"
+  },
+  zh: {
+    highlightsDescription: "先快速看懂这个工具最重要的使用信息。",
+    highlightsTitle: "一眼看懂",
+    quickAnswersDescription: "开始之前，先看几条最常见问题的简短答案。",
+    quickAnswersTitle: "快速解答"
+  }
+};
+
 const toolIntentLabels: Record<
   Locale,
   {
@@ -221,6 +298,7 @@ export default async function ToolPage({ params }: PageProps) {
   const content = coreTool ? dictionary.tools[coreTool] : instrumentContent!;
   const pageLabels = toolPageLabels[locale];
   const clusterLabels = clusterSectionLabels[locale];
+  const contextualLabels = contextualSectionLabels[locale];
   const intentLabels = toolIntentLabels[locale];
   const seoEnhancement = coreTool ? getToolSeoEnhancement(locale, coreTool) : null;
   const heroTitle = seoEnhancement?.heroTitle ?? content.title;
@@ -321,6 +399,20 @@ export default async function ToolPage({ params }: PageProps) {
           <div className="w-full min-w-0 max-w-full overflow-hidden">
             <ToolComponent tool={coreTool ?? undefined} instrument={instrument ?? undefined} dictionary={dictionary} locale={locale} />
           </div>
+          {seoEnhancement?.highlights?.length ? (
+            <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
+              <h2 className="text-2xl font-bold">{contextualLabels.highlightsTitle}</h2>
+              <p className="mt-3 leading-7 text-ink/72">{contextualLabels.highlightsDescription}</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                {seoEnhancement.highlights.map((item) => (
+                  <article key={item.label} className="rounded-lg border border-line bg-mint/5 p-4">
+                    <p className="text-sm font-semibold uppercase tracking-[0.12em] text-mint">{item.label}</p>
+                    <p className="mt-2 text-lg font-bold text-ink">{item.value}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ) : null}
           <AdSlot variant="mobileBanner" className="lg:hidden" />
           <AdSlot className="hidden lg:flex" />
           <section>
@@ -343,6 +435,20 @@ export default async function ToolPage({ params }: PageProps) {
                   <article key={section.title} className="rounded-lg border border-line bg-white p-4 shadow-soft">
                     <h3 className="text-lg font-bold">{section.title}</h3>
                     <p className="mt-2 leading-7 text-ink/72">{section.body}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ) : null}
+          {seoEnhancement?.quickAnswers?.length ? (
+            <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
+              <h2 className="text-2xl font-bold">{contextualLabels.quickAnswersTitle}</h2>
+              <p className="mt-3 leading-7 text-ink/72">{contextualLabels.quickAnswersDescription}</p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {seoEnhancement.quickAnswers.map((item) => (
+                  <article key={item.title} className="rounded-lg border border-line bg-mint/4 p-4">
+                    <h3 className="text-lg font-bold">{item.title}</h3>
+                    <p className="mt-2 leading-7 text-ink/72">{item.body}</p>
                   </article>
                 ))}
               </div>
