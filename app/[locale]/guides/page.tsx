@@ -11,6 +11,7 @@ import {
   utilityGuideSlugs,
   type GuideSlug
 } from "@/lib/content/guides";
+import { featuredGuideIndexTools, internalLinkingContent } from "@/lib/content/internalLinking";
 import { hubEnhancements } from "@/lib/content/seoEnhancements";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
@@ -52,6 +53,7 @@ export default async function GuidesIndexPage({ params }: PageProps) {
   const locale = rawLocale as Locale;
   const dictionary = await getDictionary(locale);
   const content = guideIndexContent[locale];
+  const internalLinks = internalLinkingContent[locale].guidesHub;
   const categories: { guides: readonly GuideSlug[]; title: string }[] = [
     { title: guideCategoryLabels[locale].instrument, guides: instrumentGuideSlugs },
     { title: guideCategoryLabels[locale].tuning, guides: alternativeTuningGuideSlugs },
@@ -71,6 +73,35 @@ export default async function GuidesIndexPage({ params }: PageProps) {
       <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{content.description}</p>
       <section className="mt-6 rounded-lg border border-line bg-white p-5 shadow-soft">
         <p className="leading-7 text-ink/72">{hubEnhancements[locale].guides}</p>
+      </section>
+      <section className="mt-6 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="rounded-lg border border-line bg-white p-5 shadow-soft">
+          <h2 className="text-2xl font-black">{internalLinks.featuredToolsTitle}</h2>
+          <p className="mt-3 leading-7 text-ink/68">{internalLinks.featuredToolsDescription}</p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {featuredGuideIndexTools.map((tool) => (
+              <Link
+                key={tool}
+                href={`/${locale}/tools/${tool}`}
+                className="rounded-lg border border-line bg-mint/5 px-4 py-3 font-semibold transition hover:border-mint hover:bg-white"
+              >
+                {dictionary.tools[tool].title}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+          {internalLinks.hubCards.map((card) => (
+            <Link
+              key={card.href}
+              href={`/${locale}/${card.href}`}
+              className="group rounded-lg border border-line bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-mint"
+            >
+              <span className="block text-lg font-bold">{card.title}</span>
+              <span className="mt-2 block text-sm leading-6 text-ink/68">{card.description}</span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <AdSlot className="mt-8" />

@@ -5,7 +5,9 @@ import { ArrowRight, Check, Music2 } from "lucide-react";
 import { AdSlot } from "@/components/ads/AdSlot";
 import { ToolNavigation } from "@/components/layout/ToolNavigation";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { getGuideContent } from "@/lib/content/guides";
 import { getInstrumentTunerContent, instrumentToTunerSlug } from "@/lib/content/instrumentTuners";
+import { featuredGuideSlugs, internalLinkingContent } from "@/lib/content/internalLinking";
 import { hubEnhancements } from "@/lib/content/seoEnhancements";
 import { tuningHubContent } from "@/lib/content/tuningHub";
 import { toolsHubContent } from "@/lib/content/toolsHub";
@@ -139,6 +141,20 @@ const heroPlatformCopy: Record<
   }
 };
 
+const featuredGuideCtaLabels: Record<Locale, string> = {
+  ar: "افتح الدليل",
+  de: "Guide öffnen",
+  en: "Open guide",
+  es: "Abrir guía",
+  fr: "Ouvrir le guide",
+  it: "Apri la guida",
+  ja: "ガイドを開く",
+  ko: "가이드 열기",
+  pt: "Abrir guia",
+  ru: "Открыть гайд",
+  zh: "打开指南"
+};
+
 const groupAnchorIds = ["tune-instruments", "rhythm-and-bpm", "chords-and-theory"] as const;
 
 const featuredInstrumentIds: Instrument[] = ["guitar", "bass"];
@@ -167,7 +183,9 @@ export default async function ToolsIndexPage({ params }: PageProps) {
   const dictionary = await getDictionary(locale);
   const hub = toolsHubContent[locale];
   const hero = heroPlatformCopy[locale];
+  const featuredGuideCta = featuredGuideCtaLabels[locale];
   const tuningsLabel = tuningHubContent[locale].title;
+  const internalLinks = internalLinkingContent[locale].toolsHub;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
@@ -267,6 +285,51 @@ export default async function ToolsIndexPage({ params }: PageProps) {
       <AdSlot variant="mobileBanner" className="mt-8 lg:hidden" />
       <AdSlot variant="rectangle" className="mx-auto mt-8 max-w-xl lg:hidden" />
       <AdSlot className="mt-8 hidden lg:flex" />
+
+      <section className="mt-10">
+        <div className="max-w-3xl">
+          <h2 className="text-2xl font-bold">{internalLinks.featuredGuidesTitle}</h2>
+          <p className="mt-2 text-base leading-7 text-ink/68">{internalLinks.featuredGuidesDescription}</p>
+        </div>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {featuredGuideSlugs.map((guide) => {
+            const guideContent = getGuideContent(locale, guide);
+            return (
+              <Link
+                key={guide}
+                href={`/${locale}/guides/${guide}`}
+                className="group rounded-lg border border-line bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-mint"
+              >
+                <span className="text-xs font-bold uppercase tracking-[0.14em] text-mint">
+                  {dictionary.tools[guideContent.tool].title}
+                </span>
+                <span className="mt-3 block text-xl font-bold leading-7">{guideContent.title}</span>
+                <span className="mt-3 block text-sm leading-6 text-ink/68">{guideContent.description}</span>
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mint">
+                  <span>{featuredGuideCta}</span>
+                  <ArrowRight size={16} aria-hidden className="transition group-hover:translate-x-0.5" />
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {internalLinks.hubCards.map((card) => (
+            <Link
+              key={card.href}
+              href={`/${locale}/${card.href}`}
+              className="group rounded-lg border border-line bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-mint"
+            >
+              <span className="block text-lg font-bold">{card.title}</span>
+              <span className="mt-2 block text-sm leading-6 text-ink/68">{card.description}</span>
+              <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-mint">
+                <span>{card.title}</span>
+                <ArrowRight size={16} aria-hidden className="transition group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <AdSlot className="mt-8" />
 
