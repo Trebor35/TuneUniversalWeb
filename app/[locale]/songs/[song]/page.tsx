@@ -13,7 +13,7 @@ import {
   songsUi
 } from "@/lib/content/publicDomainSongs";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
+import { withLocaleFallbacks, isLocale, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { buildSongMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, musicCompositionSchema } from "@/lib/seo/schema";
 
@@ -31,7 +31,7 @@ const songPageLabels: Record<
     allTools: string;
     relatedGuides: string;
   }
-> = {
+> = withLocaleFallbacks({
   ar: { continueLearning: "واصل من هنا", continueLearningDescription: "استخدم هذه الصفحة للانتقال من اللحن إلى الإيقاع والأكوردات والدروس الأساسية.", allSongs: "كل المقطوعات", allGuides: "كل الأدلة", allTools: "كل الأدوات", relatedGuides: "أدلة مفيدة" },
   de: { continueLearning: "Hier sinnvoll weitergehen", continueLearningDescription: "Nutze diese Song-Seite als Brücke zu Rhythmus, Akkorden und den wichtigsten Lern-Guides.", allSongs: "Alle Songs", allGuides: "Alle Guides", allTools: "Alle Tools", relatedGuides: "Hilfreiche Guides" },
   en: { continueLearning: "Continue from here", continueLearningDescription: "Use this song page as a bridge into rhythm, chords and the most useful learning guides.", allSongs: "All songs", allGuides: "All guides", allTools: "All tools", relatedGuides: "Helpful guides" },
@@ -43,7 +43,14 @@ const songPageLabels: Record<
   pt: { continueLearning: "Continue daqui", continueLearningDescription: "Use esta página de música como ponte para ritmo, acordes e os guias mais úteis para estudar melhor.", allSongs: "Todas as músicas", allGuides: "Todos os guias", allTools: "Todas as ferramentas", relatedGuides: "Guias úteis" },
   ru: { continueLearning: "Куда перейти дальше", continueLearningDescription: "Используйте эту страницу песни как мост к ритму, аккордам и самым полезным учебным гайдам.", allSongs: "Все песни", allGuides: "Все гайды", allTools: "Все инструменты", relatedGuides: "Полезные гайды" },
   zh: { continueLearning: "从这里继续", continueLearningDescription: "把这首曲目的页面继续连到节奏、和弦和最实用的学习指南。", allSongs: "全部曲目", allGuides: "全部指南", allTools: "全部工具", relatedGuides: "实用指南" }
-};
+} satisfies Record<BaseLocale, {
+  continueLearning: string;
+  continueLearningDescription: string;
+  allSongs: string;
+  allGuides: string;
+  allTools: string;
+  relatedGuides: string;
+}>);
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => publicDomainSongSlugs.map((song) => ({ locale, song })));

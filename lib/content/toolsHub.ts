@@ -1,4 +1,4 @@
-﻿import type { Locale } from "@/lib/i18n/locales";
+﻿import { withLocaleFallbacks, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
 export type ToolsHubContent = {
@@ -13,7 +13,7 @@ export type ToolsHubContent = {
   title: string;
 };
 
-export const toolsHubContent: Record<Locale, ToolsHubContent> = {
+export const toolsHubContent: Record<Locale, ToolsHubContent> = withLocaleFallbacks({
   ar: {
     title: "Ø£Ø¯ÙˆØ§Øª Ù…ÙˆØ³ÙŠÙ‚ÙŠØ© Ù…Ø¬Ø§Ù†ÙŠØ©",
     description: "Ù…ÙˆØ§Ù„Ù Ø¹Ø§Ù…ØŒ Ù…ÙŠØªØ±ÙˆÙ†ÙˆÙ…ØŒ Tap BPM ÙˆÙ†Ø§Ù‚Ù„ Ø£ÙˆØªØ§Ø± Ù„Ù„ØªØ¯Ø±ÙŠØ¨ Ø§Ù„ÙŠÙˆÙ…ÙŠ.",
@@ -223,4 +223,4 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = {
       { question: "æ‰‹æœºå¯ä»¥ä½¿ç”¨å—ï¼Ÿ", answer: "å¯ä»¥ï¼Œåœ¨æ”¯æŒéŸ³é¢‘å’Œéº¦å…‹é£Žæƒé™çš„çŽ°ä»£ç§»åŠ¨æµè§ˆå™¨ä¸­ä½¿ç”¨ã€‚" }
     ]
   }
-};
+} satisfies Record<BaseLocale, ToolsHubContent>);

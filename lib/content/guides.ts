@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { getInstrumentLabel } from "@/lib/tools/instruments";
 import { instrumentIds, type Instrument, type ToolSlug } from "@/lib/tools/toolConfig";
 import { formatNoteName, tuningPresets, tunings, type TuningNote } from "@/lib/tools/tuner";
@@ -118,7 +118,7 @@ type TuningGuideCopy = {
   title: (instrument: string) => string;
 };
 
-export const guideIndexContent: Record<Locale, { description: string; title: string }> = {
+export const guideIndexContent: Record<BaseLocale, { description: string; title: string }> = {
   ar: {
     title: "أدلة TuneUniversal",
     description: "أدلة سريعة لضبط الآلات واستخدام الميترونوم وحساب BPM بلغتك."
@@ -165,7 +165,7 @@ export const guideIndexContent: Record<Locale, { description: string; title: str
   }
 };
 
-const tuningGuideCopy: Record<Locale, TuningGuideCopy> = {
+const tuningGuideCopy: Record<BaseLocale, TuningGuideCopy> = {
   ar: {
     title: (instrument) => `كيفية ضبط ${instrument} على الإنترنت`,
     description: (instrument, tuning) => `دليل سريع لضبط ${instrument} بالميكروفون. النغمات المرجعية: ${tuning}.`,
@@ -300,7 +300,7 @@ const tuningGuideCopy: Record<Locale, TuningGuideCopy> = {
   }
 };
 
-const utilityGuides: Record<Locale, Record<UtilityGuideSlug, Omit<GuideContent, "targetPath">>> = {
+const utilityGuides: Record<BaseLocale, Record<UtilityGuideSlug, Omit<GuideContent, "targetPath">>> = {
   ar: {
     "how-to-find-bpm": {
       title: "كيفية معرفة BPM للأغنية",
@@ -594,7 +594,7 @@ function searchConsolePriorityGuideOverrides(locale: Locale): Partial<Record<Gui
       dropCSharp: ["Drop C# 调弦指南", "了解 Drop C# 的准确音名，以及它为何常用于更厚重的现代吉他 riff。", "Drop C# 会降低音域，同时保留适合快速 riff 的实用指型。你可以先在这里确认音名，再打开调音器。"],
       subdiv: ["节拍器细分练习指南", "用在线节拍器练习二连音、三连音和四连音，提升内部节奏感。", "如果只有主点击还不够细，细分练习会帮助你更准确地听见每一拍内部的节奏。"]
     }
-  }[locale];
+  }[getContentLocale(locale)];
 
   return {
     "how-to-tune-12-string-guitar": {
@@ -742,7 +742,7 @@ function guideCtrRecoveryOverrides(locale: Locale): Partial<Record<GuideSlug, Gu
       openD: ["Open D 调弦指南", "Open D 适合更有共鸣的空弦、slide 演奏以及更宽广的原声和弦。", "当你想获得更大的开放和弦感、更适合 slide 的指型和更宽阔的原声氛围时，Open D 很值得使用。"],
       eb: ["Eb Standard 调弦指南", "把所有吉他弦降半音到 Eb Ab Db Gb Bb Eb，得到更柔和的张力和更低沉的音色。", "Eb Standard 常用于想要稍微降低演唱音区，或想让手感更柔和、又不想重学标准按法的时候。"]
     }
-  }[locale];
+  }[getContentLocale(locale)];
 
   return {
     "how-to-tune-bass": {
@@ -799,7 +799,7 @@ function guideCtrRecoveryOverrides(locale: Locale): Partial<Record<GuideSlug, Gu
 function applyGuideOverride(base: GuideContent, locale: Locale, guide: GuideSlug): GuideContent {
   const priorityOverride = searchConsolePriorityGuideOverrides(locale)[guide];
   const ctrOverride = guideCtrRecoveryOverrides(locale)[guide];
-  const manualOverride = guideContentOverrides[locale]?.[guide];
+  const manualOverride = guideContentOverrides[getContentLocale(locale)]?.[guide];
   const override = priorityOverride || ctrOverride || manualOverride ? { ...priorityOverride, ...ctrOverride, ...manualOverride } : null;
   return override ? { ...base, ...override } : base;
 }
@@ -872,7 +872,7 @@ function extraUtilityGuides(locale: Locale): Record<ExtraUtilityGuideSlug, Omit<
       tunings: ["常见吉他调弦", "Standard、Drop D、Eb Standard、D Standard、Open D 和 Open G 快速指南。", "多数演奏者从 E A D G B E 开始，再根据风格使用其他调弦。", "吉他调弦", "Drop D Open G"],
       subdiv: ["节拍器细分练习", "在每一拍中练习二连、三连和四连。", "细分可以帮助你更准确地感受主拍之间的节奏。", "节拍器细分", "三连音练习"]
     }
-  }[locale];
+  }[getContentLocale(locale)];
   const ui = {
     ar: {
       chordTool: "ناقل الأوتار",
@@ -1061,7 +1061,7 @@ function extraUtilityGuides(locale: Locale): Record<ExtraUtilityGuideSlug, Omit<
       tuningSteps: ["选择调弦预设。", "先调最低音弦。", "逐弦继续。", "最后重新检查所有弦。"],
       subdivSteps: ["从慢 BPM 开始。", "选择拍号。", "选择细分。", "节奏放松后再加速。"]
     }
-  }[locale];
+  }[getContentLocale(locale)];
 
   return {
     "how-to-read-chords": {
@@ -1209,7 +1209,7 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
       sound: ["dB声音计指南", "测量房间的大致dB音量，并比较安静与嘈杂环境。", "这份指南适合用来检查练习音量、房间噪声和常见分贝参考。"],
       pitch: ["在线音高发生器指南", "生成20Hz到20000Hz的固定音，用于听力训练和音频检查。", "当你需要参考音、简单扫频或快速检查扬声器时，可以使用这份指南。"]
     }
-  }[locale];
+  }[getContentLocale(locale)];
 
   const englishShared = {
     chromaticSteps: ["Open the tuner.", "Play one note at a time.", "Watch the detected note and cents.", "Adjust until the pitch settles in tune."],
@@ -1380,7 +1380,7 @@ function utilityBpm(locale: Locale): Omit<GuideContent, "targetPath"> {
     ru: ["Как узнать BPM песни", "Используйте Tap BPM, чтобы определить темп по ритму.", "Нажимайте в такт музыке, и TuneUniversal рассчитает средний BPM.", "узнать bpm"],
     zh: ["如何计算歌曲 BPM", "使用 Tap BPM 跟随节拍点击，估算歌曲速度。", "跟着音乐点击，TuneUniversal 会计算平均 BPM。", "计算 BPM"],
     ar: ["كيفية معرفة BPM للأغنية", "استخدم Tap BPM لتقدير سرعة الأغنية بالنقر مع الإيقاع.", "انقر مع الموسيقى وسيحسب TuneUniversal متوسط BPM.", "حساب BPM"]
-  }[locale];
+  }[getContentLocale(locale)];
   return {
     title: data[0],
     description: data[1],
@@ -1405,7 +1405,7 @@ function utilityMetronome(locale: Locale): Omit<GuideContent, "targetPath"> {
     ru: ["Как пользоваться метрономом", "Практикуйте BPM, акценты, размер и ритмические деления.", "Метроном помогает развить стабильный темп."],
     zh: ["如何使用节拍器", "练习 BPM、重音、拍号和节奏细分。", "节拍器可以帮助建立稳定的节奏感。"],
     ar: ["كيفية استخدام الميترونوم", "تدرب على BPM والميزان والنبرات والتقسيمات الإيقاعية.", "يساعد الميترونوم على بناء إحساس ثابت بالوقت."]
-  }[locale];
+  }[getContentLocale(locale)];
   return {
     title: data[0],
     description: data[1],
@@ -1420,7 +1420,7 @@ function utilityMetronome(locale: Locale): Omit<GuideContent, "targetPath"> {
 function standardBassUtility(locale: Locale): Omit<GuideContent, "targetPath"> {
   const label = getInstrumentLabel("bass", locale);
   const tuning = tuningString("bass", locale);
-  const copy = tuningGuideCopy[locale];
+  const copy = tuningGuideCopy[getContentLocale(locale)];
   const targetPath = targetPathForInstrument("bass");
   return {
     description: copy.description(label, tuning),
@@ -1492,7 +1492,7 @@ const alternativeTuningGuides: Record<
 };
 
 const alternativeTuningLabels: Record<
-  Locale,
+  BaseLocale,
   {
     description: (name: string, instrument: string, tuning: string) => string;
     intro: (name: string, instrument: string, tuning: string) => string;
@@ -1835,7 +1835,7 @@ function tuningSectionLabels(locale: Locale) {
 }
 
 function buildInstrumentGuide(locale: Locale, instrument: Instrument, guide: GuideSlug): GuideContent {
-  const copy = tuningGuideCopy[locale];
+  const copy = tuningGuideCopy[getContentLocale(locale)];
   const label = getInstrumentLabel(instrument, locale);
   const tuning = tuningString(instrument, locale);
   const targetPath = targetPathForInstrument(instrument);
@@ -1872,7 +1872,7 @@ function buildAlternativeTuningGuide(locale: Locale, guide: GuideSlug): GuideCon
   const preset = tuningPresets[tuningGuide.instrument]?.find((item) => item.id === tuningGuide.presetId);
   if (!preset) return null;
 
-  const copy = alternativeTuningLabels[locale];
+  const copy = alternativeTuningLabels[getContentLocale(locale)];
   const instrument = getInstrumentLabel(tuningGuide.instrument, locale);
   const tuning = tuningStringFromNotes(preset.notes, locale);
   const name = tuningGuide.label;
@@ -1938,7 +1938,11 @@ export function getGuideContent(locale: Locale, guide: GuideSlug): GuideContent 
   if (instrument) return applyGuideOverride(buildInstrumentGuide(locale, instrument, guide), locale, guide);
   const alternativeGuide = buildAlternativeTuningGuide(locale, guide);
   if (alternativeGuide) return applyGuideOverride(alternativeGuide, locale, guide);
-  return applyGuideOverride(utilityGuides[locale][guide as (typeof utilityGuideSlugs)[number]] as GuideContent, locale, guide);
+  return applyGuideOverride(
+    utilityGuides[getContentLocale(locale)][guide as (typeof utilityGuideSlugs)[number]] as GuideContent,
+    locale,
+    guide
+  );
 }
 
 export function guidesForTool(tool: ToolSlug): GuideSlug[] {

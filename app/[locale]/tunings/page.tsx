@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { getGuideContent } from "@/lib/content/guides";
 import { getTuningHubGroups, tuningHubContent } from "@/lib/content/tuningHub";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
+import { withLocaleFallbacks, isLocale, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { buildTuningHubMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, faqItemsSchema } from "@/lib/seo/schema";
 
@@ -25,7 +25,7 @@ const tuningBridgeLabels: Record<
     songs: string;
     relatedTools: string;
   }
-> = {
+> = withLocaleFallbacks({
   ar: { continueLearning: "واصل من هنا", continueLearningDescription: "انتقل من صفحات الضبط مباشرة إلى الأدوات العملية والأدلة وصفحات التدريب الموسيقي.", allGuides: "كل الأدلة", allTools: "كل الأدوات", songs: "المقطوعات", relatedTools: "أدوات مرتبطة" },
   de: { continueLearning: "Hier sinnvoll weitergehen", continueLearningDescription: "Gehe von den Stimmungsseiten direkt zu den passenden Tools, Guides und Übungsseiten weiter.", allGuides: "Alle Guides", allTools: "Alle Tools", songs: "Songs", relatedTools: "Passende Tools" },
   en: { continueLearning: "Continue from here", continueLearningDescription: "Move from tuning pages straight into the practical tools, related guides and song practice pages.", allGuides: "All guides", allTools: "All tools", songs: "Songs", relatedTools: "Related tools" },
@@ -37,7 +37,14 @@ const tuningBridgeLabels: Record<
   pt: { continueLearning: "Continue daqui", continueLearningDescription: "Passe das páginas de afinação para ferramentas práticas, guias relacionados e páginas de prática.", allGuides: "Todos os guias", allTools: "Todas as ferramentas", songs: "Músicas", relatedTools: "Ferramentas relacionadas" },
   ru: { continueLearning: "Куда перейти дальше", continueLearningDescription: "Со страниц строев можно сразу перейти к практическим инструментам, связанным гайдам и страницам для упражнений.", allGuides: "Все гайды", allTools: "Все инструменты", songs: "Песни", relatedTools: "Связанные инструменты" },
   zh: { continueLearning: "从这里继续", continueLearningDescription: "你可以从调弦页面直接进入实用工具、相关指南和练习曲目页面。", allGuides: "全部指南", allTools: "全部工具", songs: "曲目", relatedTools: "相关工具" }
-};
+} satisfies Record<BaseLocale, {
+  continueLearning: string;
+  continueLearningDescription: string;
+  allGuides: string;
+  allTools: string;
+  songs: string;
+  relatedTools: string;
+}>);
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

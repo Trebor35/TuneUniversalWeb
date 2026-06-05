@@ -14,13 +14,13 @@ import {
 import { featuredGuideIndexTools, internalLinkingContent } from "@/lib/content/internalLinking";
 import { hubEnhancements } from "@/lib/content/seoEnhancements";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, isLocale, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { buildGuideIndexMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
-const guideCategoryLabels: Record<Locale, { instrument: string; tuning: string; utility: string }> = {
+const guideCategoryLabels: Record<BaseLocale, { instrument: string; tuning: string; utility: string }> = {
   ar: { instrument: "أدلة الآلات", tuning: "أدلة الضبط", utility: "أدلة التدريب" },
   de: { instrument: "Instrumenten-Guides", tuning: "Stimmungs-Guides", utility: "Praxis-Guides" },
   en: { instrument: "Instrument guides", tuning: "Tuning guides", utility: "Practice guides" },
@@ -51,13 +51,14 @@ export default async function GuidesIndexPage({ params }: PageProps) {
   if (!isLocale(rawLocale)) notFound();
 
   const locale = rawLocale as Locale;
+  const contentLocale = getContentLocale(locale);
   const dictionary = await getDictionary(locale);
-  const content = guideIndexContent[locale];
-  const internalLinks = internalLinkingContent[locale].guidesHub;
+  const content = guideIndexContent[contentLocale];
+  const internalLinks = internalLinkingContent[contentLocale].guidesHub;
   const categories: { guides: readonly GuideSlug[]; title: string }[] = [
-    { title: guideCategoryLabels[locale].instrument, guides: instrumentGuideSlugs },
-    { title: guideCategoryLabels[locale].tuning, guides: alternativeTuningGuideSlugs },
-    { title: guideCategoryLabels[locale].utility, guides: utilityGuideSlugs }
+    { title: guideCategoryLabels[contentLocale].instrument, guides: instrumentGuideSlugs },
+    { title: guideCategoryLabels[contentLocale].tuning, guides: alternativeTuningGuideSlugs },
+    { title: guideCategoryLabels[contentLocale].utility, guides: utilityGuideSlugs }
   ];
 
   return (
@@ -72,7 +73,7 @@ export default async function GuidesIndexPage({ params }: PageProps) {
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{content.title}</h1>
       <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{content.description}</p>
       <section className="mt-6 rounded-lg border border-line bg-white p-5 shadow-soft">
-        <p className="leading-7 text-ink/72">{hubEnhancements[locale].guides}</p>
+        <p className="leading-7 text-ink/72">{hubEnhancements[contentLocale].guides}</p>
       </section>
       <section className="mt-6 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-lg border border-line bg-white p-5 shadow-soft">

@@ -1,6 +1,9 @@
-export const locales = ["it", "en", "fr", "de", "es", "pt", "zh", "ru", "ja", "ko", "ar"] as const;
+export const baseLocales = ["it", "en", "fr", "de", "es", "pt", "zh", "ru", "ja", "ko", "ar"] as const;
+
+export const locales = [...baseLocales, "nl", "pl", "tr", "cs", "sv", "pt-BR", "hi", "no"] as const;
 
 export type Locale = (typeof locales)[number];
+export type BaseLocale = (typeof baseLocales)[number];
 
 export const defaultLocale: Locale = "en";
 
@@ -15,13 +18,60 @@ export const localeNames: Record<Locale, string> = {
   ru: "Русский",
   ja: "日本語",
   ko: "한국어",
-  ar: "العربية"
+  ar: "العربية",
+  nl: "Nederlands",
+  pl: "Polski",
+  tr: "Türkçe",
+  cs: "Čeština",
+  sv: "Svenska",
+  "pt-BR": "Português (Brasil)",
+  hi: "हिन्दी",
+  no: "Norsk"
 };
 
 export const rtlLocales: Locale[] = ["ar"];
 
+export const localeFallbacks: Record<Locale, BaseLocale> = {
+  it: "it",
+  en: "en",
+  fr: "fr",
+  de: "de",
+  es: "es",
+  pt: "pt",
+  zh: "zh",
+  ru: "ru",
+  ja: "ja",
+  ko: "ko",
+  ar: "ar",
+  nl: "en",
+  pl: "en",
+  tr: "en",
+  cs: "en",
+  sv: "en",
+  "pt-BR": "pt",
+  hi: "en",
+  no: "en"
+};
+
 export function isLocale(value: string | undefined): value is Locale {
   return Boolean(value && locales.includes(value as Locale));
+}
+
+export function getContentLocale(locale: Locale): BaseLocale {
+  return localeFallbacks[locale];
+}
+
+export function withLocaleFallbacks<T>(
+  baseMap: Record<BaseLocale, T>,
+  overrides: Partial<Record<Locale, T>> = {}
+): Record<Locale, T> {
+  return locales.reduce(
+    (accumulator, locale) => {
+      accumulator[locale] = overrides[locale] ?? baseMap[getContentLocale(locale)];
+      return accumulator;
+    },
+    {} as Record<Locale, T>
+  );
 }
 
 export function getTextDirection(locale: Locale) {

@@ -1,4 +1,4 @@
-﻿import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 
 export const staticPageSlugs = ["privacy-policy", "cookie-policy", "about"] as const;
 
@@ -89,7 +89,7 @@ const enPages: Record<StaticPageSlug, StaticPageContent> = {
   
 };
 
-const localizedTitles: Record<Locale, Partial<Record<StaticPageSlug, Partial<StaticPageContent>>>> = {
+const localizedTitles: Record<BaseLocale, Partial<Record<StaticPageSlug, Partial<StaticPageContent>>>> = {
   it: {
     "privacy-policy": {
       title: "Privacy Policy",
@@ -472,7 +472,8 @@ export function isStaticPageSlug(value: string | undefined): value is StaticPage
 }
 
 export function getStaticPageContent(locale: Locale, slug: StaticPageSlug): StaticPageContent {
+  const contentLocale = getContentLocale(locale);
   const base = enPages[slug];
-  const localized = localizedTitles[locale][slug];
+  const localized = localizedTitles[contentLocale][slug];
   return localized ? { ...base, ...localized } : base;
 }

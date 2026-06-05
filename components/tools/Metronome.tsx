@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Headphones, Pause, Play, Save, Trash2, Volume2 } from "lucide-react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { localeFromName, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, localeFromName, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import {
   beatsForMeter,
+  getSubdivisionLabel,
   getSubdivisionParts,
   meterDenominators,
   meterNumerators,
@@ -37,7 +38,7 @@ function clampBpm(value: number) {
 }
 
 const metronomeUiText: Record<
-  Locale,
+  BaseLocale,
   {
     accentFirstBeat: string;
     apply: string;
@@ -92,7 +93,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   const practiceBarsRef = useRef(0);
   const practiceStartedAtRef = useRef(0);
   const currentLocale = localeFromName(dictionary.localeName);
-  const labels = metronomeUiText[currentLocale];
+  const labels = metronomeUiText[getContentLocale(currentLocale)];
   const hapticsLabel = currentLocale === "it" ? "Vibrazione/flash" : "Vibration/flash";
   const silentModeNote =
     currentLocale === "it"
@@ -245,7 +246,8 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   }
 
   function savePreset() {
-    const subdivisionLabel = subdivisions.find((item) => item.id === subdivision)?.labels[currentLocale] ?? subdivision;
+    const subdivisionConfig = subdivisions.find((item) => item.id === subdivision);
+    const subdivisionLabel = subdivisionConfig ? getSubdivisionLabel(subdivisionConfig, currentLocale) : subdivision;
     const preset: MetronomePreset = {
       accentFirstBeat,
       bpm,
@@ -482,7 +484,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
           >
             {subdivisions.map((item) => (
               <option key={item.id} value={item.id}>
-                {item.labels[currentLocale]} ({item.parts})
+                {getSubdivisionLabel(item, currentLocale)} ({item.parts})
               </option>
             ))}
           </select>

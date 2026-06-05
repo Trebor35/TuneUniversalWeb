@@ -1,5 +1,5 @@
 import "server-only";
-import { defaultLocale, isLocale, type Locale } from "./locales";
+import { defaultLocale, getContentLocale, isLocale, localeNames, type BaseLocale, type Locale } from "./locales";
 
 export type ToolDictionary = {
   title: string;
@@ -43,7 +43,7 @@ export type Dictionary = {
   common: { howItWorks: string; faq: string; otherTools: string };
 };
 
-const loaders: Record<Locale, () => Promise<Dictionary>> = {
+const loaders: Record<BaseLocale, () => Promise<Dictionary>> = {
   it: () => import("@/dictionaries/it.json").then((m) => m.default),
   en: () => import("@/dictionaries/en.json").then((m) => m.default),
   fr: () => import("@/dictionaries/fr.json").then((m) => m.default),
@@ -58,6 +58,16 @@ const loaders: Record<Locale, () => Promise<Dictionary>> = {
 };
 
 export async function getDictionary(locale: string | undefined): Promise<Dictionary> {
-  const key = isLocale(locale) ? locale : defaultLocale;
-  return loaders[key]();
+  const requestedLocale = isLocale(locale) ? locale : defaultLocale;
+  const key = getContentLocale(requestedLocale);
+  const dictionary = await loaders[key]();
+
+  if (requestedLocale === key) {
+    return dictionary;
+  }
+
+  return {
+    ...dictionary,
+    localeName: localeNames[requestedLocale]
+  };
 }

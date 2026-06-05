@@ -1,6 +1,6 @@
 import type { GuideSlug } from "@/lib/content/guides";
 import type { PublicDomainSongSlug } from "@/lib/content/publicDomainSongs";
-import type { Locale } from "@/lib/i18n/locales";
+import { withLocaleFallbacks, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
 export const featuredGuideSlugs: GuideSlug[] = [
@@ -34,7 +34,7 @@ export const internalLinkingContent: Record<
       hubCards: { description: string; href: "guides" | "tunings"; title: string }[];
     };
   }
-> = {
+> = withLocaleFallbacks({
   ar: {
     guidesHub: {
       featuredToolsTitle: "اربط الدروس بالأدوات",
@@ -233,7 +233,18 @@ export const internalLinkingContent: Record<
       ]
     }
   }
-};
+} satisfies Record<BaseLocale, {
+  guidesHub: {
+    featuredToolsDescription: string;
+    featuredToolsTitle: string;
+    hubCards: { description: string; href: "tools" | "tunings"; title: string }[];
+  };
+  toolsHub: {
+    featuredGuidesDescription: string;
+    featuredGuidesTitle: string;
+    hubCards: { description: string; href: "guides" | "tunings"; title: string }[];
+  };
+}>);
 
 const toolClusterGuides: Partial<Record<string, GuideSlug[]>> = {
   "7-string-guitar-tuner": ["how-to-tune-7-string-guitar", "drop-a-7-string-tuning", "common-guitar-tunings"],
@@ -272,7 +283,7 @@ export const clusterSectionLabels: Record<
     toolGuidesDescription: string;
     toolGuidesTitle: string;
   }
-> = {
+> = withLocaleFallbacks({
   ar: {
     songGuidesDescription: "اختر أدلة قصيرة تساعدك على قراءة الأكوردات، تثبيت الإيقاع أو تغيير المقام لهذا النوع من القطع.",
     songGuidesTitle: "أدلة مناسبة لهذا البران",
@@ -361,7 +372,14 @@ export const clusterSectionLabels: Record<
     toolGuidesDescription: "è¿™äº›é¡µé¢ä¸Žå½“å‰ä¹å™¨ç±»åž‹æˆ–å…¶æœ€å¸¸ç”¨çš„è°ƒå¼¦æ–¹æ¡ˆç›´æŽ¥ç›¸å…³ã€‚",
     toolGuidesTitle: "é€‚åˆè¿™ä¸ªä¹å™¨çš„ä¸“é¢˜é¡µ"
   }
-};
+} satisfies Record<BaseLocale, {
+  songGuidesDescription: string;
+  songGuidesTitle: string;
+  songToolsDescription: string;
+  songToolsTitle: string;
+  toolGuidesDescription: string;
+  toolGuidesTitle: string;
+}>);
 
 export function getToolClusterGuides(toolOrRoute: string): GuideSlug[] {
   return toolClusterGuides[toolOrRoute] ?? [];

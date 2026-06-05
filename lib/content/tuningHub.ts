@@ -1,5 +1,5 @@
 import { getGuideContent, type GuideSlug } from "@/lib/content/guides";
-import type { Locale } from "@/lib/i18n/locales";
+import { withLocaleFallbacks, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 
 export type TuningHubGroup = {
   description: string;
@@ -15,7 +15,7 @@ export type TuningHubContent = {
   title: string;
 };
 
-export const tuningHubContent: Record<Locale, TuningHubContent> = {
+export const tuningHubContent: Record<Locale, TuningHubContent> = withLocaleFallbacks({
   ar: {
     title: "ضبطات الآلات",
     description: "دليل TuneUniversal للضبطات الشائعة للغيتار والباس واليوكوليلي والبانجو.",
@@ -126,7 +126,7 @@ export const tuningHubContent: Record<Locale, TuningHubContent> = {
       { question: "同一个调音器能用于替代调弦吗？", answer: "可以。选择乐器或预设，然后按参考音逐弦调音。" }
     ]
   }
-};
+} satisfies Record<BaseLocale, TuningHubContent>);
 
 const tuningGroupDefinitions: { guides: GuideSlug[]; key: "banjo" | "bass" | "guitar" | "ukulele" }[] = [
   {
@@ -154,7 +154,7 @@ const tuningGroupDefinitions: { guides: GuideSlug[]; key: "banjo" | "bass" | "gu
   { key: "banjo", guides: ["banjo-open-g-tuning", "double-c-banjo-tuning", "sawmill-banjo-tuning"] }
 ];
 
-const tuningGroupCopy: Record<Locale, Record<(typeof tuningGroupDefinitions)[number]["key"], Omit<TuningHubGroup, "guides">>> = {
+const tuningGroupCopy: Record<Locale, Record<(typeof tuningGroupDefinitions)[number]["key"], Omit<TuningHubGroup, "guides">>> = withLocaleFallbacks({
   ar: {
     guitar: { title: "ضبطات الغيتار", description: "Standard و Drop و Open والضبطات المنخفضة للغيتار الحديث." },
     bass: { title: "ضبطات الباس", description: "الضبط القياسي وأوتار الخمس للمدى المنخفض." },
@@ -221,7 +221,7 @@ const tuningGroupCopy: Record<Locale, Record<(typeof tuningGroupDefinitions)[num
     ukulele: { title: "尤克里里调弦", description: "High G、Low G 和 D tuning。" },
     banjo: { title: "班卓琴调弦", description: "Double C 和 Sawmill 传统班卓琴音色。" }
   }
-};
+} satisfies Record<BaseLocale, Record<(typeof tuningGroupDefinitions)[number]["key"], Omit<TuningHubGroup, "guides">>>);
 
 export function getTuningHubGroups(locale: Locale): TuningHubGroup[] {
   return tuningGroupDefinitions.map((group) => ({

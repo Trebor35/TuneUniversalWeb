@@ -12,7 +12,7 @@ import { hubEnhancements } from "@/lib/content/seoEnhancements";
 import { tuningHubContent } from "@/lib/content/tuningHub";
 import { toolsHubContent } from "@/lib/content/toolsHub";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, withLocaleFallbacks, isLocale, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { buildToolsIndexMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, faqItemsSchema } from "@/lib/seo/schema";
 import { instrumentIds, type Instrument } from "@/lib/tools/toolConfig";
@@ -28,7 +28,7 @@ const heroPlatformCopy: Record<
     summary: string;
     trustLine: string;
   }
-> = {
+> = withLocaleFallbacks({
   ar: {
     categories: [
       { href: "#tune-instruments", label: "أجهزة ضبط" },
@@ -139,9 +139,13 @@ const heroPlatformCopy: Record<
     summary: "一个多语言音乐平台，可在任何设备上完成调音、节奏练习、音频检测和和弦处理。",
     trustLine: "免费 • 在线 • 无需安装"
   }
-};
+} satisfies Record<BaseLocale, {
+  categories: { href: string; label: string }[];
+  summary: string;
+  trustLine: string;
+}>);
 
-const featuredGuideCtaLabels: Record<Locale, string> = {
+const featuredGuideCtaLabels: Record<Locale, string> = withLocaleFallbacks({
   ar: "افتح الدليل",
   de: "Guide öffnen",
   en: "Open guide",
@@ -153,7 +157,7 @@ const featuredGuideCtaLabels: Record<Locale, string> = {
   pt: "Abrir guia",
   ru: "Открыть гайд",
   zh: "打开指南"
-};
+} satisfies Record<BaseLocale, string>);
 
 const groupAnchorIds = ["tune-instruments", "rhythm-and-bpm", "chords-and-theory"] as const;
 
@@ -180,6 +184,7 @@ export default async function ToolsIndexPage({ params }: PageProps) {
   if (!isLocale(rawLocale)) notFound();
 
   const locale = rawLocale as Locale;
+  const contentLocale = getContentLocale(locale);
   const dictionary = await getDictionary(locale);
   const hub = toolsHubContent[locale];
   const hero = heroPlatformCopy[locale];
@@ -218,7 +223,7 @@ export default async function ToolsIndexPage({ params }: PageProps) {
       <p className="mt-6 max-w-4xl text-lg leading-8 text-ink/70">{hero.summary}</p>
       <section className="mt-6 rounded-lg border border-line bg-white p-5 shadow-soft">
         <p className="font-semibold text-ink">{hero.trustLine}</p>
-        <p className="mt-2 leading-7 text-ink/72">{hubEnhancements[locale].tools}</p>
+        <p className="mt-2 leading-7 text-ink/72">{hubEnhancements[contentLocale].tools}</p>
       </section>
 
       <AdSlot className="mt-8" />

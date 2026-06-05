@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ListChecks, Mic, MicOff, Settings2, Volume2, VolumeX } from "lucide-react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { localeFromName, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, localeFromName, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { getInstrumentLabel, getOrderedInstruments } from "@/lib/tools/instruments";
 import {
   autoCorrelate,
@@ -33,7 +33,7 @@ type PolyTuneResult = {
 };
 
 const tunerUiText: Record<
-  Locale,
+  BaseLocale,
   {
     chromaticMode: string;
     chromaticModeHint: string;
@@ -439,8 +439,9 @@ function estimateStringFromSpectrum(data: Float32Array, sampleRate: number, fftS
 
 export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
   const currentLocale = localeFromName(dictionary.localeName);
+  const contentLocale = getContentLocale(currentLocale);
   const orderedInstruments = useMemo(() => getOrderedInstruments(currentLocale), [currentLocale]);
-  const uiText = tunerUiText[currentLocale];
+  const uiText = tunerUiText[contentLocale];
   const initialInstrument = orderedInstruments.includes(instrument) ? instrument : "guitar";
   const [selectedInstrument, setSelectedInstrument] = useState<Instrument>(initialInstrument);
   const [selectedPresetId, setSelectedPresetId] = useState("standard");

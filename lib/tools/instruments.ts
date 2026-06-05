@@ -1,7 +1,7 @@
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { instrumentIds, type Instrument } from "./toolConfig";
 
-type InstrumentLabelSet = Record<Instrument, Record<Locale, string>>;
+type InstrumentLabelSet = Record<Instrument, Record<BaseLocale, string>>;
 
 export const priorityInstruments: Instrument[] = ["guitar", "bass", "7-string-guitar", "8-string-guitar", "12-string-guitar"];
 
@@ -68,7 +68,8 @@ export const instrumentLabels: InstrumentLabelSet = {
 };
 
 export function getInstrumentLabel(instrument: Instrument, locale: Locale) {
-  return instrumentLabels[instrument][locale] ?? instrumentLabels[instrument].en;
+  const contentLocale = getContentLocale(locale);
+  return instrumentLabels[instrument][contentLocale] ?? instrumentLabels[instrument].en;
 }
 
 export function getOrderedInstruments(locale: Locale) {

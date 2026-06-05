@@ -2,11 +2,11 @@
 
 import { useMemo, useState } from "react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 
-const labels: Record<Locale, { average: string; copied: string; copy: string; instant: string; taps: string }> = {
+const labels: Record<BaseLocale, { average: string; copied: string; copy: string; instant: string; taps: string }> = {
   ar: { average: "BPM المتوسط", copied: "تم النسخ", copy: "نسخ BPM", instant: "BPM فوري", taps: "النقرات" },
   de: { average: "Durchschnitts-BPM", copied: "Kopiert", copy: "BPM kopieren", instant: "Sofort-BPM", taps: "Taps" },
   en: { average: "Average BPM", copied: "Copied", copy: "Copy BPM", instant: "Instant BPM", taps: "Taps" },
@@ -42,7 +42,7 @@ export function TapBpm({ dictionary, locale }: { dictionary: Dictionary; locale:
       intervals
     };
   }, [taps]);
-  const ui = labels[locale];
+  const ui = labels[getContentLocale(locale)] ?? labels.en;
 
   function tap() {
     setCopied(false);

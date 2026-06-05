@@ -3,7 +3,7 @@ import { getGuideContent, guideIndexContent, type GuideSlug } from "@/lib/conten
 import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
 import { tuningHubContent } from "@/lib/content/tuningHub";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
 const footerTools: ToolSlug[] = ["guitar-tuner", "bass-tuner", "metronome", "tap-bpm", "sound-level-meter", "pitch-generator"];
@@ -17,7 +17,7 @@ const footerGuideSlugs: GuideSlug[] = [
   "how-to-tune-piano"
 ];
 
-const footerPageLabels: Record<(typeof footerPages)[number], Record<Locale, string>> = {
+const footerPageLabels: Record<(typeof footerPages)[number], Record<BaseLocale, string>> = {
   about: {
     ar: "حول",
     de: "Über uns",
@@ -60,6 +60,7 @@ const footerPageLabels: Record<(typeof footerPages)[number], Record<Locale, stri
 };
 
 export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
+  const contentLocale = getContentLocale(locale);
   return (
     <footer className="border-t border-line">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-[1fr_3fr]">
@@ -77,10 +78,10 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
           </div>
           <div className="grid content-start gap-2">
             <Link href={`/${locale}/tunings`} className="text-sm font-bold text-ink hover:text-mint">
-              {tuningHubContent[locale].title}
+              {tuningHubContent[contentLocale].title}
             </Link>
             <Link href={`/${locale}/guides`} className="text-sm font-bold text-ink hover:text-mint">
-              {guideIndexContent[locale].title}
+              {guideIndexContent[contentLocale].title}
             </Link>
             {footerGuideSlugs.map((guide) => (
               <Link key={guide} href={`/${locale}/guides/${guide}`} className="text-sm font-medium text-ink/72 hover:text-mint">
@@ -90,7 +91,7 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
           </div>
           <div className="grid content-start gap-2">
             <Link href={`/${locale}/songs`} className="text-sm font-bold text-ink hover:text-mint">
-              {songsUi[locale].title}
+              {songsUi[contentLocale].title}
             </Link>
             {publicDomainSongSlugs.slice(0, 3).map((song) => (
               <Link key={song} href={`/${locale}/songs/${song}`} className="text-sm font-medium text-ink/72 hover:text-mint">
@@ -101,7 +102,7 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
           <div className="grid content-start gap-2">
             {footerPages.map((page) => (
               <Link key={page} href={`/${locale}/${page}`} className="text-sm font-medium text-ink/72 hover:text-mint">
-                {footerPageLabels[page][locale]}
+                {footerPageLabels[page][contentLocale]}
               </Link>
             ))}
           </div>

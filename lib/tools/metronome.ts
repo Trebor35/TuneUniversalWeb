@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 
 export const meterNumerators = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
 export const meterDenominators = [4, 8, 16, 32] as const;
@@ -21,7 +21,7 @@ export const subdivisions = [
       ja: "4分音符",
       ko: "4분음표",
       ar: "نغمات ربع"
-    } satisfies Record<Locale, string>
+    } satisfies Record<BaseLocale, string>
   },
   {
     id: "duplet",
@@ -38,7 +38,7 @@ export const subdivisions = [
       ja: "2連符",
       ko: "둘잇단음",
       ar: "ثنائيات"
-    } satisfies Record<Locale, string>
+    } satisfies Record<BaseLocale, string>
   },
   {
     id: "triplet",
@@ -55,7 +55,7 @@ export const subdivisions = [
       ja: "3連符",
       ko: "셋잇단음",
       ar: "ثلاثيات"
-    } satisfies Record<Locale, string>
+    } satisfies Record<BaseLocale, string>
   },
   {
     id: "quadruplet",
@@ -72,7 +72,7 @@ export const subdivisions = [
       ja: "4連符",
       ko: "넷잇단음",
       ar: "رباعيات"
-    } satisfies Record<Locale, string>
+    } satisfies Record<BaseLocale, string>
   }
 ] as const;
 
@@ -84,4 +84,8 @@ export function beatsForMeter(meter: Meter) {
 
 export function getSubdivisionParts(subdivision: Subdivision) {
   return subdivisions.find((item) => item.id === subdivision)?.parts ?? 1;
+}
+
+export function getSubdivisionLabel(subdivision: (typeof subdivisions)[number], locale: Locale) {
+  return subdivision.labels[getContentLocale(locale)] ?? subdivision.labels.en;
 }

@@ -12,12 +12,12 @@ import { publicDomainSongs, publicDomainSongSlugs } from "@/lib/content/publicDo
 import { getStaticPageContent } from "@/lib/content/staticPages";
 import { tuningHubContent } from "@/lib/content/tuningHub";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { instrumentIds, type ToolSlug } from "@/lib/tools/toolConfig";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { MobileMenu, type MobileNavGroup } from "./MobileMenu";
 
-const aboutLabels: Record<Locale, string> = {
+const aboutLabels: Record<BaseLocale, string> = {
   ar: "حول",
   de: "Über uns",
   en: "About",
@@ -31,7 +31,7 @@ const aboutLabels: Record<Locale, string> = {
   zh: "关于"
 };
 
-const guidesLabels: Record<Locale, string> = {
+const guidesLabels: Record<BaseLocale, string> = {
   ar: "أدلة",
   de: "Anleitungen",
   en: "Guides",
@@ -45,7 +45,7 @@ const guidesLabels: Record<Locale, string> = {
   zh: "指南"
 };
 
-const songsLabels: Record<Locale, string> = {
+const songsLabels: Record<BaseLocale, string> = {
   ar: "مقطوعات",
   de: "Noten",
   en: "Songs",
@@ -62,7 +62,7 @@ const songsLabels: Record<Locale, string> = {
 const primaryToolMenu: ToolSlug[] = ["guitar-tuner", "bass-tuner", "metronome", "tap-bpm", "sound-level-meter", "pitch-generator"];
 
 const menuLabels: Record<
-  Locale,
+  BaseLocale,
   { instrumentGuides: string; instrumentTuners: string; menu: string; pages: string; tuningGuides: string }
 > = {
   ar: { instrumentGuides: "أدلة الآلات", instrumentTuners: "موالفات الآلات", menu: "القائمة", pages: "الصفحات", tuningGuides: "أدلة الضبط" },
@@ -79,7 +79,8 @@ const menuLabels: Record<
 };
 
 function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGroup[] {
-  const labels = menuLabels[locale];
+  const contentLocale = getContentLocale(locale);
+  const labels = menuLabels[contentLocale];
   const tuningGuideSlugs: GuideSlug[] = [...alternativeTuningGuideSlugs, ...utilityGuideSlugs];
 
   return [
@@ -88,9 +89,9 @@ function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGro
       links: [
         { href: `/${locale}`, label: "TuneUniversal" },
         { href: `/${locale}/tools`, label: dictionary.nav.tools },
-        { href: `/${locale}/tunings`, label: tuningHubContent[locale].title },
-        { href: `/${locale}/guides`, label: guidesLabels[locale] },
-        { href: `/${locale}/songs`, label: songsLabels[locale] },
+        { href: `/${locale}/tunings`, label: tuningHubContent[contentLocale].title },
+        { href: `/${locale}/guides`, label: guidesLabels[contentLocale] },
+        { href: `/${locale}/songs`, label: songsLabels[contentLocale] },
         { href: `/${locale}/about`, label: getStaticPageContent(locale, "about").title },
         { href: `/${locale}/privacy-policy`, label: getStaticPageContent(locale, "privacy-policy").title },
         { href: `/${locale}/cookie-policy`, label: getStaticPageContent(locale, "cookie-policy").title }
@@ -125,7 +126,7 @@ function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGro
       }))
     },
     {
-      title: songsLabels[locale],
+      title: songsLabels[contentLocale],
       links: publicDomainSongSlugs.map((song) => ({
         href: `/${locale}/songs/${song}`,
         label: publicDomainSongs[song].title
@@ -135,13 +136,14 @@ function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGro
 }
 
 export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
+  const contentLocale = getContentLocale(locale);
   const mobileGroups = buildMobileGroups(locale, dictionary);
 
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-paper/88 backdrop-blur">
       <div className="mx-auto max-w-6xl lg:hidden">
         <div className="flex items-center gap-3 px-3 py-3">
-          <MobileMenu groups={mobileGroups} label={menuLabels[locale].menu} />
+          <MobileMenu groups={mobileGroups} label={menuLabels[contentLocale].menu} />
           <Link href={`/${locale}/tools/guitar-tuner`} className="inline-flex min-w-0 flex-1 items-center gap-2 font-bold">
             <span className="shrink-0 rounded-md bg-ink p-2 text-white">
               <AudioLines size={18} aria-hidden />
@@ -168,16 +170,16 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
         </Link>
         <div className="flex shrink-0 items-center gap-2">
           <Link href={`/${locale}/about`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
-            {aboutLabels[locale]}
+            {aboutLabels[contentLocale]}
           </Link>
           <Link href={`/${locale}/guides`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
-            {guidesLabels[locale]}
+            {guidesLabels[contentLocale]}
           </Link>
           <Link href={`/${locale}/tunings`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white lg:inline-flex">
-            {tuningHubContent[locale].title}
+            {tuningHubContent[contentLocale].title}
           </Link>
           <Link href={`/${locale}/songs`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white lg:inline-flex">
-            {songsLabels[locale]}
+            {songsLabels[contentLocale]}
           </Link>
           <Link href={`/${locale}/tools`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white sm:inline-flex">
             {dictionary.nav.tools}

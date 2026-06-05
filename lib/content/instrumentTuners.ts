@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { instrumentIds, type Instrument } from "@/lib/tools/toolConfig";
 import { getInstrumentLabel } from "@/lib/tools/instruments";
 import { formatNoteName, tunings } from "@/lib/tools/tuner";
@@ -25,7 +25,7 @@ type PriorityInstrument =
   | "cimbalom"
   | "koto";
 
-const instrumentTunerOverrides: Partial<Record<Locale, Partial<Record<Instrument, InstrumentTunerOverride>>>> = {
+const instrumentTunerOverrides: Partial<Record<BaseLocale, Partial<Record<Instrument, InstrumentTunerOverride>>>> = {
   de: {
     bass: {
       description:
@@ -151,7 +151,7 @@ const instrumentTunerOverrides: Partial<Record<Locale, Partial<Record<Instrument
 };
 
 const priorityInstrumentSeoCopy: Record<
-  Locale,
+  BaseLocale,
   Partial<Record<PriorityInstrument, Pick<InstrumentTunerContent, "description" | "title">>>
 > = {
   ar: {
@@ -531,7 +531,7 @@ const priorityInstrumentSeoCopy: Record<
 };
 
 const templates: Record<
-  Locale,
+  BaseLocale,
   {
     description: (instrument: string, tuning: string) => string;
     faq: (instrument: string, tuning: string) => { answer: string; question: string }[];
@@ -669,9 +669,10 @@ export function isInstrumentTunerSlug(value: string | undefined): value is Instr
 }
 
 export function getInstrumentTunerContent(locale: Locale, instrument: Instrument): InstrumentTunerContent {
+  const contentLocale = getContentLocale(locale);
   const label = getInstrumentLabel(instrument, locale);
   const tuning = tunings[instrument].map((note) => formatNoteName(`${note.name}${note.octave ?? ""}`, "latin", false)).join(" - ");
-  const template = templates[locale];
+  const template = templates[contentLocale];
   const baseContent: InstrumentTunerContent = {
     description: template.description(label, tuning),
     faq: template.faq(label, tuning),
@@ -680,7 +681,7 @@ export function getInstrumentTunerContent(locale: Locale, instrument: Instrument
     keywords: template.keywords(label),
     title: template.title(label)
   };
-  const override = instrumentTunerOverrides[locale]?.[instrument];
-  const priorityCopy = priorityInstrumentSeoCopy[locale]?.[instrument as PriorityInstrument];
+  const override = instrumentTunerOverrides[contentLocale]?.[instrument];
+  const priorityCopy = priorityInstrumentSeoCopy[contentLocale]?.[instrument as PriorityInstrument];
   return { ...baseContent, ...override, ...priorityCopy, instrument };
 }

@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/i18n/locales";
+import { withLocaleFallbacks, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 
 export type PublicDomainSongSlug =
   | "ode-to-joy"
@@ -400,7 +400,7 @@ export const songsUi: Record<
     title: string;
     tools: string;
   }
-> = {
+> = withLocaleFallbacks({
   ar: {
     allSongs: "كل القطع",
     bpm: "السرعة",
@@ -588,7 +588,23 @@ export const songsUi: Record<
     title: "免费公有领域乐谱",
     tools: "实用工具"
   }
-};
+} satisfies Record<BaseLocale, {
+  allSongs: string;
+  bpm: string;
+  chords: string;
+  description: string;
+  hero: string;
+  key: string;
+  legalNote: string;
+  melody: string;
+  meter: string;
+  origin: string;
+  practice: string;
+  publicDomain: string;
+  source: string;
+  title: string;
+  tools: string;
+}>);
 
 export function isPublicDomainSongSlug(value: string): value is PublicDomainSongSlug {
   return publicDomainSongSlugs.includes(value as PublicDomainSongSlug);

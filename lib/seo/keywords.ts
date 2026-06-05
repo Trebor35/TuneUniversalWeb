@@ -1,4 +1,4 @@
-import { locales, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
 const brandKeywords = ["TuneUniversal", "Tune Universal", "tuneuniversal.com"];
@@ -15,7 +15,7 @@ export const homeKeywords = {
   pt: ["afinador online", "afinador de instrumentos online", "metrônomo online", "tap bpm", "transpositor de acordes", "ferramentas musicais grátis", "afinar guitarra", "afinar baixo", "afinar ukulele", "afinador de instrumentos de corda", "praticar ritmo musical", ...brandKeywords],
   ru: ["онлайн тюнер", "тюнер для инструментов онлайн", "метроном онлайн", "tap bpm", "транспонирование аккордов", "бесплатные музыкальные инструменты", "настроить гитару", "настроить бас", "настроить укулеле", "тюнер для струнных инструментов", "тренировка ритма", ...brandKeywords],
   zh: ["在线调音器", "乐器调音器", "在线节拍器", "Tap BPM", "和弦移调器", "免费音乐工具", "吉他调音器", "贝斯调音器", "尤克里里调音器", "弦乐器调音器", "节奏练习", ...brandKeywords]
-} satisfies Record<Locale, string[]>;
+} satisfies Record<BaseLocale, string[]>;
 
 const universalInstrumentKeywords = {
   ar: ["غيتار", "باس", "بانجو", "تشيلو", "كونترباص", "هارب", "كوتو", "عود", "ماندولين", "بيانو", "سيتار", "أوكوليلي", "فيولا", "كمان", "آلات وترية"],
@@ -29,7 +29,7 @@ const universalInstrumentKeywords = {
   pt: ["guitarra", "baixo", "banjo", "violoncelo", "contrabaixo", "harpa", "koto", "alaúde", "bandolim", "piano", "sitar", "ukulele", "viola", "violino", "instrumentos de corda"],
   ru: ["гитара", "бас", "банджо", "виолончель", "контрабас", "арфа", "кото", "лютня", "мандолина", "пианино", "ситар", "укулеле", "альт", "скрипка", "струнные инструменты"],
   zh: ["吉他", "贝斯", "班卓琴", "大提琴", "低音提琴", "竖琴", "古筝", "鲁特琴", "曼陀林", "钢琴", "西塔琴", "尤克里里", "中提琴", "小提琴", "弦乐器"]
-} satisfies Record<Locale, string[]>;
+} satisfies Record<BaseLocale, string[]>;
 
 const baseToolKeywords = {
   ar: {
@@ -131,7 +131,7 @@ const baseToolKeywords = {
     "tap-bpm": ["Tap BPM", "BPM 计数器", "计算 BPM", "每分钟拍数", "歌曲速度", "平均 BPM", "在线 Tap Tempo", ...brandKeywords],
     "ukulele-tuner": ["在线尤克里里调音器", "尤克里里调音", "尤克里里调弦", "G C E A", "免费尤克里里调音器", "标准尤克里里", "麦克风调音器", ...brandKeywords]
   }
-} satisfies Record<Locale, Record<Exclude<ToolSlug, "pitch-generator">, string[]>>;
+} satisfies Record<BaseLocale, Record<Exclude<ToolSlug, "pitch-generator">, string[]>>;
 
 const pitchGeneratorKeywords = {
   ar: ["مولد نغمات", "مولد تردد", "20 hz", "20000 hz", "اختبار السمع", "نغمة نقية", "audio tone generator", ...brandKeywords],
@@ -145,14 +145,14 @@ const pitchGeneratorKeywords = {
   pt: ["gerador de tom", "gerador de frequencia", "20 hz", "20000 hz", "tom puro", "teste auditivo", "gerador senoidal", ...brandKeywords],
   ru: ["генератор тона", "генератор частоты", "20 hz", "20000 hz", "чистый тон", "проверка слуха", "синусоида", ...brandKeywords],
   zh: ["音高发生器", "频率发生器", "20 hz", "20000 hz", "纯音", "听力测试", "正弦波", ...brandKeywords]
-} satisfies Record<Locale, string[]>;
+} satisfies Record<BaseLocale, string[]>;
 
 export const toolKeywords = Object.fromEntries(
   locales.map((locale) => [
     locale,
     {
-      ...baseToolKeywords[locale],
-      "pitch-generator": pitchGeneratorKeywords[locale]
+      ...baseToolKeywords[getContentLocale(locale)],
+      "pitch-generator": pitchGeneratorKeywords[getContentLocale(locale)]
     }
   ])
 ) as Record<Locale, Record<ToolSlug, string[]>>;

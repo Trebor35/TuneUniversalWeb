@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return allLocalizedUrls().map((path) => {
     const localizedUrls = Object.fromEntries(
       locales.map((locale) => {
-        const localizedPath = path.replace(/^\/[a-z]{2}(?=\/)/, `/${locale}`);
+        const localizedPath = path.replace(/^\/[^/]+(?=\/|$)/, `/${locale}`);
         return [locale, `${siteUrl}${localizedPath}`];
       })
     );
@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           ...localizedUrls,
-          "x-default": `${siteUrl}${path.replace(/^\/[a-z]{2}(?=\/)/, "/en")}`
+          "x-default": `${siteUrl}${path.replace(/^\/[^/]+(?=\/|$)/, "/en")}`
         }
       }
     };

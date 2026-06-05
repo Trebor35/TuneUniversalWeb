@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 
 type FretValue = number | "x";
 
@@ -21,7 +21,7 @@ const chordShapes: Record<string, ChordShape> = {
 };
 
 const labels: Record<
-  Locale,
+  BaseLocale,
   {
     available: string;
     diagramAlt: string;
@@ -145,7 +145,7 @@ const labels: Record<
   }
 };
 
-const chordTips: Record<Locale, Record<string, string>> = {
+const chordTips: Record<BaseLocale, Record<string, string>> = {
   ar: {
     A: "اكتم وتر E الغليظ واجعل الأصابع الثلاثة في الوسط قريبة من بعضها.",
     Am: "اجعل الإصبع الأول خفيفا على وتر B واترك وتر A المفتوح يرن.",
@@ -283,7 +283,8 @@ function ChordDiagram({
   shape: ChordShape;
 }) {
   const frets = [1, 2, 3, 4];
-  const ui = labels[locale];
+  const contentLocale = getContentLocale(locale);
+  const ui = labels[contentLocale] ?? labels.en;
 
   return (
     <div className="rounded-lg border border-line bg-white p-4 shadow-soft">
@@ -319,14 +320,15 @@ function ChordDiagram({
           return <circle key={`${value}-${index}`} cx={x} cy={y} r="9" fill="#15977f" />;
         })}
       </svg>
-      <p className="mt-3 text-sm leading-6 text-ink/68">{chordTips[locale][chord]}</p>
+      <p className="mt-3 text-sm leading-6 text-ink/68">{chordTips[contentLocale][chord]}</p>
     </div>
   );
 }
 
 export function ChordHowTo({ chords, locale }: { chords: string[]; locale: Locale }) {
-  const ui = labels[locale];
-  const knownChords = uniqueChords(chords).filter((chord) => chordShapes[chord] && chordTips[locale][chord]);
+  const contentLocale = getContentLocale(locale);
+  const ui = labels[contentLocale] ?? labels.en;
+  const knownChords = uniqueChords(chords).filter((chord) => chordShapes[chord] && chordTips[contentLocale][chord]);
 
   if (knownChords.length === 0) return null;
 

@@ -3,7 +3,7 @@
 import { Mic, MicOff } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { calculateRms, classifySoundLevel, rmsToEstimatedDb, type SoundLevel } from "@/lib/tools/soundMeter";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -175,7 +175,16 @@ const copy = {
     },
     warning: "这是浏览器麦克风的估算值，并非经过认证的 dB SPL 测量。"
   }
-} as const;
+} as const satisfies Record<BaseLocale, {
+  average: string;
+  calibration: string;
+  db: string;
+  estimated: string;
+  peak: string;
+  resetPeak: string;
+  statuses: Record<SoundLevel, string>;
+  warning: string;
+}>;
 
 const environmentRows = {
   ar: [
@@ -255,9 +264,9 @@ const environmentRows = {
     { db: 80, environment: "交通" },
     { db: 100, environment: "音乐会" }
   ]
-} satisfies Record<Locale, { db: number; environment: string }[]>;
+} satisfies Record<BaseLocale, { db: number; environment: string }[]>;
 
-const uiLabels: Record<Locale, { average?: string; current: string; environment: string; environments: string; history: string; maximum: string; minimum: string }> = {
+const uiLabels: Record<BaseLocale, { average?: string; current: string; environment: string; environments: string; history: string; maximum: string; minimum: string }> = {
   ar: { current: "الحالي", environment: "البيئة", environments: "مراجع البيئة", history: "آخر 30 ثانية", maximum: "الأقصى", minimum: "الأدنى" },
   de: { current: "Aktuell", environment: "Umgebung", environments: "Umgebungswerte", history: "Letzte 30 Sekunden", maximum: "Maximum", minimum: "Minimum" },
   en: { current: "Current", environment: "Environment", environments: "Environment reference", history: "Last 30 seconds", maximum: "Maximum", minimum: "Minimum" },
@@ -274,8 +283,9 @@ const uiLabels: Record<Locale, { average?: string; current: string; environment:
 type HistoryPoint = { db: number; time: number };
 
 export function SoundLevelMeter({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
-  const labels = copy[locale] ?? copy.en;
-  const extraLabels = uiLabels[locale] ?? uiLabels.en;
+  const contentLocale = getContentLocale(locale);
+  const labels = copy[contentLocale] ?? copy.en;
+  const extraLabels = uiLabels[contentLocale] ?? uiLabels.en;
   const [active, setActive] = useState(false);
   const [db, setDb] = useState(0);
   const [peakDb, setPeakDb] = useState(0);
@@ -435,7 +445,7 @@ export function SoundLevelMeter({ dictionary, locale }: { dictionary: Dictionary
         <div className="grid grid-cols-[90px_1fr] text-sm">
           <div className="bg-paper px-4 py-2 font-bold">{labels.db}</div>
           <div className="bg-paper px-4 py-2 font-bold">{extraLabels.environment}</div>
-          {environmentRows[locale].map((row) => (
+          {environmentRows[contentLocale].map((row) => (
             <div key={row.db} className="contents">
               <div className="border-t border-line px-4 py-3 font-bold">{row.db}</div>
               <div className="border-t border-line px-4 py-3">{row.environment}</div>

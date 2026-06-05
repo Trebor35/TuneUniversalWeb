@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/ads/AdSlot";
@@ -27,7 +27,7 @@ import {
 } from "@/lib/content/instrumentTuners";
 import { getToolSeoEnhancement } from "@/lib/content/seoEnhancements";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
+import { withLocaleFallbacks, isLocale, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { buildInstrumentTunerMetadata, buildToolMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, faqItemsSchema, instrumentTunerSchema, toolSchema } from "@/lib/seo/schema";
 import { isToolSlug, toolSlugs, tunerTools, type Instrument, type ToolSlug } from "@/lib/tools/toolConfig";
@@ -39,7 +39,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.c
 const toolPageLabels: Record<
   Locale,
   { allGuides: string; allTools: string; exploreMore: string; exploreMoreDescription: string; relatedTunings: string; tuningHub: string }
-> = {
+> = withLocaleFallbacks({
   ar: { allGuides: "كل الأدلة", allTools: "كل الأدوات", exploreMore: "واصل من هنا", exploreMoreDescription: "استخدم هذه الروابط للانتقال بين الأداة، الأدلة العملية ومركز الضبطات المرتبط بها.", relatedTunings: "ضبطات مرتبطة", tuningHub: "مركز الضبطات" },
   de: { allGuides: "Alle Guides", allTools: "Alle Tools", exploreMore: "Hier sinnvoll weitergehen", exploreMoreDescription: "Nutze diese Links, um schnell zwischen Tool, passenden Anleitungen und dem Stimmungs-Hub zu wechseln.", relatedTunings: "Verwandte Stimmungen", tuningHub: "Tuning-Hub" },
   en: { allGuides: "All guides", allTools: "All tools", exploreMore: "Explore the next step", exploreMoreDescription: "Use these links to move between the tool, practical guides and the matching tuning hub.", relatedTunings: "Related tunings", tuningHub: "Tuning hub" },
@@ -51,9 +51,9 @@ const toolPageLabels: Record<
   pt: { allGuides: "Todos os guias", allTools: "Todas as ferramentas", exploreMore: "Continue daqui", exploreMoreDescription: "Use estes links para passar rapidamente entre a ferramenta, os guias práticos e o hub de afinações.", relatedTunings: "Afinações relacionadas", tuningHub: "Hub de afinações" },
   ru: { allGuides: "Все гайды", allTools: "Все инструменты", exploreMore: "Куда перейти дальше", exploreMoreDescription: "Эти ссылки помогают быстро перейти от инструмента к практическим гайдам и к хабу строев.", relatedTunings: "Связанные строи", tuningHub: "Хаб строев" },
   zh: { allGuides: "全部指南", allTools: "全部工具", exploreMore: "下一步可以看这里", exploreMoreDescription: "通过这些链接，可以在当前工具、实用指南和相关调弦中心之间快速切换。", relatedTunings: "相关调弦", tuningHub: "调弦中心" }
-};
+} satisfies Record<BaseLocale, { allGuides: string; allTools: string; exploreMore: string; exploreMoreDescription: string; relatedTunings: string; tuningHub: string }>);
 
-const guideHeadings: Record<Locale, string> = {
+const guideHeadings: Record<Locale, string> = withLocaleFallbacks({
   ar: "أدلة ذات صلة",
   de: "Verwandte Anleitungen",
   en: "Related guides",
@@ -65,7 +65,7 @@ const guideHeadings: Record<Locale, string> = {
   pt: "Guias relacionados",
   ru: "Связанные руководства",
   zh: "相关指南"
-};
+} satisfies Record<BaseLocale, string>);
 
 const contextualSectionLabels: Record<
   Locale,
@@ -75,7 +75,7 @@ const contextualSectionLabels: Record<
     quickAnswersDescription: string;
     quickAnswersTitle: string;
   }
-> = {
+> = withLocaleFallbacks({
   ar: {
     highlightsDescription: "Ù†Ù‚Ø§Ø· Ø³Ø±ÙŠØ¹Ø© ØªØ¹Ø·ÙŠÙƒ ÙÙƒØ±Ø© ÙˆØ§Ø¶Ø­Ø© Ø¹Ù† ÙƒÙŠÙÙŠØ© Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù‡Ø°Ù‡ Ø§Ù„Ø£Ø¯Ø§Ø©.",
     highlightsTitle: "Ù†Ø¸Ø±Ø© Ø³Ø±ÙŠØ¹Ø©",
@@ -142,7 +142,12 @@ const contextualSectionLabels: Record<
     quickAnswersDescription: "开始之前，先看几条最常见问题的简短答案。",
     quickAnswersTitle: "快速解答"
   }
-};
+} satisfies Record<BaseLocale, {
+  highlightsDescription: string;
+  highlightsTitle: string;
+  quickAnswersDescription: string;
+  quickAnswersTitle: string;
+}>);
 
 const toolIntentLabels: Record<
   Locale,
@@ -152,7 +157,7 @@ const toolIntentLabels: Record<
     searchesDescription: string;
     searchesTitle: string;
   }
-> = {
+> = withLocaleFallbacks({
   ar: {
     questionsDescription: "Ø£Ø³Ø¦Ù„Ø© Ø³Ø±ÙŠØ¹Ø© Ù„Ù„Ø§Ù†ØªÙ‚Ø§Ù„ Ø¥Ù„Ù‰ Ø§Ù„Ø®Ø·ÙˆØ© Ø§Ù„ØªØ§Ù„ÙŠØ©.",
     questionsTitle: "Ø£Ø³Ø¦Ù„Ø© Ù…Ø±ØªØ¨Ø·Ø©",
@@ -219,7 +224,12 @@ const toolIntentLabels: Record<
     searchesDescription: "è¿™äº›å†…éƒ¨é¡µé¢å¾ˆé€‚åˆä½œä¸ºä½¿ç”¨è¿™ä¸ªå·¥å…·åŽçš„ä¸‹ä¸€æ­¥ã€‚",
     searchesTitle: "ç›¸å…³æœç´¢"
   }
-};
+} satisfies Record<BaseLocale, {
+  questionsDescription: string;
+  questionsTitle: string;
+  searchesDescription: string;
+  searchesTitle: string;
+}>);
 
 type ToolFollowUp = {
   answer: string;

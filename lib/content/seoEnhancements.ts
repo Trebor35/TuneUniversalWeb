@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
 export type SeoBlock = {
@@ -26,7 +26,7 @@ export type ToolSeoEnhancement = {
 };
 
 const toolContextualModules: Record<
-  Locale,
+  BaseLocale,
   Record<
     "guitar-tuner" | "metronome" | "tap-bpm" | "chord-transposer",
     { highlights: SeoHighlight[]; quickAnswers: SeoBlock[] }
@@ -541,7 +541,7 @@ const toolContextualModules: Record<
 };
 
 const toolSeoLabels: Record<
-  Locale,
+  BaseLocale,
   {
     accuracy: SeoBlock;
     chords: SeoBlock;
@@ -834,7 +834,7 @@ const toolSeoLabels: Record<
 };
 
 const toolHeroCopy: Record<
-  Locale,
+  BaseLocale,
   Record<"guitar-tuner" | "metronome" | "tap-bpm" | "chord-transposer", { description: string; title: string }>
 > = {
   ar: {
@@ -1082,9 +1082,10 @@ const toolHeroCopy: Record<
 };
 
 export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEnhancement | null {
-  const copy = toolSeoLabels[locale];
-  const hero = toolHeroCopy[locale];
-  const context = toolContextualModules[locale];
+  const contentLocale = getContentLocale(locale);
+  const copy = toolSeoLabels[contentLocale];
+  const hero = toolHeroCopy[contentLocale];
+  const context = toolContextualModules[contentLocale];
 
   if (tool === "guitar-tuner") {
     return {
@@ -1133,7 +1134,7 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
   return null;
 }
 
-export const hubEnhancements: Record<Locale, { guides: string; songs: string; tools: string }> = {
+export const hubEnhancements: Record<BaseLocale, { guides: string; songs: string; tools: string }> = {
   ar: {
     guides: "استخدم هذه الأدلة للانتقال من الأداة إلى التطبيق العملي: الضبط، الإيقاع، قراءة الأوتار واختيار المقام.",
     songs: "كل صفحة أغنية تستخدم ألحانا في الملكية العامة أو مواد تعليمية مبسطة، مع أوتار وملاحظات للتدريب.",

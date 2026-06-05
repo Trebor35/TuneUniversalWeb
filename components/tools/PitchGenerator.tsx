@@ -2,7 +2,7 @@
 
 import { Play, Square } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import type { Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Slider } from "@/components/ui/Slider";
@@ -22,7 +22,7 @@ const labels = {
   pt: { frequency: "Frequencia", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "Comece com volume baixo, especialmente com fones.", play: "Gerar tom", stop: "Parar", volume: "Volume", waveform: "Forma de onda" },
   ru: { frequency: "Частота", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "Начинайте с низкой громкости, особенно в наушниках.", play: "Воспроизвести тон", stop: "Стоп", volume: "Громкость", waveform: "Форма волны" },
   zh: { frequency: "频率", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "请从低音量开始，尤其是使用耳机时。", play: "播放音调", stop: "停止", volume: "音量", waveform: "波形" }
-} satisfies Record<Locale, { frequency: string; hz: string; max: string; min: string; note: string; play: string; stop: string; volume: string; waveform: string }>;
+} satisfies Record<BaseLocale, { frequency: string; hz: string; max: string; min: string; note: string; play: string; stop: string; volume: string; waveform: string }>;
 
 const waveformOptions = ["sine", "square", "triangle", "sawtooth"] as const;
 
@@ -31,7 +31,7 @@ function clampFrequency(value: number) {
 }
 
 export function PitchGenerator({ locale }: { locale: Locale }) {
-  const copy = labels[locale] ?? labels.en;
+  const copy = labels[getContentLocale(locale)] ?? labels.en;
   const [frequency, setFrequency] = useState(440);
   const [volume, setVolume] = useState(18);
   const [waveform, setWaveform] = useState<OscillatorType>("sine");

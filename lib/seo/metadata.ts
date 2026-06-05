@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { instrumentTunerSlugs, type InstrumentTunerContent } from "@/lib/content/instrumentTuners";
-import { locales, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, locales, type Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { guideIndexContent, guideSlugs, type GuideContent, type GuideSlug } from "@/lib/content/guides";
 import { publicDomainSongSlugs, songsUi, type PublicDomainSong } from "@/lib/content/publicDomainSongs";
@@ -1234,13 +1234,14 @@ export function buildAlternates(locale: Locale, path = ""): Metadata["alternates
 }
 
 export function buildHomeMetadata(locale: Locale, dictionary: Dictionary): Metadata {
+  const contentLocale = getContentLocale(locale);
   const override = homeMetadataOverrides[locale];
   const title = override?.title ?? dictionary.meta.title;
   const description = override?.description ?? dictionary.meta.description;
   return {
     title,
     description,
-    keywords: homeKeywords[locale],
+    keywords: homeKeywords[contentLocale],
     alternates: buildAlternates(locale),
     openGraph: {
       title,
@@ -1254,9 +1255,10 @@ export function buildHomeMetadata(locale: Locale, dictionary: Dictionary): Metad
 }
 
 export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Dictionary): Metadata {
+  const contentLocale = getContentLocale(locale);
   const content = dictionary.tools[tool];
   const override = toolMetadataOverrides[locale]?.[tool];
-  const keywords = toolKeywords[locale][tool] ?? [content.title, content.description, ...homeKeywords[locale]];
+  const keywords = toolKeywords[locale][tool] ?? [content.title, content.description, ...homeKeywords[contentLocale]];
   const title = override?.title ?? `${content.title} | TuneUniversal`;
   const description = override?.description ?? content.description;
   return {
@@ -1276,13 +1278,14 @@ export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Di
 }
 
 export function buildInstrumentTunerMetadata(locale: Locale, slug: string, content: InstrumentTunerContent): Metadata {
+  const contentLocale = getContentLocale(locale);
   const override = priorityInstrumentMetadataOverrides[locale]?.[slug] ?? instrumentMetadataOverrides[locale]?.[slug];
   const title = override?.title ?? `${content.title} | TuneUniversal`;
   const description = override?.description ?? content.description;
   return {
     title,
     description,
-    keywords: [...content.keywords, ...homeKeywords[locale]],
+    keywords: [...content.keywords, ...homeKeywords[contentLocale]],
     alternates: buildAlternates(locale, `tools/${slug}`),
     openGraph: {
       title,
@@ -1316,11 +1319,12 @@ export function buildStaticPageMetadata(
 }
 
 export function buildGuideIndexMetadata(locale: Locale): Metadata {
-  const content = guideIndexContent[locale];
+  const contentLocale = getContentLocale(locale);
+  const content = guideIndexContent[contentLocale];
   return {
     title: `${content.title} | TuneUniversal`,
     description: content.description,
-    keywords: [...homeKeywords[locale], "music guides", "tuning guide", "metronome guide", "BPM guide"],
+    keywords: [...homeKeywords[contentLocale], "music guides", "tuning guide", "metronome guide", "BPM guide"],
     alternates: buildAlternates(locale, "guides"),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
@@ -1334,13 +1338,14 @@ export function buildGuideIndexMetadata(locale: Locale): Metadata {
 }
 
 export function buildToolsIndexMetadata(locale: Locale, dictionary: Dictionary, path = "tools"): Metadata {
+  const contentLocale = getContentLocale(locale);
   const content = toolsHubContent[locale];
   const cleanPath = path.replace(/^\/+/, "");
   const absoluteUrl = cleanPath ? `${siteUrl}/${locale}/${cleanPath}` : `${siteUrl}/${locale}`;
   return {
     title: `${content.title} | TuneUniversal`,
     description: content.description,
-    keywords: [...content.keywords, ...homeKeywords[locale], "universal tuner", "online music tools"],
+    keywords: [...content.keywords, ...homeKeywords[contentLocale], "universal tuner", "online music tools"],
     alternates: buildAlternates(locale, cleanPath),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
@@ -1354,11 +1359,12 @@ export function buildToolsIndexMetadata(locale: Locale, dictionary: Dictionary, 
 }
 
 export function buildTuningHubMetadata(locale: Locale): Metadata {
+  const contentLocale = getContentLocale(locale);
   const content = tuningHubContent[locale];
   return {
     title: `${content.title} | TuneUniversal`,
     description: content.description,
-    keywords: [...content.keywords, ...homeKeywords[locale], "alternate tunings", "guitar tuning", "Drop D", "Open G"],
+    keywords: [...content.keywords, ...homeKeywords[contentLocale], "alternate tunings", "guitar tuning", "Drop D", "Open G"],
     alternates: buildAlternates(locale, "tunings"),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
@@ -1372,6 +1378,7 @@ export function buildTuningHubMetadata(locale: Locale): Metadata {
 }
 
 export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: GuideContent): Metadata {
+  const contentLocale = getContentLocale(locale);
   const relatedToolKeywords = toolKeywords[locale][content.tool] ?? [];
   const override = priorityGuideMetadataOverrides[locale]?.[guide] ?? guideMetadataOverrides[locale]?.[guide];
   const title = override?.title ?? `${content.title} | TuneUniversal`;
@@ -1379,7 +1386,7 @@ export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: Gu
   return {
     title,
     description,
-    keywords: [...content.keywords, ...relatedToolKeywords, ...homeKeywords[locale]],
+    keywords: [...content.keywords, ...relatedToolKeywords, ...homeKeywords[contentLocale]],
     alternates: buildAlternates(locale, `guides/${guide}`),
     openGraph: {
       title,
@@ -1393,12 +1400,13 @@ export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: Gu
 }
 
 export function buildSongsIndexMetadata(locale: Locale): Metadata {
+  const contentLocale = getContentLocale(locale);
   const content = songsUi[locale];
   return {
     title: `${content.title} | TuneUniversal`,
     description: content.description,
     keywords: [
-      ...homeKeywords[locale],
+      ...homeKeywords[contentLocale],
       "public domain sheet music",
       "free sheet music",
       "easy sheet music for children",
@@ -1422,6 +1430,7 @@ export function buildSongsIndexMetadata(locale: Locale): Metadata {
 }
 
 export function buildSongMetadata(locale: Locale, song: PublicDomainSong): Metadata {
+  const contentLocale = getContentLocale(locale);
   const content = songsUi[locale];
   const title = `${song.title} chords and simplified sheet music | TuneUniversal`;
   const description = `${song.title}: ${song.key}, ${song.meter}, ${song.bpm} BPM. ${content.description}`;
@@ -1443,7 +1452,7 @@ export function buildSongMetadata(locale: Locale, song: PublicDomainSong): Metad
       ...(song.audience === "children"
         ? ["easy sheet music for children", "spartiti facili per bambini", "canzoni bambini note facili"]
         : []),
-      ...homeKeywords[locale]
+      ...homeKeywords[contentLocale]
     ],
     alternates: buildAlternates(locale, `songs/${song.slug}`),
     openGraph: {

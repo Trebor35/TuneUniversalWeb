@@ -9,13 +9,13 @@ import { clusterSectionLabels, getSongClusterGuides, getSongClusterTools } from 
 import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
 import { hubEnhancements } from "@/lib/content/seoEnhancements";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { isLocale, locales, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, withLocaleFallbacks, isLocale, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { buildSongsIndexMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema } from "@/lib/seo/schema";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
-const childrenSectionLabels: Record<Locale, string> = {
+const childrenSectionLabels: Record<Locale, string> = withLocaleFallbacks({
   ar: "مقطوعات سهلة للأطفال",
   de: "Einfache Noten für Kinder",
   en: "Easy sheet music for children",
@@ -27,9 +27,9 @@ const childrenSectionLabels: Record<Locale, string> = {
   pt: "Partituras fáceis para crianças",
   ru: "Простые ноты для детей",
   zh: "儿童简易乐谱"
-};
+} satisfies Record<BaseLocale, string>);
 
-const generalSectionLabels: Record<Locale, string> = {
+const generalSectionLabels: Record<Locale, string> = withLocaleFallbacks({
   ar: "قطع أخرى",
   de: "Weitere gemeinfreie Stücke",
   en: "More public-domain pieces",
@@ -41,7 +41,7 @@ const generalSectionLabels: Record<Locale, string> = {
   pt: "Mais peças em domínio público",
   ru: "Другие произведения общественного достояния",
   zh: "更多公有领域曲目"
-};
+} satisfies Record<BaseLocale, string>);
 
 const songsBridgeLabels: Record<
   Locale,
@@ -54,7 +54,7 @@ const songsBridgeLabels: Record<
     practiceTools: string;
     learningGuides: string;
   }
-> = {
+> = withLocaleFallbacks({
   ar: { continueLearning: "واصل من هنا", continueLearningDescription: "اربط صفحات المقطوعات بالأدوات العملية والإيقاع والقراءة الموسيقية للحصول على دراسة يومية أوضح.", allGuides: "كل الأدلة", allTools: "كل الأدوات", tunings: "الضبطات", practiceTools: "أدوات للتدريب", learningGuides: "أدلة مفيدة" },
   de: { continueLearning: "Hier sinnvoll weitergehen", continueLearningDescription: "Verbinde diese Song-Seiten mit praktischen Tools, Rhythmusarbeit und grundlegenden Musik-Guides.", allGuides: "Alle Guides", allTools: "Alle Tools", tunings: "Stimmungen", practiceTools: "Tools zum Üben", learningGuides: "Hilfreiche Guides" },
   en: { continueLearning: "Continue from here", continueLearningDescription: "Connect these song pages with practical tools, rhythm work and core music guides for daily practice.", allGuides: "All guides", allTools: "All tools", tunings: "Tunings", practiceTools: "Practice tools", learningGuides: "Helpful guides" },
@@ -66,7 +66,15 @@ const songsBridgeLabels: Record<
   pt: { continueLearning: "Continue daqui", continueLearningDescription: "Ligue estas páginas de músicas a ferramentas práticas, trabalho de ritmo e guias musicais essenciais.", allGuides: "Todos os guias", allTools: "Todas as ferramentas", tunings: "Afinações", practiceTools: "Ferramentas de prática", learningGuides: "Guias úteis" },
   ru: { continueLearning: "Куда перейти дальше", continueLearningDescription: "Свяжите страницы песен с практическими инструментами, ритмом и базовыми музыкальными гайдами для ежедневной практики.", allGuides: "Все гайды", allTools: "Все инструменты", tunings: "Строи", practiceTools: "Инструменты для практики", learningGuides: "Полезные гайды" },
   zh: { continueLearning: "从这里继续", continueLearningDescription: "把这些曲目页和实用工具、节奏练习以及基础音乐指南连起来，更适合日常练习。", allGuides: "全部指南", allTools: "全部工具", tunings: "调弦", practiceTools: "练习工具", learningGuides: "实用指南" }
-};
+} satisfies Record<BaseLocale, {
+  continueLearning: string;
+  continueLearningDescription: string;
+  allGuides: string;
+  allTools: string;
+  tunings: string;
+  practiceTools: string;
+  learningGuides: string;
+}>);
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -85,6 +93,7 @@ export default async function SongsIndexPage({ params }: PageProps) {
   if (!isLocale(rawLocale)) notFound();
 
   const locale = rawLocale as Locale;
+  const contentLocale = getContentLocale(locale);
   const ui = songsUi[locale];
   const labels = songsBridgeLabels[locale];
   const clusterLabels = clusterSectionLabels[locale];
@@ -131,7 +140,7 @@ export default async function SongsIndexPage({ params }: PageProps) {
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{ui.title}</h1>
       <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{ui.description}</p>
       <section className="mt-6 rounded-lg border border-line bg-white p-5 shadow-soft">
-        <p className="leading-7 text-ink/72">{hubEnhancements[locale].songs}</p>
+        <p className="leading-7 text-ink/72">{hubEnhancements[contentLocale].songs}</p>
       </section>
 
       <AdSlot className="mt-8" />
