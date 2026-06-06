@@ -4,9 +4,34 @@ export const staticPageSlugs = ["privacy-policy", "cookie-policy", "about"] as c
 
 export type StaticPageSlug = (typeof staticPageSlugs)[number];
 
-type StaticPageContent = {
+export type StaticPageSectionItem = {
+  body: string[];
+  title: string;
+};
+
+export type StaticPageSection = {
+  body: string[];
+  items?: StaticPageSectionItem[];
+  title: string;
+};
+
+export type StaticPageFaqItem = {
+  answer: string;
+  question: string;
+};
+
+export type StaticPageCta = {
+  href: string;
+  label: string;
+};
+
+export type StaticPageContent = {
+  ctas?: StaticPageCta[];
   description: string;
-  sections: { body: string[]; title: string }[];
+  faq?: StaticPageFaqItem[];
+  seoDescription?: string;
+  seoTitle?: string;
+  sections: StaticPageSection[];
   title: string;
 };
 
@@ -68,22 +93,161 @@ const enPages: Record<StaticPageSlug, StaticPageContent> = {
   },
   about: {
     title: "About TuneUniversal",
-    description: "A free multilingual collection of practical music tools for tuning, timing and chord work.",
+    description: "Learn what TuneUniversal is, why the project exists and how its free music tools help musicians practise, tune and study online.",
+    seoTitle: "About TuneUniversal | Free Music Tools Online",
+    seoDescription: "Learn about TuneUniversal, its mission, free online tuner, metronome and music tools for musicians everywhere.",
     sections: [
       {
-        title: "Mission",
+        title: "Introduction to TuneUniversal",
         body: [
-          "TuneUniversal helps musicians tune instruments, practice tempo and transpose chords quickly from any modern device.",
-          "The project is mobile-first, multilingual and built around lightweight tools that work without installing an app."
+          "TuneUniversal is a free online platform built for musicians who want practical tools that are fast, simple and available from any modern device. The project brings together an online tuner, instrument-specific tuners, a metronome, Tap BPM, a sound meter, chord transposition utilities and educational guides in one place.",
+          "Instead of forcing musicians to install different apps for each small task, TuneUniversal aims to make common music workflows easier directly in the browser. Whether someone needs an online tuner before rehearsal, a guitar tuner for daily practice, a metronome online for rhythm training or quick music tools for lessons, the goal is to keep everything accessible and ready in seconds."
         ]
       },
       {
-        title: "Tools",
+        title: "Our mission",
         body: [
-          "The first version includes a universal tuner, metronome, tap BPM counter and chord transposer.",
-          "More tuning presets, notation systems and educational pages can be added as the library grows."
+          "The mission of TuneUniversal is to make useful music technology available to as many people as possible. Good tuning, rhythm control and basic music education should not depend on expensive software, complex setup or a specific operating system.",
+          "That is why the platform focuses on free music tools that are clear enough for beginners, flexible enough for regular practice and fast enough for everyday use. The long-term vision is to grow into a trusted international reference point for tuning, rhythm, theory support and browser-based practice tools."
+        ]
+      },
+      {
+        title: "Why TuneUniversal was created",
+        body: [
+          "Many musicians only need a quick and reliable utility: a free tuner before a lesson, a metronome online during practice, a Tap BPM tool to check a song tempo or a chord transposer to move a progression into a better key. Too often, those tasks are split across multiple apps, cluttered websites or tools that are hard to use on mobile.",
+          "TuneUniversal was created to reduce that friction. The idea is simple: offer lightweight, multilingual tools that open quickly, work in the browser and solve real musical needs without unnecessary steps. This approach also supports music education by giving students and teachers easy access to practical tools during practice sessions, rehearsals and lessons."
+        ]
+      },
+      {
+        title: "What you can find on TuneUniversal",
+        body: [
+          "TuneUniversal is designed as a growing library of useful digital tools and educational resources for musicians. The platform already includes multiple categories that work together."
+        ],
+        items: [
+          {
+            title: "Online tuning tools",
+            body: [
+              "The platform includes a universal online tuner plus dedicated pages such as guitar tuner, bass tuner, ukulele tuner and violin tuner. These tools are designed for quick access, microphone-based pitch detection and support for common tuning workflows."
+            ]
+          },
+          {
+            title: "Rhythm and tempo tools",
+            body: [
+              "Musicians can use a metronome online with adjustable BPM, practice options and time-signature support, plus Tap BPM for estimating tempo from a song or performance."
+            ]
+          },
+          {
+            title: "Audio and utility tools",
+            body: [
+              "TuneUniversal also includes tools such as a sound meter, chord transposer and other small browser-based helpers that support practice, setup and listening tasks."
+            ]
+          },
+          {
+            title: "Guides and music education resources",
+            body: [
+              "Beyond tools, the site includes tuning guides, practical articles and music education content that help beginners and intermediate players understand what they are doing, not just click buttons."
+            ]
+          }
+        ]
+      },
+      {
+        title: "A project built for musicians at every level",
+        body: [
+          "One of the strengths of TuneUniversal is that it is not limited to one type of user. The platform is meant to be useful at different stages of a musical journey."
+        ],
+        items: [
+          {
+            title: "Beginners",
+            body: [
+              "Beginners need clarity, confidence and tools that do not feel intimidating. A simple instrument tuner, visual feedback and step-by-step guides help them build good habits from the start."
+            ]
+          },
+          {
+            title: "Students",
+            body: [
+              "Students often move between practice routines, assignments and lessons. Fast access to guitar tuning, metronome practice and chord support saves time and keeps the focus on learning."
+            ]
+          },
+          {
+            title: "Teachers",
+            body: [
+              "Teachers benefit from tools that can be opened instantly on desktop or mobile during a lesson. This makes TuneUniversal useful as a teaching companion for rhythm work, tuning demonstrations and quick musical checks."
+            ]
+          },
+          {
+            title: "Professional musicians",
+            body: [
+              "Professional musicians may already use advanced hardware and software, but they still need fast browser tools for quick reference, rehearsals, travel situations and lightweight daily work."
+            ]
+          }
+        ]
+      },
+      {
+        title: "Accessible everywhere",
+        body: [
+          "TuneUniversal is built around accessibility and flexibility. The platform is designed to work across modern browsers so musicians can open their preferred tools wherever they are."
+        ],
+        items: [
+          {
+            title: "Desktop",
+            body: [
+              "On desktop, the site supports longer practice sessions, lesson preparation and side-by-side use with scores, DAWs or teaching materials."
+            ]
+          },
+          {
+            title: "Tablet",
+            body: [
+              "On tablet, TuneUniversal works well as a rehearsal or classroom companion, with touch-friendly controls and readable layouts."
+            ]
+          },
+          {
+            title: "Smartphone",
+            body: [
+              "On smartphone, it becomes a fast pocket toolkit for tuning before playing, checking BPM, opening a guide or using quick music tools on the go."
+            ]
+          }
+        ]
+      },
+      {
+        title: "The future of TuneUniversal",
+        body: [
+          "TuneUniversal is not a fixed collection of pages. It is an expanding project that can continue to grow with new instrument support, more tuning presets, deeper educational content and better digital tools for musicians in different languages.",
+          "Future development can include broader guide coverage, additional instrument tuner pages, more music education content, stronger rhythm tools, richer browser-based utilities and a clearer connection between practical tools and learning resources. The direction is to keep the platform lightweight, useful and increasingly authoritative over time."
         ]
       }
+    ],
+    faq: [
+      {
+        question: "What is TuneUniversal?",
+        answer:
+          "TuneUniversal is a free multilingual platform with browser-based music tools such as an online tuner, guitar tuner, metronome online, Tap BPM, sound meter and chord transposer."
+      },
+      {
+        question: "Who is TuneUniversal for?",
+        answer:
+          "The site is designed for beginners, students, teachers and professional musicians who need fast and practical music tools on desktop, tablet or smartphone."
+      },
+      {
+        question: "Do I need to install an app to use TuneUniversal?",
+        answer:
+          "No. TuneUniversal is designed to work directly in the browser, so most tools can be used without installing extra software."
+      },
+      {
+        question: "Is TuneUniversal only an online tuner?",
+        answer:
+          "No. The platform includes an instrument tuner family, a metronome online, Tap BPM, a sound meter, a chord transposer, tuning guides and music education resources."
+      },
+      {
+        question: "Will TuneUniversal keep adding new music tools?",
+        answer:
+          "Yes. The project is built to expand over time with new tools, new educational pages and more support for musicians in multiple languages."
+      }
+    ],
+    ctas: [
+      { href: "/tools/guitar-tuner", label: "Apri l'accordatore online" },
+      { href: "/tools/metronome", label: "Usa il metronomo" },
+      { href: "/tools/tap-bpm", label: "Prova Tap BPM" },
+      { href: "/guides", label: "Esplora le guide musicali" }
     ]
   },
   
@@ -146,22 +310,161 @@ const localizedTitles: Record<BaseLocale, Partial<Record<StaticPageSlug, Partial
     },
     about: {
       title: "Chi siamo",
-      description: "Una raccolta gratuita e multilingua di strumenti musicali pratici per accordatura, tempo e accordi.",
+      description: "Scopri cos'è TuneUniversal, perché è nato e come aiuta musicisti di tutto il mondo con strumenti musicali online gratuiti.",
+      seoTitle: "Chi siamo | TuneUniversal",
+      seoDescription: "Scopri TuneUniversal: online tuner, guitar tuner, metronomo online e music tools gratuiti per musicisti di ogni livello.",
       sections: [
         {
-          title: "Missione",
+          title: "Introduzione a TuneUniversal",
           body: [
-            "TuneUniversal aiuta musicisti e studenti ad accordare strumenti, studiare il tempo e trasporre accordi rapidamente da qualsiasi dispositivo moderno.",
-            "Il progetto e mobile-first, multilingua e costruito intorno a strumenti leggeri che funzionano senza installare app."
+            "TuneUniversal è una piattaforma online gratuita pensata per musicisti, studenti, insegnanti e appassionati che cercano strumenti musicali semplici, veloci e accessibili da qualsiasi dispositivo. Il progetto riunisce in un unico spazio un online tuner, accordatori dedicati per diversi strumenti, un metronomo online, Tap BPM, un fonometro, un chord transposer e contenuti educativi utili per lo studio quotidiano.",
+            "L'idea alla base del sito è molto concreta: offrire strumenti musicali digitali che risolvano problemi reali senza costringere l'utente a installare app, creare account o passare da un sito all'altro. Quando serve un guitar tuner rapido, un instrument tuner per accordare prima di una prova, un metronome online per lavorare sul tempo o una risorsa di music education per capire meglio accordature e teoria, TuneUniversal vuole essere la risposta più immediata e affidabile."
           ]
         },
         {
-          title: "Strumenti",
+          title: "La nostra missione",
           body: [
-            "La prima versione include accordatore universale, metronomo, conta BPM tap e traspositore accordi.",
-            "In futuro si potranno aggiungere accordature, sistemi di notazione e pagine didattiche dedicate."
+            "La missione di TuneUniversal è rendere più semplice l'accesso a strumenti musicali utili, gratuiti e ben progettati. L'accordatura, il controllo del tempo, la gestione degli accordi e l'apprendimento musicale di base non dovrebbero dipendere da software costosi o da flussi complicati.",
+            "Per questo il progetto punta su music tools veloci da aprire, facili da capire e concreti da usare. L'obiettivo non è riempire il sito di funzioni inutili, ma costruire una piattaforma affidabile che aiuti davvero chi suona a lavorare meglio ogni giorno, sia che stia iniziando ora sia che abbia già una pratica avanzata."
+          ]
+        },
+        {
+          title: "Perché è nato TuneUniversal",
+          body: [
+            "Molti musicisti hanno bisogno di strumenti rapidi per attività molto specifiche: accordare uno strumento prima di una lezione, controllare il BPM di un brano, studiare con il metronomo, trasporre una progressione o verificare un'accordatura alternativa. Spesso però queste esigenze vengono coperte da strumenti sparsi, app separate o pagine lente e poco chiare, soprattutto da smartphone.",
+            "TuneUniversal è nato proprio per ridurre questa frammentazione. Il progetto parte dall'idea che una piattaforma musicale online possa essere utile davvero solo se è leggera, leggibile, multilingua e orientata alla pratica. In questo senso il sito non vuole essere soltanto un free tuner, ma un ambiente di lavoro semplice per attività musicali frequenti e immediate."
+          ]
+        },
+        {
+          title: "Cosa puoi trovare su TuneUniversal",
+          body: [
+            "La piattaforma è organizzata per offrire strumenti utili sia nel momento dell'esecuzione sia nello studio quotidiano. Ogni area è pensata per collegarsi alle altre, così l'utente può passare rapidamente dalla teoria alla pratica."
+          ],
+          items: [
+            {
+              title: "Accordatori online",
+              body: [
+                "TuneUniversal include un accordatore universale e accordatori dedicati come guitar tuner, accordatore per basso, accordatore per ukulele, accordatore per violino e pagine per numerosi altri strumenti. L'obiettivo è offrire un instrument tuner chiaro e rapido per diversi contesti musicali."
+              ]
+            },
+            {
+              title: "Metronomo e controllo del tempo",
+              body: [
+                "Il metronomo online aiuta a lavorare su BPM, suddivisioni, accenti e pratica ritmica. A questo si aggiunge Tap BPM, utile per trovare velocemente il tempo di un brano o impostare una sessione di studio in modo più preciso."
+              ]
+            },
+            {
+              title: "Strumenti audio e utility musicali",
+              body: [
+                "Tra gli strumenti presenti ci sono anche fonometro, chord transposer, pitch generator e altre utility musicali pensate per supportare studio, ascolto, accordature e lavoro armonico."
+              ]
+            },
+            {
+              title: "Guide e risorse educative",
+              body: [
+                "TuneUniversal include guide all'accordatura, contenuti su accordature standard e alternative, risorse pratiche per music education e pagine che aiutano a capire meglio strumenti, tempo e teoria musicale."
+              ]
+            }
+          ]
+        },
+        {
+          title: "Un progetto pensato per musicisti di ogni livello",
+          body: [
+            "Una delle caratteristiche più importanti di TuneUniversal è la sua utilità trasversale. Il sito è costruito per accompagnare esigenze diverse senza rendere l'esperienza complicata."
+          ],
+          items: [
+            {
+              title: "Principianti",
+              body: [
+                "Chi inizia ha bisogno di strumenti chiari, istruzioni semplici e feedback immediati. Un online tuner leggibile, una guida pratica e un metronome online intuitivo aiutano a costruire buone basi fin dall'inizio."
+              ]
+            },
+            {
+              title: "Studenti",
+              body: [
+                "Gli studenti hanno bisogno di passare velocemente da esercizi tecnici a brani, accordature e lavoro sul ritmo. Avere più music tools nello stesso ambiente riduce attrito e perdita di tempo."
+              ]
+            },
+            {
+              title: "Insegnanti",
+              body: [
+                "Gli insegnanti possono usare il sito come supporto immediato durante lezioni, laboratori e spiegazioni. Uno strumento accessibile via browser è utile quando serve mostrare rapidamente un'accordatura, una pulsazione o una trasposizione."
+              ]
+            },
+            {
+              title: "Musicisti professionisti",
+              body: [
+                "Anche chi lavora già con setup avanzati continua ad aver bisogno di strumenti rapidi per controlli veloci, prove, studio personale e riferimenti immediati mentre si è in movimento."
+              ]
+            }
+          ]
+        },
+        {
+          title: "Accessibile ovunque",
+          body: [
+            "TuneUniversal è progettato per funzionare bene su più dispositivi e in contesti diversi. La piattaforma nasce con un approccio mobile-first, ma viene pensata per restare utile anche su schermi più grandi."
+          ],
+          items: [
+            {
+              title: "Desktop",
+              body: [
+                "Su desktop il sito si adatta bene allo studio prolungato, alle lezioni e al lavoro parallelo con spartiti, software musicali o materiale didattico."
+              ]
+            },
+            {
+              title: "Tablet",
+              body: [
+                "Su tablet diventa un compagno molto comodo per prove, esercizi e attività in aula, grazie a un'interfaccia leggibile e controlli facili da toccare."
+              ]
+            },
+            {
+              title: "Smartphone",
+              body: [
+                "Su smartphone si trasforma in un kit tascabile utile prima di suonare, durante una prova o in ogni situazione in cui serve uno strumento rapido senza installazione."
+              ]
+            }
+          ]
+        },
+        {
+          title: "Il futuro di TuneUniversal",
+          body: [
+            "TuneUniversal è un progetto in crescita. La piattaforma è pensata per espandersi con nuovi strumenti, nuove guide, più pagine dedicate alle accordature, più supporto multilingua e nuove funzioni utili per studio e pratica musicale.",
+            "La direzione è chiara: continuare a costruire una libreria sempre più completa di music tools, tuning resources e contenuti educativi davvero utili, mantenendo però un'esperienza veloce, leggera e affidabile. In questo modo TuneUniversal può crescere come brand e come punto di riferimento per chi cerca guitar tuning, instrument tuner, metronome online, music education e utility musicali gratuite."
           ]
         }
+      ],
+      faq: [
+        {
+          question: "Che cos'è TuneUniversal?",
+          answer:
+            "TuneUniversal è una piattaforma online gratuita che raccoglie online tuner, guitar tuner, instrument tuner, metronome online, Tap BPM, fonometro, chord transposer e risorse educative per musicisti."
+        },
+        {
+          question: "TuneUniversal è adatto solo ai chitarristi?",
+          answer:
+            "No. Il sito nasce per una platea molto più ampia e include strumenti per chitarra, basso, ukulele, violino e altri strumenti a corda, oltre a utility musicali trasversali."
+        },
+        {
+          question: "Serve installare un'app per usare TuneUniversal?",
+          answer:
+            "No. La piattaforma è pensata per funzionare direttamente nel browser, su desktop, tablet e smartphone."
+        },
+        {
+          question: "Perché una pagina Chi Siamo è importante su TuneUniversal?",
+          answer:
+            "Aiuta a spiegare la missione del progetto, rafforza la fiducia degli utenti, migliora la chiarezza del brand e rende il sito più solido anche dal punto di vista SEO e pubblicitario."
+        },
+        {
+          question: "TuneUniversal continuerà ad aggiungere nuovi strumenti?",
+          answer:
+            "Sì. Il progetto è in continua evoluzione e punta ad ampliare strumenti, guide, accordature alternative e contenuti di music education."
+        }
+      ],
+      ctas: [
+        { href: "/tools/guitar-tuner", label: "Apri l'accordatore online" },
+        { href: "/tools/metronome", label: "Vai al metronomo" },
+        { href: "/tools/tap-bpm", label: "Usa Tap BPM" },
+        { href: "/guides", label: "Esplora le guide musicali" }
       ]
     },
   },

@@ -1301,15 +1301,17 @@ export function buildInstrumentTunerMetadata(locale: Locale, slug: string, conte
 export function buildStaticPageMetadata(
   locale: Locale,
   page: StaticPageSlug,
-  content: { description: string; title: string }
+  content: { description: string; title: string; seoDescription?: string; seoTitle?: string }
 ): Metadata {
+  const title = content.seoTitle ?? `${content.title} | TuneUniversal`;
+  const description = content.seoDescription ?? content.description;
   return {
-    title: `${content.title} | TuneUniversal`,
-    description: content.description,
+    title,
+    description,
     alternates: buildAlternates(locale, page),
     openGraph: {
-      title: `${content.title} | TuneUniversal`,
-      description: content.description,
+      title,
+      description,
       url: `${siteUrl}/${locale}/${page}`,
       siteName: "TuneUniversal",
       type: "article",

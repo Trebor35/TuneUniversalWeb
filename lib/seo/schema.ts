@@ -87,6 +87,21 @@ export function staticPageSchema(
   };
 }
 
+export function organizationSchema(locale: Locale) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "TuneUniversal",
+    url: siteUrl,
+    logo: `${siteUrl}/logo.svg`,
+    sameAs: [],
+    description:
+      "TuneUniversal is a free multilingual platform with online tuner, guitar tuner, metronome online, music tools and educational resources for musicians.",
+    areaServed: "Worldwide",
+    inLanguage: locale
+  };
+}
+
 export function guideSchema(locale: Locale, guide: GuideSlug, content: GuideContent) {
   return {
     "@context": "https://schema.org",
