@@ -77,7 +77,7 @@ export default async function StaticPage({ params }: PageProps) {
       <section className="mt-8 rounded-lg border border-line bg-white p-5">
         <h2 className="text-xl font-bold">{dictionary.nav.tools}</h2>
         <p className="mt-2 leading-7 text-ink/72">{dictionary.meta.description}</p>
-        {rawPage === "about" && content.ctas?.length ? (
+        {content.ctas?.length ? (
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {content.ctas.map((cta) => (
               <a
@@ -96,7 +96,7 @@ export default async function StaticPage({ params }: PageProps) {
         )}
       </section>
 
-      {rawPage === "about" && content.faq?.length ? (
+      {content.faq?.length ? (
         <section className="mt-8 rounded-lg border border-line bg-white p-5 shadow-soft">
           <h2 className="text-2xl font-bold">FAQ</h2>
           <div className="mt-4 grid gap-3">

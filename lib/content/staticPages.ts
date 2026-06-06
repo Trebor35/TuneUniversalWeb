@@ -1,6 +1,6 @@
 import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 
-export const staticPageSlugs = ["privacy-policy", "cookie-policy", "about"] as const;
+export const staticPageSlugs = ["privacy-policy", "cookie-policy", "about", "contact", "terms-of-use"] as const;
 
 export type StaticPageSlug = (typeof staticPageSlugs)[number];
 
@@ -35,60 +35,178 @@ export type StaticPageContent = {
   title: string;
 };
 
-const commonEmail = "hello@tuneuniversal.com";
+const supportEmail = "contact@tuneuniversal.com";
+const commonEmail = supportEmail;
+const legalPageSlugs = ["privacy-policy", "cookie-policy", "contact", "terms-of-use"] as const;
 
 const enPages: Record<StaticPageSlug, StaticPageContent> = {
   "privacy-policy": {
     title: "Privacy Policy",
-    description: "How TuneUniversal handles privacy for free browser-based music tools.",
+    description: "Learn how TuneUniversal handles privacy, analytics, advertising and consent for its free browser-based music tools.",
+    seoTitle: "Privacy Policy | TuneUniversal",
+    seoDescription:
+      "Read TuneUniversal's Privacy Policy for Google Analytics, Google AdSense, cookies, GDPR, CCPA and anonymous data handling.",
     sections: [
       {
-        title: "Data we process",
+        title: "Overview",
         body: [
-          "TuneUniversal is designed to run music tools directly in your browser. Tuner audio is analyzed locally by the Web Audio API and is not uploaded to our servers.",
-          "We may process basic technical data such as page requests, device type, browser type and approximate region through hosting, analytics or security services."
+          "TuneUniversal is a browser-based platform with free music tools such as online tuners, metronome utilities, audio tools and educational resources. This Privacy Policy explains what data may be processed when you browse the site and use its features.",
+          "The platform is designed to keep core music activity lightweight. Tuner and audio analysis features work primarily in the browser, and the project aims to minimize unnecessary collection of personal data."
         ]
       },
       {
-        title: "Microphone access",
+        title: "Microphone access and audio analysis",
         body: [
-          "Microphone permission is requested only when you activate a tuner. The browser controls that permission, and you can revoke it at any time from site settings.",
-          "We do not intentionally record, store or sell microphone audio."
+          "Microphone permission is requested only when you actively enable a tool that needs it, such as an instrument tuner, sound meter or pitch-related utility. Permission is managed by your browser and can be revoked at any time from browser or site settings.",
+          "TuneUniversal does not intentionally upload, store or sell raw microphone recordings as part of normal tool use. Pitch detection and sound-level calculations are intended to happen locally in the browser whenever possible."
         ]
       },
       {
-        title: "Your choices",
+        title: "Analytics and anonymous usage data",
         body: [
-          "You can use most tools without an account. You can clear local browser storage to remove saved preferences such as notation system or metronome presets.",
-          `For privacy questions, contact ${commonEmail}.`
+          "TuneUniversal may use analytics services such as Google Analytics to understand how the site is used, which pages perform best and how the experience can be improved. These services may collect information such as page views, approximate location, device category, browser type, referring source and general interaction data.",
+          "The goal of this data is to measure site performance and improve the quality of the tools, not to build intrusive personal profiles. Where possible, data is handled in aggregated or pseudonymous form."
+        ]
+      },
+      {
+        title: "Advertising and third-party services",
+        body: [
+          "TuneUniversal may display advertising through services such as Google AdSense. Advertising partners can use cookies or similar technologies to help measure ad performance, limit repeated ads and provide more relevant advertising where permitted.",
+          "If third-party advertising is active, those partners may process technical and usage data according to their own privacy documentation. TuneUniversal may also use hosting, security, CDN and performance services that process limited technical data to deliver the website safely."
+        ]
+      },
+      {
+        title: "Cookies, consent and legal frameworks",
+        body: [
+          "TuneUniversal may use essential cookies, analytics cookies and advertising cookies. Where legally required, a consent mechanism can be used before non-essential cookies are activated.",
+          "For users in the European Economic Area, the United Kingdom and similar jurisdictions, TuneUniversal aims to respect GDPR principles such as transparency, minimization and user choice. For users in California, TuneUniversal also aims to support CCPA-style disclosure and control expectations where applicable."
+        ]
+      },
+      {
+        title: "Your choices and contact",
+        body: [
+          "Most tools can be used without creating an account. You can clear browser storage, adjust cookie preferences through your browser or future consent tools, and revoke microphone permissions whenever you choose.",
+          `For privacy questions or policy requests, contact ${supportEmail}.`
         ]
       }
     ]
   },
   "cookie-policy": {
     title: "Cookie Policy",
-    description: "Information about cookies and local storage used by TuneUniversal.",
+    description: "Understand how TuneUniversal uses essential cookies, analytics cookies and advertising cookies across its music tools.",
+    seoTitle: "Cookie Policy | TuneUniversal",
+    seoDescription:
+      "Read TuneUniversal's Cookie Policy covering essential cookies, analytics cookies, advertising cookies and consent management.",
     sections: [
       {
-        title: "Essential storage",
+        title: "What this policy covers",
         body: [
-          "The site may use essential browser storage to remember interface preferences and make tools easier to use.",
-          "Examples include selected note notation and saved metronome presets."
+          "This Cookie Policy explains how TuneUniversal may use cookies, local storage and similar technologies to keep the site working, measure performance and support advertising where enabled.",
+          "Some technologies are essential for functionality, while others are optional and may depend on user consent in regions where consent is required."
         ]
       },
       {
-        title: "Analytics and ads",
+        title: "Essential cookies and local storage",
         body: [
-          "Future versions may use privacy-aware analytics or advertising partners. If non-essential cookies are introduced, the site should add a consent flow before enabling them where required.",
-          "Advertising spaces currently shown in the layout are reserved placements and can be connected to an ad provider later."
+          "Essential storage may be used to remember interface preferences, maintain language settings, store selected notation systems, keep metronome presets or preserve other core user choices that improve the experience.",
+          "These technologies help the site function properly and are generally not used to identify you personally."
         ]
       },
       {
-        title: "Managing cookies",
+        title: "Analytics cookies",
         body: [
-          "You can block or delete cookies and local storage from your browser settings. Some saved preferences may reset when you do this."
+          "Analytics tools such as Google Analytics may use cookies or similar identifiers to measure page performance, understand traffic sources, estimate audience behavior and improve the quality of the platform.",
+          "These cookies help TuneUniversal understand what musicians use most, which pages load well and where the site experience can be improved."
+        ]
+      },
+      {
+        title: "Advertising cookies",
+        body: [
+          "If TuneUniversal serves ads through Google AdSense or similar providers, advertising cookies may be used to measure ad effectiveness, reduce repetitive ads and support ad relevance where allowed by law.",
+          "Advertising features may rely on third-party technology and can be subject to those providers' own policies."
+        ]
+      },
+      {
+        title: "Consent management and browser controls",
+        body: [
+          "When required, TuneUniversal may present a consent message that lets users manage non-essential cookies before they are activated. You can also block or delete cookies from your browser settings at any time.",
+          "Disabling cookies may reset saved preferences or reduce some non-essential features, but the site should remain usable for its main functions."
         ]
       }
+    ]
+  },
+  contact: {
+    title: "Contact Us",
+    description: "Get in touch with TuneUniversal for questions, suggestions or feedback about the project and its music tools.",
+    seoTitle: "Contact Us | TuneUniversal",
+    seoDescription: "Contact TuneUniversal for questions, suggestions or feedback about our online tuner, metronome and music tools.",
+    sections: [
+      {
+        title: "How to contact TuneUniversal",
+        body: [
+          "Have questions, suggestions or feedback about TuneUniversal? We'd love to hear from you.",
+          `Email: ${supportEmail}`,
+          "Email address will be updated when support services become available."
+        ]
+      },
+      {
+        title: "What to use this page for",
+        body: [
+          "You can use this page to report issues, suggest new music tools, point out translation problems or share ideas that could improve the platform for musicians around the world.",
+          "TuneUniversal is still expanding, so feedback is especially helpful when it relates to accessibility, trust, AdSense readiness, SEO quality or the practical usefulness of the tools."
+        ]
+      }
+    ],
+    ctas: [
+      { href: "/about", label: "Learn more about TuneUniversal" },
+      { href: "/tools", label: "Explore music tools" }
+    ]
+  },
+  "terms-of-use": {
+    title: "Terms of Use",
+    description: "Read the basic terms for using TuneUniversal and its free online music tools.",
+    seoTitle: "Terms of Use | TuneUniversal",
+    seoDescription: "Read TuneUniversal's Terms of Use for free music tools, service limitations, intellectual property and future updates.",
+    sections: [
+      {
+        title: "Free use of the services",
+        body: [
+          "TuneUniversal provides free browser-based music tools, guides and educational pages for general use. You may use the site for personal, educational and routine practice purposes as long as your use is lawful and does not interfere with the platform.",
+          "The site may evolve over time, and some tools, features or layouts may be updated, expanded or removed as the project grows."
+        ]
+      },
+      {
+        title: "Accuracy and informational use",
+        body: [
+          "TuneUniversal aims to provide useful and reliable music tools, but no tool or page should be treated as an absolute professional guarantee. Pitch analysis, tempo estimation, sound-level estimates and educational content are offered for general guidance and practical use.",
+          "Users remain responsible for how they apply the information and tools in lessons, rehearsal, performance, recording or technical environments."
+        ]
+      },
+      {
+        title: "Limitation of liability",
+        body: [
+          "TuneUniversal is provided on an as-is basis to the extent permitted by applicable law. The project does not promise uninterrupted availability, error-free operation or suitability for every musical, educational or technical context.",
+          "TuneUniversal will not be responsible for indirect losses, data loss, device problems or other consequences arising from the use or inability to use the site, except where liability cannot be excluded by law."
+        ]
+      },
+      {
+        title: "Intellectual property",
+        body: [
+          "The TuneUniversal brand, site structure, original interface elements, original text and original educational materials remain protected by applicable intellectual property rules unless otherwise stated.",
+          "Public-domain educational songs or openly usable reference material may appear in dedicated sections, but that does not create permission to copy protected third-party works into the site or reuse site content in ways not allowed by law."
+        ]
+      },
+      {
+        title: "Future changes",
+        body: [
+          "TuneUniversal may update these Terms of Use in the future to reflect new features, legal obligations, analytics changes, advertising changes or improvements to the service.",
+          "When important changes are made, the revised version on the site becomes the reference version for continued use."
+        ]
+      }
+    ],
+    ctas: [
+      { href: "/privacy-policy", label: "Read the Privacy Policy" },
+      { href: "/cookie-policy", label: "Read the Cookie Policy" }
     ]
   },
   about: {
@@ -257,55 +375,173 @@ const localizedTitles: Record<BaseLocale, Partial<Record<StaticPageSlug, Partial
   it: {
     "privacy-policy": {
       title: "Privacy Policy",
-      description: "Come TuneUniversal gestisce la privacy nei tool musicali gratuiti basati sul browser.",
+      description: "Come TuneUniversal gestisce privacy, analytics, pubblicita e consenso nei suoi strumenti musicali gratuiti online.",
+      seoTitle: "Privacy Policy | TuneUniversal",
+      seoDescription:
+        "Leggi la Privacy Policy di TuneUniversal per Google Analytics, Google AdSense, cookie, GDPR, CCPA e dati anonimi.",
       sections: [
         {
-          title: "Dati trattati",
+          title: "Panoramica",
           body: [
-            "TuneUniversal e progettato per eseguire gli strumenti musicali direttamente nel browser. L'audio dell'accordatore viene analizzato localmente tramite Web Audio API e non viene caricato sui nostri server.",
-            "Possiamo trattare dati tecnici di base, come richieste di pagina, tipo di dispositivo, browser e area geografica approssimativa, tramite servizi di hosting, sicurezza o analytics."
+            "TuneUniversal e una piattaforma musicale online con strumenti gratuiti come accordatori, metronomo, tool audio e risorse educative. Questa Privacy Policy spiega quali dati possono essere trattati quando navighi il sito o usi le sue funzioni.",
+            "Il progetto e pensato per ridurre al minimo la raccolta di dati non necessari e per mantenere l'esperienza semplice, veloce e accessibile da browser."
           ]
         },
         {
           title: "Accesso al microfono",
           body: [
             "Il permesso microfono viene richiesto solo quando attivi un accordatore. Il browser controlla quel permesso e puoi revocarlo in qualsiasi momento dalle impostazioni del sito.",
-            "Non registriamo, archiviamo o vendiamo intenzionalmente l'audio del microfono."
+            "TuneUniversal non carica, registra o vende intenzionalmente audio grezzo del microfono come parte del normale utilizzo degli strumenti."
           ]
         },
         {
-          title: "Le tue scelte",
+          title: "Analytics e dati anonimi",
           body: [
-            "Puoi usare la maggior parte degli strumenti senza account. Puoi cancellare la memoria locale del browser per rimuovere preferenze salvate, come sistema di notazione o preset del metronomo.",
-            `Per domande sulla privacy, scrivi a ${commonEmail}.`
+            "Il sito puo usare servizi di analytics, inclusi strumenti come Google Analytics, per misurare pagine visitate, tipologia di dispositivo, sorgenti di traffico e uso generale del progetto.",
+            "Quando possibile, questi dati vengono gestiti in forma aggregata o pseudonimizzata per migliorare prestazioni, struttura e utilita del sito."
+          ]
+        },
+        {
+          title: "Pubblicita e servizi di terze parti",
+          body: [
+            "TuneUniversal puo integrare pubblicita tramite servizi come Google AdSense. Questi provider possono usare cookie o tecnologie simili per misurare gli annunci e gestire la frequenza di visualizzazione.",
+            "Il sito puo inoltre usare servizi di hosting, sicurezza, CDN o performance che trattano dati tecnici strettamente necessari alla consegna del servizio."
+          ]
+        },
+        {
+          title: "GDPR, CCPA e consenso",
+          body: [
+            "Per gli utenti nello Spazio Economico Europeo e in altre aree dove richiesto, TuneUniversal punta a rispettare principi come trasparenza, minimizzazione dei dati e gestione del consenso per i cookie non essenziali.",
+            "Per utenti soggetti a regole come il CCPA, il sito mira a fornire una descrizione chiara dei dati trattati e delle scelte disponibili."
+          ]
+        },
+        {
+          title: "Le tue scelte e contatti",
+          body: [
+            "Puoi usare la maggior parte degli strumenti senza account. Puoi cancellare la memoria locale del browser, modificare le impostazioni cookie nel browser e revocare in qualsiasi momento i permessi del microfono.",
+            `Per domande sulla privacy, scrivi a ${supportEmail}.`
           ]
         }
       ]
     },
     "cookie-policy": {
       title: "Cookie Policy",
-      description: "Informazioni su cookie e memoria locale usati da TuneUniversal.",
+      description: "Informazioni su cookie essenziali, analytics, cookie pubblicitari e gestione del consenso su TuneUniversal.",
+      seoTitle: "Cookie Policy | TuneUniversal",
+      seoDescription:
+        "Scopri come TuneUniversal usa cookie essenziali, analytics, cookie pubblicitari e strumenti di consenso.",
       sections: [
         {
-          title: "Memoria essenziale",
+          title: "Cosa copre questa policy",
           body: [
-            "Il sito puo usare memoria locale del browser per ricordare preferenze dell'interfaccia e rendere gli strumenti piu comodi da usare.",
-            "Esempi: sistema di notazione selezionato e preset salvati del metronomo."
+            "Questa Cookie Policy spiega come TuneUniversal puo usare cookie, memoria locale e tecnologie simili per far funzionare il sito, misurarne l'uso e supportare eventuali attivita pubblicitarie.",
+            "Alcuni strumenti sono essenziali per il funzionamento, altri possono essere facoltativi e soggetti a consenso."
           ]
         },
         {
-          title: "Analytics e annunci",
+          title: "Cookie essenziali",
           body: [
-            "Versioni future potranno usare analytics rispettosi della privacy o partner pubblicitari. Se saranno introdotti cookie non essenziali, il sito dovra mostrare un consenso dove richiesto.",
-            "Gli spazi pubblicitari visibili nel layout sono al momento posizioni riservate, collegabili in futuro a un provider pubblicitario."
+            "TuneUniversal puo usare cookie tecnici o memoria locale per ricordare lingua, preferenze dell'interfaccia, sistema di notazione, preset del metronomo e altre impostazioni necessarie a un uso piu comodo del sito.",
+            "Questi strumenti servono soprattutto a mantenere l'esperienza stabile e coerente."
           ]
         },
         {
-          title: "Gestione dei cookie",
+          title: "Cookie analitici",
           body: [
-            "Puoi bloccare o cancellare cookie e memoria locale dalle impostazioni del browser. Alcune preferenze salvate potrebbero azzerarsi."
+            "Servizi di analytics come Google Analytics possono usare cookie o identificatori simili per misurare pagine visitate, prestazioni dei contenuti e comportamento generale degli utenti sul sito.",
+            "Queste informazioni aiutano TuneUniversal a migliorare i music tools e la struttura delle pagine."
+          ]
+        },
+        {
+          title: "Cookie pubblicitari",
+          body: [
+            "Se il sito mostra annunci tramite Google AdSense o servizi simili, possono essere usati cookie pubblicitari per misurare il rendimento degli annunci, limitarne la ripetizione e supportare una migliore rilevanza dove consentito.",
+            "Queste tecnologie possono dipendere da provider di terze parti e dalle rispettive policy."
+          ]
+        },
+        {
+          title: "Gestione del consenso",
+          body: [
+            "Dove richiesto dalla normativa, TuneUniversal puo mostrare un messaggio di consenso prima di attivare cookie non essenziali. In aggiunta, puoi sempre bloccare o cancellare cookie e memoria locale dalle impostazioni del browser.",
+            "Disattivare alcuni cookie puo comportare il reset di preferenze salvate o la riduzione di alcune funzioni non essenziali."
           ]
         }
+      ]
+    },
+    contact: {
+      title: "Contatti",
+      description: "Contatta TuneUniversal per domande, suggerimenti o feedback sul progetto e sui suoi strumenti musicali online.",
+      seoTitle: "Contatti | TuneUniversal",
+      seoDescription:
+        "Contatta TuneUniversal per domande, suggerimenti o feedback su accordatore online, metronomo e altri music tools.",
+      sections: [
+        {
+          title: "Contatta TuneUniversal",
+          body: [
+            "Hai domande, suggerimenti o feedback su TuneUniversal? Saremo felici di leggerli.",
+            `Email: ${supportEmail}`,
+            "L'indirizzo email potra essere aggiornato quando saranno disponibili servizi di supporto piu strutturati."
+          ]
+        },
+        {
+          title: "Quando usare questa pagina",
+          body: [
+            "Puoi usare questa pagina per segnalare problemi, suggerire nuovi strumenti musicali, indicare errori nelle traduzioni o proporre miglioramenti utili per musicisti, studenti e insegnanti.",
+            "I feedback relativi ad accessibilita, fiducia, esperienza mobile, AdSense readiness e qualita generale del sito sono particolarmente utili."
+          ]
+        }
+      ],
+      ctas: [
+        { href: "/about", label: "Scopri il progetto" },
+        { href: "/tools", label: "Esplora gli strumenti" }
+      ]
+    },
+    "terms-of-use": {
+      title: "Termini di utilizzo",
+      description: "Condizioni di base per l'uso gratuito degli strumenti musicali online di TuneUniversal.",
+      seoTitle: "Termini di utilizzo | TuneUniversal",
+      seoDescription:
+        "Leggi i termini di utilizzo di TuneUniversal per strumenti gratuiti, limiti di responsabilita, proprieta intellettuale e aggiornamenti futuri.",
+      sections: [
+        {
+          title: "Uso gratuito dei servizi",
+          body: [
+            "TuneUniversal offre strumenti musicali, guide e risorse educative accessibili gratuitamente via browser per uso personale, didattico e pratico, nel rispetto della legge e del normale funzionamento della piattaforma.",
+            "Il sito puo evolvere nel tempo e alcune funzioni, strumenti o sezioni possono essere aggiornati, ampliati o rimossi."
+          ]
+        },
+        {
+          title: "Accuratezza delle informazioni",
+          body: [
+            "TuneUniversal cerca di offrire strumenti affidabili, ma contenuti, stime di BPM, misurazioni audio, accordature e materiali educativi devono essere considerati come supporto pratico e informativo, non come garanzia assoluta per ogni contesto professionale o tecnico.",
+            "Ogni utente resta responsabile dell'uso che fa degli strumenti durante studio, lezioni, prove, performance o registrazioni."
+          ]
+        },
+        {
+          title: "Limitazione di responsabilita",
+          body: [
+            "Il sito viene fornito, nei limiti consentiti dalla legge, cosi com'e. TuneUniversal non garantisce disponibilita continua, assenza totale di errori o perfetta idoneita per ogni esigenza specifica.",
+            "TuneUniversal non risponde di perdite indirette, problemi tecnici, perdita di dati o conseguenze derivanti dall'uso o dall'impossibilita di usare il sito, salvo quanto non escludibile per legge."
+          ]
+        },
+        {
+          title: "Proprieta intellettuale",
+          body: [
+            "Brand, struttura del sito, testi originali, elementi originali dell'interfaccia e materiali educativi originali di TuneUniversal restano protetti dalle regole applicabili sulla proprieta intellettuale, salvo diversa indicazione.",
+            "Eventuali materiali di pubblico dominio o apertamente riutilizzabili presenti sul sito non autorizzano l'inserimento o la ripubblicazione di opere protette di terzi."
+          ]
+        },
+        {
+          title: "Modifiche future ai servizi",
+          body: [
+            "TuneUniversal puo aggiornare questi termini in futuro per riflettere nuove funzioni, obblighi legali, cambiamenti negli analytics, nelle policy pubblicitarie o nell'organizzazione del progetto.",
+            "La versione pubblicata sul sito e la versione di riferimento per l'uso continuato dei servizi."
+          ]
+        }
+      ],
+      ctas: [
+        { href: "/privacy-policy", label: "Leggi la Privacy Policy" },
+        { href: "/cookie-policy", label: "Leggi la Cookie Policy" }
       ]
     },
     about: {
@@ -777,6 +1013,9 @@ export function isStaticPageSlug(value: string | undefined): value is StaticPage
 export function getStaticPageContent(locale: Locale, slug: StaticPageSlug): StaticPageContent {
   const contentLocale = getContentLocale(locale);
   const base = enPages[slug];
+  if (legalPageSlugs.includes(slug as (typeof legalPageSlugs)[number]) && contentLocale !== "it") {
+    return base;
+  }
   const localized = localizedTitles[contentLocale][slug];
   return localized ? { ...base, ...localized } : base;
 }
