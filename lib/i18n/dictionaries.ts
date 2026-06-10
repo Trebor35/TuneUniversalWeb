@@ -41,6 +41,20 @@ export type Dictionary = {
   };
   tools: Record<string, ToolDictionary>;
   common: { howItWorks: string; faq: string; otherTools: string };
+  cookie: {
+    text: string;
+    privacy: string;
+    accept: string;
+    decline: string;
+    customize: string;
+    savePrefs: string;
+    necessary: string;
+    necessaryDesc: string;
+    analytics: string;
+    analyticsDesc: string;
+    advertising: string;
+    advertisingDesc: string;
+  };
 };
 
 type DictionaryOverride = Partial<Omit<Dictionary, "meta" | "nav" | "hero" | "home" | "tool" | "common" | "tools">> & {

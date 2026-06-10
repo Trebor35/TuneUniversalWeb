@@ -203,5 +203,19 @@
         }
       ]
     }
+  },
+  "cookie": {
+    "text": "We use cookies to improve your experience, serve ads and analyse traffic.",
+    "privacy": "Privacy Policy",
+    "accept": "Accept all",
+    "decline": "Decline all",
+    "customize": "Customize",
+    "savePrefs": "Save preferences",
+    "necessary": "Necessary",
+    "necessaryDesc": "Required for the site to function. Cannot be disabled.",
+    "analytics": "Analytics",
+    "analyticsDesc": "Help us understand how visitors use the site (Google Analytics, Vercel Analytics).",
+    "advertising": "Advertising",
+    "advertisingDesc": "Used to show relevant ads via Google AdSense."
   }
 }

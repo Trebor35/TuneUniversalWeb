@@ -199,5 +199,19 @@
         }
       ]
     }
+  },
+  "cookie": {
+    "text": "我们使用 Cookie 来改善您的体验、投放广告并分析流量。",
+    "privacy": "隐私政策",
+    "accept": "全部接受",
+    "decline": "全部拒绝",
+    "customize": "自定义",
+    "savePrefs": "保存偏好",
+    "necessary": "必要",
+    "necessaryDesc": "网站正常运行所必需，无法禁用。",
+    "analytics": "分析",
+    "analyticsDesc": "帮助我们了解访客如何使用网站（Google Analytics、Vercel Analytics）。",
+    "advertising": "广告",
+    "advertisingDesc": "用于通过 Google AdSense 展示相关广告。"
   }
 }

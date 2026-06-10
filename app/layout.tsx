@@ -31,7 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <GoogleAnalytics />
         {children}
-        <Analytics />
+<Analytics />
       </body>
     </html>
   );

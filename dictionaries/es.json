@@ -199,5 +199,19 @@
         }
       ]
     }
+  },
+  "cookie": {
+    "text": "Usamos cookies para mejorar tu experiencia, mostrar anuncios y analizar el tráfico.",
+    "privacy": "Política de privacidad",
+    "accept": "Aceptar todo",
+    "decline": "Rechazar todo",
+    "customize": "Personalizar",
+    "savePrefs": "Guardar preferencias",
+    "necessary": "Necesarias",
+    "necessaryDesc": "Imprescindibles para el funcionamiento del sitio. No se pueden desactivar.",
+    "analytics": "Analíticas",
+    "analyticsDesc": "Nos ayudan a entender cómo los visitantes usan el sitio (Google Analytics, Vercel Analytics).",
+    "advertising": "Publicidad",
+    "advertisingDesc": "Se usan para mostrar anuncios relevantes mediante Google AdSense."
   }
 }

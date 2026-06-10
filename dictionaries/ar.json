@@ -199,5 +199,19 @@
         }
       ]
     }
+  },
+  "cookie": {
+    "text": "نستخدم ملفات تعريف الارتباط لتحسين تجربتك وعرض الإعلانات وتحليل حركة المرور.",
+    "privacy": "سياسة الخصوصية",
+    "accept": "قبول الكل",
+    "decline": "رفض الكل",
+    "customize": "تخصيص",
+    "savePrefs": "حفظ التفضيلات",
+    "necessary": "ضرورية",
+    "necessaryDesc": "مطلوبة لعمل الموقع. لا يمكن تعطيلها.",
+    "analytics": "تحليلية",
+    "analyticsDesc": "تساعدنا على فهم كيفية استخدام الزوار للموقع (Google Analytics, Vercel Analytics).",
+    "advertising": "إعلانية",
+    "advertisingDesc": "تُستخدم لعرض إعلانات ذات صلة عبر Google AdSense."
   }
 }

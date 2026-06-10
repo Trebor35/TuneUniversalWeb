@@ -199,5 +199,19 @@
         }
       ]
     }
+  },
+  "cookie": {
+    "text": "Cookieを使用して、お客様の体験を向上させ、広告を表示し、トラフィックを分析します。",
+    "privacy": "プライバシーポリシー",
+    "accept": "すべて同意",
+    "decline": "すべて拒否",
+    "customize": "カスタマイズ",
+    "savePrefs": "設定を保存",
+    "necessary": "必須",
+    "necessaryDesc": "サイトの機能に必要です。無効にできません。",
+    "analytics": "分析",
+    "analyticsDesc": "訪問者のサイト利用状況の把握に役立てます（Google Analytics、Vercel Analytics）。",
+    "advertising": "広告",
+    "advertisingDesc": "Google AdSense を通じて関連広告を表示するために使用します。"
   }
 }
