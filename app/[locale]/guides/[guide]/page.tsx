@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/ads/AdSlot";
@@ -30,7 +30,16 @@ const updatedLabels: Record<Locale, string> = withLocaleFallbacks({
   pt: "Atualizado em 12 de junho de 2026",
   ru: "Обновлено: 12 июня 2026 г.",
   zh: "更新于 2026年6月12日"
-} satisfies Record<BaseLocale, string>);
+} satisfies Record<BaseLocale, string>, {
+  nl: "Bijgewerkt: 12 juni 2026",
+  pl: "Zaktualizowano: 12 czerwca 2026",
+  tr: "Güncellendi: 12 Haziran 2026",
+  cs: "Aktualizováno: 12. června 2026",
+  sv: "Uppdaterad: 12 juni 2026",
+  "pt-BR": "Atualizado em 12 de junho de 2026",
+  hi: "अपडेट किया गया: 12 जून 2026",
+  no: "Oppdatert: 12. juni 2026"
+});
 
 type PageProps = { params: Promise<{ locale: string; guide: string }> };
 
@@ -49,7 +58,16 @@ const guideContinueLabels: Record<
   pt: { allGuides: "Todos os guias", allTools: "Todas as ferramentas", continueLearning: "Continue daqui", continueLearningDescription: "Use esta página para seguir para a ferramenta prática, guias relacionados e o hub de afinações.", tuningHub: "Hub de afinações" },
   ru: { allGuides: "Все руководства", allTools: "Все инструменты", continueLearning: "Продолжить отсюда", continueLearningDescription: "С этой страницы можно перейти к практическому инструменту, похожим руководствам и хабу строёв.", tuningHub: "Хаб строёв" },
   zh: { allGuides: "所有指南", allTools: "所有工具", continueLearning: "从这里继续", continueLearningDescription: "从此页面可以直接前往实用工具、相关指南和调弦中心。", tuningHub: "调弦中心" }
-} satisfies Record<BaseLocale, { allGuides: string; allTools: string; continueLearning: string; continueLearningDescription: string; tuningHub: string }>);
+} satisfies Record<BaseLocale, { allGuides: string; allTools: string; continueLearning: string; continueLearningDescription: string; tuningHub: string }>, {
+  nl: { allGuides: "Alle gidsen", allTools: "Alle tools", continueLearning: "Ga hier verder", continueLearningDescription: "Gebruik deze pagina om door te gaan naar het praktische tool, aanverwante gidsen en de stemminghub.", tuningHub: "Stemminghub" },
+  pl: { allGuides: "Wszystkie poradniki", allTools: "Wszystkie narzędzia", continueLearning: "Kontynuuj stąd", continueLearningDescription: "Użyj tej strony jako mostu do praktycznego narzędzia, powiązanych poradników i hubu strojenia.", tuningHub: "Hub strojenia" },
+  tr: { allGuides: "Tüm rehberler", allTools: "Tüm araçlar", continueLearning: "Buradan devam edin", continueLearningDescription: "Bu sayfayı pratik araca, ilgili rehberlere ve akort merkezine köprü olarak kullanın.", tuningHub: "Akort merkezi" },
+  cs: { allGuides: "Všechny průvodce", allTools: "Všechny nástroje", continueLearning: "Pokračujte odtud", continueLearningDescription: "Tuto stránku použijte jako přechod k praktickému nástroji, příbuzným průvodcům a centru ladění.", tuningHub: "Centrum ladění" },
+  sv: { allGuides: "Alla guider", allTools: "Alla verktyg", continueLearning: "Fortsätt härifrån", continueLearningDescription: "Använd den här sidan som en bro till det praktiska verktyget, relaterade guider och stämningshubben.", tuningHub: "Stämningshubb" },
+  "pt-BR": { allGuides: "Todos os guias", allTools: "Todas as ferramentas", continueLearning: "Continue por aqui", continueLearningDescription: "Use esta página como ponto de partida para a ferramenta prática, guias relacionados e o hub de afinações.", tuningHub: "Hub de afinações" },
+  hi: { allGuides: "सभी गाइड", allTools: "सभी टूल", continueLearning: "यहाँ से जारी रखें", continueLearningDescription: "इस पेज का उपयोग प्रैक्टिकल टूल, संबंधित गाइड और ट्यूनिंग हब तक जाने के लिए करें।", tuningHub: "ट्यूनिंग हब" },
+  no: { allGuides: "Alle guider", allTools: "Alle verktøy", continueLearning: "Fortsett herfra", continueLearningDescription: "Bruk denne siden som bro til det praktiske verktøyet, relaterte guider og stemmehubben.", tuningHub: "Stemmehubb" }
+});
 const relatedTuningHeadings: Record<Locale, string> = withLocaleFallbacks({
   ar: "التوليفات ذات الصلة",
   de: "Verwandte Stimmungen",
@@ -62,7 +80,16 @@ const relatedTuningHeadings: Record<Locale, string> = withLocaleFallbacks({
   pt: "Afinações relacionadas",
   ru: "Связанные строи",
   zh: "相关调弦"
-} satisfies Record<BaseLocale, string>);
+} satisfies Record<BaseLocale, string>, {
+  nl: "Gerelateerde stemmingen",
+  pl: "Powiązane stroje",
+  tr: "İlgili akortlar",
+  cs: "Příbuzná ladění",
+  sv: "Relaterade stämningar",
+  "pt-BR": "Afinações relacionadas",
+  hi: "संबंधित ट्यूनिंग",
+  no: "Relaterte stemminger"
+});
 const guideUi: Record<
   Locale,
   {
@@ -96,7 +123,16 @@ const guideUi: Record<
   relatedGuides: string;
   relatedTools: string;
   stringLabel: string;
-}>);
+}>, {
+  nl: { commonMistakes: "Veelgemaakte fouten", frequency: "Frequentie", note: "Noot", notesTable: "Snar- en notentabel", openTool: "Tool openen", relatedGuides: "Gerelateerde gidsen", relatedTools: "Gerelateerde tools", stringLabel: "Snaar / positie" },
+  pl: { commonMistakes: "Częste błędy", frequency: "Częstotliwość", note: "Nuta", notesTable: "Tabela strun i nut", openTool: "Otwórz narzędzie", relatedGuides: "Powiązane poradniki", relatedTools: "Powiązane narzędzia", stringLabel: "Struna / pozycja" },
+  tr: { commonMistakes: "Sık yapılan hatalar", frequency: "Frekans", note: "Nota", notesTable: "Tel ve nota tablosu", openTool: "Aracı aç", relatedGuides: "İlgili rehberler", relatedTools: "İlgili araçlar", stringLabel: "Tel / konum" },
+  cs: { commonMistakes: "Časté chyby", frequency: "Frekvence", note: "Nota", notesTable: "Tabulka strun a not", openTool: "Otevřít nástroj", relatedGuides: "Příbuzné průvodce", relatedTools: "Příbuzné nástroje", stringLabel: "Struna / poloha" },
+  sv: { commonMistakes: "Vanliga misstag", frequency: "Frekvens", note: "Not", notesTable: "Strängar och noter", openTool: "Öppna verktyget", relatedGuides: "Relaterade guider", relatedTools: "Relaterade verktyg", stringLabel: "Sträng / position" },
+  "pt-BR": { commonMistakes: "Erros comuns", frequency: "Frequência", note: "Nota", notesTable: "Tabela de cordas e notas", openTool: "Abrir ferramenta", relatedGuides: "Guias relacionados", relatedTools: "Ferramentas relacionadas", stringLabel: "Corda / posição" },
+  hi: { commonMistakes: "आम गलतियाँ", frequency: "फ्रीक्वेंसी", note: "नोट", notesTable: "स्ट्रिंग और नोट टेबल", openTool: "टूल खोलें", relatedGuides: "संबंधित गाइड", relatedTools: "संबंधित टूल", stringLabel: "स्ट्रिंग / स्थान" },
+  no: { commonMistakes: "Vanlige feil", frequency: "Frekvens", note: "Note", notesTable: "Streng- og notetabell", openTool: "Åpne verktøy", relatedGuides: "Relaterte guider", relatedTools: "Relaterte verktøy", stringLabel: "Streng / posisjon" }
+});
 const guideIntentLabels: Record<
   Locale,
   {
@@ -122,7 +158,16 @@ const guideIntentLabels: Record<
   questionsTitle: string;
   searchesDescription: string;
   searchesTitle: string;
-}>);
+}>, {
+  nl: { questionsDescription: "Korte vervolgvragen die de volgende stap verduidelijken.", questionsTitle: "Gerelateerde vragen", searchesDescription: "Interne pagina's die dit onderwerp op een natuurlijke manier uitbreiden.", searchesTitle: "Gerelateerde zoekopdrachten" },
+  pl: { questionsDescription: "Krótkie pytania uzupełniające ułatwiające następny krok.", questionsTitle: "Powiązane pytania", searchesDescription: "Wewnętrzne strony naturalnie rozszerzające ten poradnik.", searchesTitle: "Powiązane wyszukiwania" },
+  tr: { questionsDescription: "Sonraki adımı netleştiren kısa takip soruları.", questionsTitle: "İlgili sorular", searchesDescription: "Bu rehberi doğal olarak genişleten iç sayfalar.", searchesTitle: "İlgili aramalar" },
+  cs: { questionsDescription: "Krátké navazující otázky, které objasňují další krok.", questionsTitle: "Příbuzné otázky", searchesDescription: "Interní stránky, které přirozeně rozšiřují tento průvodce.", searchesTitle: "Příbuzná vyhledávání" },
+  sv: { questionsDescription: "Korta uppföljningsfrågor som gör nästa steg tydligare.", questionsTitle: "Relaterade frågor", searchesDescription: "Interna sidor som naturligt utvidgar den här guiden.", searchesTitle: "Relaterade sökningar" },
+  "pt-BR": { questionsDescription: "Perguntas curtas para continuar logo após este guia.", questionsTitle: "Perguntas relacionadas", searchesDescription: "Páginas internas que ampliam este assunto de forma natural.", searchesTitle: "Pesquisas relacionadas" },
+  hi: { questionsDescription: "इस गाइड के बाद अगले कदम को स्पष्ट करने वाले छोटे प्रश्न।", questionsTitle: "संबंधित प्रश्न", searchesDescription: "आंतरिक पेज जो इस गाइड को स्वाभाविक रूप से आगे बढ़ाते हैं।", searchesTitle: "संबंधित खोज" },
+  no: { questionsDescription: "Korte oppfølgingsspørsmål som gjør neste steg klarere.", questionsTitle: "Relaterte spørsmål", searchesDescription: "Interne sider som naturlig utvider denne guiden.", searchesTitle: "Relaterte søk" }
+});
 
 type GuideFollowUp = {
   answer: string;

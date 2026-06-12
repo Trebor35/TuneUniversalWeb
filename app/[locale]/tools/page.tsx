@@ -143,7 +143,16 @@ const heroPlatformCopy: Record<
   categories: { href: string; label: string }[];
   summary: string;
   trustLine: string;
-}>);
+}>, {
+  nl: { categories: [{ href: "#tune-instruments", label: "Stemmers" }, { href: "#rhythm-and-bpm", label: "Metronomen" }, { href: "#rhythm-and-bpm", label: "Audiotools" }, { href: "#chords-and-theory", label: "Muziekhulpmiddelen" }], summary: "Een meertalig muziekplatform voor stemmen, ritmeoefeningen, geluidscontroles en akkoordwerk op elk apparaat.", trustLine: "Gratis • Online • Geen installatie" },
+  pl: { categories: [{ href: "#tune-instruments", label: "Stroiki" }, { href: "#rhythm-and-bpm", label: "Metronomy" }, { href: "#rhythm-and-bpm", label: "Narzędzia audio" }, { href: "#chords-and-theory", label: "Narzędzia muzyczne" }], summary: "Wielojęzyczna platforma muzyczna do strojenia, ćwiczenia rytmu, sprawdzania dźwięku i transponowania akordów na każdym urządzeniu.", trustLine: "Bezpłatne • Online • Bez instalacji" },
+  tr: { categories: [{ href: "#tune-instruments", label: "Akordörler" }, { href: "#rhythm-and-bpm", label: "Metronomilar" }, { href: "#rhythm-and-bpm", label: "Ses araçları" }, { href: "#chords-and-theory", label: "Müzik yardımcıları" }], summary: "Her cihazda akort, ritim pratiği, ses kontrolü ve akor çalışması için çok dilli bir müzik platformu.", trustLine: "Ücretsiz • Çevrimiçi • Kurulum gerektirmez" },
+  cs: { categories: [{ href: "#tune-instruments", label: "Ladičky" }, { href: "#rhythm-and-bpm", label: "Metronomy" }, { href: "#rhythm-and-bpm", label: "Zvukové nástroje" }, { href: "#chords-and-theory", label: "Hudební pomůcky" }], summary: "Vícejazyčná hudební platforma pro ladění, rytmické cvičení, kontrolu zvuku a práci s akordy na jakémkoli zařízení.", trustLine: "Zdarma • Online • Bez instalace" },
+  sv: { categories: [{ href: "#tune-instruments", label: "Stämmers" }, { href: "#rhythm-and-bpm", label: "Metronomer" }, { href: "#rhythm-and-bpm", label: "Ljudverktyg" }, { href: "#chords-and-theory", label: "Musikhjälpmedel" }], summary: "En flerspråkig musikplattform för stämning, rytmövning, ljudkontroll och ackordarbete på alla enheter.", trustLine: "Gratis • Online • Ingen installation" },
+  "pt-BR": { categories: [{ href: "#tune-instruments", label: "Afinadores" }, { href: "#rhythm-and-bpm", label: "Metrônomos" }, { href: "#rhythm-and-bpm", label: "Ferramentas de áudio" }, { href: "#chords-and-theory", label: "Utilitários musicais" }], summary: "Uma plataforma musical multilíngue para afinação, prática de ritmo, verificação de áudio e trabalho com acordes em qualquer dispositivo.", trustLine: "Grátis • Online • Sem instalação" },
+  hi: { categories: [{ href: "#tune-instruments", label: "ट्यूनर" }, { href: "#rhythm-and-bpm", label: "मेट्रोनोम" }, { href: "#rhythm-and-bpm", label: "ऑडियो टूल" }, { href: "#chords-and-theory", label: "म्यूज़िक यूटिलिटी" }], summary: "किसी भी डिवाइस पर ट्यूनिंग, रिदम प्रैक्टिस, ऑडियो चेक और कॉर्ड वर्क के लिए एक बहुभाषी संगीत प्लेटफ़ॉर्म।", trustLine: "मुफ्त • ऑनलाइन • इंस्टॉलेशन नहीं" },
+  no: { categories: [{ href: "#tune-instruments", label: "Stemmere" }, { href: "#rhythm-and-bpm", label: "Metronomer" }, { href: "#rhythm-and-bpm", label: "Lydverktøy" }, { href: "#chords-and-theory", label: "Musikkhjelpmidler" }], summary: "En flerspråklig musikkplattform for stemming, rytmetrening, lydsjekk og akkordarbeid på alle enheter.", trustLine: "Gratis • Nettbasert • Ingen installasjon" }
+});
 
 const featuredGuideCtaLabels: Record<Locale, string> = withLocaleFallbacks({
   ar: "افتح الدليل",
@@ -157,7 +166,16 @@ const featuredGuideCtaLabels: Record<Locale, string> = withLocaleFallbacks({
   pt: "Abrir guia",
   ru: "Открыть гайд",
   zh: "打开指南"
-} satisfies Record<BaseLocale, string>);
+} satisfies Record<BaseLocale, string>, {
+  nl: "Gids openen",
+  pl: "Otwórz poradnik",
+  tr: "Rehberi aç",
+  cs: "Otevřít průvodce",
+  sv: "Öppna guiden",
+  "pt-BR": "Abrir guia",
+  hi: "गाइड खोलें",
+  no: "Åpne guide"
+});
 
 const groupAnchorIds = ["tune-instruments", "rhythm-and-bpm", "chords-and-theory"] as const;
 

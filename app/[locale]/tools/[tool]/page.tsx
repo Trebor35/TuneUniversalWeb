@@ -58,7 +58,8 @@ const toolPageLabels: Record<
   pl: { allGuides: "Wszystkie poradniki", allTools: "Wszystkie narzędzia", exploreMore: "Idź dalej stąd", exploreMoreDescription: "Użyj tych linków, aby szybko przechodzić między narzędziem, poradnikami i hubem strojenia.", relatedTunings: "Powiązane stroje", tuningHub: "Hub strojenia" },
   tr: { allGuides: "Tüm rehberler", allTools: "Tüm araçlar", exploreMore: "Buradan devam edin", exploreMoreDescription: "Bu bağlantıları araç, pratik rehberler ve akort merkezi arasında hızlıca geçmek için kullanın.", relatedTunings: "İlgili akortlar", tuningHub: "Akort merkezi" },
   sv: { allGuides: "Alla guider", allTools: "Alla verktyg", exploreMore: "Fortsätt härifrån", exploreMoreDescription: "Använd dessa länkar för att snabbt växla mellan verktyget, praktiska guider och stämningshubben.", relatedTunings: "Relaterade stämningar", tuningHub: "Stämningshubb" },
-  no: { allGuides: "Alle guider", allTools: "Alle verktøy", exploreMore: "Fortsett herfra", exploreMoreDescription: "Bruk disse lenkene for å bevege deg mellom verktøyet, praktiske guider og stemmehubben.", relatedTunings: "Relaterte stemminger", tuningHub: "Stemmehubb" }
+  no: { allGuides: "Alle guider", allTools: "Alle verktøy", exploreMore: "Fortsett herfra", exploreMoreDescription: "Bruk disse lenkene for å bevege deg mellom verktøyet, praktiske guider og stemmehubben.", relatedTunings: "Relaterte stemminger", tuningHub: "Stemmehubb" },
+  cs: { allGuides: "Všechny průvodce", allTools: "Všechny nástroje", exploreMore: "Pokračujte odtud", exploreMoreDescription: "Použijte tyto odkazy pro rychlý přechod mezi nástrojem, praktickými průvodci a centrem ladění.", relatedTunings: "Příbuzná ladění", tuningHub: "Centrum ladění" }
 });
 
 const guideHeadings: Record<Locale, string> = withLocaleFallbacks({
@@ -80,7 +81,8 @@ const guideHeadings: Record<Locale, string> = withLocaleFallbacks({
   pl: "Powiązane poradniki",
   tr: "İlgili rehberler",
   sv: "Relaterade guider",
-  no: "Relaterte guider"
+  no: "Relaterte guider",
+  cs: "Příbuzné průvodce"
 });
 
 const contextualSectionLabels: Record<
@@ -278,16 +280,16 @@ const toolIntentLabels: Record<
     searchesTitle: "Pesquisas relacionadas"
   },
   ru: {
-    questionsDescription: "ÐšÐ¾Ñ€Ð¾Ñ‚ÐºÐ¸Ðµ Ð²Ð¾Ð¿Ñ€Ð¾ÑÑ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð¿Ð¾Ð¼Ð¾Ð³Ð°ÑŽÑ‚ Ð¿Ð¾Ð½ÑÑ‚ÑŒ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ð¹ ÑˆÐ°Ð³.",
-    questionsTitle: "Ð¡Ð²ÑÐ·Ð°Ð½Ð½Ñ‹Ðµ Ð²Ð¾Ð¿Ñ€Ð¾ÑÑ‹",
-    searchesDescription: "Ð’Ð½ÑƒÑ‚Ñ€ÐµÐ½Ð½Ð¸Ðµ ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ñ‹, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ñ…Ð¾Ñ€Ð¾ÑˆÐ¾ Ð´Ð¾Ð¿Ð¾Ð»Ð½ÑÑŽÑ‚ ÑÑ‚Ð¾Ñ‚ Ð¸Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚.",
-    searchesTitle: "Ð¡Ð²ÑÐ·Ð°Ð½Ð½Ñ‹Ðµ Ð¿Ð¾Ð¸ÑÐºÐ¸"
+    questionsDescription: "Короткие вопросы, которые помогают понять следующий шаг.",
+    questionsTitle: "Связанные вопросы",
+    searchesDescription: "Внутренние страницы, которые хорошо дополняют этот инструмент.",
+    searchesTitle: "Связанные поиски"
   },
   zh: {
-    questionsDescription: "å¸®ä½ ç»§ç»­ç»ƒä¹ çš„ç®€çŸ­ä¸‹ä¸€æ­¥é—®é¢˜ã€‚",
-    questionsTitle: "ç›¸å…³é—®é¢˜",
-    searchesDescription: "è¿™äº›å†…éƒ¨é¡µé¢å¾ˆé€‚åˆä½œä¸ºä½¿ç”¨è¿™ä¸ªå·¥å…·åŽçš„ä¸‹ä¸€æ­¥ã€‚",
-    searchesTitle: "ç›¸å…³æœç´¢"
+    questionsDescription: "帮你继续练习的简短下一步问题。",
+    questionsTitle: "相关问题",
+    searchesDescription: "这些内部页面很适合作为使用这个工具后的下一步。",
+    searchesTitle: "相关搜索"
   }
 } satisfies Record<BaseLocale, {
   questionsDescription: string;

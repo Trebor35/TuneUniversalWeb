@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Music2 } from "lucide-react";
@@ -44,7 +44,16 @@ const tuningBridgeLabels: Record<
   allTools: string;
   songs: string;
   relatedTools: string;
-}>);
+}>, {
+  nl: { continueLearning: "Ga hier verder", continueLearningDescription: "Ga van de stemmingspagina's direct naar praktische tools, gerelateerde gidsen en oefenpagina's.", allGuides: "Alle gidsen", allTools: "Alle tools", songs: "Nummers", relatedTools: "Gerelateerde tools" },
+  pl: { continueLearning: "Kontynuuj stąd", continueLearningDescription: "Z kart strojenia przejdź bezpośrednio do narzędzi, poradników i ćwiczeń.", allGuides: "Wszystkie poradniki", allTools: "Wszystkie narzędzia", songs: "Piosenki", relatedTools: "Powiązane narzędzia" },
+  tr: { continueLearning: "Buradan devam edin", continueLearningDescription: "Akort sayfalarından pratik araçlara, ilgili rehberlere ve alıştırma sayfalarına geçin.", allGuides: "Tüm rehberler", allTools: "Tüm araçlar", songs: "Şarkılar", relatedTools: "İlgili araçlar" },
+  cs: { continueLearning: "Pokračujte odtud", continueLearningDescription: "Z ladících stránek přejděte přímo na praktické nástroje, příbuzné průvodce a cvičné stránky.", allGuides: "Všechny průvodce", allTools: "Všechny nástroje", songs: "Písně", relatedTools: "Příbuzné nástroje" },
+  sv: { continueLearning: "Fortsätt härifrån", continueLearningDescription: "Gå från stämningssidorna direkt till praktiska verktyg, relaterade guider och övningssidor.", allGuides: "Alla guider", allTools: "Alla verktyg", songs: "Låtar", relatedTools: "Relaterade verktyg" },
+  "pt-BR": { continueLearning: "Continue por aqui", continueLearningDescription: "Passe das páginas de afinação para ferramentas práticas, guias relacionados e páginas de prática.", allGuides: "Todos os guias", allTools: "Todas as ferramentas", songs: "Músicas", relatedTools: "Ferramentas relacionadas" },
+  hi: { continueLearning: "यहाँ से जारी रखें", continueLearningDescription: "ट्यूनिंग पेजों से सीधे प्रैक्टिकल टूल, संबंधित गाइड और अभ्यास पेजों पर जाएं।", allGuides: "सभी गाइड", allTools: "सभी टूल", songs: "गाने", relatedTools: "संबंधित टूल" },
+  no: { continueLearning: "Fortsett herfra", continueLearningDescription: "Gå fra stemmesidene direkte til praktiske verktøy, relaterte guider og øvingssider.", allGuides: "Alle guider", allTools: "Alle verktøy", songs: "Sanger", relatedTools: "Relaterte verktøy" }
+});
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
