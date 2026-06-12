@@ -383,17 +383,17 @@ function ToolComponent({
   locale: Locale;
   tool?: ToolSlug;
 }) {
-  if (instrument) return <GuitarTuner dictionary={dictionary} instrument={instrument} />;
+  if (instrument) return <GuitarTuner dictionary={dictionary} instrument={instrument} locale={locale} />;
 
   switch (tool) {
     case "guitar-tuner":
-      return <GuitarTuner dictionary={dictionary} />;
+      return <GuitarTuner dictionary={dictionary} locale={locale} />;
     case "bass-tuner":
-      return <BassTuner dictionary={dictionary} />;
+      return <BassTuner dictionary={dictionary} locale={locale} />;
     case "ukulele-tuner":
-      return <UkuleleTuner dictionary={dictionary} />;
+      return <UkuleleTuner dictionary={dictionary} locale={locale} />;
     case "metronome":
-      return <Metronome dictionary={dictionary} />;
+      return <Metronome dictionary={dictionary} locale={locale} />;
     case "tap-bpm":
       return <TapBpm dictionary={dictionary} locale={locale} />;
     case "chord-transposer":

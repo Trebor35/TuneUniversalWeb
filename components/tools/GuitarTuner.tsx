@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ListChecks, Mic, MicOff, Settings2, Volume2, VolumeX } from "lucide-react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { getContentLocale, localeFromName, type BaseLocale, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { getInstrumentLabel, getOrderedInstruments } from "@/lib/tools/instruments";
 import {
   autoCorrelate,
@@ -22,6 +22,7 @@ import { Card } from "@/components/ui/Card";
 type TunerProps = {
   dictionary: Dictionary;
   instrument?: Instrument;
+  locale: Locale;
 };
 
 type PolyTuneResult = {
@@ -46,6 +47,8 @@ const tunerUiText: Record<
     manualMode: string;
     moreSensitive: string;
     noiseGate: string;
+    noteSystemInternational: string;
+    noteSystemLatin: string;
     notes: string;
     playReference: string;
     polyAnalyze: string;
@@ -75,6 +78,8 @@ const tunerUiText: Record<
     manualMode: "Manuale",
     moreSensitive: "Piu sensibile",
     noiseGate: "Sensibilita microfono",
+    noteSystemInternational: "Anglo-americano / internazionale - C D E F G A B",
+    noteSystemLatin: "Sistema latino - Do Re Mi Fa Sol La Si",
     notes: "Note",
     playReference: "Ascolta nota",
     polyAnalyze: "PolyTune",
@@ -103,6 +108,8 @@ const tunerUiText: Record<
     manualMode: "Manual",
     moreSensitive: "More sensitive",
     noiseGate: "Microphone sensitivity",
+    noteSystemInternational: "Anglo-American / international - C D E F G A B",
+    noteSystemLatin: "Latin system - Do Re Mi Fa Sol La Si",
     notes: "Notes",
     playReference: "Play note",
     polyAnalyze: "PolyTune",
@@ -131,6 +138,8 @@ const tunerUiText: Record<
     manualMode: "Manuel",
     moreSensitive: "Plus sensible",
     noiseGate: "Sensibilite du micro",
+    noteSystemInternational: "Anglo-americain / international - C D E F G A B",
+    noteSystemLatin: "Systeme latin - Do Re Mi Fa Sol La Si",
     notes: "Notes",
     playReference: "Ecouter la note",
     polyAnalyze: "PolyTune",
@@ -159,6 +168,8 @@ const tunerUiText: Record<
     manualMode: "Manuell",
     moreSensitive: "Empfindlicher",
     noiseGate: "Mikrofonempfindlichkeit",
+    noteSystemInternational: "Angloamerikanisch / international - C D E F G A B",
+    noteSystemLatin: "Lateinisches System - Do Re Mi Fa Sol La Si",
     notes: "Noten",
     playReference: "Ton abspielen",
     polyAnalyze: "PolyTune",
@@ -187,6 +198,8 @@ const tunerUiText: Record<
     manualMode: "Manual",
     moreSensitive: "Mas sensible",
     noiseGate: "Sensibilidad del microfono",
+    noteSystemInternational: "Anglo-americano / internacional - C D E F G A B",
+    noteSystemLatin: "Sistema latino - Do Re Mi Fa Sol La Si",
     notes: "Notas",
     playReference: "Oir nota",
     polyAnalyze: "PolyTune",
@@ -215,6 +228,8 @@ const tunerUiText: Record<
     manualMode: "Manual",
     moreSensitive: "Mais sensivel",
     noiseGate: "Sensibilidade do microfone",
+    noteSystemInternational: "Anglo-americano / internacional - C D E F G A B",
+    noteSystemLatin: "Sistema latino - Do Re Mi Fa Sol La Si",
     notes: "Notas",
     playReference: "Ouvir nota",
     polyAnalyze: "PolyTune",
@@ -243,6 +258,8 @@ const tunerUiText: Record<
     manualMode: "手动",
     moreSensitive: "提高灵敏度",
     noiseGate: "麦克风灵敏度",
+    noteSystemInternational: "英美 / 国际 - C D E F G A B",
+    noteSystemLatin: "唱名系统 - Do Re Mi Fa Sol La Si",
     notes: "音名",
     playReference: "播放音高",
     polyAnalyze: "PolyTune",
@@ -271,6 +288,8 @@ const tunerUiText: Record<
     manualMode: "Вручную",
     moreSensitive: "Более чувствительно",
     noiseGate: "Чувствительность микрофона",
+    noteSystemInternational: "Англо-американская / международная - C D E F G A B",
+    noteSystemLatin: "Латинская система - Do Re Mi Fa Sol La Si",
     notes: "Ноты",
     playReference: "Слушать ноту",
     polyAnalyze: "PolyTune",
@@ -299,6 +318,8 @@ const tunerUiText: Record<
     manualMode: "手動",
     moreSensitive: "感度を上げる",
     noiseGate: "マイク感度",
+    noteSystemInternational: "英米式 / 国際式 - C D E F G A B",
+    noteSystemLatin: "ラテン式 - ド レ ミ ファ ソ ラ シ",
     notes: "音名",
     playReference: "音を鳴らす",
     polyAnalyze: "PolyTune",
@@ -327,6 +348,8 @@ const tunerUiText: Record<
     manualMode: "수동",
     moreSensitive: "더 민감하게",
     noiseGate: "마이크 감도",
+    noteSystemInternational: "영미식 / 국제식 - C D E F G A B",
+    noteSystemLatin: "라틴식 - Do Re Mi Fa Sol La Si",
     notes: "음이름",
     playReference: "음 듣기",
     polyAnalyze: "PolyTune",
@@ -355,6 +378,8 @@ const tunerUiText: Record<
     manualMode: "يدوي",
     moreSensitive: "حساسية أعلى",
     noiseGate: "حساسية الميكروفون",
+    noteSystemInternational: "أنجلو أمريكي / دولي - C D E F G A B",
+    noteSystemLatin: "النظام اللاتيني - Do Re Mi Fa Sol La Si",
     notes: "النغمات",
     playReference: "تشغيل النغمة",
     polyAnalyze: "PolyTune",
@@ -437,10 +462,9 @@ function estimateStringFromSpectrum(data: Float32Array, sampleRate: number, fftS
   };
 }
 
-export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
-  const currentLocale = localeFromName(dictionary.localeName);
-  const contentLocale = getContentLocale(currentLocale);
-  const orderedInstruments = useMemo(() => getOrderedInstruments(currentLocale), [currentLocale]);
+export function GuitarTuner({ dictionary, instrument = "guitar", locale }: TunerProps) {
+  const contentLocale = getContentLocale(locale);
+  const orderedInstruments = useMemo(() => getOrderedInstruments(locale), [locale]);
   const uiText = tunerUiText[contentLocale];
   const initialInstrument = orderedInstruments.includes(instrument) ? instrument : "guitar";
   const [selectedInstrument, setSelectedInstrument] = useState<Instrument>(initialInstrument);
@@ -797,7 +821,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
             >
               {orderedInstruments.map((item) => (
                 <option key={item} value={item}>
-                  {getInstrumentLabel(item, currentLocale)}
+                  {getInstrumentLabel(item, locale)}
                 </option>
               ))}
             </select>
@@ -823,8 +847,8 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
               onChange={(event) => setNoteSystem(event.target.value as NoteSystem)}
               className="min-h-10 w-full min-w-0 max-w-full truncate rounded-md border border-white/10 bg-zinc-950 px-3 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400"
             >
-              <option value="latin">Sistema latino - Do Re Mi Fa Sol La Si</option>
-              <option value="international">Anglo-American / international - C D E F G A B</option>
+              <option value="latin">{uiText.noteSystemLatin}</option>
+              <option value="international">{uiText.noteSystemInternational}</option>
             </select>
           </label>
         </div>
@@ -1036,7 +1060,7 @@ export function GuitarTuner({ dictionary, instrument = "guitar" }: TunerProps) {
         <div className="grid gap-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-sm font-semibold text-zinc-300">
-              {getInstrumentLabel(selectedInstrument, currentLocale)} {selectedPreset.label} {uiText.strings}:{" "}
+              {getInstrumentLabel(selectedInstrument, locale)} {selectedPreset.label} {uiText.strings}:{" "}
               <span className="text-zinc-100">
                 {strings.map((stringNote) => formatNoteName(noteWithOctave(stringNote), noteSystem, false)).join(" - ")}
               </span>

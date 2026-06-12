@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Headphones, Pause, Play, Save, Trash2, Volume2 } from "lucide-react";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { getContentLocale, localeFromName, type BaseLocale, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import {
   beatsForMeter,
   getSubdivisionLabel,
@@ -43,30 +43,44 @@ const metronomeUiText: Record<
     accentFirstBeat: string;
     apply: string;
     beat: string;
+    denominator: string;
+    haptics: string;
     headphones: string;
     noPresets: string;
+    numerator: string;
     output: string;
+    practiceAdvance: string;
+    practiceAfterBars: string;
+    practiceAfterTime: string;
+    practiceBars: string;
+    practiceCycle: string;
+    practiceEvery: string;
+    practiceIncrement: string;
+    practiceSeconds: string;
+    practiceStart: string;
+    practiceTarget: string;
     presets: string;
     savePreset: string;
+    silentModeNote: string;
     speaker: string;
     subdivision: string;
     tapHint: string;
   }
 > = {
-  it: { accentFirstBeat: "Accento sul primo battito", apply: "Carica", beat: "Battito", headphones: "Cuffie", noPresets: "Nessun preset salvato", output: "Uscita", presets: "Memorie preset", savePreset: "Salva preset", speaker: "Speaker", subdivision: "Suddivisione ritmica", tapHint: "Tap tempo" },
-  en: { accentFirstBeat: "Accent first beat", apply: "Load", beat: "Beat", headphones: "Headphones", noPresets: "No saved presets", output: "Output", presets: "Preset memories", savePreset: "Save preset", speaker: "Speaker", subdivision: "Rhythmic subdivision", tapHint: "Tap tempo" },
-  fr: { accentFirstBeat: "Accent sur le premier temps", apply: "Charger", beat: "Temps", headphones: "Casque", noPresets: "Aucun preset enregistre", output: "Sortie", presets: "Memoires de presets", savePreset: "Enregistrer preset", speaker: "Haut-parleur", subdivision: "Subdivision rythmique", tapHint: "Tap tempo" },
-  de: { accentFirstBeat: "Akzent auf erster Zaehlzeit", apply: "Laden", beat: "Schlag", headphones: "Kopfhoerer", noPresets: "Keine Presets gespeichert", output: "Ausgabe", presets: "Preset-Speicher", savePreset: "Preset speichern", speaker: "Lautsprecher", subdivision: "Rhythmische Unterteilung", tapHint: "Tap Tempo" },
-  es: { accentFirstBeat: "Acento en el primer pulso", apply: "Cargar", beat: "Pulso", headphones: "Auriculares", noPresets: "Sin presets guardados", output: "Salida", presets: "Memorias de preset", savePreset: "Guardar preset", speaker: "Altavoz", subdivision: "Subdivision ritmica", tapHint: "Tap tempo" },
-  pt: { accentFirstBeat: "Acento no primeiro tempo", apply: "Carregar", beat: "Batida", headphones: "Fones", noPresets: "Nenhum preset salvo", output: "Saida", presets: "Memorias de preset", savePreset: "Salvar preset", speaker: "Alto-falante", subdivision: "Subdivisao ritmica", tapHint: "Tap tempo" },
-  zh: { accentFirstBeat: "第一拍重音", apply: "载入", beat: "拍", headphones: "耳机", noPresets: "没有已保存预设", output: "输出", presets: "预设记忆", savePreset: "保存预设", speaker: "扬声器", subdivision: "节奏细分", tapHint: "点击速度" },
-  ru: { accentFirstBeat: "Акцент на первой доле", apply: "Загрузить", beat: "Доля", headphones: "Наушники", noPresets: "Нет сохраненных пресетов", output: "Выход", presets: "Память пресетов", savePreset: "Сохранить пресет", speaker: "Динамик", subdivision: "Ритмическое деление", tapHint: "Tap tempo" },
-  ja: { accentFirstBeat: "1拍目を強調", apply: "読み込む", beat: "拍", headphones: "ヘッドホン", noPresets: "保存済みプリセットなし", output: "出力", presets: "プリセットメモリ", savePreset: "プリセット保存", speaker: "スピーカー", subdivision: "リズム細分", tapHint: "タップテンポ" },
-  ko: { accentFirstBeat: "첫 박자 악센트", apply: "불러오기", beat: "박", headphones: "헤드폰", noPresets: "저장된 프리셋 없음", output: "출력", presets: "프리셋 메모리", savePreset: "프리셋 저장", speaker: "스피커", subdivision: "리듬 분할", tapHint: "탭 템포" },
-  ar: { accentFirstBeat: "تشديد الضربة الأولى", apply: "تحميل", beat: "ضربة", headphones: "سماعات", noPresets: "لا توجد إعدادات محفوظة", output: "الإخراج", presets: "ذاكرة الإعدادات", savePreset: "حفظ الإعداد", speaker: "مكبر الصوت", subdivision: "تقسيم إيقاعي", tapHint: "Tap tempo" }
+  it: { accentFirstBeat: "Accento sul primo battito", apply: "Carica", beat: "Battito", denominator: "Denominatore", haptics: "Vibrazione/flash", headphones: "Cuffie", noPresets: "Nessun preset salvato", numerator: "Numeratore", output: "Uscita", practiceAdvance: "Cambia BPM", practiceAfterBars: "Dopo giri completi", practiceAfterTime: "Dopo tempo", practiceBars: "Giri", practiceCycle: "Ciclo esercizio", practiceEvery: "Ogni", practiceIncrement: "Incremento", practiceSeconds: "Secondi", practiceStart: "BPM partenza", practiceTarget: "BPM arrivo", presets: "Memorie preset", savePreset: "Salva preset", silentModeNote: "Su iPhone l'interruttore silenzioso puo bloccare l'audio del browser: disattiva il silenzioso o usa cuffie. Il flash del battito resta attivo.", speaker: "Speaker", subdivision: "Suddivisione ritmica", tapHint: "Tap tempo" },
+  en: { accentFirstBeat: "Accent first beat", apply: "Load", beat: "Beat", denominator: "Denominator", haptics: "Vibration/flash", headphones: "Headphones", noPresets: "No saved presets", numerator: "Numerator", output: "Output", practiceAdvance: "Change BPM", practiceAfterBars: "After complete bars", practiceAfterTime: "After time", practiceBars: "Bars", practiceCycle: "Practice cycle", practiceEvery: "Every", practiceIncrement: "Increment", practiceSeconds: "Seconds", practiceStart: "Start BPM", practiceTarget: "Target BPM", presets: "Preset memories", savePreset: "Save preset", silentModeNote: "On iPhone, Silent Mode can block browser audio: turn Silent Mode off or use headphones. The beat flash stays active.", speaker: "Speaker", subdivision: "Rhythmic subdivision", tapHint: "Tap tempo" },
+  fr: { accentFirstBeat: "Accent sur le premier temps", apply: "Charger", beat: "Temps", denominator: "Denominateur", haptics: "Vibration/flash", headphones: "Casque", noPresets: "Aucun preset enregistre", numerator: "Numerateur", output: "Sortie", practiceAdvance: "Changer BPM", practiceAfterBars: "Apres mesures completes", practiceAfterTime: "Apres le temps", practiceBars: "Mesures", practiceCycle: "Cycle de pratique", practiceEvery: "Tous les", practiceIncrement: "Increment", practiceSeconds: "Secondes", practiceStart: "BPM debut", practiceTarget: "BPM cible", presets: "Memoires de presets", savePreset: "Enregistrer preset", silentModeNote: "Sur iPhone, le mode silencieux peut bloquer l'audio du navigateur : desactivez-le ou utilisez des ecouteurs. Le flash de battement reste actif.", speaker: "Haut-parleur", subdivision: "Subdivision rythmique", tapHint: "Tap tempo" },
+  de: { accentFirstBeat: "Akzent auf erster Zaehlzeit", apply: "Laden", beat: "Schlag", denominator: "Nenner", haptics: "Vibration/Blitz", headphones: "Kopfhoerer", noPresets: "Keine Presets gespeichert", numerator: "Zaehler", output: "Ausgabe", practiceAdvance: "BPM aendern", practiceAfterBars: "Nach vollen Takten", practiceAfterTime: "Nach Zeit", practiceBars: "Takte", practiceCycle: "Uebungszyklus", practiceEvery: "Alle", practiceIncrement: "Inkrement", practiceSeconds: "Sekunden", practiceStart: "Start-BPM", practiceTarget: "Ziel-BPM", presets: "Preset-Speicher", savePreset: "Preset speichern", silentModeNote: "Auf dem iPhone kann der Stummschalter den Browser-Ton blockieren: Stummschaltung deaktivieren oder Kopfhoerer verwenden. Der Beat-Blitz bleibt aktiv.", speaker: "Lautsprecher", subdivision: "Rhythmische Unterteilung", tapHint: "Tap Tempo" },
+  es: { accentFirstBeat: "Acento en el primer pulso", apply: "Cargar", beat: "Pulso", denominator: "Denominador", haptics: "Vibracion/flash", headphones: "Auriculares", noPresets: "Sin presets guardados", numerator: "Numerador", output: "Salida", practiceAdvance: "Cambiar BPM", practiceAfterBars: "Tras compases completos", practiceAfterTime: "Tras el tiempo", practiceBars: "Compases", practiceCycle: "Ciclo de practica", practiceEvery: "Cada", practiceIncrement: "Incremento", practiceSeconds: "Segundos", practiceStart: "BPM inicio", practiceTarget: "BPM objetivo", presets: "Memorias de preset", savePreset: "Guardar preset", silentModeNote: "En iPhone, el modo silencio puede bloquear el audio del navegador: desactivalo o usa auriculares. El flash del pulso permanece activo.", speaker: "Altavoz", subdivision: "Subdivision ritmica", tapHint: "Tap tempo" },
+  pt: { accentFirstBeat: "Acento no primeiro tempo", apply: "Carregar", beat: "Batida", denominator: "Denominador", haptics: "Vibracao/flash", headphones: "Fones", noPresets: "Nenhum preset salvo", numerator: "Numerador", output: "Saida", practiceAdvance: "Mudar BPM", practiceAfterBars: "Apos compassos completos", practiceAfterTime: "Apos o tempo", practiceBars: "Compassos", practiceCycle: "Ciclo de pratica", practiceEvery: "A cada", practiceIncrement: "Incremento", practiceSeconds: "Segundos", practiceStart: "BPM inicial", practiceTarget: "BPM alvo", presets: "Memorias de preset", savePreset: "Salvar preset", silentModeNote: "No iPhone, o modo silencioso pode bloquear o audio do navegador: desative-o ou use fones. O flash do pulso continua ativo.", speaker: "Alto-falante", subdivision: "Subdivisao ritmica", tapHint: "Tap tempo" },
+  zh: { accentFirstBeat: "第一拍重音", apply: "载入", beat: "拍", denominator: "分母", haptics: "振动/闪光", headphones: "耳机", noPresets: "没有已保存预设", numerator: "分子", output: "输出", practiceAdvance: "改变BPM", practiceAfterBars: "完成若干小节后", practiceAfterTime: "经过时间后", practiceBars: "小节", practiceCycle: "练习循环", practiceEvery: "每隔", practiceIncrement: "递增", practiceSeconds: "秒", practiceStart: "起始BPM", practiceTarget: "目标BPM", presets: "预设记忆", savePreset: "保存预设", silentModeNote: "在iPhone上，静音模式可能会阻止浏览器音频：请关闭静音或使用耳机。节拍闪光仍然有效。", speaker: "扬声器", subdivision: "节奏细分", tapHint: "点击速度" },
+  ru: { accentFirstBeat: "Акцент на первой доле", apply: "Загрузить", beat: "Доля", denominator: "Знаменатель", haptics: "Вибрация/вспышка", headphones: "Наушники", noPresets: "Нет сохраненных пресетов", numerator: "Числитель", output: "Выход", practiceAdvance: "Изменить BPM", practiceAfterBars: "После полных тактов", practiceAfterTime: "После времени", practiceBars: "Такты", practiceCycle: "Цикл упражнений", practiceEvery: "Каждые", practiceIncrement: "Шаг", practiceSeconds: "Секунды", practiceStart: "Начальный BPM", practiceTarget: "Целевой BPM", presets: "Память пресетов", savePreset: "Сохранить пресет", silentModeNote: "На iPhone режим беззвучного может блокировать звук браузера: отключите его или используйте наушники. Вспышка на долю остается активной.", speaker: "Динамик", subdivision: "Ритмическое деление", tapHint: "Tap tempo" },
+  ja: { accentFirstBeat: "1拍目を強調", apply: "読み込む", beat: "拍", denominator: "分母", haptics: "バイブ/フラッシュ", headphones: "ヘッドホン", noPresets: "保存済みプリセットなし", numerator: "分子", output: "出力", practiceAdvance: "BPM変更", practiceAfterBars: "完全な小節後", practiceAfterTime: "時間後", practiceBars: "小節", practiceCycle: "練習サイクル", practiceEvery: "毎に", practiceIncrement: "増分", practiceSeconds: "秒", practiceStart: "開始BPM", practiceTarget: "目標BPM", presets: "プリセットメモリ", savePreset: "プリセット保存", silentModeNote: "iPhoneでは消音スイッチがブラウザ音声をブロックする場合があります。消音を解除するかヘッドホンを使ってください。拍のフラッシュは有効です。", speaker: "スピーカー", subdivision: "リズム細分", tapHint: "タップテンポ" },
+  ko: { accentFirstBeat: "첫 박자 악센트", apply: "불러오기", beat: "박", denominator: "분모", haptics: "진동/플래시", headphones: "헤드폰", noPresets: "저장된 프리셋 없음", numerator: "분자", output: "출력", practiceAdvance: "BPM 변경", practiceAfterBars: "완전한 마디 후", practiceAfterTime: "시간 후", practiceBars: "마디", practiceCycle: "연습 사이클", practiceEvery: "마다", practiceIncrement: "증가량", practiceSeconds: "초", practiceStart: "시작 BPM", practiceTarget: "목표 BPM", presets: "프리셋 메모리", savePreset: "프리셋 저장", silentModeNote: "iPhone에서 무음 모드가 브라우저 오디오를 차단할 수 있습니다. 무음을 해제하거나 헤드폰을 사용하세요. 박자 플래시는 계속 작동합니다.", speaker: "스피커", subdivision: "리듬 분할", tapHint: "탭 템포" },
+  ar: { accentFirstBeat: "تشديد الضربة الأولى", apply: "تحميل", beat: "ضربة", denominator: "المقام", haptics: "الاهتزاز/الوميض", headphones: "سماعات", noPresets: "لا توجد إعدادات محفوظة", numerator: "البسط", output: "الإخراج", practiceAdvance: "تغيير BPM", practiceAfterBars: "بعد مقاطع كاملة", practiceAfterTime: "بعد الوقت", practiceBars: "مقاطع", practiceCycle: "دورة التدريب", practiceEvery: "كل", practiceIncrement: "الزيادة", practiceSeconds: "ثوان", practiceStart: "BPM البداية", practiceTarget: "BPM الهدف", presets: "ذاكرة الإعدادات", savePreset: "حفظ الإعداد", silentModeNote: "على iPhone، قد يمنع وضع الصامت صوت المتصفح: الغِ الصامت أو استخدم سماعات الرأس. وميض الضربة يبقى نشطاً.", speaker: "مكبر الصوت", subdivision: "تقسيم إيقاعي", tapHint: "Tap tempo" }
 };
 
-export function Metronome({ dictionary }: { dictionary: Dictionary }) {
+export function Metronome({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   const [bpm, setBpm] = useState(100);
   const [meter, setMeter] = useState<Meter>("4/4");
   const [subdivision, setSubdivision] = useState<Subdivision>("quarter");
@@ -92,39 +106,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
   const stepRef = useRef(0);
   const practiceBarsRef = useRef(0);
   const practiceStartedAtRef = useRef(0);
-  const currentLocale = localeFromName(dictionary.localeName);
-  const labels = metronomeUiText[getContentLocale(currentLocale)];
-  const hapticsLabel = currentLocale === "it" ? "Vibrazione/flash" : "Vibration/flash";
-  const silentModeNote =
-    currentLocale === "it"
-      ? "Su iPhone l'interruttore silenzioso puo bloccare l'audio del browser: disattiva il silenzioso o usa cuffie. Il flash del battito resta attivo."
-      : "On iPhone, Silent Mode can block browser audio: turn Silent Mode off or use headphones. The beat flash stays active.";
-  const practiceLabels =
-    currentLocale === "it"
-      ? {
-          advance: "Cambia BPM",
-          afterBars: "Dopo giri completi",
-          afterTime: "Dopo tempo",
-          bars: "Giri",
-          cycle: "Ciclo esercizio",
-          every: "Ogni",
-          increment: "Incremento",
-          seconds: "Secondi",
-          start: "BPM partenza",
-          target: "BPM arrivo"
-        }
-      : {
-          advance: "Change BPM",
-          afterBars: "After complete bars",
-          afterTime: "After time",
-          bars: "Bars",
-          cycle: "Practice cycle",
-          every: "Every",
-          increment: "Increment",
-          seconds: "Seconds",
-          start: "Start BPM",
-          target: "Target BPM"
-        };
+  const labels = metronomeUiText[getContentLocale(locale)];
 
   function ensureAudioContext() {
     const context = audioRef.current ?? new AudioContext();
@@ -247,7 +229,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
 
   function savePreset() {
     const subdivisionConfig = subdivisions.find((item) => item.id === subdivision);
-    const subdivisionLabel = subdivisionConfig ? getSubdivisionLabel(subdivisionConfig, currentLocale) : subdivision;
+    const subdivisionLabel = subdivisionConfig ? getSubdivisionLabel(subdivisionConfig, locale) : subdivision;
     const preset: MetronomePreset = {
       accentFirstBeat,
       bpm,
@@ -329,7 +311,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
 
       <section className="grid gap-4 rounded-lg border border-line bg-white p-4">
         <label className="flex items-center justify-between gap-4 text-sm font-semibold">
-          {practiceLabels.cycle}
+          {labels.practiceCycle}
           <input
             checked={practiceEnabled}
             className="h-5 w-5 accent-mint"
@@ -344,7 +326,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
         </label>
         <div className="grid gap-3 md:grid-cols-4">
           <label className="grid gap-2 text-sm font-semibold">
-            {practiceLabels.start}
+            {labels.practiceStart}
             <input
               className="rounded-md border border-line bg-paper p-3"
               inputMode="numeric"
@@ -356,7 +338,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
             />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
-            {practiceLabels.target}
+            {labels.practiceTarget}
             <input
               className="rounded-md border border-line bg-paper p-3"
               inputMode="numeric"
@@ -368,7 +350,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
             />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
-            {practiceLabels.increment}
+            {labels.practiceIncrement}
             <select
               className="rounded-md border border-line bg-paper p-3"
               value={practiceIncrement}
@@ -382,7 +364,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
             </select>
           </label>
           <label className="grid gap-2 text-sm font-semibold">
-            {practiceLabels.advance}
+            {labels.practiceAdvance}
             <select
               className="rounded-md border border-line bg-paper p-3"
               value={practiceAdvanceMode}
@@ -393,15 +375,15 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
                 setPracticeProgress(0);
               }}
             >
-              <option value="bars">{practiceLabels.afterBars}</option>
-              <option value="time">{practiceLabels.afterTime}</option>
+              <option value="bars">{labels.practiceAfterBars}</option>
+              <option value="time">{labels.practiceAfterTime}</option>
             </select>
           </label>
         </div>
         <div className="grid gap-3 md:grid-cols-[1fr_1fr_auto] md:items-end">
           {practiceAdvanceMode === "bars" ? (
             <label className="grid gap-2 text-sm font-semibold">
-              {practiceLabels.every}
+              {labels.practiceEvery}
               <input
                 className="rounded-md border border-line bg-paper p-3"
                 inputMode="numeric"
@@ -414,7 +396,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
             </label>
           ) : (
             <label className="grid gap-2 text-sm font-semibold">
-              {practiceLabels.every}
+              {labels.practiceEvery}
               <input
                 className="rounded-md border border-line bg-paper p-3"
                 inputMode="numeric"
@@ -428,8 +410,8 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
           )}
           <p className="rounded-md bg-paper p-3 text-sm font-semibold text-ink/70">
             {practiceAdvanceMode === "bars"
-              ? `${practiceLabels.bars}: ${practiceProgress}/${practiceBars}`
-              : `${practiceLabels.seconds}: ${practiceSeconds}`}
+              ? `${labels.practiceBars}: ${practiceProgress}/${practiceBars}`
+              : `${labels.practiceSeconds}: ${practiceSeconds}`}
           </p>
           <Button
             type="button"
@@ -441,14 +423,14 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
               setPracticeProgress(0);
             }}
           >
-            {practiceLabels.start}
+            {labels.practiceStart}
           </Button>
         </div>
       </section>
 
       <div className="grid gap-4 md:grid-cols-[1fr_1fr_1.4fr]">
         <label className="grid gap-2 text-sm font-semibold">
-          {currentLocale === "it" ? "Numeratore" : "Numerator"}
+          {labels.numerator}
           <select
             value={meterNumerator}
             onChange={(event) => setMeter(`${event.target.value}/${meterDenominator}` as Meter)}
@@ -462,7 +444,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
           </select>
         </label>
         <label className="grid gap-2 text-sm font-semibold">
-          {currentLocale === "it" ? "Denominatore" : "Denominator"}
+          {labels.denominator}
           <select
             value={meterDenominator}
             onChange={(event) => setMeter(`${meterNumerator}/${event.target.value}` as Meter)}
@@ -484,7 +466,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
           >
             {subdivisions.map((item) => (
               <option key={item.id} value={item.id}>
-                {getSubdivisionLabel(item, currentLocale)} ({item.parts})
+                {getSubdivisionLabel(item, locale)} ({item.parts})
               </option>
             ))}
           </select>
@@ -502,7 +484,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
           />
         </label>
         <label className="flex items-center justify-between gap-4 rounded-lg border border-line bg-white p-4 text-sm font-semibold">
-          {hapticsLabel}
+          {labels.haptics}
           <input
             checked={hapticsEnabled}
             className="h-5 w-5 accent-mint"
@@ -534,7 +516,7 @@ export function Metronome({ dictionary }: { dictionary: Dictionary }) {
               {labels.headphones}
             </button>
           </div>
-          <p className="rounded-md bg-paper p-3 text-xs leading-5 text-ink/60">{silentModeNote}</p>
+          <p className="rounded-md bg-paper p-3 text-xs leading-5 text-ink/60">{labels.silentModeNote}</p>
         </div>
       </div>
 
