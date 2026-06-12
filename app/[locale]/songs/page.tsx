@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Music2 } from "lucide-react";
@@ -27,7 +27,16 @@ const childrenSectionLabels: Record<Locale, string> = withLocaleFallbacks({
   pt: "Partituras fáceis para crianças",
   ru: "Простые ноты для детей",
   zh: "儿童简易乐谱"
-} satisfies Record<BaseLocale, string>);
+}, {
+  nl: "Eenvoudige bladmuziek voor kinderen",
+  pl: "Łatwe nuty dla dzieci",
+  tr: "Çocuklar için kolay nota",
+  cs: "Snadné noty pro děti",
+  sv: "Enkel noter för barn",
+  "pt-BR": "Partituras fáceis para crianças",
+  hi: "बच्चों के लिए आसान नोट शीट",
+  no: "Enkle noter for barn"
+});
 
 const generalSectionLabels: Record<Locale, string> = withLocaleFallbacks({
   ar: "قطع أخرى",
@@ -41,7 +50,16 @@ const generalSectionLabels: Record<Locale, string> = withLocaleFallbacks({
   pt: "Mais peças em domínio público",
   ru: "Другие произведения общественного достояния",
   zh: "更多公有领域曲目"
-} satisfies Record<BaseLocale, string>);
+}, {
+  nl: "Meer stukken uit het publiek domein",
+  pl: "Więcej utworów z domeny publicznej",
+  tr: "Daha fazla kamu malı parça",
+  cs: "Více skladeb z veřejné domény",
+  sv: "Fler stycken i det fria",
+  "pt-BR": "Mais peças em domínio público",
+  hi: "अधिक पब्लिक डोमेन टुकड़े",
+  no: "Flere stykker i offentlig domene"
+});
 
 const songsBridgeLabels: Record<
   Locale,
@@ -74,7 +92,16 @@ const songsBridgeLabels: Record<
   tunings: string;
   practiceTools: string;
   learningGuides: string;
-}>);
+}}, {
+  nl: { continueLearning: "Ga hier verder", continueLearningDescription: "Verbind deze liedpagina's met praktische tools, ritmisch werk en kerngidsen voor dagelijkse oefening.", allGuides: "Alle gidsen", allTools: "Alle tools", tunings: "Stemmingen", practiceTools: "Oefentools", learningGuides: "Handige gidsen" },
+  pl: { continueLearning: "Kontynuuj stąd", continueLearningDescription: "Połącz te strony piosenek z praktycznymi narzędziami, pracą rytmiczną i podstawowymi gidami muzycznymi.", allGuides: "Wszystkie poradniki", allTools: "Wszystkie narzędzia", tunings: "Stroje", practiceTools: "Narzędzia do ćwiczeń", learningGuides: "Pomocne poradniki" },
+  tr: { continueLearning: "Buradan devam edin", continueLearningDescription: "Bu şarkı sayfalarını pratik araçlar, ritim çalışması ve temel müzik rehberleriyle bağlayın.", allGuides: "Tüm rehberler", allTools: "Tüm araçlar", tunings: "Akortlar", practiceTools: "Pratik araçlar", learningGuides: "Yararlı rehberler" },
+  cs: { continueLearning: "Pokračujte odtud", continueLearningDescription: "Propojte tyto stránky písní s praktickými nástroji, rytmickou prací a základními hudebními průvodci.", allGuides: "Všechny průvodce", allTools: "Všechny nástroje", tunings: "Ladění", practiceTools: "Cvičební nástroje", learningGuides: "Užitečné průvodce" },
+  sv: { continueLearning: "Fortsätt härifrån", continueLearningDescription: "Koppla dessa låtsidor till praktiska verktyg, rytmarbete och grundläggande musikguider för daglig övning.", allGuides: "Alla guider", allTools: "Alla verktyg", tunings: "Stämningar", practiceTools: "Övningsverktyg", learningGuides: "Hjälpsamma guider" },
+  "pt-BR": { continueLearning: "Continue por aqui", continueLearningDescription: "Conecte estas páginas de músicas com ferramentas práticas, trabalho de ritmo e guias musicais essenciais.", allGuides: "Todos os guias", allTools: "Todas as ferramentas", tunings: "Afinações", practiceTools: "Ferramentas de prática", learningGuides: "Guias úteis" },
+  hi: { continueLearning: "यहाँ से जारी रखें", continueLearningDescription: "इन गाने के पेजों को प्रैक्टिकल टूल, रिदम वर्क और मुख्य संगीत गाइड से जोड़ें।", allGuides: "सभी गाइड", allTools: "सभी टूल", tunings: "ट्यूनिंग", practiceTools: "अभ्यास टूल", learningGuides: "उपयोगी गाइड" },
+  no: { continueLearning: "Fortsett herfra", continueLearningDescription: "Koble disse sangsidene til praktiske verktøy, rytmearbeid og kjerneguider for daglig øving.", allGuides: "Alle guider", allTools: "Alle verktøy", tunings: "Stemminger", practiceTools: "Øvingsverktøy", learningGuides: "Nyttige guider" }
+});
 
 type PageProps = { params: Promise<{ locale: string }> };
 

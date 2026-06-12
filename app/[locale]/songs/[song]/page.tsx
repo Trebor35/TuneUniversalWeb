@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/ads/AdSlot";
@@ -50,7 +50,16 @@ const songPageLabels: Record<
   allGuides: string;
   allTools: string;
   relatedGuides: string;
-}>);
+}}, {
+  nl: { continueLearning: "Ga hier verder", continueLearningDescription: "Gebruik deze liedpagina als brug naar ritme, akkoorden en de meest nuttige leergidsen.", allSongs: "Alle nummers", allGuides: "Alle gidsen", allTools: "Alle tools", relatedGuides: "Handige gidsen" },
+  pl: { continueLearning: "Kontynuuj stąd", continueLearningDescription: "Użyj tej strony piosenki jako mostu do rytmu, akordów i najużyteczniejszych poradników.", allSongs: "Wszystkie piosenki", allGuides: "Wszystkie poradniki", allTools: "Wszystkie narzędzia", relatedGuides: "Pomocne poradniki" },
+  tr: { continueLearning: "Buradan devam edin", continueLearningDescription: "Bu şarkı sayfasını ritim, akorlar ve en faydalı öğrenme rehberlerine köprü olarak kullanın.", allSongs: "Tüm şarkılar", allGuides: "Tüm rehberler", allTools: "Tüm araçlar", relatedGuides: "Yararlı rehberler" },
+  cs: { continueLearning: "Pokračujte odtud", continueLearningDescription: "Použijte tuto stránku písně jako přechod k rytmu, akordům a nejužitečnějším průvodcům.", allSongs: "Všechny písně", allGuides: "Všechny průvodce", allTools: "Všechny nástroje", relatedGuides: "Užitečné průvodce" },
+  sv: { continueLearning: "Fortsätt härifrån", continueLearningDescription: "Använd den här låtsidan som en bro till rytm, ackord och de mest användbara inlärningsguiderna.", allSongs: "Alla låtar", allGuides: "Alla guider", allTools: "Alla verktyg", relatedGuides: "Hjälpsamma guider" },
+  "pt-BR": { continueLearning: "Continue por aqui", continueLearningDescription: "Use esta página de música como ponte para ritmo, acordes e os guias de aprendizado mais úteis.", allSongs: "Todas as músicas", allGuides: "Todos os guias", allTools: "Todas as ferramentas", relatedGuides: "Guias úteis" },
+  hi: { continueLearning: "यहाँ से जारी रखें", continueLearningDescription: "इस गाने के पेज को रिदम, कॉर्ड और सबसे उपयोगी सीखने के गाइड तक पहुँचने के लिए उपयोग करें।", allSongs: "सभी गाने", allGuides: "सभी गाइड", allTools: "सभी टूल", relatedGuides: "उपयोगी गाइड" },
+  no: { continueLearning: "Fortsett herfra", continueLearningDescription: "Bruk denne sangsiden som bro til rytme, akkorder og de mest nyttige lærerguidene.", allSongs: "Alle sanger", allGuides: "Alle guider", allTools: "Alle verktøy", relatedGuides: "Nyttige guider" }
+});
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => publicDomainSongSlugs.map((song) => ({ locale, song })));
