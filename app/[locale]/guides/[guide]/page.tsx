@@ -38,30 +38,30 @@ const guideContinueLabels: Record<
   Locale,
   { allGuides: string; allTools: string; continueLearning: string; continueLearningDescription: string; tuningHub: string }
 > = withLocaleFallbacks({
-  ar: { allGuides: "?? ??????", allTools: "?? ???????", continueLearning: "???? ??????", continueLearningDescription: "?? ??? ?????? ????? ???????? ?????? ??? ?????? ??????? ?? ??? ???? ?????? ??????.", tuningHub: "???? ???????" },
-  de: { allGuides: "Alle Guides", allTools: "Alle Tools", continueLearning: "Sinnvoll weitermachen", continueLearningDescription: "Von hier aus kannst du direkt zum passenden Tool, zu ?hnlichen Guides oder zum Tuning-Hub wechseln.", tuningHub: "Tuning-Hub" },
+  ar: { allGuides: "كل الأدلة", allTools: "كل الأدوات", continueLearning: "تابع من هنا", continueLearningDescription: "من هذه الصفحة يمكنك الانتقال مباشرة إلى الأداة وإلى أدلة أخرى مشابهة وإلى مركز ضبط الأوتار.", tuningHub: "مركز الأوتار" },
+  de: { allGuides: "Alle Guides", allTools: "Alle Tools", continueLearning: "Sinnvoll weitermachen", continueLearningDescription: "Von hier aus kannst du direkt zum passenden Tool, zu ähnlichen Guides oder zum Tuning-Hub wechseln.", tuningHub: "Tuning-Hub" },
   en: { allGuides: "All guides", allTools: "All tools", continueLearning: "Continue from here", continueLearningDescription: "Use this page as a bridge to the practical tool, closely related guides and the matching tuning hub.", tuningHub: "Tuning hub" },
-  es: { allGuides: "Todas las gu?as", allTools: "Todas las herramientas", continueLearning: "Seguir desde aqu?", continueLearningDescription: "Desde esta p?gina puedes pasar directamente a la herramienta, a otras gu?as ?tiles y al hub de afinaciones.", tuningHub: "Hub de afinaciones" },
+  es: { allGuides: "Todas las guías", allTools: "Todas las herramientas", continueLearning: "Seguir desde aquí", continueLearningDescription: "Desde esta página puedes pasar directamente a la herramienta, a otras guías útiles y al hub de afinaciones.", tuningHub: "Hub de afinaciones" },
   fr: { allGuides: "Tous les guides", allTools: "Tous les outils", continueLearning: "Continuer depuis ici", continueLearningDescription: "Cette page relie l'explication, l'outil pratique, les guides proches et le hub des accordages.", tuningHub: "Hub des accordages" },
   it: { allGuides: "Tutte le guide", allTools: "Tutti i tool", continueLearning: "Continua da qui", continueLearningDescription: "Da questa pagina puoi passare subito al tool pratico, ad altre guide utili e all'hub delle accordature collegate.", tuningHub: "Hub accordature" },
-  ja: { allGuides: "???????", allTools: "???????", continueLearning: "???????", continueLearningDescription: "???????????????????????????????????", tuningHub: "????????" },
-  ko: { allGuides: "?? ???", allTools: "?? ??", continueLearning: "??? ??", continueLearningDescription: "? ???? ?? ??, ?? ???, ?? ??? ???? ?? ??? ???.", tuningHub: "?? ??" },
-  pt: { allGuides: "Todos os guias", allTools: "Todas as ferramentas", continueLearning: "Continue daqui", continueLearningDescription: "Use esta p?gina para seguir para a ferramenta pr?tica, guias relacionados e o hub de afina??es.", tuningHub: "Hub de afina??es" },
-  ru: { allGuides: "??? ?????", allTools: "??? ???????????", continueLearning: "???? ??????? ??????", continueLearningDescription: "? ???? ???????? ????? ????? ??????? ? ????????????? ???????????, ????????? ?????? ? ???? ??????.", tuningHub: "??? ??????" },
-  zh: { allGuides: "????", allTools: "????", continueLearning: "?????", continueLearningDescription: "??????????????????????????????", tuningHub: "????" }
+  ja: { allGuides: "すべてのガイド", allTools: "すべてのツール", continueLearning: "ここから続ける", continueLearningDescription: "このページからツール、関連するガイド、チューニングハブに直接移動できます。", tuningHub: "チューニングハブ" },
+  ko: { allGuides: "모든 가이드", allTools: "모든 도구", continueLearning: "여기서 계속", continueLearningDescription: "이 페이지에서 도구, 관련 가이드, 튜닝 허브로 바로 이동할 수 있습니다.", tuningHub: "튜닝 허브" },
+  pt: { allGuides: "Todos os guias", allTools: "Todas as ferramentas", continueLearning: "Continue daqui", continueLearningDescription: "Use esta página para seguir para a ferramenta prática, guias relacionados e o hub de afinações.", tuningHub: "Hub de afinações" },
+  ru: { allGuides: "Все руководства", allTools: "Все инструменты", continueLearning: "Продолжить отсюда", continueLearningDescription: "С этой страницы можно перейти к практическому инструменту, похожим руководствам и хабу строёв.", tuningHub: "Хаб строёв" },
+  zh: { allGuides: "所有指南", allTools: "所有工具", continueLearning: "从这里继续", continueLearningDescription: "从此页面可以直接前往实用工具、相关指南和调弦中心。", tuningHub: "调弦中心" }
 } satisfies Record<BaseLocale, { allGuides: string; allTools: string; continueLearning: string; continueLearningDescription: string; tuningHub: string }>);
 const relatedTuningHeadings: Record<Locale, string> = withLocaleFallbacks({
-  ar: "????? ??????",
+  ar: "التوليفات ذات الصلة",
   de: "Verwandte Stimmungen",
   en: "Related tunings",
   es: "Afinaciones relacionadas",
-  fr: "Accordages li?s",
+  fr: "Accordages liés",
   it: "Accordature correlate",
-  ja: "????????",
-  ko: "?? ??",
-  pt: "Afina??es relacionadas",
-  ru: "????????? ?????",
-  zh: "????"
+  ja: "関連するチューニング",
+  ko: "관련 튜닝",
+  pt: "Afinações relacionadas",
+  ru: "Связанные строи",
+  zh: "相关调弦"
 } satisfies Record<BaseLocale, string>);
 const guideUi: Record<
   Locale,
@@ -76,17 +76,17 @@ const guideUi: Record<
     stringLabel: string;
   }
 > = withLocaleFallbacks({
-  ar: { commonMistakes: "????? ?????", frequency: "??????", note: "??????", notesTable: "???? ??????? ????????", openTool: "???? ??????", relatedGuides: "???? ??????", relatedTools: "????? ??????", stringLabel: "??? / ????" },
-  de: { commonMistakes: "H?ufige Fehler", frequency: "Frequenz", note: "Note", notesTable: "Saiten- und Notentabelle", openTool: "Tool ?ffnen", relatedGuides: "Verwandte Guides", relatedTools: "Verwandte Tools", stringLabel: "Saite / Position" },
+  ar: { commonMistakes: "أخطاء شائعة", frequency: "التردد", note: "النغمة", notesTable: "جدول الأوتار والنغمات", openTool: "فتح الأداة", relatedGuides: "أدلة مرتبطة", relatedTools: "أدوات مرتبطة", stringLabel: "الوتر / الموضع" },
+  de: { commonMistakes: "Häufige Fehler", frequency: "Frequenz", note: "Note", notesTable: "Saiten- und Notentabelle", openTool: "Tool öffnen", relatedGuides: "Verwandte Guides", relatedTools: "Verwandte Tools", stringLabel: "Saite / Position" },
   en: { commonMistakes: "Common mistakes", frequency: "Frequency", note: "Note", notesTable: "String and note table", openTool: "Open tool", relatedGuides: "Related guides", relatedTools: "Related tools", stringLabel: "String / position" },
-  es: { commonMistakes: "Errores comunes", frequency: "Frecuencia", note: "Nota", notesTable: "Tabla de cuerdas y notas", openTool: "Abrir herramienta", relatedGuides: "Gu?as relacionadas", relatedTools: "Herramientas relacionadas", stringLabel: "Cuerda / posici?n" },
-  fr: { commonMistakes: "Erreurs courantes", frequency: "Fr?quence", note: "Note", notesTable: "Tableau des cordes et notes", openTool: "Ouvrir l'outil", relatedGuides: "Guides li?s", relatedTools: "Outils li?s", stringLabel: "Corde / position" },
+  es: { commonMistakes: "Errores comunes", frequency: "Frecuencia", note: "Nota", notesTable: "Tabla de cuerdas y notas", openTool: "Abrir herramienta", relatedGuides: "Guías relacionadas", relatedTools: "Herramientas relacionadas", stringLabel: "Cuerda / posición" },
+  fr: { commonMistakes: "Erreurs courantes", frequency: "Fréquence", note: "Note", notesTable: "Tableau des cordes et notes", openTool: "Ouvrir l'outil", relatedGuides: "Guides liés", relatedTools: "Outils liés", stringLabel: "Corde / position" },
   it: { commonMistakes: "Errori comuni", frequency: "Frequenza", note: "Nota", notesTable: "Tabella corde e note", openTool: "Apri il tool", relatedGuides: "Guide correlate", relatedTools: "Tool correlati", stringLabel: "Corda / posizione" },
-  ja: { commonMistakes: "??????", frequency: "???", note: "??", notesTable: "?????", openTool: "??????", relatedGuides: "?????", relatedTools: "?????", stringLabel: "? / ??" },
-  ko: { commonMistakes: "?? ?? ??", frequency: "???", note: "?", notesTable: "?? ? ?", openTool: "?? ??", relatedGuides: "?? ???", relatedTools: "?? ??", stringLabel: "? / ??" },
-  pt: { commonMistakes: "Erros comuns", frequency: "Frequ?ncia", note: "Nota", notesTable: "Tabela de cordas e notas", openTool: "Abrir ferramenta", relatedGuides: "Guias relacionados", relatedTools: "Ferramentas relacionadas", stringLabel: "Corda / posi??o" },
-  ru: { commonMistakes: "?????? ??????", frequency: "???????", note: "????", notesTable: "??????? ????? ? ???", openTool: "??????? ??????????", relatedGuides: "????????? ???????????", relatedTools: "????????? ???????????", stringLabel: "?????? / ???????" },
-  zh: { commonMistakes: "????", frequency: "??", note: "??", notesTable: "?????", openTool: "????", relatedGuides: "????", relatedTools: "????", stringLabel: "? / ??" }
+  ja: { commonMistakes: "よくある間違い", frequency: "周波数", note: "音名", notesTable: "弦と音名の表", openTool: "ツールを開く", relatedGuides: "関連ガイド", relatedTools: "関連ツール", stringLabel: "弦 / 位置" },
+  ko: { commonMistakes: "자주 하는 실수", frequency: "주파수", note: "음", notesTable: "줄과 음 표", openTool: "도구 열기", relatedGuides: "관련 가이드", relatedTools: "관련 도구", stringLabel: "줄 / 위치" },
+  pt: { commonMistakes: "Erros comuns", frequency: "Frequência", note: "Nota", notesTable: "Tabela de cordas e notas", openTool: "Abrir ferramenta", relatedGuides: "Guias relacionados", relatedTools: "Ferramentas relacionadas", stringLabel: "Corda / posição" },
+  ru: { commonMistakes: "Частые ошибки", frequency: "Частота", note: "Нота", notesTable: "Таблица струн и нот", openTool: "Открыть инструмент", relatedGuides: "Похожие руководства", relatedTools: "Похожие инструменты", stringLabel: "Струна / позиция" },
+  zh: { commonMistakes: "常见错误", frequency: "频率", note: "音名", notesTable: "弦与音名表", openTool: "打开工具", relatedGuides: "相关指南", relatedTools: "相关工具", stringLabel: "弦 / 位置" }
 } satisfies Record<BaseLocale, {
   commonMistakes: string;
   frequency: string;
@@ -106,17 +106,17 @@ const guideIntentLabels: Record<
     searchesTitle: string;
   }
 > = withLocaleFallbacks({
-  ar: { questionsDescription: "????? ????? ??????? ?????? ??? ??? ??????.", questionsTitle: "????? ??????", searchesDescription: "????? ?????? ????? ???? ??? ??????.", searchesTitle: "????? ?????" },
-  de: { questionsDescription: "Kurze Anschlussfragen, die direkt nach diesem Guide sinnvoll sind.", questionsTitle: "N?chste Fragen", searchesDescription: "Interne Seiten, die dieses Thema gut erg?nzen.", searchesTitle: "Verwandte Seiten" },
+  ar: { questionsDescription: "أسئلة قصيرة تجعل الخطوة التالية أوضح.", questionsTitle: "أسئلة مرتبطة", searchesDescription: "صفحات داخلية تمتد بشكل طبيعي من هذا الدليل.", searchesTitle: "عمليات بحث ذات صلة" },
+  de: { questionsDescription: "Kurze Anschlussfragen, die direkt nach diesem Guide sinnvoll sind.", questionsTitle: "Nächste Fragen", searchesDescription: "Interne Seiten, die dieses Thema gut ergänzen.", searchesTitle: "Verwandte Seiten" },
   en: { questionsDescription: "Short follow-up questions that make the next step clearer.", questionsTitle: "Related questions", searchesDescription: "Internal pages that naturally extend this guide.", searchesTitle: "Related searches" },
-  es: { questionsDescription: "Preguntas breves para continuar despu?s de esta gu?a.", questionsTitle: "Preguntas relacionadas", searchesDescription: "P?ginas internas que ampl?an este tema de forma natural.", searchesTitle: "B?squedas relacionadas" },
-  fr: { questionsDescription: "Petites questions utiles pour continuer apr?s ce guide.", questionsTitle: "Questions associ?es", searchesDescription: "Pages internes qui prolongent naturellement ce sujet.", searchesTitle: "Recherches associ?es" },
+  es: { questionsDescription: "Preguntas breves para continuar después de esta guía.", questionsTitle: "Preguntas relacionadas", searchesDescription: "Páginas internas que amplían este tema de forma natural.", searchesTitle: "Búsquedas relacionadas" },
+  fr: { questionsDescription: "Petites questions utiles pour continuer après ce guide.", questionsTitle: "Questions associées", searchesDescription: "Pages internes qui prolongent naturellement ce sujet.", searchesTitle: "Recherches associées" },
   it: { questionsDescription: "Domande rapide che aiutano a capire cosa fare subito dopo questa guida.", questionsTitle: "Domande correlate", searchesDescription: "Pagine interne che estendono in modo naturale il tema di questa guida.", searchesTitle: "Ricerche correlate" },
-  ja: { questionsDescription: "??????????????????", questionsTitle: "??????", searchesDescription: "????????????????????", searchesTitle: "????" },
-  ko: { questionsDescription: "? ??? ??? ?? ??? ? ?????.", questionsTitle: "?? ??", searchesDescription: "? ??? ????? ???? ?? ???????.", searchesTitle: "?? ??" },
-  pt: { questionsDescription: "Perguntas curtas para continuar logo ap?s este guia.", questionsTitle: "Perguntas relacionadas", searchesDescription: "P?ginas internas que ampliam este assunto de forma natural.", searchesTitle: "Pesquisas relacionadas" },
-  ru: { questionsDescription: "???????? ???????, ??????? ???????? ?????? ????????? ??? ????? ????? ?????.", questionsTitle: "????????? ???????", searchesDescription: "?????????? ????????, ??????? ??????????? ????????? ??? ????.", searchesTitle: "????????? ??????" },
-  zh: { questionsDescription: "????????????????", questionsTitle: "????", searchesDescription: "????????????????????", searchesTitle: "????" }
+  ja: { questionsDescription: "このガイドの後に役立つ短いフォローアップ質問です。", questionsTitle: "関連する質問", searchesDescription: "このガイドを自然に拡張する内部ページです。", searchesTitle: "関連検索" },
+  ko: { questionsDescription: "이 가이드 이후 다음 단계를 명확하게 해주는 짧은 질문입니다.", questionsTitle: "관련 질문", searchesDescription: "이 가이드를 자연스럽게 확장하는 내부 페이지입니다.", searchesTitle: "관련 검색" },
+  pt: { questionsDescription: "Perguntas curtas para continuar logo após este guia.", questionsTitle: "Perguntas relacionadas", searchesDescription: "Páginas internas que ampliam este assunto de forma natural.", searchesTitle: "Pesquisas relacionadas" },
+  ru: { questionsDescription: "Короткие вопросы, которые помогают понять следующий шаг после этого руководства.", questionsTitle: "Похожие вопросы", searchesDescription: "Внутренние страницы, которые продолжают тему этого руководства.", searchesTitle: "Похожие поиски" },
+  zh: { questionsDescription: "帮助明确下一步的简短跟进问题。", questionsTitle: "相关问题", searchesDescription: "自然延伸本指南主题的内部页面。", searchesTitle: "相关搜索" }
 } satisfies Record<BaseLocale, {
   questionsDescription: string;
   questionsTitle: string;

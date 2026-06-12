@@ -93,10 +93,10 @@ const contextualSectionLabels: Record<
   }
 > = withLocaleFallbacks({
   ar: {
-    highlightsDescription: "Ù†Ù‚Ø§Ø· Ø³Ø±ÙŠØ¹Ø© ØªØ¹Ø·ÙŠÙƒ ÙÙƒØ±Ø© ÙˆØ§Ø¶Ø­Ø© Ø¹Ù† ÙƒÙŠÙÙŠØ© Ø§Ø³ØªØ®Ø¯Ø§Ù… Ù‡Ø°Ù‡ Ø§Ù„Ø£Ø¯Ø§Ø©.",
-    highlightsTitle: "Ù†Ø¸Ø±Ø© Ø³Ø±ÙŠØ¹Ø©",
-    quickAnswersDescription: "Ø¥Ø¬Ø§Ø¨Ø§Øª Ù…Ø®ØªØµØ±Ø© Ø¹Ù„Ù‰ Ø§Ù„Ø£Ø³Ø¦Ù„Ø© Ø§Ù„ØªÙŠ ØªØ³Ø§Ø¹Ø¯Ùƒ Ø¹Ù„Ù‰ Ø§Ù„Ø¨Ø¯Ø¡ Ø¨Ø´ÙƒÙ„ Ø£Ø³Ø±Ø¹.",
-    quickAnswersTitle: "Ø¥Ø¬Ø§Ø¨Ø§Øª Ø³Ø±ÙŠØ¹Ø©"
+    highlightsDescription: "نقاط سريعة تعطيك فكرة واضحة عن كيفية استخدام هذه الأداة.",
+    highlightsTitle: "نظرة سريعة",
+    quickAnswersDescription: "إجابات مختصرة على الأسئلة التي تساعدك على البدء بشكل أسرع.",
+    quickAnswersTitle: "إجابات سريعة"
   },
   de: {
     highlightsDescription: "Die wichtigsten Punkte auf einen Blick, bevor du tiefer einsteigst.",
@@ -129,16 +129,16 @@ const contextualSectionLabels: Record<
     quickAnswersTitle: "Risposte rapide"
   },
   ja: {
-    highlightsDescription: "ã“ã®ãƒ„ãƒ¼ãƒ«ã®è¦ç‚¹ã‚’çŸ­ãã¾ã¨ã‚ã¦ç¢ºèªã§ãã¾ã™ã€‚",
-    highlightsTitle: "ã²ã¨ç›®ã§",
-    quickAnswersDescription: "ã¯ã˜ã‚ã‚‹å‰ã«å½¹ç«‹ã¤ã‚ˆãã‚ã‚‹è³ªå•ã¸ã®ç°¡å˜ãªç­”ãˆã§ã™ã€‚",
-    quickAnswersTitle: "ã™ãåˆ†ã‹ã‚‹ç­”ãˆ"
+    highlightsDescription: "このツールの要点を短くまとめて確認できます。",
+    highlightsTitle: "ひと目で",
+    quickAnswersDescription: "はじめる前に役立つよくある質問への簡単な答えです。",
+    quickAnswersTitle: "すぐ分かる答え"
   },
   ko: {
-    highlightsDescription: "ì´ ë„êµ¬ë¥¼ ë¹ ë¥´ê²Œ ì´í•´í•  ìˆ˜ ìžˆëŠ” í•µì‹¬ í¬ì¸íŠ¸ë¥¼ ëª¨ì•˜ìŠµë‹ˆë‹¤.",
-    highlightsTitle: "í•œëˆˆì—",
-    quickAnswersDescription: "ì‹œìž‘í•˜ê¸° ì „ ìžì£¼ ë‚˜ì˜¤ëŠ” ì§ˆë¬¸ì— ëŒ€í•œ ì§§ê³  ì‹¤ìš©ì ì¸ ë‹µë³€ìž…ë‹ˆë‹¤.",
-    quickAnswersTitle: "ë¹ ë¥¸ ë‹µë³€"
+    highlightsDescription: "이 도구를 빠르게 이해할 수 있는 핵심 포인트를 모았습니다.",
+    highlightsTitle: "한눈에",
+    quickAnswersDescription: "시작하기 전 자주 나오는 질문에 대한 짧고 실용적인 답변입니다.",
+    quickAnswersTitle: "빠른 답변"
   },
   pt: {
     highlightsDescription: "Os pontos principais para entender esta ferramenta rapidamente.",
@@ -224,16 +224,16 @@ const toolIntentLabels: Record<
   }
 > = withLocaleFallbacks({
   ar: {
-    questionsDescription: "Ø£Ø³Ø¦Ù„Ø© Ø³Ø±ÙŠØ¹Ø© Ù„Ù„Ø§Ù†ØªÙ‚Ø§Ù„ Ø¥Ù„Ù‰ Ø§Ù„Ø®Ø·ÙˆØ© Ø§Ù„ØªØ§Ù„ÙŠØ©.",
-    questionsTitle: "Ø£Ø³Ø¦Ù„Ø© Ù…Ø±ØªØ¨Ø·Ø©",
-    searchesDescription: "Ø±ÙˆØ§Ø¨Ø· Ø¯Ø§Ø®Ù„ÙŠØ© Ù…ÙÙŠØ¯Ø© Ù„Ù…Ù† ÙŠØ³ØªØ®Ø¯Ù… Ù‡Ø°Ù‡ Ø§Ù„Ø£Ø¯Ø§Ø©.",
-    searchesTitle: "Ø±ÙˆØ§Ø¨Ø· Ù…ÙÙŠØ¯Ø©"
+    questionsDescription: "أسئلة سريعة للانتقال إلى الخطوة التالية.",
+    questionsTitle: "أسئلة مرتبطة",
+    searchesDescription: "روابط داخلية مفيدة لمن يستخدم هذه الأداة.",
+    searchesTitle: "روابط مفيدة"
   },
   de: {
     questionsDescription: "Kurze Anschlussfragen, die beim Weiterlernen helfen.",
-    questionsTitle: "NÃ¤chste Fragen",
+    questionsTitle: "Nächste Fragen",
     searchesDescription: "Interne Seiten, die inhaltlich gut zu diesem Tool passen.",
-    searchesTitle: "NÃ¼tzliche nÃ¤chste Seiten"
+    searchesTitle: "Nützliche nächste Seiten"
   },
   en: {
     questionsDescription: "Short follow-up questions to keep practice moving.",
@@ -260,16 +260,16 @@ const toolIntentLabels: Record<
     searchesTitle: "Ricerche correlate"
   },
   ja: {
-    questionsDescription: "ã“ã®ãƒ„ãƒ¼ãƒ«ã®æ¬¡ã«å½¹ç«‹ã¤çŸ­ã„è³ªå•ã§ã™ã€‚",
-    questionsTitle: "é–¢é€£ã™ã‚‹è³ªå•",
-    searchesDescription: "æ¬¡ã«è¦‹ã‚‹ã®ã«åˆã†å†…éƒ¨ãƒšãƒ¼ã‚¸ã§ã™ã€‚",
-    searchesTitle: "é–¢é€£æ¤œç´¢"
+    questionsDescription: "このツールの次に役立つ短い質問です。",
+    questionsTitle: "関連する質問",
+    searchesDescription: "次に見るのに合う内部ページです。",
+    searchesTitle: "関連検索"
   },
   ko: {
-    questionsDescription: "ì´ ë„êµ¬ ë‹¤ìŒì— ë°”ë¡œ ë„ì›€ì´ ë  ì§ˆë¬¸ì…ë‹ˆë‹¤.",
-    questionsTitle: "ê´€ë ¨ ì§ˆë¬¸",
-    searchesDescription: "ë‹¤ìŒ ë‹¨ê³„ì— ë§žëŠ” ë‚´ë¶€ íŽ˜ì´ì§€ë¥¼ ëª¨ì•˜ìŠµë‹ˆë‹¤.",
-    searchesTitle: "ê´€ë ¨ ê²€ìƒ‰"
+    questionsDescription: "이 도구 다음에 바로 도움이 될 질문입니다.",
+    questionsTitle: "관련 질문",
+    searchesDescription: "다음 단계에 맞는 내부 페이지를 모았습니다.",
+    searchesTitle: "관련 검색"
   },
   pt: {
     questionsDescription: "Perguntas curtas para continuar a pratica com mais clareza.",
