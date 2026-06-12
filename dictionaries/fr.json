@@ -21,181 +21,441 @@
     "howHeading": "Comment fonctionne TuneUniversal"
   },
   "tool": {
-    "detectedNote": "Note detectee",
-    "frequency": "Frequence",
+    "detectedNote": "Note détectée",
+    "frequency": "Fréquence",
     "cents": "Cents",
     "flat": "Trop bas",
     "sharp": "Trop haut",
     "inTune": "Juste",
     "requestMic": "Activer le micro",
-    "stopMic": "Arreter le micro",
-    "micError": "Acces au micro impossible. Verifiez les permissions du navigateur.",
+    "stopMic": "Arrêter le micro",
+    "micError": "Accès au micro impossible. Vérifiez les permissions du navigateur.",
     "bpm": "BPM",
-    "start": "Demarrer",
-    "stop": "Arreter",
-    "reset": "Reinitialiser",
+    "start": "Démarrer",
+    "stop": "Arrêter",
+    "reset": "Réinitialiser",
     "tap": "Tap",
-    "history": "Taps recents",
+    "history": "Taps récents",
     "meter": "Mesure",
     "inputChords": "Accords source",
     "semitones": "Demi-tons",
-    "outputChords": "Resultat transpose"
+    "outputChords": "Résultat transposé"
   },
   "common": {
-    "howItWorks": "Comment ca marche",
+    "howItWorks": "Comment ça marche",
     "faq": "FAQ",
     "otherTools": "Autres outils"
   },
   "tools": {
     "guitar-tuner": {
-      "title": "Accordeur guitare en ligne",
-      "description": "Utilisez le micro pour accorder rapidement une guitare standard.",
+      "title": "Accordeur de guitare en ligne",
+      "description": "Utilisez votre micro pour accorder rapidement et précisément les cordes de guitare standard — aucune application à installer.",
       "howItWorks": [
-        "Autorisez le micro.",
-        "Jouez une corde a la fois.",
-        "Ajustez jusqu'a ce que l'indicateur soit juste."
+        "Ouvrez l'accordeur et cliquez sur « Activer le micro » — le navigateur demandera l'autorisation la première fois.",
+        "Sélectionnez l'accordage souhaité (Standard, Drop D, Open G et bien d'autres sont disponibles).",
+        "Jouez une corde à vide à la fois, en la laissant résonner clairement sans toucher les autres cordes.",
+        "Observez l'aiguille et l'affichage en cents : vert signifie juste, rouge signifie qu'il faut ajuster.",
+        "Tournez lentement la mécanique — de petits mouvements font une grande différence près de la note cible.",
+        "Répétez pour chaque corde avant de jouer, puis revérifiez après quelques minutes le temps que les cordes se stabilisent."
       ],
       "faq": [
         {
-          "question": "Fonctionne-t-il sur mobile?",
-          "answer": "Oui, les navigateurs mobiles modernes avec micro sont pris en charge."
+          "question": "L'accordeur de guitare fonctionne-t-il sur téléphone et tablette ?",
+          "answer": "Oui. TuneUniversal fonctionne sur tout navigateur moderne de smartphone ou de tablette prenant en charge l'accès au micro. Sur iOS, Safari 14.3 ou ultérieur est requis ; sur Android, Chrome ou Firefox conviennent le mieux. Autorisez le micro lorsque le navigateur le demande et gardez le téléphone près des cordes pour une lecture optimale."
         },
         {
-          "question": "Quel accordage?",
-          "answer": "Le site prend en charge la plupart des accordages courants, dont Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D et Open G."
+          "question": "Quels accordages de guitare sont pris en charge ?",
+          "answer": "L'accordeur prend en charge un large éventail d'accordages courants : Standard (E A D G B E), Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D, Open G et DADGAD, entre autres. Vous pouvez parcourir les accordages alternatifs dans le hub d'accordages et ouvrir le preset correspondant directement depuis ces pages."
+        },
+        {
+          "question": "Pourquoi l'aiguille bouge-t-elle au lieu de rester immobile ?",
+          "answer": "Le mouvement de l'aiguille est normal lorsque la corde vibre librement. La lecture se stabilise à mesure que la note se prolonge. Pour une lecture plus nette, pincez la corde fermement et laissez-la sonner sans l'étouffer, placez-vous dans un environnement calme et assurez-vous qu'aucune autre corde ne résonne. Les cordes en nylon des guitares classiques peuvent mettre plus de temps à se stabiliser que les cordes en acier."
+        },
+        {
+          "question": "Mon audio est-il envoyé à un serveur ?",
+          "answer": "Non. Toute la détection de hauteur s'exécute entièrement dans votre navigateur grâce à la Web Audio API. Aucune donnée audio n'est jamais téléversée, stockée ni traitée sur un serveur. Le signal de votre micro est utilisé en temps réel puis supprimé."
+        },
+        {
+          "question": "Quelle est la précision d'un accordeur dans le navigateur ?",
+          "answer": "Un accordeur de navigateur bien conçu comme TuneUniversal est précis à quelques cents près, ce qui est largement suffisant pour la plupart des usages. Les accordeurs matériels professionnels offrent une précision similaire. Le principal facteur limitant est la qualité et le placement du micro de votre appareil — rapprocher le téléphone ou l'ordinateur de la caisse ou de la rosace améliore nettement la détection."
+        },
+        {
+          "question": "Dois-je installer quelque chose ?",
+          "answer": "Aucune installation n'est nécessaire. TuneUniversal fonctionne entièrement dans le navigateur. Ouvrez simplement la page, autorisez le micro et commencez à accorder. Cela fonctionne sur Windows, macOS, iOS et Android sans plugin ni téléchargement."
+        },
+        {
+          "question": "À quelle fréquence dois-je accorder ma guitare ?",
+          "answer": "Accorde ta guitare à chaque fois que tu la prends. Les cordes se désaccordent constamment à cause des variations de température et d'humidité, de la perte de tension après avoir joué et du fluage naturel du matériau. Les cordes neuves sont particulièrement instables — elles peuvent nécessiter un accord toutes les quelques minutes pendant les premiers jours. Un rapide accord avant chaque session de pratique prend moins d'une minute et améliore tout ce que tu joues."
+        },
+        {
+          "question": "Puis-je accorder une guitare acoustique avec mon téléphone ?",
+          "answer": "Oui, et ça marche très bien. Tiens ton téléphone à environ 15–25 cm de la rosace et pince chaque corde clairement en la laissant résonner pleinement. Le microphone intégré des smartphones modernes est suffisamment sensible pour détecter la hauteur avec précision dans une pièce calme. Réduis les bruits de fond en fermant portes et fenêtres, et évite d'accorder près de ventilateurs ou climatiseurs."
+        },
+        {
+          "question": "Que signifient les 'cents' sur un accordeur de guitare ?",
+          "answer": "Un demi-ton — la distance entre deux frettes adjacentes — est divisé en 100 cents. La lecture en cents t'indique exactement de combien la corde s'écarte de la hauteur parfaite : +15 cents signifie 15 % d'un demi-ton trop haut ; -10 cents signifie légèrement trop bas. Pour jouer en général, rester dans les ±10 cents est suffisant. Pour enregistrer ou jouer en ensemble, vise ±5 cents ou moins. TuneUniversal affiche les cents en temps réel pour des ajustements précis."
+        },
+        {
+          "question": "Dans quel ordre accorder les cordes d'une guitare ?",
+          "answer": "Commence toujours par la corde la plus grave et remonte : mi grave, la, ré, sol, si, mi aigu. Tendre les cordes graves ajoute de la tension sur le manche, ce qui peut légèrement hausser les cordes déjà accordées. Après un premier passage complet, fais une rapide deuxième vérification depuis le mi grave — surtout avec des cordes neuves ou après un accordage très décalé. Cette méthode en deux passages garantit que tout se stabilise ensemble."
         }
       ]
     },
     "bass-tuner": {
-      "title": "Accordeur basse en ligne",
-      "description": "Accordez une basse quatre cordes avec detection en temps reel.",
+      "title": "Accordeur de basse en ligne",
+      "description": "Accordez une basse à quatre ou cinq cordes avec détection de hauteur en temps réel — gratuit et dans le navigateur.",
       "howItWorks": [
-        "Activez le micro.",
-        "Jouez une corde a vide nette.",
-        "Accordez vers la note cible."
+        "Cliquez sur « Activer le micro » et acceptez la demande d'autorisation du navigateur.",
+        "Placez votre téléphone ou ordinateur près de la caisse de la basse ou du haut-parleur pour un signal net.",
+        "Jouez une corde à vide à la fois, en la laissant résonner pleinement avant de vérifier la lecture.",
+        "L'affichage indique la note détectée et le nombre de cents trop haut ou trop bas.",
+        "Ajustez lentement la mécanique jusqu'à ce que l'indicateur devienne vert et affiche 0 cent.",
+        "Accordez les cordes dans l'ordre — E, A, D, G — pour un résultat équilibré, puis revérifiez depuis le E."
       ],
       "faq": [
         {
-          "question": "Quelles cordes?",
-          "answer": "Accordage standard E A D G."
+          "question": "Quels accordages de basse sont pris en charge ?",
+          "answer": "L'accordeur de basse couvre l'accordage standard quatre cordes (E1 A1 D2 G2) et les accordages alternatifs courants : Drop D (D A D G), Eb standard et basse cinq cordes (B E A D G). Les fréquences graves des cordes de basse sont bien dans la plage de détection de l'accordeur."
         },
         {
-          "question": "Faut-il une app?",
-          "answer": "Non, tout fonctionne dans le navigateur."
+          "question": "Pourquoi une basse est-elle plus difficile à accorder au micro ?",
+          "answer": "Les cordes graves produisent des fréquences fondamentales que certains micros intégrés captent moins clairement que les notes médium de la guitare. Pour améliorer la détection, jouez la corde fermement, tenez l'appareil à 20–30 cm de la caisse et évitez les environnements très bruyants. Brancher la basse dans un ampli à volume modéré peut aussi aider si la détection est instable."
+        },
+        {
+          "question": "Faut-il une application pour accorder ma basse ?",
+          "answer": "Aucune application n'est nécessaire. TuneUniversal est un accordeur entièrement dans le navigateur qui fonctionne sur tout appareil doté d'un micro et d'un navigateur à jour. Il n'y a rien à installer ni à mettre à jour — ouvrez la page et commencez à accorder."
+        },
+        {
+          "question": "Puis-je l'utiliser avec une basse active ?",
+          "answer": "Oui. L'accordeur détecte la hauteur depuis le micro, que votre basse soit passive ou active. Si vous utilisez une interface audio avec votre ordinateur, l'accordeur peut aussi capter le signal via l'entrée micro de l'interface."
+        },
+        {
+          "question": "Comment accorder une basse 5 cordes ?",
+          "answer": "Sélectionnez le preset cinq cordes s'il est disponible, ou accordez chaque corde manuellement en identifiant la note affichée à l'écran. La corde grave de Si (B0) se situe juste sous le E1 sur l'échelle chromatique. Jouez-la lentement et fermement — la fréquence très basse peut demander un instant de plus au navigateur pour être détectée de façon fiable."
+        },
+        {
+          "question": "Quel est l'accordage standard d'une basse ?",
+          "answer": "L'accordage standard d'une basse à quatre cordes est Mi1 La1 Ré2 Sol2, de la corde la plus grave à la plus aiguë. Ce sont les mêmes noms de notes que les quatre cordes les plus graves d'une guitare, mais une octave plus bas. Les basses à cinq cordes ajoutent un Si1 grave sous le Mi, et les basses à six cordes ajoutent à la fois un Si grave et un Do aigu au-dessus du Sol."
+        },
+        {
+          "question": "Comment savoir si ma basse est accordée ?",
+          "answer": "L'aiguille de l'accordeur doit se centrer sur la note cible avec 0 cents affiché — sur TuneUniversal, l'écran devient vert. Au-delà du signal visuel, fais confiance à tes oreilles. Joue la corde La à vide contre le La à la cinquième case du Mi grave : si elles produisent des battements (un son ondulant), elles ne sont pas exactement à l'unisson. Aucun battement signifie l'unisson parfait et confirme que les deux cordes sont accordées l'une par rapport à l'autre."
+        },
+        {
+          "question": "Puis-je accorder une basse sans frettes avec un accordeur en ligne ?",
+          "answer": "Oui. Une basse sans frettes produit les mêmes fréquences fondamentales qu'une basse avec frettes — l'accordeur détecte la note de la corde à vide indépendamment de la présence de frettes. La différence est que l'intonation sur une basse fretless dépend aussi de la position de la main gauche, ce que l'accordeur ne peut pas évaluer. Utilise l'accordeur pour les cordes à vide, puis vérifie l'intonation en comparant les harmoniques à la douzième position avec la note frettée à cet endroit."
+        },
+        {
+          "question": "Pourquoi ma basse sonne-t-elle faux dans les positions élevées du manche ?",
+          "answer": "C'est un problème d'intonation, pas d'accordage. L'intonation désigne si les notes frettées sont justes sur toute la longueur du manche. Si les cordes à vide sont correctement accordées mais que la 12e case sonne trop haut ou trop bas, le sillet du chevalet doit être ajusté. C'est un réglage mécanique — pas quelque chose qu'un accordeur seul peut résoudre. Un technicien local peut régler l'intonation en quelques minutes avec un tournevis."
         }
       ]
     },
     "ukulele-tuner": {
-      "title": "Accordeur ukulele en ligne",
-      "description": "Accordez votre ukulele en G C E A.",
+      "title": "Accordeur de ukulélé en ligne",
+      "description": "Accordez votre ukulélé soprano, concert, ténor ou baryton avec votre micro — gratuit, rapide, sans téléchargement.",
       "howItWorks": [
-        "Lancez l'accordeur.",
-        "Pincez une corde.",
-        "Suivez le retour trop bas, trop haut ou juste."
+        "Autorisez le micro lorsque le navigateur le demande.",
+        "Sélectionnez votre type de ukulélé — soprano, concert, ténor ou baryton ont chacun un preset de cordes différent.",
+        "Pincez une corde à la fois de façon nette, en laissant la note résonner une bonne seconde.",
+        "Vérifiez la note détectée et la lecture en cents à l'écran.",
+        "Tournez la mécanique très lentement — les mécaniques de ukulélé sont sensibles et un petit tour déplace beaucoup la hauteur.",
+        "Parcourez les quatre cordes : G, C, E, A pour l'accordage réentrant standard."
       ],
       "faq": [
         {
-          "question": "High-G est-il inclus?",
-          "answer": "Oui, l'accordage high-G G C E A est inclus, avec d'autres presets selon l'instrument choisi."
+          "question": "Quel est l'accordage standard du ukulélé ?",
+          "answer": "L'accordage standard du ukulélé soprano, concert et ténor est G4 C4 E4 A4, souvent écrit G C E A. Il utilise une quatrième corde de Sol aigu, ce qui signifie que les cordes ne vont pas du grave à l'aigu — la corde de Sol est plus haute que la corde de Do. C'est l'accordage réentrant, qui donne au ukulélé son timbre clair caractéristique."
         },
         {
-          "question": "L'audio est-il envoye?",
-          "answer": "Non, l'analyse reste dans le navigateur."
+          "question": "Quel accordage utilise un ukulélé baryton ?",
+          "answer": "Les ukulélés barytons utilisent l'accordage D G B E — le même que les quatre cordes les plus aiguës d'une guitare. Cela permet aux guitaristes de prendre facilement un ukulélé baryton sans apprendre de nouvelles formes d'accords, même si les noms d'accords diffèrent de l'accordage standard du ukulélé."
+        },
+        {
+          "question": "L'accordage réentrant est-il pris en charge ?",
+          "answer": "Oui. L'accordage réentrant standard en Sol aigu (G4 C4 E4 A4) est entièrement pris en charge. Certains joueurs préfèrent l'accordage low-G, où la corde de Sol est accordée une octave plus bas. Sélectionnez le preset low-G s'il est disponible, ou accordez manuellement la corde de Sol en G3 au lieu de G4 — l'accordeur identifiera correctement la note dans les deux cas."
+        },
+        {
+          "question": "Mes cordes de ukulélé se désaccordent sans cesse — pourquoi ?",
+          "answer": "Les cordes neuves de ukulélé — surtout en nylon ou fluorocarbone — s'étirent beaucoup pendant la première semaine. Accordez le ukulélé, jouez quelques minutes, puis réaccordez. Répétez plusieurs fois par jour la première semaine et les cordes se stabiliseront. Les variations de température et d'humidité affectent aussi les cordes en nylon plus que les cordes métalliques ; rangez votre ukulélé à l'abri du soleil direct et des sources de chaleur."
+        },
+        {
+          "question": "L'accordeur fonctionne-t-il sur iPhone et Android ?",
+          "answer": "Oui. Sur iPhone et iPad, Safari accorde correctement l'accès au micro à partir d'iOS 14.3. Sur Android, Chrome et Firefox fonctionnent bien. Assurez-vous d'avoir autorisé le navigateur à utiliser le micro dans les réglages de votre appareil."
+        },
+        {
+          "question": "Puis-je accorder un ukulélé ténor de la même façon qu'un soprano ?",
+          "answer": "Oui. Les ukulélés soprano, concert et ténor utilisent tous le même accordage standard Sol Do Mi La, donc on les accorde exactement de la même manière. La tension physique des cordes et la longueur de diapason diffèrent, donnant à chaque taille un caractère sonore différent, mais les notes cibles sont identiques. Les barytons sont l'exception — ils utilisent l'accordage Ré Sol Si Mi, comme les quatre cordes les plus aiguës d'une guitare."
+        },
+        {
+          "question": "Quelle est la différence entre l'accordage en Sol aigu et Sol grave ?",
+          "answer": "En Sol aigu (réentrant), la corde Sol est accordée en Sol4 — au-dessus du Do médian — la rendant plus aiguë que la corde Do adjacente. C'est le son traditionnel de l'ukulélé. En Sol grave, la corde Sol est accordée en Sol3 — une octave plus bas — donnant à l'ukulélé un son plus plein et plus proche de la guitare. Le Sol grave est préféré pour le fingerpicking et les arrangements solistes. Sélectionne le bon preset sur TuneUniversal pour que la note cible corresponde à ta corde."
+        },
+        {
+          "question": "Comment accorder un ukulélé concert ?",
+          "answer": "L'accordage de l'ukulélé concert est identique au soprano : Sol4 Do4 Mi4 La4. Pince chaque corde une à la fois et ajuste-la à la note cible affichée sur l'accordeur. La longueur de diapason légèrement plus longue du concert donne aux cordes un peu plus de tension et un son légèrement plus rond que le soprano, mais le processus d'accordage est identique. Si l'accordeur ne détecte pas clairement les cordes Sol ou La, rapproche l'appareil de quelques centimètres des cordes."
+        },
+        {
+          "question": "Faut-il accorder une corde vers le haut ou vers le bas pour atteindre le bon ton ?",
+          "answer": "Accorde toujours vers le haut pour atteindre la note correcte. Si une corde est trop haute, desserre-la au-delà de la cible puis retends-la jusqu'à elle. Arriver au ton par en dessous signifie que la corde est sous tension croissante exactement au bon ton, ce qui la rend plus stable. Arriver par le haut laisse la cheville sous tension décroissante et la corde a tendance à descendre en quelques minutes."
         }
       ]
     },
     "metronome": {
-      "title": "Metronome en ligne",
-      "description": "Travaillez avec BPM reglable, accents et mesures courantes.",
+      "title": "Métronome en ligne",
+      "description": "Travaillez avec un métronome précis et réglable — définissez le BPM, la mesure et les accents directement dans votre navigateur.",
       "howItWorks": [
-        "Reglez le BPM.",
-        "Choisissez une mesure.",
-        "Demarrez le clic et suivez le premier temps accentue."
+        "Réglez le BPM avec le curseur ou les boutons plus et moins — la plage va de 20 à 300 BPM.",
+        "Choisissez une mesure : 2/4, 3/4, 4/4 ou 6/8 selon la musique que vous travaillez.",
+        "Appuyez sur Démarrer. Le premier temps de chaque mesure est joué avec un clic accentué pour toujours repérer le temps 1.",
+        "Jouez par-dessus — commencez à un tempo où vous pouvez jouer chaque note proprement sans précipiter.",
+        "Augmentez le BPM de 5 à la fois, uniquement lorsque vous pouvez jouer le passage sans erreur.",
+        "Utilisez le bouton Tap Tempo pour caler le métronome sur un morceau que vous connaissez, puis travaillez à partir de là."
       ],
       "faq": [
         {
-          "question": "Y a-t-il tap tempo?",
-          "answer": "Oui, le bouton tap estime le tempo."
+          "question": "À quel BPM un débutant doit-il commencer ?",
+          "answer": "Les débutants doivent commencer à un tempo assez lent pour jouer chaque note proprement — souvent 60 BPM ou même moins pour les passages difficiles. Il n'y a aucune honte à un tempo très lent. L'objectif est d'abord de construire une mémoire musculaire correcte. La vitesse vient naturellement avec la répétition une fois le mouvement maîtrisé."
         },
         {
-          "question": "Quelles mesures?",
-          "answer": "2/4, 3/4, 4/4 et 6/8."
+          "question": "Quelles mesures sont disponibles ?",
+          "answer": "Le métronome prend en charge 2/4 (marche, polka), 3/4 (valse, menuet), 4/4 (la mesure la plus courante dans la musique populaire et rock) et 6/8 (mesure composée, fréquente dans les ballades et le blues). Le premier temps de chaque mesure est accentué pour toujours sentir le temps fort."
+        },
+        {
+          "question": "Comment utiliser le métronome pour améliorer mon timing ?",
+          "answer": "La méthode la plus efficace est d'isoler un court passage — quatre à huit mesures — et de le boucler à tempo lent jusqu'à ce qu'il devienne facile. Augmentez ensuite le BPM de 5 et répétez. N'augmentez jamais le tempo trop vite ; la précipitation vous fait répéter des erreurs. S'enregistrer avec le métronome et se réécouter est l'un des moyens les plus rapides de repérer les problèmes de timing."
+        },
+        {
+          "question": "Puis-je utiliser le tap tempo sur le métronome ?",
+          "answer": "Oui. Tapez le bouton Tap Tempo en rythme avec un morceau que vous écoutez, et le champ BPM se met à jour selon vos taps. C'est utile pour travailler avec un morceau précis à son tempo exact. Tapez au moins quatre fois pour une moyenne fiable."
+        },
+        {
+          "question": "Le métronome fonctionne-t-il sans connexion internet ?",
+          "answer": "Une fois la page chargée dans votre navigateur, le métronome s'exécute entièrement en JavaScript via la Web Audio API et n'a pas besoin de connexion serveur pour garder le tempo. Si vous rechargez la page hors ligne, le moteur audio peut ne pas s'initialiser ; chargez donc la page connecté et gardez l'onglet ouvert."
+        },
+        {
+          "question": "Quelle est la différence entre la mesure 4/4 et 3/4 ?",
+          "answer": "En 4/4 il y a quatre temps par mesure, avec l'accent le plus fort sur le temps 1 et un accent secondaire sur le temps 3. En 3/4 il y a trois temps par mesure avec un accent sur le temps 1 — cela crée le balancement « un deux trois » caractéristique de la valse. Changer la mesure sur le métronome est un moyen simple de sentir immédiatement cette différence."
+        },
+        {
+          "question": "Que signifie 120 BPM en termes musicaux ?",
+          "answer": "120 BPM signifie 120 pulsations par minute — deux pulsations par seconde. Cela correspond à la plage Allegro (rapide, vif). Pour référence : 60 BPM est une pulsation par seconde (Adagio, lent) ; 80–100 BPM est Andante à Moderato (allure de marche) ; 120–140 BPM est Allegro (rapide) ; au-dessus de 168 BPM c'est Presto (très rapide). La plupart des chansons pop se situent entre 90 et 130 BPM. 120 BPM est un tempo d'entraînement pratique car sa subdivision régulière facilite le décompte."
+        },
+        {
+          "question": "Comment pratiquer des gammes avec un métronome ?",
+          "answer": "Règle le métronome à un tempo où tu peux jouer chaque note de la gamme proprement — même si cela signifie commencer à 40 ou 50 BPM. Joue d'abord une note par temps, puis essaie deux notes par temps (croches), puis quatre par temps (doubles croches). N'augmente le tempo que de 5–10 BPM lorsque tu peux jouer trois répétitions consécutives proprement au tempo actuel. Cette méthode construit une vraie vitesse sur des semaines et évite d'ancrer une technique négligée."
+        },
+        {
+          "question": "Qu'est-ce qu'une subdivision rythmique et comment l'utiliser à la pratique ?",
+          "answer": "Une subdivision est une unité rythmique plus petite à l'intérieur de chaque temps. À 60 BPM, chaque temps dure une seconde. La subdivision en croches signifie deux notes dans cette seconde ; en doubles croches, quatre. Pratiquer avec conscience des subdivisions — en entendant mentalement chaque pulsation subdivisée même quand on joue seulement sur les temps principaux — est la base d'un tempo solide. Si le métronome joue des noires, compte 'un-et, deux-et, trois-et, quatre-et' à voix haute pour ressentir la subdivision entre chaque clic."
+        },
+        {
+          "question": "Quelle est la différence entre le 6/8 et le 3/4 ?",
+          "answer": "Tous deux ont six croches par mesure, mais ils se ressentent complètement différemment. En 6/8 les temps se regroupent naturellement en deux groupes de trois (fort-faible-faible, fort-faible-faible), donnant une sensation de bercement — fréquent dans les jigs, marches et ballades. En 3/4 l'accent tombe sur trois temps de noire avec une subdivision interne différente. À tempo lent les deux peuvent sembler similaires, mais à vitesse le 6/8 a une sensation composée tandis que le 3/4 ressemble à une valse."
         }
       ]
     },
     "tap-bpm": {
       "title": "Compteur Tap BPM",
-      "description": "Tapez avec la musique pour calculer le BPM moyen.",
+      "description": "Tapez en rythme avec n'importe quel morceau et obtenez un BPM instantané — trouvez le tempo de tout titre en quelques secondes.",
       "howItWorks": [
-        "Tapez sur le temps.",
-        "Le BPM moyen se met a jour.",
-        "Reinitialisez pour un nouveau morceau."
+        "Ouvrez la page Tap BPM — aucun micro ni réglage nécessaire.",
+        "Écoutez le morceau ou la musique que vous voulez mesurer.",
+        "Tapez le grand bouton Tap (ou appuyez sur la barre d'espace) une fois par temps, en rythme avec la musique.",
+        "Après quatre taps ou plus, l'affichage du BPM moyen se met à jour en temps réel.",
+        "Continuez à taper pendant 8 à 16 temps pour une lecture plus stable et précise.",
+        "Appuyez sur Réinitialiser pour effacer l'historique et démarrer une nouvelle mesure pour un autre morceau."
       ],
       "faq": [
         {
-          "question": "Combien de taps?",
-          "answer": "Les intervalles recents sont conserves pour stabiliser l'estimation."
+          "question": "Combien de taps faut-il pour un BPM précis ?",
+          "answer": "Il faut au moins quatre taps pour obtenir une première estimation, mais la lecture devient bien plus stable après huit à seize taps. L'outil calcule l'intervalle moyen entre les taps et le convertit en BPM ; plus il y a de taps, plus les légères irrégularités de votre frappe sont lissées."
         },
         {
-          "question": "Le clavier marche?",
-          "answer": "Cette version utilise le bouton a l'ecran."
+          "question": "Puis-je utiliser le clavier au lieu de cliquer ?",
+          "answer": "Oui. Appuyer sur la barre d'espace compte comme un tap, ce qui facilite le maintien d'un rythme régulier par rapport au clic de souris. Sur mobile, le grand bouton de tap à l'écran est conçu pour être facile à atteindre de façon constante."
+        },
+        {
+          "question": "Pourquoi la lecture du BPM change-t-elle sans cesse ?",
+          "answer": "Le BPM se met à jour après chaque tap selon une moyenne glissante des intervalles récents. En début de session la lecture fluctue davantage car il y a moins de points de données. Après huit taps ou plus le nombre se stabilise. S'il fluctue toujours, vérifiez que vous tapez sur le temps principal et non sur une subdivision ou le contretemps."
+        },
+        {
+          "question": "Qu'est-ce que le BPM et pourquoi est-ce important ?",
+          "answer": "BPM signifie battements par minute et c'est la façon standard de décrire le tempo d'un morceau. Connaître le BPM d'une chanson permet de régler un métronome à la bonne vitesse pour travailler, de programmer précisément boîtes à rythmes et stations audionumériques, et de caler le tempo en jouant sur un enregistrement. La plupart des musiques populaires se situent entre 60 et 180 BPM."
+        },
+        {
+          "question": "Puis-je utiliser Tap BPM pour caler un métronome sur un morceau ?",
+          "answer": "Oui — c'est l'un des usages les plus courants. Tapez le tempo du morceau à apprendre, notez le BPM obtenu, puis entrez cette valeur dans le métronome en ligne et travaillez à la bonne vitesse. C'est bien plus rapide que d'essayer de deviner un tempo à l'oreille."
+        },
+        {
+          "question": "Quel BPM utilisent les différents genres musicaux ?",
+          "answer": "La plupart de la musique populaire se situe entre 70 et 180 BPM : le hip-hop et le R&B typiquement 70–100 BPM ; les chansons pop se regroupent autour de 100–130 BPM ; le rock et l'indie varient de 110 à 150 BPM ; la house et la musique dance se situe à 120–135 BPM ; le drum and bass monte à 160–180 BPM. Ce sont des guides approximatifs — chaque genre a des exceptions. Connaître le BPM typique d'un genre aide à établir un tempo de pratique réaliste."
+        },
+        {
+          "question": "Quelle est la différence entre tempo et BPM ?",
+          "answer": "Tempo et BPM décrivent la même chose — la vitesse de la musique — mais sous des angles différents. Le tempo est le terme humain, souvent exprimé comme une indication italienne (Allegro, Andante, Adagio) ou une description générale comme 'rapide' ou 'lent'. Le BPM est la valeur numérique précise : 120 BPM signifie exactement 120 temps par minute. Un compositeur pourrait écrire 'Andante 76' sur une partition. Dans la production musicale moderne, le BPM a largement remplacé les indications de tempo traditionnelles."
+        },
+        {
+          "question": "Puis-je utiliser le Tap BPM sur mobile ?",
+          "answer": "Oui. L'outil Tap BPM de TuneUniversal fonctionne entièrement sur mobile. Le grand bouton à l'écran est conçu pour être tapé avec le pouce. Tape en rythme avec la chanson — au moins huit taps pour une lecture fiable — et le BPM s'affiche après les premiers taps. Pour le résultat le plus stable, tape pendant un couplet ou un refrain complet de la chanson plutôt que quelques temps seulement."
+        },
+        {
+          "question": "Quelle est la précision de la mesure du BPM ?",
+          "answer": "La précision dépend de la régularité de tes taps. L'outil calcule l'intervalle moyen entre tous tes taps et le convertit en BPM. Après quatre taps, la lecture est une première estimation ; après seize taps réguliers ou plus, elle devient fiable à 0,5–1 BPM près. Si la lecture continue de fluctuer, vérifie que tu tapes sur le temps principal et non sur une subdivision ou le contretemps. Réinitialiser et réessayer avec des taps délibérés résout généralement les lectures incohérentes."
         }
       ]
     },
     "chord-transposer": {
       "title": "Transposeur d'accords",
-      "description": "Transposez des suites d'accords par demi-tons.",
+      "description": "Transposez n'importe quelle suite d'accords vers le haut ou le bas par demi-tons — collez les accords, choisissez le décalage, copiez le résultat.",
       "howItWorks": [
-        "Collez les symboles d'accords.",
-        "Choisissez de -12 a +12 demi-tons.",
-        "Copiez le resultat."
+        "Collez ou saisissez votre suite d'accords dans le champ — un accord par mot, plusieurs lignes acceptées.",
+        "Utilisez le curseur ou les boutons de demi-tons pour choisir le nombre de pas à transposer : de -12 à +12.",
+        "Les accords transposés apparaissent instantanément dans le panneau de sortie ci-dessous.",
+        "Copiez le résultat avec le bouton de copie et collez-le dans vos paroles, votre grille ou votre application de notes.",
+        "Les valeurs positives transposent vers le haut (ex. de C à D = +2) ; les valeurs négatives vers le bas (ex. de G à F = -2).",
+        "Les paroles et le texte qui ne sont pas des accords restent inchangés — seuls les symboles d'accords reconnus sont transposés."
       ],
       "faq": [
         {
-          "question": "Les bemols sont-ils supportes?",
-          "answer": "Oui, ils sont normalises en dieses."
+          "question": "Quels types d'accords le transposeur prend-il en charge ?",
+          "answer": "Le transposeur gère un large éventail de symboles : majeurs (C, D, G), mineurs (Am, Em, Bm), septième de dominante (G7, A7), septième majeure (Cmaj7), septième mineure (Am7), suspendus (Csus2, Csus4), neuvième ajoutée (Cadd9), diminués, augmentés et accords avec basse (G/B, C/E). La fondamentale se décale du nombre de demi-tons choisi tandis que la nature de l'accord et le suffixe restent identiques."
         },
         {
-          "question": "Quels accords?",
-          "answer": "Majeurs, mineurs, dieses, bemols, septiemes et suffixes courants."
+          "question": "Pourquoi aurais-je besoin de transposer des accords ?",
+          "answer": "La transposition est utile dans bien des cas : adapter un morceau à une tonalité qui convient à votre voix, s'accorder à la tonalité d'un autre instrument, gérer le capo à la guitare (un capo à la case 2 fait sonner les accords deux demi-tons plus haut, on transpose donc de -2 pour lire les formes d'origine), et apprendre un morceau enregistré dans un accordage différent du standard."
+        },
+        {
+          "question": "Les accords bémols sont-ils convertis en dièses ?",
+          "answer": "Oui. Lorsque vous saisissez des accords à fondamentale bémol comme Bb, Eb ou Ab, le transposeur les normalise en interne et affiche l'équivalent enharmonique le plus proche. La sortie utilise les dièses par défaut (ex. Bb devient A#). Si vous préférez les bémols, gardez à l'esprit que A# et Bb sont la même hauteur."
+        },
+        {
+          "question": "Puis-je transposer une chanson entière avec les paroles ?",
+          "answer": "Oui. Collez les paroles complètes avec les accords écrits au-dessus ou en ligne (par ex. en notation Nashville ou en grille standard). Le transposeur reconnaît les symboles d'accords et les décale tout en laissant tout le reste du texte — mots, ponctuation, sauts de ligne — totalement inchangé."
+        },
+        {
+          "question": "Combien de demi-tons compte une octave ?",
+          "answer": "Une octave équivaut à 12 demi-tons. Transposer de +12 ou -12 ramène à la même tonalité une octave plus haut ou plus bas. Transposer de +7 monte d'une quinte juste (ex. C vers G), et de +5 monte d'une quarte juste (ex. C vers F). Ces intervalles sont utiles à connaître pour changer de tonalité à la guitare."
+        },
+        {
+          "question": "Sur quelle tonalité joue-t-on avec un capodastre à la deuxième case ?",
+          "answer": "Un capodastre à la deuxième case hausse la hauteur de toutes les cordes à vide de deux demi-tons. Si tu joues des accords en position ouverte de Mi (Mi, La, Si), avec le capo à la 2e case ces formes sonnent Fa#, Si et Do# — deux demi-tons plus haut. Pour savoir quelle tonalité produit un capo : prends la tonalité originale et compte autant de demi-tons que le numéro de case. Capo 1 = +1 ; capo 2 = +2 ; capo 5 = +5. Le transposeur d'accords automatise cela — entre tes formes d'accords, règle le décalage à +2, et tu vois la tonalité résultante."
+        },
+        {
+          "question": "Quelle est la tonalité la plus facile pour la guitare ?",
+          "answer": "Sol majeur et Do majeur sont généralement considérées comme les tonalités les plus faciles pour la guitare car elles utilisent des formes d'accords ouverts sans barrés : Sol, Do, Ré, Mi mineur, La mineur ont tous des doigtés confortables. Mi majeur et La majeur sont également accessibles aux débutants. La tonalité 'la plus difficile' courante à la guitare est Sib majeur, car les deux accords principaux (Sib et Mib) nécessitent des barrés. Si tu veux jouer un morceau en Sib, envisage de transposer en La et d'utiliser un capodastre à la première case."
+        },
+        {
+          "question": "Comment transposer des accords d'un demi-ton vers le bas ?",
+          "answer": "Règle le décalage de demi-ton à -1. Par exemple, si un morceau est en La (accords : La, Ré, Mi) et que tu transposes de -1, le résultat est Lab, Réb, Mib. Si tu veux conserver des formes d'accords ouverts faciles, transpose -1 et ajoute un capodastre à la première case — tes mains jouent les accords originaux en forme de La mais la guitare sonne en Lab. C'est l'approche la plus pratique pour les chanteurs qui ont besoin d'une tonalité légèrement plus basse."
+        },
+        {
+          "question": "Le transposeur fonctionne-t-il avec les accords d'ukulélé ?",
+          "answer": "Oui. Les symboles d'accords sont les mêmes que ce soit écrit pour guitare ou ukulélé — Cmaj7 est Cmaj7 sur les deux instruments. Le transposeur déplace les notes fondamentales et préserve la qualité de l'accord, universelle pour tous les instruments à cordes. Colle ta progression d'accords d'ukulélé, choisis le décalage de demi-ton, et le résultat est prêt à utiliser."
         }
       ]
     },
     "sound-level-meter": {
       "title": "Sonomètre en ligne",
-      "description": "Mesurez le niveau sonore estimé en dB avec le micro et une sensibilité réglable.",
+      "description": "Mesurez le niveau sonore du micro en temps réel — dB estimés, moyenne et pic affichés directement dans votre navigateur.",
       "howItWorks": [
-        "Autorisez l'accès au micro.",
-        "Réglez la sensibilité pour calibrer la lecture.",
-        "Lisez les dB estimés, la moyenne et le pic en temps réel."
+        "Cliquez sur « Activer le micro » et accordez l'autorisation du navigateur — le sonomètre s'active aussitôt.",
+        "Observez la barre de dB en direct : la barre principale indique le niveau actuel, le marqueur de pic la valeur récente la plus élevée.",
+        "Utilisez le curseur de sensibilité pour calibrer la lecture selon votre micro et votre environnement.",
+        "L'affichage des dB moyens lisse les brèves pointes et donne une meilleure idée du niveau habituel.",
+        "Réduisez les sources de bruit dans la pièce et vérifiez que la lecture baisse comme prévu pour confirmer le bon fonctionnement.",
+        "Une fois terminé, cliquez sur Arrêter le micro pour le rendre au système d'exploitation."
       ],
       "faq": [
         {
-          "question": "Est-ce un sonomètre certifié ?",
-          "answer": "Non. Il utilise le micro du navigateur et donne une estimation utile, pas une mesure professionnelle dB SPL."
+          "question": "Est-ce un sonomètre de qualité professionnelle ?",
+          "answer": "Non. C'est un outil d'estimation dans le navigateur, pas un sonomètre SPL calibré. Les sonomètres professionnels utilisent un micro calibré de Classe 1 ou 2 et respectent la norme IEC 61672. Les lectures ici dépendent entièrement du micro intégré de votre appareil, qui varie beaucoup selon les téléphones, ordinateurs et casques. Utilisez cet outil pour des vérifications approximatives, l'évaluation d'un local de répétition et un usage pédagogique plutôt que pour des mesures réglementaires."
         },
         {
-          "question": "Comment régler la sensibilité ?",
-          "answer": "Utilisez le curseur de sensibilité/calibration si la lecture semble trop haute ou trop basse."
+          "question": "Comment calibrer le curseur de sensibilité ?",
+          "answer": "Partez d'une référence connue : générez un son à un volume d'écoute confortable avec un haut-parleur et placez l'appareil à une distance où vous attendez environ 70–75 dB (niveau de conversation normale). Ajustez le curseur jusqu'à correspondance. Une fois réglé pour votre micro et votre environnement, les lectures relatives deviennent utiles pour comparer sons forts et faibles, même si la valeur absolue reste une estimation."
+        },
+        {
+          "question": "Quel niveau sonore est sans danger pour travailler la musique ?",
+          "answer": "Des niveaux supérieurs à 85 dB maintenus plus d'une heure peuvent causer des dommages auditifs progressifs avec le temps. Un concert rock mesure généralement 100–115 dB, dangereux sans protection auditive en exposition prolongée. Pour travailler avec des instruments amplifiés, visez à garder les niveaux soutenus sous 85 dB. Utilisez la lecture moyenne — pas le pic — comme guide pour l'exposition prolongée."
+        },
+        {
+          "question": "Pourquoi la lecture fluctue-t-elle autant ?",
+          "answer": "Le niveau sonore varie naturellement à chaque note, parole ou bruit dans la pièce. La barre en direct reflète le signal instantané, qui bouge toujours. L'affichage de la moyenne lisse cela sur une courte fenêtre et est plus utile pour juger du volume global. Le marqueur de pic indique le moment le plus fort détecté, utile pour vérifier si des pointes saturent l'entrée micro."
+        },
+        {
+          "question": "Puis-je mesurer le bruit d'une pièce pour l'enregistrement ?",
+          "answer": "Oui, c'est un usage pratique. Placez l'appareil au centre de la pièce, cessez de parler et observez le niveau plancher — c'est votre bruit de fond ambiant. Une pièce calme adaptée à l'enregistrement maison a généralement un plancher sous 40 dB. Si le sonomètre affiche 50–60 dB sans personne qui parle, vous avez peut-être une ventilation, du bruit de rue ou de ventilateur d'ordinateur susceptible d'affecter les enregistrements."
+        },
+        {
+          "question": "Combien de décibels représente une conversation normale ?",
+          "answer": "Une conversation normale face à face à environ un mètre de distance mesure approximativement 60–65 dB. Une bibliothèque silencieuse se situe autour de 30–40 dB ; un restaurant animé autour de 70–75 dB ; un aspirateur à un mètre autour de 70 dB. Ces valeurs te donnent une référence du monde réel pour interpréter les lectures du compteur en ligne. Garde à l'esprit que le compteur lit des niveaux relatifs basés sur ton microphone — les valeurs absolues sont des estimations."
+        },
+        {
+          "question": "Combien de décibels fait un concert en direct ?",
+          "answer": "Un concert rock ou pop typique mesure 100–115 dB à distance du public des enceintes. Une exposition soutenue au-dessus de 85 dB pendant plus d'une heure peut commencer à causer des dommages auditifs ; à 100 dB les dommages peuvent survenir après environ 15 minutes d'exposition continue. L'OMS recommande pas plus de 40 heures par semaine au-dessus de 80 dB. Si tu assistes régulièrement à des concerts, les bouchons d'oreilles en mousse (qui réduisent le niveau de 25–33 dB) sont une protection pratique et peu coûteuse."
+        },
+        {
+          "question": "Quelle est la différence entre les lectures de dB de crête et de moyenne ?",
+          "answer": "La lecture de crête capture le moment le plus fort détecté par le microphone — un applaudissement, une corde pincée, une porte qui claque. La lecture moyenne lisse le niveau sur une courte fenêtre et reflète la sonorité soutenue typique de l'environnement. Pour la sécurité auditive, le dB moyen est la mesure pertinente, car les dommages auditifs sont causés par une exposition soutenue. Pour l'enregistrement, les niveaux de crête sont plus importants car ils indiquent si l'entrée du microphone est en écrêtage."
+        },
+        {
+          "question": "Comment réduire le bruit dans mon espace de pratique à domicile ?",
+          "answer": "Commence par identifier les principales sources de bruit : les systèmes CVC, la circulation routière et les ventilateurs d'ordinateur sont les plus courants. Les meubles souples — tapis, rideaux, bibliothèques, canapés — absorbent les réflexions moyennes et hautes fréquences et réduisent le bruit général de la pièce. Pour les instruments électriques, utilise des amplis casque ou pratique à faible volume. Le compteur en ligne peut t'aider à vérifier si tes améliorations fonctionnent en comparant les niveaux de bruit ambiant avant et après les changements."
         }
       ]
     },
     "pitch-generator": {
-      "title": "Generateur de hauteur",
-      "description": "Generez un son pur de 20 Hz a 20000 Hz pour entrainement auditif et tests audio.",
+      "title": "Générateur de hauteur",
+      "description": "Générez un son de référence précis de 20 Hz à 20000 Hz — pour l'entraînement de l'oreille, l'accordage et les tests audio.",
       "howItWorks": [
-        "Choisissez une frequence entre 20 Hz et 20000 Hz.",
-        "Reglez le volume et la forme d'onde.",
-        "Lancez le son puis arretez-le quand le test est termine."
+        "Choisissez une fréquence avec le curseur ou saisissez-la directement — la plage va de 20 Hz à 20000 Hz.",
+        "Sélectionnez une forme d'onde : les sinusoïdes sont pures et douces ; les ondes carrées et en dents de scie sont plus riches et brillantes.",
+        "Réglez le volume à un niveau confortable avant de lancer la lecture.",
+        "Appuyez sur Lecture pour démarrer le son. Il se maintient jusqu'à ce que vous appuyiez sur Arrêter.",
+        "Pour l'entraînement de l'oreille, essayez de reproduire le son en le chantant ou le fredonnant avant de vérifier la fréquence.",
+        "Pour l'accordage, générez la hauteur de référence d'une note standard (ex. A4 = 440 Hz) et accordez-vous à l'oreille."
       ],
       "faq": [
         {
-          "question": "Puis-je utiliser un casque?",
-          "answer": "Oui, mais commencez avec un volume faible, surtout dans les hautes frequences."
+          "question": "Quelle est la fréquence du diapason standard ?",
+          "answer": "Le diapason standard international est A4 = 440 Hz, adopté par l'Organisation internationale de normalisation (ISO 16) en 1955. Beaucoup d'orchestres accordent à 442 Hz, voire 443–444 Hz pour un son légèrement plus brillant. Les ensembles de musique ancienne utilisent parfois A = 415 Hz (environ un demi-ton plus bas). Le générateur permet de régler précisément n'importe laquelle de ces références."
         },
         {
-          "question": "Quelle plage est prise en charge?",
-          "answer": "Le generateur couvre de 20 Hz a 20000 Hz, la plage approximative de l'audition humaine."
+          "question": "Est-il sans danger d'utiliser un casque avec cet outil ?",
+          "answer": "Oui, mais soyez prudent avec les fréquences aiguës au-dessus de 4000 Hz et tout son à fort volume. Commencez le curseur de volume vers 30 % et augmentez progressivement. Les très hautes fréquences (au-dessus de 8000 Hz) peuvent être inconfortables à fort volume, et des sons forts maintenus au casque comportent le même risque auditif que tout son fort. Préférez de courtes salves aux sons longs pour tester les hautes fréquences."
+        },
+        {
+          "question": "Comment utiliser un générateur de hauteur pour l'entraînement de l'oreille ?",
+          "answer": "Un générateur de hauteur est un outil classique d'entraînement de l'oreille. Réglez-le sur A4 (440 Hz) et essayez de le reproduire en chantant. Passez ensuite à d'autres notes — E4 (329 Hz), D4 (294 Hz) — et exercez-vous à reconnaître les intervalles entre elles. L'entraînement avancé consiste à identifier les intervalles, reproduire des accords et reconnaître si une note est trop haute ou trop basse par rapport à la référence. Répétez ces exercices chaque jour pour progresser le plus vite."
+        },
+        {
+          "question": "Quelles sont les différentes formes d'onde et comment sonnent-elles ?",
+          "answer": "Une sinusoïde produit un son pur, proche de la flûte, sans harmoniques — c'est la référence la plus claire pour accorder. Une onde carrée ajoute les harmoniques impaires et sonne creux et nasillard, comme une clarinette ou un premier synthétiseur. Une onde en dents de scie contient toutes les harmoniques et sonne brillante et riche, proche d'un instrument à cordes ou à vent. Pour la référence d'accordage, utilisez la sinusoïde. Pour les tests sonores et les expériences de synthèse, essayez les autres."
+        },
+        {
+          "question": "Quelle fréquence correspond à chaque note de musique ?",
+          "answer": "La gamme tempérée standard attribue des fréquences précises à chaque note. Références courantes : C4 (do central) = 261,63 Hz, A4 = 440 Hz, E4 = 329,63 Hz, G4 = 392 Hz, B4 = 493,88 Hz. Chaque octave double la fréquence, donc A5 = 880 Hz et A3 = 220 Hz. Le générateur affiche le nom de la note la plus proche quand vous déplacez le curseur, ce qui facilite la recherche de toute hauteur de référence."
+        },
+        {
+          "question": "Puis-je utiliser le générateur pour tester des enceintes ou un casque ?",
+          "answer": "Oui. Un balayage de 20 Hz à 20000 Hz est un test standard de réponse en fréquence. Déplacez lentement le curseur vers le haut depuis 20 Hz et écoutez quelles fréquences vos enceintes ou votre casque restituent clairement, lesquelles semblent faibles, et lesquelles provoquent des vibrations ou de la distorsion. La plupart des écouteurs grand public s'atténuent sous 50 Hz et au-dessus de 16000 Hz. Ce test est subjectif mais utile pour connaître votre matériel."
+        },
+        {
+          "question": "Quelle fréquence correspond au do central ?",
+          "answer": "Le do central — noté Do4 en notation scientifique — a une fréquence standard de 261,63 Hz avec l'accordage international La4 = 440 Hz. Il se situe au milieu du clavier de piano et sert de point de référence commun aux chanteurs et aux instrumentistes. Tu peux le vérifier dans le générateur en sélectionnant Do4 et en confirmant la fréquence affichée. Note que dans les anciens systèmes d'accordage (comme le diapason baroque à La4 = 415 Hz), le do central descend à environ 247 Hz."
+        },
+        {
+          "question": "Comment accorder un instrument sans microphone avec le générateur de sons ?",
+          "answer": "Sélectionne la fréquence de la note que tu veux accorder (par exemple La4 = 440 Hz pour la corde de La), joue la même note sur ton instrument et écoute attentivement les battements — une pulsation rythmique qui apparaît lorsque deux sons sont proches mais pas identiques. Tourne lentement la cheville d'accordage jusqu'à ce que les battements disparaissent et que les deux sons se fondent en un seul son stable. Cette méthode s'appelle l'accordage par référence sonore et fonctionne sur tout instrument — guitare, violon, instruments à vent — sans avoir besoin d'accéder au microphone."
+        },
+        {
+          "question": "Quelle est la plage d'audition humaine ?",
+          "answer": "La plage d'audition humaine typique s'étend d'environ 20 Hz à 20 000 Hz (20 kHz). Les basses fréquences (20–80 Hz) se ressentent plus comme des vibrations que comme des sons ; la plage critique pour la parole et la musique est d'environ 200 Hz à 4 000 Hz ; la zone au-dessus de 8 000 Hz apporte le brillant des contenus haute fréquence. La sensibilité auditive aux hautes fréquences diminue avec l'âge — beaucoup d'adultes de plus de 40 ans ne peuvent plus détecter les fréquences au-dessus de 15 000 Hz. Utilise le générateur pour explorer quelles fréquences tu peux personnellement percevoir."
+        },
+        {
+          "question": "Puis-je utiliser le générateur pour vérifier l'intonation de mon instrument ?",
+          "answer": "Oui. Génère un son de référence stable pour une note spécifique, puis joue la même note sur ton instrument. Si l'intonation est correcte, les deux sons fusionnent en un son stable sans battements. Si tu entends une pulsation lente, l'instrument est légèrement désaccordé sur cette hauteur. En vérifiant plusieurs notes sur le manche ou dans différentes octaves, tu peux identifier des problèmes d'intonation — par exemple un chevalet de guitare à régler ou un instrument à vent qui joue trop aigu dans le registre supérieur."
         }
       ]
     }

@@ -1081,6 +1081,386 @@ const toolHeroCopy: Record<
   }
 };
 
+const extraToolEnhancements: Record<
+  BaseLocale,
+  Record<"bass-tuner" | "ukulele-tuner" | "sound-level-meter" | "pitch-generator", ToolSeoEnhancement>
+> = {
+  ar: {
+    "bass-tuner": {
+      heroTitle: "موالف باس مجاني اونلاين",
+      heroDescription: "اضبط الباس بسرعة عبر المتصفح، مع كشف طبقة الصوت بالميكروفون ودعم الضبطات القياسية والبديلة.",
+      highlights: [{ label: "المصدر", value: "ميكروفون + نغمات مرجعية" }, { label: "الضبطات", value: "Standard وDrop D و5 أوتار" }, { label: "مناسب لـ", value: "باس كهربائي وأكوستك" }],
+      quickAnswers: [{ title: "هل يعمل مع باس 5 أوتار؟", body: "نعم. اختر إعداد 5 أوتار واضبط كل وتر بما فيه Si المنخفض." }, { title: "كيف أحصل على قراءة أدق؟", body: "اعزف الوتر بقوة واصبر قليلاً. الترددات المنخفضة تحتاج وقتاً أطول للاستقرار." }],
+      sections: [{ title: "ضبط الباس بسرعة", body: "فعّل الميكروفون، اعزف وتراً واحداً في كل مرة وانتظر حتى تستقر القراءة قبل شد الوتر أو إرخائه." }, { title: "الضبطات الشائعة للباس", body: "الضبط القياسي E A D G يناسب معظم الأنواع. Drop D يضيف وتراً منخفضاً ثقيلاً، أما 5 أوتار فيضيف Si المنخفض." }],
+      faqs: [{ question: "كيف أضبط الباس بالميكروفون؟", answer: "فعّل الميكروفون، اعزف وتراً واحداً بوضوح وانتظر ثانية حتى تستقر الإبرة، ثم اضبط الوتر نحو المنتصف." }, { question: "ما هو الضبط القياسي للباس؟", answer: "الضبط القياسي للباس 4 أوتار هو E1 A1 D2 G2 من الأعمق للأعلى." }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "موالف أوكليلي مجاني اونلاين",
+      heroDescription: "اضبط الأوكليلي بسرعة عبر المتصفح مع دعم GCEA وLow G وضبطات بديلة.",
+      highlights: [{ label: "المصدر", value: "ميكروفون + نغمات مرجعية" }, { label: "الضبطات", value: "GCEA وLow G وباريتون" }, { label: "مناسب لـ", value: "سوبرانو وكونسرت وتينور" }],
+      quickAnswers: [{ title: "ما هو الضبط القياسي للأوكليلي؟", body: "السوبرانو والكونسرت والتينور تستخدم G4-C4-E4-A4. الباريتون يستخدم D-G-B-E." }, { title: "ما الفرق بين High G وLow G؟", body: "High G هو الضبط القياسي مع G رنان. Low G يستبدله بـ G منخفض لصوت أعمق ونطاق أوسع." }],
+      sections: [{ title: "ضبط الأوكليلي بسرعة", body: "اختر إعداد GCEA القياسي، فعّل الميكروفون واعزف كل وتر على حدة حتى تستقر القراءة." }, { title: "الضبطات الشائعة", body: "ابدأ بـ GCEA. جرّب Low G إذا أردت صوتاً أعمق، أو D-Standard للأوكليلي ذي النبرة الأعلى." }],
+      faqs: [{ question: "كيف أضبط الأوكليلي بالميكروفون؟", answer: "فعّل الميكروفون واعزف كل وتر بوضوح، ثم اضبطه حتى تستقر الإبرة في المنتصف." }, { question: "هل يعمل مع باريتون أوكليلي؟", answer: "نعم. اختر إعداد D-G-B-E الخاص بالباريتون." }]
+    },
+    "sound-level-meter": {
+      heroTitle: "مقياس مستوى الصوت اونلاين مجاني",
+      heroDescription: "اقيس مستوى الصوت في الغرفة بالديسيبل باستخدام ميكروفون المتصفح مباشرة.",
+      highlights: [{ label: "القراءة", value: "ديسيبل تقديري فوري" }, { label: "العرض", value: "رسم بياني مع أدنى/أقصى/متوسط" }, { label: "الاستخدام", value: "فحص بيئة التمرين" }],
+      quickAnswers: [{ title: "هل دقيق بما يكفي للتمرين؟", body: "نعم لمقارنة البيئات وتتبع جلسات التمرين الصاخبة. ليس معتمداً للقياس الاحترافي." }, { title: "ما المستوى الآمن للتمرين الموسيقي؟", body: "60-75 دB للآلات الأكوستيكية. التعرض المستمر لأكثر من 85 دB قد يتعب السمع." }],
+      sections: [{ title: "كيفية استخدام المقياس", body: "فعّل الميكروفون وضع الجهاز في مكان ثابت بالغرفة، ثم لاحظ قراءات الديسيبل المباشرة والمتوسط." }, { title: "تفسير النتائج", body: "الغرف الهادئة 30-45 دB. المحادثة العادية حوالي 60 دB. التمرين الصاخب 75-85 دB أو أكثر." }],
+      faqs: [{ question: "ما مدى دقة المقياس؟", answer: "إنه تقدير مبني على إشارة الميكروفون وليس قياساً احترافياً، لكنه مفيد للمقارنة ومراقبة مستوى الصوت." }, { question: "هل يحتاج إذناً خاصاً؟", answer: "نعم. يحتاج إذن الميكروفون في المتصفح، مثل أدوات الضبط تماماً." }]
+    },
+    "pitch-generator": {
+      heroTitle: "مولد النغمات اونلاين مجاني",
+      heroDescription: "انشئ نغمات نقية من 20 هرتز الى 20000 هرتز للتدريب على الاذن ومرجع ضبط الالات.",
+      highlights: [{ label: "النطاق", value: "20 هرتز حتى 20000 هرتز" }, { label: "الخرج", value: "نغمة جيبية نقية في المتصفح" }, { label: "الاستخدام", value: "تدريب الأذن ومرجع الضبط" }],
+      quickAnswers: [{ title: "هل يصلح لضبط الآلة بالأذن؟", body: "نعم. اضبط التردد على النغمة المطلوبة ثم اضبط وتر آلتك حتى يتطابق مع الصوت المُولَّد." }, { title: "هل الترددات العالية آمنة؟", body: "ابدأ دائماً بمستوى صوت منخفض، خاصة فوق 8000 هرتز، ثم ارفع ببطء." }],
+      sections: [{ title: "استخدامات مولد النغمات", body: "استخدمه كمرجع لضبط الآلات بالأذن، لتدريب الفترات الموسيقية، أو لاختبار السماعات والمكبرات." }, { title: "نصائح الاستخدام", body: "ابدأ بمستوى صوت منخفض. للنغمات المرجعية استخدم 440 هرتز (La/A4). للاختبار تدرج عبر النطاق ببطء." }],
+      faqs: [{ question: "ما هو التردد المقابل لكل نغمة؟", answer: "La/A4 = 440 هرتز. Do/C4 = 261.6 هرتز. Sol/G4 = 392 هرتز. يمكن حساب بقية النغمات بمضاعفة أو قسمة التردد على 2 لكل أوكتاف." }, { question: "هل يتوقف الصوت تلقائياً؟", answer: "لا. اضغط على إيقاف عند الانتهاء للحفاظ على الصوت وتجنب التعب السمعي." }]
+    }
+  },
+  de: {
+    "bass-tuner": {
+      heroTitle: "Bass-Tuner online kostenlos",
+      heroDescription: "Stimme den Bass schnell im Browser mit Mikrofon-Erkennung, Standard- und alternativen Stimmungen.",
+      highlights: [{ label: "Eingang", value: "Mikrofon + Referenztöne" }, { label: "Stimmungen", value: "Standard, Drop D, 5-Saiter" }, { label: "Ideal für", value: "E-Bass und Akustikbass" }],
+      quickAnswers: [{ title: "Funktioniert es für 5-Saiter-Bass?", body: "Ja. Wähle das 5-Saiter-Preset und stimme alle Saiten inklusive tiefer H-Saite." }, { title: "Wie bekomme ich eine stabilere Anzeige?", body: "Zupfe die Saite fest und warte kurz. Tiefe Frequenzen brauchen einen Moment länger zum Einpendeln." }],
+      sections: [{ title: "Schnell in Stimmung kommen", body: "Mikrofon aktivieren, eine Saite klar anschlagen und warten bis die Anzeige stabil ist, dann anpassen." }, { title: "Standard- und alternative Bass-Stimmungen", body: "Standard E A D G passt zu den meisten Genres. Drop D liefert einen tieferen Grundton. 5-Saiter fügt tiefes H hinzu." }],
+      faqs: [{ question: "Wie stimme ich Bass mit Mikrofon?", answer: "Mikrofon aktivieren, eine Saite klar anschlagen und kurz warten bis die Nadel stabil ist, dann in Richtung Mitte anpassen." }, { question: "Was ist Standard-Bass-Stimmung?", answer: "Standard-Bass-Stimmung für 4 Saiten ist E1 A1 D2 G2, von tiefster zu höchster Saite." }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Ukulele-Tuner online kostenlos",
+      heroDescription: "Stimme Ukulele schnell im Browser mit GCEA, Low G und anderen Varianten.",
+      highlights: [{ label: "Eingang", value: "Mikrofon + Referenztöne" }, { label: "Stimmungen", value: "GCEA, Low G, Bariton" }, { label: "Ideal für", value: "Sopran, Konzert, Tenor" }],
+      quickAnswers: [{ title: "Was ist Standard-Ukulele-Stimmung?", body: "Sopran, Konzert und Tenor verwenden G4-C4-E4-A4. Bariton verwendet D-G-B-E." }, { title: "Was ist der Unterschied zwischen High G und Low G?", body: "High G ist die Standard-Wiedereinstimmung. Low G ersetzt sie durch eine tiefere G-Saite für einen dunkleren Klang." }],
+      sections: [{ title: "Schnell stimmen", body: "GCEA-Preset wählen, Mikrofon aktivieren und jede Saite einzeln anschlagen bis die Anzeige stabil ist." }, { title: "Häufige Stimmungen", body: "Beginne mit GCEA. Probiere Low G für einen tieferen Klang oder D-Stimmung für eine hellere Note." }],
+      faqs: [{ question: "Wie stimme ich Ukulele mit Mikrofon?", answer: "Mikrofon aktivieren, jede Saite klar anschlagen und anpassen, bis die Nadel in der Mitte steht." }, { question: "Funktioniert es für Bariton-Ukulele?", answer: "Ja. Wähle das D-G-B-E-Preset für Bariton." }]
+    },
+    "sound-level-meter": {
+      heroTitle: "Schallpegelmesser online kostenlos",
+      heroDescription: "Miss den Schallpegel im Raum mit dem Browser-Mikrofon und Echtzeit-dB-Anzeige.",
+      highlights: [{ label: "Messung", value: "Geschätzter dB via Mikrofon" }, { label: "Anzeige", value: "Live-Grafik mit Min/Max/Mittel" }, { label: "Verwendung", value: "Übungsraumkontrolle" }],
+      quickAnswers: [{ title: "Ist es für die Praxis genau genug?", body: "Ja, zum Vergleich von Umgebungen und zum Verfolgen lauter Übungseinheiten. Nicht für professionelle Messungen zertifiziert." }, { title: "Welcher Pegel ist sicher zum Üben?", body: "60-75 dB für akustische Instrumente. Dauerhaft über 85 dB kann das Gehör belasten." }],
+      sections: [{ title: "Wie man den Messgerät verwendet", body: "Mikrofon aktivieren, Gerät ruhig halten und dB-Werte in Echtzeit sowie Durchschnitt beobachten." }, { title: "Messwerte interpretieren", body: "Stille Räume 30-45 dB. Normales Gespräch ca. 60 dB. Lautes Üben 75-85 dB oder mehr." }],
+      faqs: [{ question: "Wie genau ist das Messgerät?", answer: "Es ist eine Schätzung basierend auf dem Mikrofonsignal, nicht professionell zertifiziert, aber nützlich für Vergleiche." }, { question: "Braucht es eine spezielle Genehmigung?", answer: "Ja, Browser-Mikrofonzugriff wird wie bei den Stimmgeräten benötigt." }]
+    },
+    "pitch-generator": {
+      heroTitle: "Ton-Generator online kostenlos",
+      heroDescription: "Erzeuge reine Töne von 20 Hz bis 20000 Hz für Gehörtraining, Referenztöne und Audiotest.",
+      highlights: [{ label: "Bereich", value: "20 Hz bis 20000 Hz" }, { label: "Ausgabe", value: "Reiner Sinuston im Browser" }, { label: "Verwendung", value: "Gehörtraining und Referenzton" }],
+      quickAnswers: [{ title: "Kann ich Instrumente nach Gehör damit stimmen?", body: "Ja. Stelle die Frequenz auf die gewünschte Note ein und stimme die Saite auf den erzeugten Ton." }, { title: "Sind hohe Frequenzen sicher?", body: "Beginne immer mit niedrigem Volumen, besonders über 8000 Hz, und erhöhe es langsam." }],
+      sections: [{ title: "Verwendungsmöglichkeiten", body: "Als Stimmreferenz nach Gehör, zum Training von Intervallen oder zum Testen von Lautsprechern und Kopfhörern." }, { title: "Tipps", body: "Starte mit niedrigem Volumen. Für Stimmreferenz verwende 440 Hz (A4). Beim Testen langsam durch den Frequenzbereich gehen." }],
+      faqs: [{ question: "Welche Frequenz entspricht welcher Note?", answer: "A4 = 440 Hz. C4 = 261,6 Hz. G4 = 392 Hz. Andere Noten ergeben sich durch Verdopplung oder Halbierung pro Oktave." }, { question: "Hört der Ton automatisch auf?", answer: "Nein. Drücke auf Stopp wenn du fertig bist, um Hörermüdung zu vermeiden." }]
+    }
+  },
+  en: {
+    "bass-tuner": {
+      heroTitle: "Bass Tuner Online",
+      heroDescription: "Tune bass guitar quickly in your browser with microphone pitch detection, standard and alternate tunings.",
+      highlights: [{ label: "Input", value: "Microphone + reference notes" }, { label: "Tunings", value: "Standard, Drop D, 5-string" }, { label: "Best for", value: "Electric and acoustic bass" }],
+      quickAnswers: [{ title: "Can I tune a 5-string bass?", body: "Yes. Select the 5-string preset and tune each string including the low B." }, { title: "How do I get a stable reading?", body: "Play one string firmly and hold steady. Low frequencies take a moment longer to register." }],
+      sections: [{ title: "Getting in tune fast", body: "Turn on the microphone, play one string at a time and wait for the needle to settle before adjusting the tuning peg." }, { title: "Standard and alternate bass tunings", body: "Standard E A D G fits most genres. Drop D adds a heavier low string. 5-string adds a low B for extended range." }],
+      faqs: [{ question: "How do I tune bass with a microphone?", answer: "Enable the microphone, pluck one string clearly and wait a second for the needle to settle, then adjust toward the centre." }, { question: "What is standard bass tuning?", answer: "Standard 4-string bass tuning is E1 A1 D2 G2, from lowest to highest string." }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Ukulele Tuner Online",
+      heroDescription: "Tune ukulele quickly in your browser with GCEA standard tuning, Low G and alternate tunings.",
+      highlights: [{ label: "Input", value: "Microphone + reference notes" }, { label: "Tunings", value: "GCEA, Low G, baritone D-G-B-E" }, { label: "Best for", value: "Soprano, concert, tenor, baritone" }],
+      quickAnswers: [{ title: "What is standard ukulele tuning?", body: "Soprano, concert and tenor ukulele use G4-C4-E4-A4. Baritone uses D3-G3-B3-E4." }, { title: "What is the difference between High G and Low G?", body: "High G is the standard re-entrant tuning. Low G replaces it with a lower G string for a deeper sound and wider range." }],
+      sections: [{ title: "How to tune a ukulele quickly", body: "Select the GCEA preset, enable the microphone and pluck each string until the reading settles, then adjust the peg." }, { title: "Common ukulele tunings", body: "Start with GCEA. Try Low G for a deeper sound, D-tuning for a brighter tone, or baritone D-G-B-E for a guitar-like feel." }],
+      faqs: [{ question: "How do I tune ukulele with a microphone?", answer: "Enable the microphone, pluck each string clearly and adjust the peg until the needle centres on the correct note." }, { question: "Does it work for baritone ukulele?", answer: "Yes. Select the D-G-B-E baritone preset and tune each string accordingly." }]
+    },
+    "sound-level-meter": {
+      heroTitle: "Sound Level Meter Online",
+      heroDescription: "Measure estimated sound levels in dB with your browser microphone and a real-time graph.",
+      highlights: [{ label: "Reading", value: "Estimated dB via microphone" }, { label: "Display", value: "Live graph with min/max/average" }, { label: "Use", value: "Practice environment checks" }],
+      quickAnswers: [{ title: "Is it accurate enough for practice?", body: "Yes for comparing environments and tracking loud sessions. Not certified for professional measurement." }, { title: "What is a safe level for music practice?", body: "60–75 dB for acoustic instruments. Sustained levels above 85 dB can cause long-term hearing fatigue." }],
+      sections: [{ title: "How to use the sound level meter", body: "Enable the microphone, keep the device still in the room and watch the live dB readout and the rolling average." }, { title: "Interpreting the readings", body: "Quiet rooms read 30–45 dB. Normal conversation around 60 dB. Loud practice sessions typically 75–90 dB." }],
+      faqs: [{ question: "How accurate is the meter?", answer: "It is an estimate based on the microphone signal, not professionally calibrated, but useful for comparisons and monitoring." }, { question: "Does it need any special permission?", answer: "Yes, browser microphone access is required, just like the instrument tuners." }]
+    },
+    "pitch-generator": {
+      heroTitle: "Pitch Generator Online",
+      heroDescription: "Generate pure tones from 20 Hz to 20000 Hz for ear training, instrument reference and audio testing.",
+      highlights: [{ label: "Range", value: "20 Hz to 20000 Hz" }, { label: "Output", value: "Pure sine tone in browser" }, { label: "Use", value: "Ear training and reference pitch" }],
+      quickAnswers: [{ title: "Can I use it to tune instruments by ear?", body: "Yes. Set the frequency to the note you need, then match your instrument string to the generated tone." }, { title: "Are high frequencies safe?", body: "Always start at low volume, especially above 8000 Hz, and raise gradually." }],
+      sections: [{ title: "What the pitch generator is good for", body: "Use it as a reference pitch to tune by ear, to practice interval recognition, or to test speakers and headphones." }, { title: "Usage tips", body: "Start at low volume. For reference pitch use 440 Hz (A4). When testing, sweep slowly through the range." }],
+      faqs: [{ question: "Which frequency matches which note?", answer: "A4 = 440 Hz. C4 = 261.6 Hz. G4 = 392 Hz. Other notes follow by doubling or halving per octave." }, { question: "Does the tone stop automatically?", answer: "No. Always press Stop when finished to avoid listener fatigue." }]
+    }
+  },
+  es: {
+    "bass-tuner": {
+      heroTitle: "Afinador de bajo online gratis",
+      heroDescription: "Afina el bajo rapidamente en el navegador con deteccion por microfono y afinaciones standard y alternativas.",
+      highlights: [{ label: "Entrada", value: "Microfono + notas de referencia" }, { label: "Afinaciones", value: "Standard, Drop D, 5 cuerdas" }, { label: "Ideal para", value: "Bajo electrico y acustico" }],
+      quickAnswers: [{ title: "Funciona con bajo de 5 cuerdas?", body: "Si. Selecciona el preset de 5 cuerdas y afina cada cuerda incluyendo el Si grave." }, { title: "Como obtengo una lectura mas estable?", body: "Toca la cuerda con fuerza y espera un momento. Las frecuencias bajas tardan mas en estabilizarse." }],
+      sections: [{ title: "Afinar el bajo rapido", body: "Activa el microfono, toca una cuerda cada vez y espera a que la aguja se estabilice antes de ajustar la clavija." }, { title: "Afinaciones comunes del bajo", body: "Standard E A D G se adapta a la mayoria de generos. Drop D añade un bajo mas potente. 5 cuerdas añade Si grave." }],
+      faqs: [{ question: "Como afino el bajo con microfono?", answer: "Activa el microfono, puntea una cuerda con claridad y espera a que la aguja se estabilice, luego ajusta hacia el centro." }, { question: "Cual es la afinacion estandar del bajo?", answer: "La afinacion estandar del bajo de 4 cuerdas es E1 A1 D2 G2, de la mas grave a la mas aguda." }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Afinador de ukelele online gratis",
+      heroDescription: "Afina el ukelele rapidamente con GCEA estandar, Low G y otras variantes.",
+      highlights: [{ label: "Entrada", value: "Microfono + notas de referencia" }, { label: "Afinaciones", value: "GCEA, Low G, baritono" }, { label: "Ideal para", value: "Soprano, concierto, tenor" }],
+      quickAnswers: [{ title: "Cual es la afinacion estandar del ukelele?", body: "Soprano, concierto y tenor usan G4-C4-E4-A4. Baritono usa D3-G3-B3-E4." }, { title: "Que diferencia hay entre High G y Low G?", body: "High G es la afinacion reentrante estandar. Low G la sustituye por una cuerda Sol mas grave para un sonido mas profundo." }],
+      sections: [{ title: "Como afinar el ukelele rapido", body: "Selecciona el preset GCEA, activa el microfono y puntea cada cuerda hasta que la lectura se estabilice." }, { title: "Afinaciones comunes", body: "Empieza con GCEA. Prueba Low G para un sonido mas oscuro o D-tuning para un tono mas brillante." }],
+      faqs: [{ question: "Como afino el ukelele con microfono?", answer: "Activa el microfono, puntea cada cuerda con claridad y ajusta la clavija hasta que la aguja apunte a la nota correcta." }, { question: "Funciona para ukelele baritono?", answer: "Si. Selecciona el preset D-G-B-E para baritono." }]
+    },
+    "sound-level-meter": {
+      heroTitle: "Sonometro online gratis",
+      heroDescription: "Mide el nivel sonoro estimado en dB con el microfono del navegador y un grafico en tiempo real.",
+      highlights: [{ label: "Lectura", value: "dB estimado via microfono" }, { label: "Pantalla", value: "Grafico con min/max/promedio" }, { label: "Uso", value: "Control del entorno de practica" }],
+      quickAnswers: [{ title: "Es suficientemente preciso para la practica?", body: "Si para comparar entornos y monitorizar sesiones ruidosas. No certificado para medicion profesional." }, { title: "Que nivel es seguro para practicar musica?", body: "60-75 dB para instrumentos acusticos. Niveles sostenidos por encima de 85 dB pueden cansar el oido." }],
+      sections: [{ title: "Como usar el sonometro", body: "Activa el microfono, mantén el dispositivo quieto y observa la lectura de dB en tiempo real y el promedio." }, { title: "Interpretacion de los valores", body: "Salas silenciosas 30-45 dB. Conversacion normal unos 60 dB. Practica intensa 75-90 dB." }],
+      faqs: [{ question: "Que tan preciso es el medidor?", answer: "Es una estimacion basada en la senal del microfono, no calibrado profesionalmente, pero util para comparaciones." }, { question: "Necesita algun permiso especial?", answer: "Si, requiere acceso al microfono del navegador, igual que los afinadores." }]
+    },
+    "pitch-generator": {
+      heroTitle: "Generador de tono online gratis",
+      heroDescription: "Genera tonos puros de 20 Hz a 20000 Hz para entrenamiento auditivo, referencia de notas y pruebas de audio.",
+      highlights: [{ label: "Rango", value: "20 Hz a 20000 Hz" }, { label: "Salida", value: "Tono sinusoidal puro en el navegador" }, { label: "Uso", value: "Ear training y referencia de nota" }],
+      quickAnswers: [{ title: "Puedo usarlo para afinar por oido?", body: "Si. Ajusta la frecuencia a la nota que necesitas y afina la cuerda de tu instrumento hasta que coincida con el tono." }, { title: "Son seguras las frecuencias altas?", body: "Empieza siempre con volumen bajo, especialmente por encima de 8000 Hz, y subelo poco a poco." }],
+      sections: [{ title: "Para que sirve el generador de tonos", body: "Usalo como referencia para afinar de oido, practicar intervalos o probar altavoces y auriculares." }, { title: "Consejos de uso", body: "Empieza con volumen bajo. Para referencia usa 440 Hz (La4). Al probar, barre lentamente por el rango de frecuencias." }],
+      faqs: [{ question: "Que frecuencia corresponde a cada nota?", answer: "La4 = 440 Hz. Do4 = 261.6 Hz. Sol4 = 392 Hz. El resto se obtiene duplicando o dividiendo a la mitad por octava." }, { question: "Se detiene el sonido automaticamente?", answer: "No. Siempre pulsa Detener al terminar para evitar la fatiga auditiva." }]
+    }
+  },
+  fr: {
+    "bass-tuner": {
+      heroTitle: "Accordeur basse gratuit en ligne",
+      heroDescription: "Accordez la basse rapidement dans le navigateur avec detection micro et accordages standard et alternatifs.",
+      highlights: [{ label: "Entree", value: "Microphone + notes de reference" }, { label: "Accordages", value: "Standard, Drop D, 5 cordes" }, { label: "Ideal pour", value: "Basse electrique et acoustique" }],
+      quickAnswers: [{ title: "Fonctionne avec une basse 5 cordes?", body: "Oui. Selectionnez le preset 5 cordes et accordez chaque corde y compris le Si grave." }, { title: "Comment obtenir une lecture stable?", body: "Jouez la corde fermement et patientez un moment. Les basses frequences mettent plus de temps a se stabiliser." }],
+      sections: [{ title: "Accorder la basse rapidement", body: "Activez le microphone, jouez une corde a la fois et attendez que l'aiguille se stabilise avant de regler la mecanique." }, { title: "Accordages courants de basse", body: "Standard E A D G convient a la plupart des genres. Drop D ajoute une grave plus lourde. 5 cordes ajoute un Si grave." }],
+      faqs: [{ question: "Comment accorder la basse avec microphone?", answer: "Activez le microphone, pincez une corde clairement et attendez que l'aiguille se stabilise, puis ajustez vers le centre." }, { question: "Quel est l'accordage standard de la basse?", answer: "L'accordage standard basse 4 cordes est E1 A1 D2 G2, de la plus grave a la plus aigue." }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Accordeur ukulele gratuit en ligne",
+      heroDescription: "Accordez l'ukulele rapidement avec GCEA standard, Low G et autres variantes.",
+      highlights: [{ label: "Entree", value: "Microphone + notes de reference" }, { label: "Accordages", value: "GCEA, Low G, baryton" }, { label: "Ideal pour", value: "Soprano, concert, tenor" }],
+      quickAnswers: [{ title: "Quel est l'accordage standard de l'ukulele?", body: "Soprano, concert et tenor utilisent G4-C4-E4-A4. Baryton utilise D3-G3-B3-E4." }, { title: "Quelle difference entre High G et Low G?", body: "High G est l'accordage re-entrant standard. Low G remplace le Sol par une corde plus grave pour un son plus profond." }],
+      sections: [{ title: "Comment accorder l'ukulele rapidement", body: "Choisissez le preset GCEA, activez le micro et pincez chaque corde jusqu'a ce que la lecture se stabilise." }, { title: "Accordages courants", body: "Commencez par GCEA. Essayez Low G pour un son plus grave ou D-accordage pour une tonalite plus brillante." }],
+      faqs: [{ question: "Comment accorder l'ukulele avec microphone?", answer: "Activez le micro, pincez chaque corde clairement et ajustez la mecanique jusqu'a ce que l'aiguille soit au centre." }, { question: "Fonctionne pour ukulele baryton?", answer: "Oui. Selectionnez le preset D-G-B-E pour baryton." }]
+    },
+    "sound-level-meter": {
+      heroTitle: "Sonometre gratuit en ligne",
+      heroDescription: "Mesurez le niveau sonore estime en dB avec le microphone du navigateur et un graphique en temps reel.",
+      highlights: [{ label: "Lecture", value: "dB estime via microphone" }, { label: "Affichage", value: "Graphique avec min/max/moyenne" }, { label: "Usage", value: "Controle de l'environnement de pratique" }],
+      quickAnswers: [{ title: "Assez precis pour la pratique?", body: "Oui pour comparer des environnements et suivre des sessions bruyantes. Non certifie pour mesure professionnelle." }, { title: "Quel niveau est sur pour la pratique musicale?", body: "60-75 dB pour instruments acoustiques. Niveaux soutenus au-dessus de 85 dB peuvent fatiguer l'ouie." }],
+      sections: [{ title: "Comment utiliser le sonometre", body: "Activez le micro, gardez l'appareil stable et observez les valeurs dB en temps reel et la moyenne." }, { title: "Interpreter les mesures", body: "Salles silencieuses 30-45 dB. Conversation normale environ 60 dB. Pratique intense 75-90 dB." }],
+      faqs: [{ question: "Quelle est la precision du metre?", answer: "C'est une estimation basee sur le signal microphone, non calibree professionnellement mais utile pour les comparaisons." }, { question: "Necessite-t-il une permission speciale?", answer: "Oui, l'acces au microphone du navigateur est requis, comme pour les accordeurs." }]
+    },
+    "pitch-generator": {
+      heroTitle: "Generateur de son gratuit en ligne",
+      heroDescription: "Generez des tonalites pures de 20 Hz a 20000 Hz pour l'ear training, la reference de notes et les tests audio.",
+      highlights: [{ label: "Plage", value: "20 Hz a 20000 Hz" }, { label: "Sortie", value: "Ton sinusoidal pur dans le navigateur" }, { label: "Usage", value: "Ear training et reference de hauteur" }],
+      quickAnswers: [{ title: "Puis-je accorder des instruments a l'oreille?", body: "Oui. Reglez la frequence sur la note voulue et accordez votre instrument jusqu'a ce qu'il corresponde au ton genere." }, { title: "Les hautes frequences sont-elles sures?", body: "Commencez toujours a faible volume, surtout au-dessus de 8000 Hz, et montez progressivement." }],
+      sections: [{ title: "A quoi sert le generateur de sons", body: "Utilisez-le comme reference pour accorder a l'oreille, pratiquer les intervalles ou tester haut-parleurs et casques." }, { title: "Conseils d'utilisation", body: "Commencez a faible volume. Pour reference utilisez 440 Hz (La4). Pour les tests, balayez lentement les frequences." }],
+      faqs: [{ question: "Quelle frequence correspond a quelle note?", answer: "La4 = 440 Hz. Do4 = 261.6 Hz. Sol4 = 392 Hz. Les autres notes suivent en doublant ou divisant par deux par octave." }, { question: "Le son s'arrete-t-il automatiquement?", answer: "Non. Appuyez toujours sur Arreter quand vous avez fini pour eviter la fatigue auditive." }]
+    }
+  },
+  it: {
+    "bass-tuner": {
+      heroTitle: "Accordatore basso online gratis",
+      heroDescription: "Accorda il basso velocemente nel browser con rilevamento microfono e accordature standard e alternative.",
+      highlights: [{ label: "Ingresso", value: "Microfono + note di riferimento" }, { label: "Accordature", value: "Standard, Drop D, 5 corde" }, { label: "Ideale per", value: "Basso elettrico e acustico" }],
+      quickAnswers: [{ title: "Funziona con il basso a 5 corde?", body: "Si. Seleziona il preset a 5 corde e accorda ogni corda incluso il Si grave." }, { title: "Come ottengo una lettura piu stabile?", body: "Pizzica la corda con forza e aspetta un momento. Le frequenze basse impiegano piu tempo a stabilizzarsi." }],
+      sections: [{ title: "Accordarsi velocemente", body: "Attiva il microfono, pizzica una corda alla volta e aspetta che l'ago si stabilizzi prima di agire sulla meccanica." }, { title: "Accordature comuni del basso", body: "Standard Mi La Re Sol si adatta alla maggior parte dei generi. Drop D aggiunge un basso piu pesante. 5 corde aggiunge Si grave." }],
+      faqs: [{ question: "Come accordo il basso con il microfono?", answer: "Attiva il microfono, pizzica una corda chiaramente e aspetta che l'ago si stabilizzi, poi avvicinalo al centro." }, { question: "Qual e l'accordatura standard del basso?", answer: "L'accordatura standard del basso a 4 corde e Mi La Re Sol, dalla piu grave alla piu acuta." }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Accordatore ukulele online gratis",
+      heroDescription: "Accorda l'ukulele velocemente con GCEA standard, Low G e altre varianti.",
+      highlights: [{ label: "Ingresso", value: "Microfono + note di riferimento" }, { label: "Accordature", value: "GCEA, Low G, baritono" }, { label: "Ideale per", value: "Soprano, concerto, tenore" }],
+      quickAnswers: [{ title: "Qual e l'accordatura standard dell'ukulele?", body: "Soprano, concerto e tenore usano G4-C4-E4-A4. Baritono usa D3-G3-B3-E4." }, { title: "Qual e la differenza tra High G e Low G?", body: "High G e l'accordatura rientrante standard. Low G la sostituisce con una corda Sol piu bassa per un suono piu profondo." }],
+      sections: [{ title: "Come accordare l'ukulele velocemente", body: "Seleziona il preset GCEA, attiva il microfono e pizzica ogni corda finche la lettura non si stabilizza." }, { title: "Accordature comuni", body: "Inizia con GCEA. Prova Low G per un suono piu scuro o l'accordatura D per un tono piu brillante." }],
+      faqs: [{ question: "Come accordo l'ukulele con il microfono?", answer: "Attiva il microfono, pizzica ogni corda chiaramente e regola la meccanica finche l'ago non punta alla nota giusta." }, { question: "Funziona per ukulele baritono?", answer: "Si. Seleziona il preset D-G-B-E per baritono." }]
+    },
+    "sound-level-meter": {
+      heroTitle: "Fonometro online gratis",
+      heroDescription: "Misura il livello sonoro stimato in dB con il microfono del browser e un grafico in tempo reale.",
+      highlights: [{ label: "Lettura", value: "dB stimato via microfono" }, { label: "Display", value: "Grafico con min/max/media" }, { label: "Uso", value: "Controllo ambiente di studio" }],
+      quickAnswers: [{ title: "E abbastanza preciso per la pratica?", body: "Si per confrontare ambienti e monitorare sessioni rumorose. Non certificato per misurazioni professionali." }, { title: "Qual e il livello sicuro per la pratica musicale?", body: "60-75 dB per strumenti acustici. Livelli sostenuti oltre 85 dB possono affaticare l'udito." }],
+      sections: [{ title: "Come usare il fonometro", body: "Attiva il microfono, tieni il dispositivo fermo e osserva i valori dB in tempo reale e la media progressiva." }, { title: "Interpretare le misure", body: "Stanze silenziose 30-45 dB. Conversazione normale circa 60 dB. Pratica intensa 75-90 dB." }],
+      faqs: [{ question: "Quanto e preciso il misuratore?", answer: "E una stima basata sul segnale del microfono, non calibrata professionalmente, ma utile per confronti e monitoraggio." }, { question: "Richiede permessi speciali?", answer: "Si, e necessario l'accesso al microfono del browser, esattamente come gli accordatori." }]
+    },
+    "pitch-generator": {
+      heroTitle: "Generatore di toni online gratis",
+      heroDescription: "Genera toni puri da 20 Hz a 20000 Hz per ear training, intonazione strumenti e test audio.",
+      highlights: [{ label: "Range", value: "Da 20 Hz a 20000 Hz" }, { label: "Output", value: "Tono sinusoidale puro nel browser" }, { label: "Uso", value: "Ear training e nota di riferimento" }],
+      quickAnswers: [{ title: "Posso accordare strumenti a orecchio?", body: "Si. Imposta la frequenza sulla nota che ti serve e accordali finche coincide con il tono generato." }, { title: "Le frequenze alte sono sicure?", body: "Inizia sempre con volume basso, specialmente sopra 8000 Hz, e aumenta gradualmente." }],
+      sections: [{ title: "A cosa serve il generatore di toni", body: "Usalo come riferimento per accordare a orecchio, praticare intervalli o testare altoparlanti e cuffie." }, { title: "Consigli d'uso", body: "Inizia con volume basso. Per la nota di riferimento usa 440 Hz (La4). Per i test, scorri lentamente le frequenze." }],
+      faqs: [{ question: "Quale frequenza corrisponde a quale nota?", answer: "La4 = 440 Hz. Do4 = 261.6 Hz. Sol4 = 392 Hz. Le altre note seguono raddoppiando o dimezzando per ogni ottava." }, { question: "Il suono si ferma automaticamente?", answer: "No. Premi sempre Stop quando hai finito per evitare l'affaticamento uditivo." }]
+    }
+  },
+  ja: {
+    "bass-tuner": {
+      heroTitle: "無料オンライン ベースチューナー",
+      heroDescription: "マイクを使ってブラウザでベースを素早くチューニング。標準と代替チューニングに対応。",
+      highlights: [{ label: "入力", value: "マイク＋基準音" }, { label: "チューニング", value: "Standard、Drop D、5弦" }, { label: "対象", value: "エレキベース・アコースティックベース" }],
+      quickAnswers: [{ title: "5弦ベースに対応していますか？", body: "はい。5弦プリセットを選択し、低いB弦を含む全弦を調弦してください。" }, { title: "安定した読み取りを得るには？", body: "弦をしっかり弾いて少し待ちます。低い周波数は安定するまで少し時間がかかります。" }],
+      sections: [{ title: "素早く調弦する方法", body: "マイクをオンにして1本ずつ弦を弾き、ニードルが安定してからペグを調整してください。" }, { title: "ベースの一般的なチューニング", body: "スタンダードE A D Gはほとんどのジャンルに合います。Drop Dは重い低音を、5弦は低いBを追加します。" }],
+      faqs: [{ question: "マイクでベースを調弦するには？", answer: "マイクを有効にして1本の弦をはっきり弾き、ニードルが安定してから中央に向けて調整します。" }, { question: "ベースの標準チューニングは？", answer: "4弦ベースの標準チューニングはE1 A1 D2 G2で、最低弦から順番です。" }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "無料オンライン ウクレレチューナー",
+      heroDescription: "GCEA標準、Low Gなどのチューニングでウクレレをブラウザで素早く調弦。",
+      highlights: [{ label: "入力", value: "マイク＋基準音" }, { label: "チューニング", value: "GCEA、Low G、バリトン" }, { label: "対象", value: "ソプラノ、コンサート、テナー" }],
+      quickAnswers: [{ title: "ウクレレの標準チューニングは？", body: "ソプラノ・コンサート・テナーはG4-C4-E4-A4。バリトンはD3-G3-B3-E4です。" }, { title: "High GとLow Gの違いは？", body: "High Gは標準の再入チューニング。Low Gは低いG弦に変えて、より深みのある音と広い音域を実現します。" }],
+      sections: [{ title: "素早く調弦する方法", body: "GCEAプリセットを選択し、マイクをオンにして各弦を弾き、読み取りが安定したらペグを調整します。" }, { title: "一般的なウクレレチューニング", body: "GCEAから始めましょう。Low Gは深みのある音、D-チューニングは明るいトーンに向いています。" }],
+      faqs: [{ question: "マイクでウクレレを調弦するには？", answer: "マイクを有効にして各弦をはっきり弾き、ニードルが正しい音符に向くようペグを調整します。" }, { question: "バリトンウクレレに対応していますか？", answer: "はい。バリトン用のD-G-B-Eプリセットを選択してください。" }]
+    },
+    "sound-level-meter": {
+      heroTitle: "無料オンライン 騒音計",
+      heroDescription: "ブラウザのマイクを使ってリアルタイムのdB表示で音量を測定します。",
+      highlights: [{ label: "測定", value: "マイクによる推定dB" }, { label: "表示", value: "最小/最大/平均を含むライブグラフ" }, { label: "用途", value: "練習環境の確認" }],
+      quickAnswers: [{ title: "練習に十分な精度ですか？", body: "環境の比較や大音量セッションの監視には十分です。プロ用途の認定はされていません。" }, { title: "音楽練習の安全なレベルは？", body: "アコースティック楽器で60〜75 dB。85 dBを超えると長時間で聴覚疲労を引き起こす可能性があります。" }],
+      sections: [{ title: "騒音計の使い方", body: "マイクを有効にして機器を静止させ、リアルタイムのdB値と平均値を確認します。" }, { title: "測定値の解釈", body: "静かな部屋は30〜45 dB。通常の会話は約60 dB。大音量の練習は75〜90 dBになります。" }],
+      faqs: [{ question: "計測の精度はどれくらいですか？", answer: "マイク信号に基づく推定値でプロ用途の校正はされていませんが、比較や監視に役立ちます。" }, { question: "特別な許可が必要ですか？", answer: "はい、チューナーと同様にブラウザのマイクアクセスが必要です。" }]
+    },
+    "pitch-generator": {
+      heroTitle: "無料オンライン ピッチジェネレーター",
+      heroDescription: "20Hzから20000Hzまでの純音を生成。耳のトレーニングや楽器の基準音に。",
+      highlights: [{ label: "範囲", value: "20Hz〜20000Hz" }, { label: "出力", value: "ブラウザで純粋なサイン波" }, { label: "用途", value: "耳のトレーニングと基準音" }],
+      quickAnswers: [{ title: "耳でチューニングできますか？", body: "はい。必要な音の周波数を設定し、生成された音に楽器を合わせてください。" }, { title: "高い周波数は安全ですか？", body: "特に8000Hz以上では常に低音量から始め、少しずつ上げてください。" }],
+      sections: [{ title: "ピッチジェネレーターの用途", body: "耳でのチューニング基準音、インターバルのトレーニング、スピーカーやヘッドフォンのテストに使用できます。" }, { title: "使用上のヒント", body: "低音量から始めましょう。基準音には440Hz（A4）を使用します。テスト時は周波数をゆっくりスイープします。" }],
+      faqs: [{ question: "各音符の周波数は？", answer: "A4 = 440Hz。C4 = 261.6Hz。G4 = 392Hz。その他はオクターブごとに2倍か半分です。" }, { question: "音は自動的に止まりますか？", answer: "いいえ。終わったら必ず停止を押して聴覚疲労を避けてください。" }]
+    }
+  },
+  ko: {
+    "bass-tuner": {
+      heroTitle: "무료 온라인 베이스 튜너",
+      heroDescription: "마이크 감지를 사용해 브라우저에서 베이스를 빠르게 조율하세요.",
+      highlights: [{ label: "입력", value: "마이크 + 기준음" }, { label: "튜닝", value: "Standard, Drop D, 5현" }, { label: "최적", value: "일렉 베이스·어쿠스틱 베이스" }],
+      quickAnswers: [{ title: "5현 베이스도 되나요?", body: "네. 5현 프리셋을 선택하고 낮은 B현을 포함한 모든 줄을 조율하세요." }, { title: "더 안정적인 읽기를 얻으려면?", body: "줄을 세게 튕기고 잠시 기다립니다. 낮은 주파수는 안정되는 데 시간이 조금 더 걸립니다." }],
+      sections: [{ title: "빠르게 조율하는 법", body: "마이크를 켜고 한 번에 한 줄씩 튕기며 바늘이 안정될 때까지 기다린 후 페그를 조절하세요." }, { title: "베이스의 일반적인 튜닝", body: "Standard E A D G는 대부분의 장르에 적합합니다. Drop D는 무거운 저음을, 5현은 낮은 B를 추가합니다." }],
+      faqs: [{ question: "마이크로 베이스를 조율하는 방법은?", answer: "마이크를 활성화하고 한 줄을 명확히 튕긴 뒤 바늘이 안정되면 중앙을 향해 조율합니다." }, { question: "베이스의 표준 튜닝은?", answer: "4현 베이스 표준 튜닝은 E1 A1 D2 G2입니다. 가장 낮은 줄부터 순서대로입니다." }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "무료 온라인 우쿨렐레 튜너",
+      heroDescription: "GCEA 표준, Low G 등의 튜닝으로 브라우저에서 우쿨렐레를 빠르게 조율하세요.",
+      highlights: [{ label: "입력", value: "마이크 + 기준음" }, { label: "튜닝", value: "GCEA, Low G, 바리톤" }, { label: "최적", value: "소프라노, 콘서트, 테너" }],
+      quickAnswers: [{ title: "우쿨렐레 표준 튜닝은?", body: "소프라노, 콘서트, 테너는 G4-C4-E4-A4를, 바리톤은 D3-G3-B3-E4를 사용합니다." }, { title: "High G와 Low G의 차이는?", body: "High G는 표준 재입력 튜닝입니다. Low G는 더 낮은 G현으로 교체해 깊은 음색과 넓은 음역을 제공합니다." }],
+      sections: [{ title: "우쿨렐레 빠르게 조율하는 법", body: "GCEA 프리셋을 선택하고 마이크를 켠 뒤 각 줄을 튕겨 읽기가 안정될 때까지 기다립니다." }, { title: "일반적인 우쿨렐레 튜닝", body: "GCEA부터 시작하세요. 더 어두운 음색은 Low G, 더 밝은 음색은 D 튜닝을 시도해 보세요." }],
+      faqs: [{ question: "마이크로 우쿨렐레를 조율하는 방법은?", answer: "마이크를 활성화하고 각 줄을 명확히 튕긴 뒤 바늘이 올바른 음표에 올 때까지 페그를 조절하세요." }, { question: "바리톤 우쿨렐레도 되나요?", answer: "네. 바리톤용 D-G-B-E 프리셋을 선택하세요." }]
+    },
+    "sound-level-meter": {
+      heroTitle: "무료 온라인 소음 측정기",
+      heroDescription: "브라우저 마이크를 사용해 실시간 dB 그래프로 소음을 측정하세요.",
+      highlights: [{ label: "측정", value: "마이크를 통한 추정 dB" }, { label: "표시", value: "최소/최대/평균 실시간 그래프" }, { label: "용도", value: "연습 환경 확인" }],
+      quickAnswers: [{ title: "연습에 충분히 정확한가요?", body: "환경 비교 및 큰 소리 세션 모니터링에 적합합니다. 전문적인 측정용으로 인증되지 않았습니다." }, { title: "음악 연습의 안전한 레벨은?", body: "어쿠스틱 악기는 60~75 dB. 85 dB 이상이 지속되면 청력 피로를 일으킬 수 있습니다." }],
+      sections: [{ title: "소음 측정기 사용법", body: "마이크를 켜고 기기를 고정한 채 실시간 dB 값과 평균값을 확인하세요." }, { title: "측정값 해석", body: "조용한 방은 30~45 dB. 일반 대화는 약 60 dB. 격렬한 연습은 75~90 dB입니다." }],
+      faqs: [{ question: "측정기의 정확도는?", answer: "마이크 신호 기반 추정값으로 전문 교정은 아니지만 비교 및 모니터링에 유용합니다." }, { question: "특별한 권한이 필요한가요?", answer: "네, 튜너와 마찬가지로 브라우저 마이크 접근 권한이 필요합니다." }]
+    },
+    "pitch-generator": {
+      heroTitle: "무료 온라인 피치 제너레이터",
+      heroDescription: "20Hz에서 20000Hz까지 순음을 생성해 귀 훈련과 악기 기준음에 활용하세요.",
+      highlights: [{ label: "범위", value: "20Hz ~ 20000Hz" }, { label: "출력", value: "브라우저의 순수 사인파" }, { label: "용도", value: "귀 훈련 및 기준 음" }],
+      quickAnswers: [{ title: "귀로 악기를 조율할 수 있나요?", body: "네. 필요한 음의 주파수를 설정하고 생성된 음에 맞춰 악기를 조율하세요." }, { title: "높은 주파수는 안전한가요?", body: "특히 8000Hz 이상에서는 항상 낮은 볼륨으로 시작해 천천히 올리세요." }],
+      sections: [{ title: "피치 제너레이터의 활용", body: "귀 조율 기준음, 인터벌 연습, 스피커 및 헤드폰 테스트에 사용할 수 있습니다." }, { title: "사용 팁", body: "낮은 볼륨으로 시작하세요. 기준음은 440Hz(A4)를 사용합니다. 테스트 시 주파수를 천천히 스윕하세요." }],
+      faqs: [{ question: "각 음표의 주파수는?", answer: "A4 = 440Hz. C4 = 261.6Hz. G4 = 392Hz. 나머지는 옥타브마다 2배 또는 절반입니다." }, { question: "소리가 자동으로 멈추나요?", answer: "아니요. 마치면 항상 정지를 눌러 청력 피로를 피하세요." }]
+    }
+  },
+  pt: {
+    "bass-tuner": {
+      heroTitle: "Afinador de baixo online gratis",
+      heroDescription: "Afine o baixo rapidamente no navegador com deteccao por microfone e afinacoes padrao e alternativas.",
+      highlights: [{ label: "Entrada", value: "Microfone + notas de referencia" }, { label: "Afinacoes", value: "Standard, Drop D, 5 cordas" }, { label: "Ideal para", value: "Baixo eletrico e acustico" }],
+      quickAnswers: [{ title: "Funciona com baixo de 5 cordas?", body: "Sim. Selecione o preset de 5 cordas e afine cada corda incluindo o Si grave." }, { title: "Como obter uma leitura mais estavel?", body: "Toque a corda com forca e aguarde um momento. Frequencias baixas demoram mais para estabilizar." }],
+      sections: [{ title: "Afinar o baixo rapido", body: "Ative o microfone, toque uma corda de cada vez e aguarde o ponteiro estabilizar antes de ajustar a tarraxa." }, { title: "Afinacoes comuns do baixo", body: "Standard Mi La Re Sol adapta-se a maioria dos generos. Drop D adiciona grave mais pesado. 5 cordas adiciona Si grave." }],
+      faqs: [{ question: "Como afino o baixo com microfone?", answer: "Ative o microfone, pince uma corda com clareza e aguarde o ponteiro estabilizar, depois ajuste em direcao ao centro." }, { question: "Qual e a afinacao padrao do baixo?", answer: "A afinacao padrao do baixo de 4 cordas e Mi La Re Sol, da mais grave para a mais aguda." }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Afinador de ukulele online gratis",
+      heroDescription: "Afine o ukulele rapidamente com GCEA padrao, Low G e outras variantes.",
+      highlights: [{ label: "Entrada", value: "Microfone + notas de referencia" }, { label: "Afinacoes", value: "GCEA, Low G, baritono" }, { label: "Ideal para", value: "Soprano, concerto, tenor" }],
+      quickAnswers: [{ title: "Qual e a afinacao padrao do ukulele?", body: "Soprano, concerto e tenor usam G4-C4-E4-A4. Baritono usa D3-G3-B3-E4." }, { title: "Qual a diferenca entre High G e Low G?", body: "High G e a afinacao reentrante padrao. Low G substitui pelo Sol mais grave para um som mais profundo." }],
+      sections: [{ title: "Como afinar o ukulele rapido", body: "Selecione o preset GCEA, ative o microfone e pince cada corda ate a leitura estabilizar." }, { title: "Afinacoes comuns", body: "Comece com GCEA. Experimente Low G para um som mais escuro ou D-afinacao para um tom mais brilhante." }],
+      faqs: [{ question: "Como afino o ukulele com microfone?", answer: "Ative o microfone, pince cada corda com clareza e ajuste a tarraxa ate o ponteiro apontar para a nota correta." }, { question: "Funciona para ukulele baritono?", answer: "Sim. Selecione o preset D-G-B-E para baritono." }]
+    },
+    "sound-level-meter": {
+      heroTitle: "Sonometro online gratis",
+      heroDescription: "Meca o nivel sonoro estimado em dB com o microfone do navegador e um grafico em tempo real.",
+      highlights: [{ label: "Leitura", value: "dB estimado via microfone" }, { label: "Exibicao", value: "Grafico com min/max/media" }, { label: "Uso", value: "Controle do ambiente de pratica" }],
+      quickAnswers: [{ title: "E preciso o suficiente para a pratica?", body: "Sim para comparar ambientes e monitorar sessoes ruidosas. Nao certificado para medicao profissional." }, { title: "Qual e o nivel seguro para pratica musical?", body: "60-75 dB para instrumentos acusticos. Niveis sustentados acima de 85 dB podem causar fadiga auditiva." }],
+      sections: [{ title: "Como usar o sonometro", body: "Ative o microfone, mantenha o dispositivo quieto e observe os valores de dB em tempo real e a media." }, { title: "Interpretando as medicoes", body: "Salas silenciosas 30-45 dB. Conversa normal cerca de 60 dB. Pratica intensa 75-90 dB." }],
+      faqs: [{ question: "Qual a precisao do medidor?", answer: "E uma estimativa baseada no sinal do microfone, nao calibrado profissionalmente, mas util para comparacoes." }, { question: "Precisa de permissao especial?", answer: "Sim, requer acesso ao microfone do navegador, assim como os afinadores." }]
+    },
+    "pitch-generator": {
+      heroTitle: "Gerador de tom online gratis",
+      heroDescription: "Gere tons puros de 20 Hz a 20000 Hz para treinamento auditivo, referencia de notas e testes de audio.",
+      highlights: [{ label: "Faixa", value: "20 Hz a 20000 Hz" }, { label: "Saida", value: "Tom senoidal puro no navegador" }, { label: "Uso", value: "Ear training e referencia de nota" }],
+      quickAnswers: [{ title: "Posso afinar instrumentos de ouvido?", body: "Sim. Ajuste a frequencia para a nota desejada e afine seu instrumento ate coincidir com o tom gerado." }, { title: "Frequencias altas sao seguras?", body: "Comece sempre com volume baixo, especialmente acima de 8000 Hz, e aumente gradualmente." }],
+      sections: [{ title: "Para que serve o gerador de tons", body: "Use como referencia para afinar de ouvido, praticar intervalos ou testar alto-falantes e fones de ouvido." }, { title: "Dicas de uso", body: "Comece com volume baixo. Para referencia use 440 Hz (La4). Para testes, percorra lentamente as frequencias." }],
+      faqs: [{ question: "Qual frequencia corresponde a qual nota?", answer: "La4 = 440 Hz. Do4 = 261.6 Hz. Sol4 = 392 Hz. As outras notas seguem dobrando ou dividindo por octava." }, { question: "O som para automaticamente?", answer: "Nao. Sempre pressione Parar ao terminar para evitar fadiga auditiva." }]
+    }
+  },
+  ru: {
+    "bass-tuner": {
+      heroTitle: "Онлайн тюнер для бас-гитары",
+      heroDescription: "Быстро настройте бас в браузере с определением тона через микрофон и поддержкой стандартных и альтернативных строёв.",
+      highlights: [{ label: "Вход", value: "Микрофон + опорные ноты" }, { label: "Строи", value: "Standard, Drop D, 5-струнный" }, { label: "Для", value: "Электробас и акустический бас" }],
+      quickAnswers: [{ title: "Работает с 5-струнным басом?", body: "Да. Выберите пресет для 5 струн и настройте каждую, включая низкую ноту B." }, { title: "Как получить стабильное определение?", body: "Зацепите струну уверенно и подождите немного. Низкие частоты стабилизируются чуть дольше." }],
+      sections: [{ title: "Быстро настроить бас", body: "Включите микрофон, играйте по одной струне и ждите, пока стрелка стабилизируется, затем регулируйте колок." }, { title: "Обычные строи баса", body: "Стандартный E A D G подходит для большинства жанров. Drop D даёт более тяжёлый низкий звук. 5 струн добавляет низкий B." }],
+      faqs: [{ question: "Как настроить бас с микрофоном?", answer: "Включите микрофон, ударьте по одной струне и подождите, пока стрелка стабилизируется, затем настройте к центру." }, { question: "Какой стандартный строй баса?", answer: "Стандартный строй 4-струнного баса — E1 A1 D2 G2, от низшей к высшей струне." }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Онлайн тюнер для укулеле",
+      heroDescription: "Быстро настройте укулеле в браузере с GCEA, Low G и другими строями.",
+      highlights: [{ label: "Вход", value: "Микрофон + опорные ноты" }, { label: "Строи", value: "GCEA, Low G, баритон" }, { label: "Для", value: "Сопрано, концерт, тенор" }],
+      quickAnswers: [{ title: "Что такое стандартный строй укулеле?", body: "Сопрано, концерт и тенор используют G4-C4-E4-A4. Баритон использует D3-G3-B3-E4." }, { title: "В чём разница между High G и Low G?", body: "High G — стандартный ре-энтрантный строй. Low G заменяет его на более низкую струну G для более глубокого звука." }],
+      sections: [{ title: "Быстро настроить укулеле", body: "Выберите пресет GCEA, включите микрофон и играйте по одной струне, пока показание не стабилизируется." }, { title: "Распространённые строи укулеле", body: "Начните с GCEA. Попробуйте Low G для более глубокого звука или D-строй для более яркого тона." }],
+      faqs: [{ question: "Как настроить укулеле с микрофоном?", answer: "Включите микрофон, ударьте по каждой струне отдельно и крутите колок, пока стрелка не укажет на нужную ноту." }, { question: "Работает ли с баритон-укулеле?", answer: "Да. Выберите пресет D-G-B-E для баритона." }]
+    },
+    "sound-level-meter": {
+      heroTitle: "Онлайн шумомер",
+      heroDescription: "Измеряйте уровень звука в дБ через микрофон браузера с графиком в реальном времени.",
+      highlights: [{ label: "Измерение", value: "Оценочный дБ через микрофон" }, { label: "Отображение", value: "График с мин/макс/средним" }, { label: "Использование", value: "Контроль среды для занятий" }],
+      quickAnswers: [{ title: "Достаточно ли точен для практики?", body: "Да для сравнения сред и отслеживания громких сессий. Не сертифицирован для профессиональных измерений." }, { title: "Какой безопасный уровень для музыкальной практики?", body: "60–75 дБ для акустических инструментов. Постоянный уровень выше 85 дБ может утомить слух." }],
+      sections: [{ title: "Как использовать шумомер", body: "Включите микрофон, держите устройство неподвижно и следите за показаниями дБ в реальном времени и средним значением." }, { title: "Интерпретация показаний", body: "Тихие комнаты 30–45 дБ. Обычный разговор около 60 дБ. Интенсивные занятия 75–90 дБ." }],
+      faqs: [{ question: "Насколько точен измеритель?", answer: "Это оценка на основе сигнала микрофона, не профессионально откалиброванная, но полезная для сравнений." }, { question: "Требуется ли специальное разрешение?", answer: "Да, нужен доступ к микрофону браузера, как и для тюнеров." }]
+    },
+    "pitch-generator": {
+      heroTitle: "Онлайн генератор тонов",
+      heroDescription: "Генерируйте чистые тоны от 20 Гц до 20000 Гц для слухового тренинга и настройки инструментов.",
+      highlights: [{ label: "Диапазон", value: "20 Гц до 20000 Гц" }, { label: "Выход", value: "Чистая синусоида в браузере" }, { label: "Использование", value: "Слуховой тренинг и опорный тон" }],
+      quickAnswers: [{ title: "Можно настраивать инструменты на слух?", body: "Да. Установите частоту нужной ноты и настройте струну инструмента до совпадения с генерируемым тоном." }, { title: "Безопасны ли высокие частоты?", body: "Всегда начинайте с низкой громкости, особенно выше 8000 Гц, и повышайте постепенно." }],
+      sections: [{ title: "Для чего генератор тонов", body: "Используйте как опорный тон для настройки на слух, для тренировки интервалов или тестирования колонок и наушников." }, { title: "Советы по использованию", body: "Начните с низкой громкости. Для опорного тона используйте 440 Гц (Ля4). При тестировании медленно проходите по диапазону." }],
+      faqs: [{ question: "Какая частота соответствует какой ноте?", answer: "Ля4 = 440 Гц. До4 = 261.6 Гц. Соль4 = 392 Гц. Остальные следуют с удвоением или делением вдвое на каждой октаве." }, { question: "Тон останавливается автоматически?", answer: "Нет. Всегда нажимайте Стоп по окончании, чтобы избежать усталости слуха." }]
+    }
+  },
+  zh: {
+    "bass-tuner": {
+      heroTitle: "免费在线贝斯调音器",
+      heroDescription: "使用浏览器麦克风快速为贝斯调音，支持标准调弦和常见替代调弦。",
+      highlights: [{ label: "输入", value: "麦克风＋参考音" }, { label: "调弦", value: "Standard、Drop D、五弦" }, { label: "适用于", value: "电贝斯和原声贝斯" }],
+      quickAnswers: [{ title: "支持五弦贝斯吗？", body: "支持。选择五弦预设，调好每根弦，包括低音 B 弦。" }, { title: "如何获得更稳定的读数？", body: "用力拨弦并稍等片刻。低频率音需要更长时间稳定。" }],
+      sections: [{ title: "快速调音", body: "开启麦克风，每次拨一根弦，等指针稳定后再调整弦钮。" }, { title: "贝斯常见调弦", body: "Standard E A D G 适合大多数风格。Drop D 增加更重的低音。五弦增加低音 B 弦扩展音域。" }],
+      faqs: [{ question: "如何用麦克风为贝斯调音？", answer: "开启麦克风，清晰拨动一根弦，等指针稳定后向中间调整弦钮。" }, { question: "贝斯标准调弦是什么？", answer: "四弦贝斯标准调弦为 E1 A1 D2 G2，从最低弦到最高弦。" }]
+    },
+    "ukulele-tuner": {
+      heroTitle: "免费在线尤克里里调音器",
+      heroDescription: "使用 GCEA 标准调弦、低音 G 等调弦方式在浏览器中快速调音。",
+      highlights: [{ label: "输入", value: "麦克风＋参考音" }, { label: "调弦", value: "GCEA、低音G、低音型" }, { label: "适用于", value: "高音、音乐会、次中音型" }],
+      quickAnswers: [{ title: "尤克里里标准调弦是什么？", body: "高音、音乐会和次中音型使用 G4-C4-E4-A4。低音型使用 D3-G3-B3-E4。" }, { title: "High G 和 Low G 有什么区别？", body: "High G 是标准的再入调弦。Low G 将其替换为更低的 G 弦，获得更深的音色和更宽的音域。" }],
+      sections: [{ title: "快速调音", body: "选择 GCEA 预设，开启麦克风，逐根拨弦，等读数稳定后调整弦钮。" }, { title: "常见调弦方式", body: "从 GCEA 开始。Low G 适合更深的音色，D 调弦适合更明亮的音色。" }],
+      faqs: [{ question: "如何用麦克风为尤克里里调音？", answer: "开启麦克风，清晰拨动每根弦，调整弦钮直到指针指向正确音符。" }, { question: "支持低音型尤克里里吗？", answer: "支持。选择低音型的 D-G-B-E 预设。" }]
+    },
+    "sound-level-meter": {
+      heroTitle: "免费在线声级计",
+      heroDescription: "使用浏览器麦克风测量估计声级（dB），并配有实时图表。",
+      highlights: [{ label: "读数", value: "麦克风估计 dB" }, { label: "显示", value: "含最小/最大/平均的实时图表" }, { label: "用途", value: "检查练习环境" }],
+      quickAnswers: [{ title: "对练习来说足够准确吗？", body: "用于比较环境和监控嘈杂练习已足够。未经专业测量认证。" }, { title: "音乐练习的安全音量是多少？", body: "原声乐器 60~75 dB。持续超过 85 dB 可能造成听力疲劳。" }],
+      sections: [{ title: "如何使用声级计", body: "开启麦克风，保持设备静止，观察实时 dB 值和滚动平均值。" }, { title: "解读测量结果", body: "安静房间 30~45 dB。正常交谈约 60 dB。高强度练习 75~90 dB。" }],
+      faqs: [{ question: "测量精度如何？", answer: "基于麦克风信号的估计值，非专业校准，但适合比较和监控。" }, { question: "需要特殊权限吗？", answer: "需要，与调音器相同，需要浏览器麦克风访问权限。" }]
+    },
+    "pitch-generator": {
+      heroTitle: "免费在线音调发生器",
+      heroDescription: "生成 20Hz 至 20000Hz 的纯音，用于耳音训练、乐器参考音和音频测试。",
+      highlights: [{ label: "范围", value: "20Hz 至 20000Hz" }, { label: "输出", value: "浏览器内纯正弦波" }, { label: "用途", value: "耳音训练和参考音" }],
+      quickAnswers: [{ title: "可以用来靠听觉调音吗？", body: "可以。设置所需音符的频率，将乐器弦调至与生成音匹配。" }, { title: "高频率安全吗？", body: "始终从低音量开始，特别是 8000Hz 以上，然后慢慢增加。" }],
+      sections: [{ title: "音调发生器的用途", body: "用作靠听觉调音的参考音、练习音程识别，或测试扬声器和耳机。" }, { title: "使用技巧", body: "从低音量开始。参考音使用 440Hz（A4）。测试时缓慢扫描频率范围。" }],
+      faqs: [{ question: "各音符对应什么频率？", answer: "A4 = 440Hz。C4 = 261.6Hz。G4 = 392Hz。其他音符按每个八度加倍或减半推算。" }, { question: "声音会自动停止吗？", answer: "不会。完成后请务必按下停止以避免听觉疲劳。" }]
+    }
+  }
+};
+
 export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEnhancement | null {
   const contentLocale = getContentLocale(locale);
   const copy = toolSeoLabels[contentLocale];
@@ -1128,6 +1508,23 @@ export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEn
       highlights: context["chord-transposer"].highlights,
       quickAnswers: context["chord-transposer"].quickAnswers,
       sections: [copy.transposeUse, copy.chords]
+    };
+  }
+
+  if (
+    tool === "bass-tuner" ||
+    tool === "ukulele-tuner" ||
+    tool === "sound-level-meter" ||
+    tool === "pitch-generator"
+  ) {
+    const extra = extraToolEnhancements[contentLocale][tool];
+    return {
+      heroTitle: extra.heroTitle,
+      heroDescription: extra.heroDescription,
+      highlights: extra.highlights,
+      quickAnswers: extra.quickAnswers,
+      sections: extra.sections,
+      faqs: extra.faqs,
     };
   }
 

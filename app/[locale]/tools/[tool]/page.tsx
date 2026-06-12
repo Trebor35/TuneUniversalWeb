@@ -29,7 +29,7 @@ import { getToolSeoEnhancement } from "@/lib/content/seoEnhancements";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { withLocaleFallbacks, isLocale, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { buildInstrumentTunerMetadata, buildToolMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema, faqItemsSchema, instrumentTunerSchema, toolSchema } from "@/lib/seo/schema";
+import { breadcrumbSchema, faqItemsSchema, howToSchema, instrumentTunerSchema, toolSchema } from "@/lib/seo/schema";
 import { isToolSlug, toolSlugs, tunerTools, type Instrument, type ToolSlug } from "@/lib/tools/toolConfig";
 
 type PageProps = { params: Promise<{ locale: string; tool: string }> };
@@ -51,7 +51,15 @@ const toolPageLabels: Record<
   pt: { allGuides: "Todos os guias", allTools: "Todas as ferramentas", exploreMore: "Continue daqui", exploreMoreDescription: "Use estes links para passar rapidamente entre a ferramenta, os guias práticos e o hub de afinações.", relatedTunings: "Afinações relacionadas", tuningHub: "Hub de afinações" },
   ru: { allGuides: "Все гайды", allTools: "Все инструменты", exploreMore: "Куда перейти дальше", exploreMoreDescription: "Эти ссылки помогают быстро перейти от инструмента к практическим гайдам и к хабу строев.", relatedTunings: "Связанные строи", tuningHub: "Хаб строев" },
   zh: { allGuides: "全部指南", allTools: "全部工具", exploreMore: "下一步可以看这里", exploreMoreDescription: "通过这些链接，可以在当前工具、实用指南和相关调弦中心之间快速切换。", relatedTunings: "相关调弦", tuningHub: "调弦中心" }
-} satisfies Record<BaseLocale, { allGuides: string; allTools: string; exploreMore: string; exploreMoreDescription: string; relatedTunings: string; tuningHub: string }>);
+} satisfies Record<BaseLocale, { allGuides: string; allTools: string; exploreMore: string; exploreMoreDescription: string; relatedTunings: string; tuningHub: string }>, {
+  hi: { allGuides: "सभी गाइड", allTools: "सभी टूल", exploreMore: "आगे क्या देखें", exploreMoreDescription: "इन लिंक से टूल, प्रैक्टिकल गाइड और ट्यूनिंग हब के बीच आसानी से जाएं।", relatedTunings: "संबंधित ट्यूनिंग", tuningHub: "ट्यूनिंग हब" },
+  "pt-BR": { allGuides: "Todos os guias", allTools: "Todas as ferramentas", exploreMore: "Continue por aqui", exploreMoreDescription: "Use estes links para navegar entre a ferramenta, os guias práticos e o hub de afinações.", relatedTunings: "Afinações relacionadas", tuningHub: "Hub de afinações" },
+  nl: { allGuides: "Alle gidsen", allTools: "Alle tools", exploreMore: "Ga hier verder", exploreMoreDescription: "Gebruik deze links om snel te schakelen tussen het tool, praktische gidsen en de stemminghub.", relatedTunings: "Gerelateerde stemmingen", tuningHub: "Stemminghub" },
+  pl: { allGuides: "Wszystkie poradniki", allTools: "Wszystkie narzędzia", exploreMore: "Idź dalej stąd", exploreMoreDescription: "Użyj tych linków, aby szybko przechodzić między narzędziem, poradnikami i hubem strojenia.", relatedTunings: "Powiązane stroje", tuningHub: "Hub strojenia" },
+  tr: { allGuides: "Tüm rehberler", allTools: "Tüm araçlar", exploreMore: "Buradan devam edin", exploreMoreDescription: "Bu bağlantıları araç, pratik rehberler ve akort merkezi arasında hızlıca geçmek için kullanın.", relatedTunings: "İlgili akortlar", tuningHub: "Akort merkezi" },
+  sv: { allGuides: "Alla guider", allTools: "Alla verktyg", exploreMore: "Fortsätt härifrån", exploreMoreDescription: "Använd dessa länkar för att snabbt växla mellan verktyget, praktiska guider och stämningshubben.", relatedTunings: "Relaterade stämningar", tuningHub: "Stämningshubb" },
+  no: { allGuides: "Alle guider", allTools: "Alle verktøy", exploreMore: "Fortsett herfra", exploreMoreDescription: "Bruk disse lenkene for å bevege deg mellom verktøyet, praktiske guider og stemmehubben.", relatedTunings: "Relaterte stemminger", tuningHub: "Stemmehubb" }
+});
 
 const guideHeadings: Record<Locale, string> = withLocaleFallbacks({
   ar: "أدلة ذات صلة",
@@ -65,7 +73,15 @@ const guideHeadings: Record<Locale, string> = withLocaleFallbacks({
   pt: "Guias relacionados",
   ru: "Связанные руководства",
   zh: "相关指南"
-} satisfies Record<BaseLocale, string>);
+} satisfies Record<BaseLocale, string>, {
+  hi: "संबंधित गाइड",
+  "pt-BR": "Guias relacionados",
+  nl: "Gerelateerde gidsen",
+  pl: "Powiązane poradniki",
+  tr: "İlgili rehberler",
+  sv: "Relaterade guider",
+  no: "Relaterte guider"
+});
 
 const contextualSectionLabels: Record<
   Locale,
@@ -147,7 +163,56 @@ const contextualSectionLabels: Record<
   highlightsTitle: string;
   quickAnswersDescription: string;
   quickAnswersTitle: string;
-}>);
+}>, {
+  hi: {
+    highlightsTitle: "एक नज़र में",
+    highlightsDescription: "इस टूल को जल्दी समझने के लिए मुख्य बातें।",
+    quickAnswersTitle: "त्वरित उत्तर",
+    quickAnswersDescription: "शुरुआत करने से पहले सबसे आम सवालों के संक्षिप्त उत्तर।"
+  },
+  "pt-BR": {
+    highlightsTitle: "Visão rápida",
+    highlightsDescription: "Os pontos principais para entender esta ferramenta rapidamente.",
+    quickAnswersTitle: "Respostas rápidas",
+    quickAnswersDescription: "Respostas curtas para as dúvidas mais comuns antes de começar."
+  },
+  nl: {
+    highlightsTitle: "In een oogopslag",
+    highlightsDescription: "De belangrijkste details om dit tool snel te begrijpen.",
+    quickAnswersTitle: "Snelle antwoorden",
+    quickAnswersDescription: "Korte antwoorden op de meestgestelde vragen voor beginners."
+  },
+  pl: {
+    highlightsTitle: "W skrócie",
+    highlightsDescription: "Najważniejsze informacje, aby szybko zrozumieć to narzędzie.",
+    quickAnswersTitle: "Szybkie odpowiedzi",
+    quickAnswersDescription: "Krótkie odpowiedzi na najczęstsze pytania na początku."
+  },
+  tr: {
+    highlightsTitle: "Bir bakışta",
+    highlightsDescription: "Bu aracı hızlıca anlamak için gereken temel bilgiler.",
+    quickAnswersTitle: "Hızlı yanıtlar",
+    quickAnswersDescription: "Başlamadan önce en sık sorulan sorulara kısa yanıtlar."
+  },
+  cs: {
+    highlightsTitle: "Stručně",
+    highlightsDescription: "Klíčové informace pro rychlé pochopení tohoto nástroje.",
+    quickAnswersTitle: "Rychlé odpovědi",
+    quickAnswersDescription: "Krátké odpovědi na nejčastější otázky před začátkem."
+  },
+  sv: {
+    highlightsTitle: "Snabböversikt",
+    highlightsDescription: "De viktigaste punkterna för att snabbt förstå det här verktyget.",
+    quickAnswersTitle: "Snabba svar",
+    quickAnswersDescription: "Korta svar på de vanligaste startfrågorna."
+  },
+  no: {
+    highlightsTitle: "Rask oversikt",
+    highlightsDescription: "De viktigste punktene for å forstå dette verktøyet raskt.",
+    quickAnswersTitle: "Raske svar",
+    quickAnswersDescription: "Korte svar på de vanligste spørsmålene for å komme i gang."
+  }
+});
 
 const toolIntentLabels: Record<
   Locale,
@@ -229,7 +294,56 @@ const toolIntentLabels: Record<
   questionsTitle: string;
   searchesDescription: string;
   searchesTitle: string;
-}>);
+}>, {
+  hi: {
+    questionsTitle: "संबंधित प्रश्न",
+    questionsDescription: "इस टूल के बाद प्रैक्टिस जारी रखने के लिए छोटे प्रश्न।",
+    searchesTitle: "संबंधित खोज",
+    searchesDescription: "वे आंतरिक पेज जो इस टूल के बाद अगले कदम के रूप में उपयुक्त हैं।"
+  },
+  "pt-BR": {
+    questionsTitle: "Perguntas relacionadas",
+    questionsDescription: "Perguntas curtas para continuar a prática com mais clareza.",
+    searchesTitle: "Pesquisas relacionadas",
+    searchesDescription: "Páginas internas que fazem sentido como próximo passo depois desta ferramenta."
+  },
+  nl: {
+    questionsTitle: "Gerelateerde vragen",
+    questionsDescription: "Korte vervolgvragen om de oefening voort te zetten.",
+    searchesTitle: "Gerelateerde zoekopdrachten",
+    searchesDescription: "Interne pagina's die goed passen als volgende stap na dit tool."
+  },
+  pl: {
+    questionsTitle: "Powiązane pytania",
+    questionsDescription: "Krótkie pytania uzupełniające, które pomogą w dalszej nauce.",
+    searchesTitle: "Powiązane wyszukiwania",
+    searchesDescription: "Wewnętrzne strony pasujące jako następny krok po tym narzędziu."
+  },
+  tr: {
+    questionsTitle: "İlgili sorular",
+    questionsDescription: "Pratik yapmaya devam etmek için kısa takip soruları.",
+    searchesTitle: "İlgili aramalar",
+    searchesDescription: "Bu araçtan sonra doğal bir sonraki adım olan iç sayfalar."
+  },
+  cs: {
+    questionsTitle: "Relacionované otázky",
+    questionsDescription: "Krátké otázky pro pokračování ve cvičení.",
+    searchesTitle: "Relacionované vyhledávání",
+    searchesDescription: "Interní stránky vhodné jako další krok po tomto nástroji."
+  },
+  sv: {
+    questionsTitle: "Relaterade frågor",
+    questionsDescription: "Korta följdfrågor för att hålla övningen igång.",
+    searchesTitle: "Relaterade sökningar",
+    searchesDescription: "Interna sidor som passar bra som nästa steg efter det här verktyget."
+  },
+  no: {
+    questionsTitle: "Relaterte spørsmål",
+    questionsDescription: "Korte oppfølgingsspørsmål for å fortsette praksisen.",
+    searchesTitle: "Relaterte søk",
+    searchesDescription: "Interne sider som passer godt som neste steg etter dette verktøyet."
+  }
+});
 
 type ToolFollowUp = {
   answer: string;
@@ -389,6 +503,7 @@ export default async function ToolPage({ params }: PageProps) {
   return (
     <main className="mx-auto w-full max-w-7xl overflow-hidden px-2 py-8 sm:px-4 sm:py-10">
       {coreTool ? <JsonLd data={toolSchema(locale, coreTool, dictionary)} /> : null}
+      {coreTool ? <JsonLd data={howToSchema(locale, coreTool, dictionary)} /> : null}
       {instrumentContent ? <JsonLd data={instrumentTunerSchema(locale, rawTool, instrumentContent)} /> : null}
       {coreTool ? <JsonLd data={faqItemsSchema(faqContent)} /> : <JsonLd data={faqItemsSchema(content.faq)} />}
       <JsonLd
@@ -408,6 +523,23 @@ export default async function ToolPage({ params }: PageProps) {
           </header>
           <div className="w-full min-w-0 max-w-full overflow-hidden">
             <ToolComponent tool={coreTool ?? undefined} instrument={instrument ?? undefined} dictionary={dictionary} locale={locale} />
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {relatedTools.slice(0, 3).map((slug) => (
+              <Link
+                key={slug}
+                href={`/${locale}/tools/${slug}`}
+                className="rounded-lg border border-line bg-white px-4 py-3 text-sm font-semibold transition hover:border-mint hover:shadow-soft"
+              >
+                {dictionary.tools[slug].title}
+              </Link>
+            ))}
+            <Link
+              href={`/${locale}/guides`}
+              className="rounded-lg border border-line bg-mint/5 px-4 py-3 text-sm font-semibold transition hover:border-mint hover:bg-white"
+            >
+              {pageLabels.allGuides}
+            </Link>
           </div>
           {seoEnhancement?.highlights?.length ? (
             <section className="rounded-lg border border-line bg-white p-5 shadow-soft">

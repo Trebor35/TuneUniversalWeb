@@ -30,6 +30,10 @@
     "requestMic": "Ativar microfone",
     "stopMic": "Parar microfone",
     "micError": "Falha ao acessar o microfone. Verifique as permissoes do navegador.",
+    "micPermissionDenied": "Permissao de microfone negada. Abra as configuracoes do site ao lado da URL, permita o microfone e recarregue a pagina.",
+    "micNotFound": "Nenhum microfone foi detectado. Conecte ou ative um microfone nas configuracoes do sistema.",
+    "micNotSupported": "Este navegador nao suporta acesso ao microfone. Experimente Chrome, Edge ou Safari atualizado.",
+    "micNeedsSecureContext": "O acesso ao microfone requer localhost ou HTTPS.",
     "bpm": "BPM",
     "start": "Iniciar",
     "stop": "Parar",
@@ -49,169 +53,301 @@
   "tools": {
     "guitar-tuner": {
       "title": "Afinador de guitarra online",
-      "description": "Use o microfone para afinar rapidamente uma guitarra padrao.",
+      "description": "Use o microfone para afinar rapidamente uma guitarra com deteccao de altura em tempo real — gratis, sem download.",
       "howItWorks": [
-        "Permita o microfone.",
-        "Toque uma corda por vez.",
-        "Ajuste ate ficar afinado."
+        "Abra o afinador e clique em 'Ativar microfone' — o navegador pedira permissao na primeira vez.",
+        "Selecione a afinacao desejada: Standard, Drop D, Open G e muitas outras estao disponiveis.",
+        "Toque uma corda solta por vez, deixando a nota ressoar claramente sem tocar outras cordas.",
+        "Observe o indicador e o valor em cents: verde significa afinado, vermelho indica que precisa ajustar.",
+        "Gire a tarraxha devagar — pequenos movimentos fazem grande diferenca perto da nota correta.",
+        "Repita para cada corda antes de tocar e verifique novamente apos alguns minutos enquanto as cordas assentam."
       ],
       "faq": [
         {
-          "question": "Funciona no celular?",
-          "answer": "Sim, navegadores modernos com microfone sao suportados."
+          "question": "O afinador funciona em celular e tablet?",
+          "answer": "Sim. TuneUniversal funciona em qualquer navegador moderno de smartphone ou tablet que suporte acesso ao microfone. No iOS voce precisa do Safari 14.3 ou posterior; no Android, Chrome ou Firefox funcionam melhor. Certifique-se de conceder permissao ao microfone quando o navegador solicitar."
         },
         {
-          "question": "Qual afinacao?",
-          "answer": "TuneUniversal suporta a maioria das afinacoes comuns, incluindo Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D e Open G."
+          "question": "Quais afinacoes de guitarra sao suportadas?",
+          "answer": "O afinador suporta uma ampla variedade de afinacoes: Standard (E A D G B E), Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D, Open G e DADGAD, entre outras. Voce pode navegar pelas afinacoes alternativas e abrir o preset correspondente diretamente nessas paginas."
+        },
+        {
+          "question": "Por que o indicador fica oscilando em vez de ficar fixo?",
+          "answer": "A oscilacao e normal enquanto a corda vibra livremente. A leitura estabiliza conforme a nota sustenta. Para uma leitura mais limpa, toque a corda com firmeza e deixe ressoar sem amortecer, va para um ambiente silencioso e certifique-se de que nenhuma outra corda esta vibrando por simpatia."
+        },
+        {
+          "question": "Meu audio e enviado para algum servidor?",
+          "answer": "Nao. Toda a deteccao de altura acontece dentro do seu navegador usando a Web Audio API. Nenhum dado de audio e enviado, armazenado ou processado em qualquer servidor. O sinal do microfone e usado em tempo real e depois descartado."
+        },
+        {
+          "question": "Quao preciso e um afinador baseado em navegador?",
+          "answer": "Um afinador de navegador bem implementado como TuneUniversal e preciso dentro de alguns cents, o que e mais do que suficiente para a maioria dos usos. O principal fator limitante e a qualidade e posicao do microfone do seu dispositivo — segurar o celular ou laptop mais perto do corpo da guitarra melhora significativamente a deteccao."
+        },
+        {
+          "question": "Preciso instalar alguma coisa?",
+          "answer": "Nenhuma instalacao e necessaria. TuneUniversal roda totalmente no navegador. Basta abrir a pagina, conceder permissao ao microfone e comecar a afinar. Funciona no Windows, macOS, iOS e Android sem plugins ou downloads."
         }
       ]
     },
     "bass-tuner": {
       "title": "Afinador de baixo online",
-      "description": "Afine um baixo de quatro cordas com deteccao em tempo real.",
+      "description": "Afine um baixo de quatro ou cinco cordas com deteccao de altura em tempo real — gratis e no navegador.",
       "howItWorks": [
-        "Ative o microfone.",
-        "Toque uma corda solta clara.",
-        "Afine para a nota alvo."
+        "Clique em 'Ativar microfone' e aceite a solicitacao de permissao do navegador.",
+        "Posicione o celular ou laptop perto do corpo do baixo ou do alto-falante para um sinal limpo.",
+        "Toque uma corda solta por vez, deixando ressoar completamente antes de verificar a leitura.",
+        "O display mostra a nota detectada e quantos cents acima ou abaixo voce esta.",
+        "Ajuste a tarraxha devagar ate o indicador ficar verde e mostrar 0 cents.",
+        "Afine as cordas em ordem — E, A, D, G — para um resultado equilibrado, depois verifique novamente a partir do E."
       ],
       "faq": [
         {
-          "question": "Quais cordas?",
-          "answer": "Afinacao padrao E A D G."
+          "question": "Quais afinacoes de baixo sao suportadas?",
+          "answer": "O afinador de baixo cobre a afinacao padrao de quatro cordas (E1 A1 D2 G2) e afinacoes alternativas comuns, incluindo Drop D (D A D G), Eb Standard e baixo de cinco cordas (B E A D G). As frequencias graves das cordas de baixo estao dentro do alcance de deteccao do afinador."
         },
         {
-          "question": "Preciso de app?",
-          "answer": "Nao, roda no navegador."
+          "question": "Por que o baixo e mais dificil de afinar com microfone?",
+          "answer": "Cordas graves produzem frequencias fundamentais que alguns microphones integrados captam menos claramente do que as notas de media frequencia da guitarra. Para melhorar a deteccao, toque a corda com firmeza, mantenha o dispositivo a 20-30 cm do corpo do baixo e evite ambientes muito barulhentos."
+        },
+        {
+          "question": "Preciso de um app para afinar meu baixo?",
+          "answer": "Nenhum app e necessario. TuneUniversal e um afinador totalmente baseado em navegador que funciona em qualquer dispositivo com microfone e navegador atualizado. Nao ha nada para instalar ou atualizar — basta abrir a pagina e comecar a afinar."
+        },
+        {
+          "question": "Posso usar com um baixo ativo?",
+          "answer": "Sim. O afinador detecta a altura pelo microfone, independente de seu baixo ser passivo ou ativo. Se voce usa uma interface de audio com o computador, o afinador tambem pode captar o sinal pela entrada de microfone da interface."
+        },
+        {
+          "question": "Como afinar um baixo de 5 cordas?",
+          "answer": "Selecione o preset de cinco cordas se disponivel, ou afine cada corda manualmente identificando a nota mostrada na tela. A corda grave Si (B0) fica logo abaixo do E1 na escala cromatica. Toque devagar e com firmeza — a frequencia muito baixa pode demorar um momento a mais para o navegador detectar confiavelmente."
         }
       ]
     },
     "ukulele-tuner": {
       "title": "Afinador de ukulele online",
-      "description": "Afine seu ukulele em G C E A.",
+      "description": "Afine seu ukulele soprano, concerto, tenor ou baritono com o microfone — gratis, rapido, sem download.",
       "howItWorks": [
-        "Inicie o afinador.",
-        "Toque uma corda.",
-        "Siga baixo, alto ou afinado."
+        "Conceda permissao ao microfone quando o navegador solicitar.",
+        "Selecione o tipo de ukulele — soprano, concerto, tenor ou baritono, cada um tem um preset de cordas diferente.",
+        "Dedilhe uma corda por vez com clareza, deixando a nota ressoar por um segundo completo.",
+        "Verifique a nota detectada e a leitura em cents na tela.",
+        "Gire a tarraxha muito devagar — as tarraxhas de ukulele sao sensiveis e um pequeno giro move bastante a altura.",
+        "Percorra todas as quatro cordas: G, C, E, A para a afinacao reentrante padrao."
       ],
       "faq": [
         {
-          "question": "Suporta high-G?",
-          "answer": "Sim, a afinacao standard high-G G C E A esta incluida, com outros presets conforme o instrumento escolhido."
+          "question": "Qual e a afinacao padrao do ukulele?",
+          "answer": "A afinacao padrao para ukulele soprano, concerto e tenor e G4 C4 E4 A4, comumente escrita como G C E A. Usa uma quarta corda Sol agudo, o que significa que as cordas nao vao de grave a agudo — a corda Sol fica mais alta que a corda Do. Isso se chama afinacao reentrante e da ao ukulele seu som brilhante caracteristico."
         },
         {
-          "question": "O audio e enviado?",
-          "answer": "Nao, a analise fica no navegador."
+          "question": "Qual afinacao usa um ukulele baritono?",
+          "answer": "Ukuleles baritonos usam afinacao D G B E — o mesmo que as quatro cordas mais agudas de uma guitarra. Isso facilita para guitarristas pegar um ukulele baritono sem aprender formatos de acordes totalmente novos, embora os nomes dos acordes difiram da afinacao padrao do ukulele."
+        },
+        {
+          "question": "A afinacao reentrante e suportada?",
+          "answer": "Sim. A afinacao reentrante padrao com Sol agudo (G4 C4 E4 A4) e totalmente suportada. Alguns tocadores preferem a afinacao low-G, onde a corda Sol e afinada uma oitava abaixo. Selecione o preset low-G se disponivel, ou afine manualmente a corda Sol para G3 em vez de G4 — o afinador identificara a nota corretamente de qualquer forma."
+        },
+        {
+          "question": "Por que as cordas do meu ukulele ficam desafinando?",
+          "answer": "Cordas novas de ukulele — especialmente nylon ou fluorocarbono — esticam muito durante a primeira semana de uso. Afine o ukulele, toque por alguns minutos, depois afine novamente. Repita varias vezes ao dia na primeira semana e as cordas se estabilizarao. Mudancas de temperatura e umidade tambem afetam cordas de nylon mais do que cordas metalicas."
+        },
+        {
+          "question": "O afinador funciona no iPhone e Android?",
+          "answer": "Sim. No iPhone e iPad, o Safari concede acesso correto ao microfone a partir do iOS 14.3. No Android, Chrome e Firefox funcionam bem. Certifique-se de ter permitido o uso do microfone pelo navegador nas configuracoes do dispositivo."
         }
       ]
     },
     "metronome": {
       "title": "Metronomo online",
-      "description": "Pratique com BPM ajustavel, acentos e compassos comuns.",
+      "description": "Pratique com um metronomo preciso e ajustavel — defina BPM, compasso e acentos diretamente no navegador.",
       "howItWorks": [
-        "Defina o BPM.",
-        "Escolha o compasso.",
-        "Inicie o pulso e siga o primeiro beat acentuado."
+        "Defina o BPM usando o controle deslizante ou os botoes mais e menos — o alcance cobre de 20 a 300 BPM.",
+        "Escolha um compasso: 2/4, 3/4, 4/4 ou 6/8 para combinar com a musica que voce esta praticando.",
+        "Pressione Iniciar. O primeiro tempo de cada compasso toca com um clique acentuado para que voce sempre saiba onde cai o tempo 1.",
+        "Pratique junto — comece em um tempo onde voce possa tocar cada nota com clareza sem se apressar.",
+        "Aumente gradualmente o BPM em 5 por vez, somente quando conseguir tocar o trecho sem erros.",
+        "Use o botao Tap Tempo para combinar o metronomo com uma musica que voce ja conhece, depois pratique a partir dai."
       ],
       "faq": [
         {
-          "question": "Tem tap tempo?",
-          "answer": "Sim, o tap estima o tempo."
+          "question": "Em qual BPM um iniciante deve comecar?",
+          "answer": "Iniciantes devem comecar em um tempo lento o suficiente para tocar cada nota com clareza — geralmente 60 BPM ou ate mais devagar para passagens dificeis. Nao ha vergonha em um tempo muito lento. O objetivo e construir a memoria muscular correta primeiro. A velocidade vem naturalmente com a repeticao uma vez que o padrao de movimento esteja preciso."
         },
         {
-          "question": "Quais compassos?",
-          "answer": "2/4, 3/4, 4/4 e 6/8."
+          "question": "Quais compassos estao disponiveis?",
+          "answer": "O metronomo suporta 2/4 (marcha, polka), 3/4 (valsa, minueto), 4/4 (o compasso mais comum na musica popular e rock) e 6/8 (compasso composto, comum em baladas e blues). O primeiro tempo de cada compasso e acentuado para que voce sempre sinta o tempo forte."
+        },
+        {
+          "question": "Como usar o metronomo para melhorar meu timing?",
+          "answer": "O metodo de pratica mais eficaz e isolar um trecho curto — quatro a oito compassos — e repeti-lo em tempo lento ate parecer facil. Depois aumente o BPM em 5 e repita. Nunca pule adiante aumentando o tempo rapido demais; a pressa faz voce praticar erros. Gravar-se ao lado do metronomo e ouvir depois e uma das maneiras mais rapidas de identificar problemas de timing."
+        },
+        {
+          "question": "Posso usar tap tempo no metronomo?",
+          "answer": "Sim. Toque o botao Tap Tempo repetidamente no ritmo de uma musica que voce esta ouvindo, e o campo BPM vai se atualizar para combinar com seus taps. Isso e util quando voce quer praticar junto com uma faixa especifica no seu tempo exato. Toque pelo menos quatro vezes para uma media precisa."
+        },
+        {
+          "question": "O metronomo funciona sem conexao com a internet?",
+          "answer": "Uma vez que a pagina foi carregada no navegador, o metronomo roda totalmente em JavaScript usando a Web Audio API e nao precisa de conexao com servidor para manter o tempo. Se voce recarregar a pagina offline o motor de audio pode nao inicializar, entao carregue a pagina conectado e mantenha a aba aberta."
+        },
+        {
+          "question": "Qual a diferenca entre 4/4 e 3/4?",
+          "answer": "Em 4/4 ha quatro tempos por compasso, com o acento mais forte no tempo 1 e um acento secundario no tempo 3. Em 3/4 ha tres tempos por compasso com um acento no tempo 1 — isso cria o caracteristico balanco de valsa. Mudar o compasso no metronomo e uma maneira simples de sentir essa diferenca imediatamente."
         }
       ]
     },
     "tap-bpm": {
       "title": "Contador Tap BPM",
-      "description": "Toque junto com a musica e calcule o BPM medio.",
+      "description": "Toque junto com qualquer musica e obtenha uma leitura instantanea de BPM — encontre o tempo de qualquer faixa em segundos.",
       "howItWorks": [
-        "Toque no beat.",
-        "O BPM medio atualiza.",
-        "Resete para uma nova musica."
+        "Abra a pagina Tap BPM — nenhum microfone ou configuracao e necessario.",
+        "Ouca a musica que voce quer medir.",
+        "Toque o grande botao Tap (ou pressione a barra de espaco) uma vez por tempo, no ritmo da musica.",
+        "Apos quatro ou mais toques o display de BPM medio se atualiza em tempo real.",
+        "Continue tocando por 8-16 tempos para uma leitura mais estavell e precisa.",
+        "Pressione Resetar para limpar o historico e iniciar uma nova medicao para outra musica."
       ],
       "faq": [
         {
-          "question": "Quantos taps usa?",
-          "answer": "Mantem intervalos recentes para estimativa estavel."
+          "question": "Quantos taps preciso para uma leitura de BPM precisa?",
+          "answer": "Voce precisa de pelo menos quatro taps para obter uma primeira estimativa, mas a leitura fica muito mais estavel apos oito a dezesseis taps. A ferramenta calcula o intervalo medio entre os taps e o converte em BPM, entao mais taps suavizam qualquer ligeira inconsistencia de timing nos seus taps."
         },
         {
-          "question": "Teclado funciona?",
-          "answer": "Esta versao usa o botao na tela."
+          "question": "Posso usar o teclado em vez de clicar?",
+          "answer": "Sim. Pressionar a barra de espaco no teclado conta como um tap, o que facilita manter um ritmo constante em comparacao com clicar no botao do mouse. No celular, o grande botao de tap na tela foi projetado para ser facil de pressionar com consistencia."
+        },
+        {
+          "question": "Por que a leitura de BPM continua mudando?",
+          "answer": "O BPM se atualiza apos cada tap com base em uma media movel de intervalos recentes. No inicio de uma sessao a leitura oscila mais porque ha menos pontos de dados. Apos oito ou mais taps o numero se estabiliza. Se ainda estiver oscilando, verifique se voce esta tocando no tempo principal e nao numa subdivisao ou no contratempo."
+        },
+        {
+          "question": "O que e BPM e por que importa para musicos?",
+          "answer": "BPM significa batidas por minuto e e a forma padrao de descrever o tempo de uma peca musical. Conhecer o BPM de uma musica permite configurar um metronomo exatamente na velocidade certa para a pratica, programar baterias eletronicas e DAWs com precisao e combinar o tempo ao tocar junto com uma gravacao. A maioria da musica popular fica entre 60 e 180 BPM."
+        },
+        {
+          "question": "Posso usar o Tap BPM para combinar um metronomo com uma musica?",
+          "answer": "Sim — este e um dos usos mais comuns. Toque o tempo da musica que voce quer aprender, anote o resultado de BPM, depois insira esse valor no metronomo online e pratique junto na velocidade correta. Isso e muito mais rapido do que tentar adivinhar um tempo de ouvido."
         }
       ]
     },
     "chord-transposer": {
       "title": "Transpositor de acordes",
-      "description": "Transponha progressoes de acordes por semitons.",
+      "description": "Transponha qualquer progressao de acordes para cima ou para baixo por semitons — cole os acordes, escolha o deslocamento, copie o resultado.",
       "howItWorks": [
-        "Cole os acordes.",
-        "Escolha semitons de -12 a +12.",
-        "Copie o resultado."
+        "Cole ou digite sua progressao de acordes no campo de entrada — um acorde por palavra, multiplas linhas sao aceitas.",
+        "Use o controle deslizante de semitons ou os botoes para escolher quantos passos transpor: de -12 a +12.",
+        "Os acordes transpostos aparecem instantaneamente no painel de saida abaixo.",
+        "Copie o resultado com o botao de copiar e cole na sua letra, lead sheet ou aplicativo de notas.",
+        "Valores positivos transpoe para cima (ex: de C para D e +2); valores negativos transpoe para baixo (ex: de G para F e -2).",
+        "Letras e texto que nao sao acordes passam sem alteracao — apenas simbolos de acordes reconhecidos sao transpostos."
       ],
       "faq": [
         {
-          "question": "Suporta bemois?",
-          "answer": "Sim, raizes bemol viram sustenidos na saida."
+          "question": "Quais tipos de acordes o transpositor suporta?",
+          "answer": "O transpositor lida com uma ampla variedade de simbolos de acordes: maior (C, D, G), menor (Am, Em, Bm), setima dominante (G7, A7), setima maior (Cmaj7), setima menor (Am7), suspenso (Csus2, Csus4), nona adicionada (Cadd9), diminuto, aumentado e acordes com baixo (G/B, C/E). A nota fundamental muda pelo numero de semitons escolhido enquanto a qualidade e sufixo do acorde permanecem iguais."
         },
         {
-          "question": "Quais acordes?",
-          "answer": "Maiores, menores, sustenidos, bemois, setimas e sufixos comuns."
+          "question": "Por que eu precisaria transpor acordes?",
+          "answer": "Transpor e util em muitas situacoes comuns: mudar uma musica para uma tonalidade que se adeque ao seu alcance vocal, combinar a tonalidade de outro instrumento num conjunto, uso de capotraste na guitarra (um capotraste na casa 2 significa que os acordes soam dois semitons mais alto, entao voce transpoe -2 para ler as formas originais) e aprender uma musica gravada numa afinacao diferente da padrao."
+        },
+        {
+          "question": "Acordes com bemol sao convertidos para sustenidos?",
+          "answer": "Sim. Quando voce insere acordes com raiz em bemol como Bb, Eb ou Ab, o transpositor os normaliza internamente e exibe o equivalente enharmonico mais proximo. A saida usa sustenidos por padrao (ex: Bb vira A#). Se voce prefere bemois na saida, tenha isso em mente ao ler o resultado — A# e Bb sao a mesma altura."
+        },
+        {
+          "question": "Posso transpor uma musica inteira com a letra?",
+          "answer": "Sim. Cole a letra completa com os acordes escritos acima ou em linha (por exemplo, no estilo Nashville number ou formato padrao de lead sheet). O transpositor reconhece os simbolos de acordes e os desloca enquanto deixa todo o outro texto — palavras, pontuacao, quebras de linha — completamente inalterado."
+        },
+        {
+          "question": "Quantos semitons tem uma oitava completa?",
+          "answer": "Uma oitava equivale a 12 semitons. Transpor por +12 ou -12 traz voce de volta a mesma tonalidade, mas uma oitava acima ou abaixo. Transpor por +7 sobe uma quinta justa (ex: C para G), e transpor por +5 sobe uma quarta justa (ex: C para F). Esses intervalos sao uteis de conhecer ao mudar de tonalidade na guitarra."
         }
       ]
     },
     "sound-level-meter": {
-      "title": "Medidor de dB online",
-      "description": "Meça o nível sonoro estimado em dB pelo microfone com sensibilidade ajustável.",
+      "title": "Medidor de nivel sonoro online",
+      "description": "Meca os niveis de som do microfone em tempo real — veja dB estimados, media e pico diretamente no navegador.",
       "howItWorks": [
-        "Permita o acesso ao microfone.",
-        "Ajuste a sensibilidade para calibrar a leitura.",
-        "Leia dB estimados, média e pico em tempo real."
+        "Clique em 'Ativar microfone' e conceda a permissao do navegador — o medidor ativa imediatamente.",
+        "Observe a barra de dB ao vivo: a barra principal mostra o nivel atual, o marcador de pico mostra o valor recente mais alto.",
+        "Use o controle deslizante de sensibilidade para calibrar a leitura para o seu microfone e ambiente especificos.",
+        "O display de dB medio suaviza picos curtos e da uma melhor ideia do nivel tipico.",
+        "Reduza as fontes de ruido na sala e verifique se a leitura cai como esperado para confirmar que o medidor esta respondendo corretamente.",
+        "Quando terminar, clique em Parar microfone para libera-lo de volta ao sistema operacional."
       ],
       "faq": [
         {
-          "question": "É um medidor certificado?",
-          "answer": "Não. Usa o microfone do navegador e fornece uma estimativa útil, não uma medição profissional dB SPL."
+          "question": "Isso e um medidor de nivel sonoro profissional?",
+          "answer": "Nao. Esta e uma ferramenta de estimativa baseada em navegador, nao um medidor de SPL calibrado. Medidores de nivel sonoro profissionais usam um microfone calibrado de Classe 1 ou 2 e estao em conformidade com a IEC 61672. As leituras aqui dependem inteiramente do microfone integrado do seu dispositivo, que varia significativamente entre celulares, laptops e headsets. Use esta ferramenta para verificacoes aproximadas, avaliacoes de salas de ensaio e fins educacionais."
         },
         {
-          "question": "Como ajusto a sensibilidade?",
-          "answer": "Use o controle de sensibilidade/calibração se a leitura parecer alta ou baixa demais."
+          "question": "Como calibrar o controle deslizante de sensibilidade?",
+          "answer": "Comece com uma referencia conhecida: gere um tom em um volume confortavel de audio com um alto-falante e mova o dispositivo para uma distancia onde voce espera aproximadamente 70-75 dB (nivel de conversa normal). Ajuste o controle deslizante de sensibilidade ate a leitura corresponder. Uma vez definido para o seu microfone e ambiente especificos, as leituras relativas se tornam uteis para comparar sons altos versus silenciosos."
+        },
+        {
+          "question": "Qual e um nivel sonoro seguro para pratica musical?",
+          "answer": "Niveis sonoros acima de 85 dB sustentados por mais de uma hora podem causar danos auditivos graduais ao longo do tempo. Um show de rock ao vivo tipicamente mede 100-115 dB, o que e inseguro sem protecao auditiva para exposicao prolongada. Para pratica com instrumentos amplificados, tente manter os niveis sustentados abaixo de 85 dB. Use a leitura media do medidor — nao o pico — como guia para exposicao prolongada."
+        },
+        {
+          "question": "Por que a leitura oscila tanto?",
+          "answer": "O nivel sonoro varia naturalmente com cada nota, palavra ou ruido na sala. A barra ao vivo reflete o sinal instantaneo, que sempre vai oscilar. O display de media suaviza isso em uma janela curta e e mais util para julgar o volume geral. O marcador de pico mostra o momento mais alto detectado, o que e util para verificar se os picos transitorios estao saturando a entrada do microfone."
+        },
+        {
+          "question": "Posso medir o ruido de uma sala para gravacao?",
+          "answer": "Sim, este e um caso de uso pratico. Coloque o dispositivo no centro da sala, pare de falar e observe o nivel de fundo — este e o seu ruido de fundo ambiente. Uma sala silenciosa adequada para gravacao caseira tipicamente tem um nivel de fundo abaixo de 40 dB. Se o medidor mostrar 50-60 dB sem ninguem falando, voce pode ter ventilacao, ruido de rua ou ruido de ventoinha do computador que pode afetar as gravacoes."
         }
       ]
     },
     "pitch-generator": {
       "title": "Gerador de tom",
-      "description": "Gere um tom puro de 20 Hz a 20000 Hz para treino auditivo e testes de audio.",
+      "description": "Gere um tom de referencia preciso de 20 Hz a 20000 Hz — para treinamento auditivo, afinacao de instrumentos e testes de audio.",
       "howItWorks": [
-        "Escolha uma frequencia entre 20 Hz e 20000 Hz.",
-        "Ajuste volume e forma de onda.",
-        "Pressione gerar tom e pare quando terminar."
+        "Escolha uma frequencia usando o controle deslizante ou digitando diretamente — o alcance e de 20 Hz a 20000 Hz.",
+        "Selecione uma forma de onda: ondas senoidais sao puras e suaves; ondas quadradas e dente de serra sao mais ricas e brilhantes.",
+        "Defina o volume em um nivel confortavel antes de pressionar play.",
+        "Pressione Play para iniciar o tom. O tom sustenta ate voce pressionar Stop.",
+        "Para treinamento auditivo, tente combinar o tom cantando ou cantarolando antes de verificar a frequencia.",
+        "Para afinacao de instrumento, gere a altura de referencia de uma nota padrao (ex: A4 = 440 Hz) e afine de ouvido."
       ],
       "faq": [
         {
-          "question": "Posso usar fones?",
-          "answer": "Sim, mas comece com volume baixo, especialmente em frequencias altas."
+          "question": "Qual e a frequencia do diapasao padrao?",
+          "answer": "O diapasao padrao internacional e A4 = 440 Hz, adotado pela Organizacao Internacional de Normalizacao (ISO 16) em 1955. Muitas orquestras afinam para A = 442 Hz ou ate 443-444 Hz para um som ligeiramente mais brilhante. Conjuntos de musica antiga as vezes usam A = 415 Hz (aproximadamente um semitom abaixo). O gerador de tom permite definir qualquer uma dessas alturas de referencia com precisao."
         },
         {
-          "question": "Qual faixa de frequencia e suportada?",
-          "answer": "O gerador cobre de 20 Hz a 20000 Hz, a faixa aproximada da audicao humana."
+          "question": "E seguro usar fones de ouvido com esta ferramenta?",
+          "answer": "Sim, mas tome cuidado com tons de alta frequencia acima de 4000 Hz e qualquer tom em volume alto. Comece com o controle de volume em torno de 30% e aumente gradualmente. Frequencias muito altas (acima de 8000 Hz) podem ser desconfortaveis em volumes altos, e tons altos sustentados por fones de ouvido carregam o mesmo risco auditivo que qualquer som alto. Use rajadas curtas em vez de tons longos ao testar altas frequencias."
+        },
+        {
+          "question": "Como posso usar um gerador de tom para treinamento auditivo?",
+          "answer": "Um gerador de tom e uma ferramenta classica de treinamento auditivo. Defina-o para A4 (440 Hz) e tente combinar cantando. Depois mova para outras notas — E4 (329 Hz), D4 (294 Hz) — e pratique reconhecer os intervalos entre elas. O treinamento auditivo avancado envolve identificar intervalos, combinar acordes e reconhecer se uma nota tocada esta acima ou abaixo da referencia. Repita esses exercicios diariamente para a melhora mais rapida."
+        },
+        {
+          "question": "Quais sao as diferentes formas de onda e como elas soam?",
+          "answer": "Uma onda senoidal produz um tom puro, semelhante a flauta, sem harmonicos — e a referencia mais clara para afinacao. Uma onda quadrada adiciona harmonicos impares e soa oco e buzinante, como uma clarineta ou sintetizador antigo. Uma onda dente de serra contem todos os harmonicos e soa brilhante e rico, semelhante a um instrumento de corda ou sopro. Para referencia de afinacao, use senoidal. Para testes de som e experiencias de sintese, experimente as outras formas."
+        },
+        {
+          "question": "Qual frequencia corresponde a cada nota musical?",
+          "answer": "A escala de temperamento igual padrao atribui frequencias especificas a cada nota. Referencias comuns: C4 (do central) = 261,63 Hz, A4 = 440 Hz, E4 = 329,63 Hz, G4 = 392 Hz, B4 = 493,88 Hz. Cada oitava dobra a frequencia, entao A5 = 880 Hz e A3 = 220 Hz. O gerador de tom exibe o nome da nota mais proxima conforme voce move o controle deslizante, facilitando encontrar qualquer altura de referencia."
+        },
+        {
+          "question": "Posso usar o gerador de tom para testar caixas de som ou fones?",
+          "answer": "Sim. Uma varredura de 20 Hz a 20000 Hz e um teste padrao de resposta em frequencia de alto-falante. Mova o controle deslizante devagar para cima a partir de 20 Hz e ouca quais frequencias suas caixas ou fones reproduzem claramente, quais parecem fracas e quais causam vibracao ou distorcao. A maioria dos fones de ouvido de consumo diminui abaixo de 50 Hz e acima de 16000 Hz. Este teste e puramente subjetivo mas util para entender seu equipamento."
         }
       ]
     }
   },
   "cookie": {
-    "text": "Usamos cookies para melhorar a sua experiência, exibir anúncios e analisar o tráfego.",
-    "privacy": "Política de privacidade",
+    "text": "Usamos cookies para melhorar a sua experiencia, exibir anuncios e analisar o trafego.",
+    "privacy": "Politica de privacidade",
     "accept": "Aceitar tudo",
     "decline": "Recusar tudo",
     "customize": "Personalizar",
-    "savePrefs": "Guardar preferências",
-    "necessary": "Necessários",
-    "necessaryDesc": "Indispensáveis para o funcionamento do site. Não podem ser desativados.",
-    "analytics": "Analíticos",
+    "savePrefs": "Guardar preferencias",
+    "necessary": "Necessarios",
+    "necessaryDesc": "Indispensaveis para o funcionamento do site. Nao podem ser desativados.",
+    "analytics": "Analiticos",
     "analyticsDesc": "Ajudam-nos a perceber como os visitantes usam o site (Google Analytics, Vercel Analytics).",
     "advertising": "Publicidade",
-    "advertisingDesc": "Usados para exibir anúncios relevantes através do Google AdSense."
+    "advertisingDesc": "Usados para exibir anuncios relevantes atraves do Google AdSense."
   }
 }

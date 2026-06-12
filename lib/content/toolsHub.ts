@@ -223,4 +223,157 @@ export const toolsHubContent: Record<Locale, ToolsHubContent> = withLocaleFallba
       { question: "æ‰‹æœºå¯ä»¥ä½¿ç”¨å—ï¼Ÿ", answer: "å¯ä»¥ï¼Œåœ¨æ”¯æŒéŸ³é¢‘å’Œéº¦å…‹é£Žæƒé™çš„çŽ°ä»£ç§»åŠ¨æµè§ˆå™¨ä¸­ä½¿ç”¨ã€‚" }
     ]
   }
-} satisfies Record<BaseLocale, ToolsHubContent>);
+} satisfies Record<BaseLocale, ToolsHubContent>, {
+  hi: {
+    title: "मुफ्त संगीत उपकरण",
+    description: "यूनिवर्सल ट्यूनर, मेट्रोनोम, Tap BPM और कॉर्ड ट्रांसपोज़र — रोज़ की प्रैक्टिस के लिए।",
+    chromaticTitle: "यूनिवर्सल ऑनलाइन ट्यूनर",
+    chromaticBody: "गिटार, बास, यूकुलेले और कई तार वाले वाद्यंत्रों को माइक्रोफोन से ट्यून करें। ट्यूनर क्रोमैटिक काम करता है और नोट, फ्रीक्वेंसी और सेंट दिखाता है।",
+    chromaticCta: "यूनिवर्सल ट्यूनर खोलें",
+    instrumentIntro: "रेफरेंस नोट्स, प्रीसेट और गाइड लिंक के लिए कोई खास वाद्यंत्र चुनें।",
+    keywords: ["यूनिवर्सल ट्यूनर", "मुफ्त संगीत उपकरण", "ऑनलाइन मेट्रोनोम", "tap bpm", "कॉर्ड ट्रांसपोज़र", "गिटार ट्यूनर", "TuneUniversal"],
+    groups: [
+      { title: "वाद्यंत्र ट्यून करें", description: "माइक्रोफोन से ट्यून करने और इंस्ट्रूमेंट-स्पेसिफिक नोट्स के लिए।", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
+      { title: "ताल और BPM", description: "मेट्रोनोम प्रैक्टिस और गाने का टेम्पो जानने के लिए।", tools: ["metronome", "tap-bpm", "sound-level-meter", "pitch-generator"] },
+      { title: "कॉर्ड और थ्योरी", description: "की बदलने और कॉर्ड प्रोग्रेशन ट्रांसपोज़ करने के लिए।", tools: ["chord-transposer"] }
+    ],
+    faq: [
+      { question: "ट्यून करने के लिए कौन सा टूल इस्तेमाल करूं?", answer: "यूनिवर्सल ट्यूनर से शुरू करें, या एक्जैक्ट रेफरेंस नोट्स के लिए अपने वाद्यंत्र का पेज चुनें।" },
+      { question: "क्या TuneUniversal माइक्रोफोन रिकॉर्ड करता है?", answer: "नहीं। ट्यूनर का ऑडियो ब्राउज़र में Web Audio API से लोकली एनालाइज़ होता है।" },
+      { question: "क्या मोबाइल पर काम करता है?", answer: "हाँ। मॉडर्न मोबाइल ब्राउज़र में ऑडियो और माइक परमिशन देने पर काम करता है।" }
+    ]
+  },
+  "pt-BR": {
+    title: "Ferramentas musicais grátis",
+    description: "Afinador universal, metrônomo, Tap BPM e transpositor de acordes para praticar todo dia.",
+    chromaticTitle: "Afinador online universal",
+    chromaticBody: "Use o microfone para afinar violão, guitarra, baixo, ukulele e muito mais. O afinador é cromático e mostra nota, frequência e cents.",
+    chromaticCta: "Abrir afinador universal",
+    instrumentIntro: "Escolha um instrumento específico para notas de referência, presets e guias dedicados.",
+    keywords: ["afinador universal", "ferramentas musicais grátis", "metrônomo online", "tap bpm", "transpositor acordes", "afinador violão", "TuneUniversal"],
+    groups: [
+      { title: "Afinar instrumentos", description: "Para afinar com microfone e ver notas por instrumento.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
+      { title: "Ritmo e BPM", description: "Para treinar com metrônomo e calcular tempo de música.", tools: ["metronome", "tap-bpm", "sound-level-meter", "pitch-generator"] },
+      { title: "Acordes e teoria", description: "Para mudar tonalidade e transpor progressões.", tools: ["chord-transposer"] }
+    ],
+    faq: [
+      { question: "Qual ferramenta uso para afinar?", answer: "Comece pelo afinador universal ou escolha a página do instrumento para notas exatas." },
+      { question: "O TuneUniversal grava o microfone?", answer: "Não. O áudio é analisado localmente no navegador com Web Audio API." },
+      { question: "Funciona no celular?", answer: "Sim, em navegadores modernos com permissões de áudio e microfone." }
+    ]
+  },
+  nl: {
+    title: "Gratis muziektools",
+    description: "Universele stemmer, metronoom, Tap BPM en akkordentransposer voor dagelijkse oefening.",
+    chromaticTitle: "Universele online stemmer",
+    chromaticBody: "Gebruik je microfoon om gitaar, bas, ukulele en veel snaarinstrumenten te stemmen. De stemmer werkt chromatisch en toont noot, frequentie en cents.",
+    chromaticCta: "Universele stemmer openen",
+    instrumentIntro: "Kies een specifiek instrument voor een pagina met referentienoten, stemmingspresets en gidslinks.",
+    keywords: ["universele stemmer", "gratis muziektools", "online metronoom", "tap bpm", "akkoorden transponeren", "gitaar stemmer", "TuneUniversal"],
+    groups: [
+      { title: "Instrumenten stemmen", description: "Voor microfoonstemmen en instrumentspecifieke referentienoten.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
+      { title: "Ritme en BPM", description: "Voor metroonoefening en snelle temposchattingen.", tools: ["metronome", "tap-bpm", "sound-level-meter", "pitch-generator"] },
+      { title: "Akkoorden en theorie", description: "Voor toonsoortwijziging en akkoordenprogressies.", tools: ["chord-transposer"] }
+    ],
+    faq: [
+      { question: "Welk tool gebruik ik om te stemmen?", answer: "Begin met de universele stemmer of kies een instrumentpagina voor exacte referentienoten." },
+      { question: "Neemt TuneUniversal mijn microfoon op?", answer: "Nee. Het tunergeluid wordt lokaal in de browser geanalyseerd via de Web Audio API." },
+      { question: "Werkt het op mobiel?", answer: "Ja, in moderne mobiele browsers wanneer audio- en microfoonrechten zijn toegestaan." }
+    ]
+  },
+  pl: {
+    title: "Darmowe narzędzia muzyczne",
+    description: "Uniwersalny stroik, metronom, Tap BPM i transpozytor akordów do codziennej nauki.",
+    chromaticTitle: "Uniwersalny stroik online",
+    chromaticBody: "Użyj mikrofonu do strojenia gitary, basu, ukulele i wielu instrumentów strunowych. Stroik działa chromatycznie i pokazuje nutę, częstotliwość i centy.",
+    chromaticCta: "Otwórz uniwersalny stroik",
+    instrumentIntro: "Wybierz konkretny instrument, jeśli potrzebujesz strony z nutami referencyjnymi, presetami i linkami do poradników.",
+    keywords: ["uniwersalny stroik", "darmowe narzędzia muzyczne", "metronom online", "tap bpm", "transpozytor akordów", "stroik gitary", "TuneUniversal"],
+    groups: [
+      { title: "Strój instrumenty", description: "Do strojenia mikrofonem i nut referencyjnych dla instrumentów.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
+      { title: "Rytm i BPM", description: "Do ćwiczenia z metronomen i szybkiego pomiaru tempa.", tools: ["metronome", "tap-bpm", "sound-level-meter", "pitch-generator"] },
+      { title: "Akordy i teoria", description: "Do zmiany tonacji i transponowania progresji.", tools: ["chord-transposer"] }
+    ],
+    faq: [
+      { question: "Którego narzędzia użyć do strojenia?", answer: "Zacznij od uniwersalnego stroika lub wybierz stronę instrumentu, jeśli potrzebujesz dokładnych nut referencyjnych." },
+      { question: "Czy TuneUniversal nagrywa mikrofon?", answer: "Nie. Dźwięk stroika jest analizowany lokalnie w przeglądarce przez Web Audio API." },
+      { question: "Czy działa na smartfonie?", answer: "Tak, w nowoczesnych przeglądarkach mobilnych po przyznaniu dostępu do mikrofonu." }
+    ]
+  },
+  tr: {
+    title: "Ücretsiz müzik araçları",
+    description: "Günlük pratik için evrensel akordlayıcı, metronom, Tap BPM ve akor transpozer.",
+    chromaticTitle: "Evrensel online akordlayıcı",
+    chromaticBody: "Gitar, bas, ukulele ve pek çok telli çalgıyı mikrofon ile akort etmek için tarayıcınızı kullanın. Akordlayıcı kromatik çalışır ve nota, frekans ve cent gösterir.",
+    chromaticCta: "Evrensel akordlayıcıyı aç",
+    instrumentIntro: "Referans notalar, ön ayarlar ve kılavuz bağlantıları için belirli bir enstrüman seçin.",
+    keywords: ["evrensel akordlayıcı", "ücretsiz müzik araçları", "online metronom", "tap bpm", "akor transpoze", "gitar akordlayıcı", "TuneUniversal"],
+    groups: [
+      { title: "Enstrüman akort et", description: "Mikrofon ile akort ve enstrümana özel referans notalar için.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
+      { title: "Ritim ve BPM", description: "Metronom pratiği ve hızlı tempo tahmini için.", tools: ["metronome", "tap-bpm", "sound-level-meter", "pitch-generator"] },
+      { title: "Akorlar ve teori", description: "Tonalite değişimi ve akor ilerlemesi transpoze için.", tools: ["chord-transposer"] }
+    ],
+    faq: [
+      { question: "Akort için hangi aracı kullanmalıyım?", answer: "Evrensel akordlayıcıdan başlayın veya tam referans notalar için enstrüman sayfasını seçin." },
+      { question: "TuneUniversal mikrofonumu kaydediyor mu?", answer: "Hayır. Tuner sesi tarayıcıda Web Audio API ile yerel olarak analiz edilir." },
+      { question: "Mobilde çalışıyor mu?", answer: "Evet, ses ve mikrofon izinleri verildiğinde modern mobil tarayıcılarda çalışır." }
+    ]
+  },
+  cs: {
+    title: "Bezplatné hudební nástroje",
+    description: "Univerzální ladička, metronom, Tap BPM a transpozer akordů pro každodenní cvičení.",
+    chromaticTitle: "Univerzální online ladička",
+    chromaticBody: "Použijte mikrofon k ladění kytary, baskytary, ukulele a mnoha strunných nástrojů. Ladička pracuje chromaticky a zobrazuje notu, frekvenci a centy.",
+    chromaticCta: "Otevřít univerzální ladičku",
+    instrumentIntro: "Vyberte konkrétní nástroj pro stránku s referenčními notami, předvolbami a odkazy na průvodce.",
+    keywords: ["univerzální ladička", "bezplatné hudební nástroje", "metronom online", "tap bpm", "transpozer akordů", "ladička pro kytaru", "TuneUniversal"],
+    groups: [
+      { title: "Ladit nástroje", description: "Pro ladění mikrofonem a referenční noty pro konkrétní nástroje.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
+      { title: "Rytmus a BPM", description: "Pro cvičení s metronomen a rychlý odhad tempa.", tools: ["metronome", "tap-bpm", "sound-level-meter", "pitch-generator"] },
+      { title: "Akordy a teorie", description: "Pro změnu tóniny a transponování akordových postupů.", tools: ["chord-transposer"] }
+    ],
+    faq: [
+      { question: "Který nástroj použít k ladění?", answer: "Začněte s univerzální ladičkou nebo vyberte stránku nástroje pro přesné referenční noty." },
+      { question: "Nahrává TuneUniversal mikrofon?", answer: "Ne. Zvuk ladičky je analyzován lokálně v prohlížeči pomocí Web Audio API." },
+      { question: "Funguje na mobilu?", answer: "Ano, v moderních mobilních prohlížečích při udělení přístupu k mikrofonu." }
+    ]
+  },
+  sv: {
+    title: "Gratis musikverktyg",
+    description: "Universell stämmare, metronom, Tap BPM och ackordstransponerare för daglig övning.",
+    chromaticTitle: "Universell online-stämmare",
+    chromaticBody: "Använd mikrofonen för att stämma gitarr, bas, ukulele och många stränginstrument. Stämmaren fungerar kromatiskt och visar not, frekvens och cents.",
+    chromaticCta: "Öppna universell stämmare",
+    instrumentIntro: "Välj ett specifikt instrument för en sida med referensnoter, stämningspresets och guidelänkar.",
+    keywords: ["universell stämmare", "gratis musikverktyg", "online metronom", "tap bpm", "ackordstransponering", "gitarrstämmare", "TuneUniversal"],
+    groups: [
+      { title: "Stäm instrument", description: "För mikrofonavstämning och instrumentspecifika referensnoter.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
+      { title: "Rytm och BPM", description: "För metronompraktik och snabba tempouppskattningar.", tools: ["metronome", "tap-bpm", "sound-level-meter", "pitch-generator"] },
+      { title: "Ackord och teori", description: "För att byta tonart och transponera ackordprogressioner.", tools: ["chord-transposer"] }
+    ],
+    faq: [
+      { question: "Vilket verktyg ska jag använda för att stämma?", answer: "Börja med den universella stämmaren eller välj en instrumentsida för exakta referensnoter." },
+      { question: "Spelar TuneUniversal in min mikrofon?", answer: "Nej. Stämmarljudet analyseras lokalt i webbläsaren med Web Audio API." },
+      { question: "Fungerar det på mobil?", answer: "Ja, i moderna mobila webbläsare när ljud- och mikrofontillstånd har beviljats." }
+    ]
+  },
+  no: {
+    title: "Gratis musikverktøy",
+    description: "Universell stemmer, metronom, Tap BPM og akkordtransponerare for daglig øvelse.",
+    chromaticTitle: "Universell online-stemmer",
+    chromaticBody: "Bruk mikrofonen til å stemme gitar, bass, ukulele og mange strengeinstrumenter. Stemmeren arbeider kromatisk og viser note, frekvens og cents.",
+    chromaticCta: "Åpne universell stemmer",
+    instrumentIntro: "Velg et bestemt instrument for en side med referansenoter, stemmingspresets og guidelenker.",
+    keywords: ["universell stemmer", "gratis musikverktøy", "online metronom", "tap bpm", "akkordtransponering", "gitarstemmer", "TuneUniversal"],
+    groups: [
+      { title: "Stem instrumenter", description: "For mikrofonstemming og instrumentspesifikke referansenoter.", tools: ["guitar-tuner", "bass-tuner", "ukulele-tuner"] },
+      { title: "Rytme og BPM", description: "For metronompraksis og raske tempoestimater.", tools: ["metronome", "tap-bpm", "sound-level-meter", "pitch-generator"] },
+      { title: "Akkorder og teori", description: "For å bytte toneart og transponere akkordprogresjoner.", tools: ["chord-transposer"] }
+    ],
+    faq: [
+      { question: "Hvilket verktøy bruker jeg til å stemme?", answer: "Start med den universelle stemmeren eller velg en instrumentside for nøyaktige referansenoter." },
+      { question: "Tar TuneUniversal opp mikrofonen min?", answer: "Nei. Stemmerlyden analyseres lokalt i nettleseren med Web Audio API." },
+      { question: "Fungerer det på mobil?", answer: "Ja, i moderne mobilnettlesere når lyd- og mikrofontillatelser er gitt." }
+    ]
+  }
+});

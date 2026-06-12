@@ -8,25 +8,25 @@ export type BaseLocale = (typeof baseLocales)[number];
 export const defaultLocale: Locale = "en";
 
 export const localeNames: Record<Locale, string> = {
-  it: "Italiano",
-  en: "English",
-  fr: "Français",
-  de: "Deutsch",
-  es: "Español",
-  pt: "Português",
-  zh: "简体中文",
-  ru: "Русский",
-  ja: "日本語",
-  ko: "한국어",
-  ar: "العربية",
-  nl: "Nederlands",
-  pl: "Polski",
-  tr: "Türkçe",
-  cs: "Čeština",
-  sv: "Svenska",
-  "pt-BR": "Português (Brasil)",
-  hi: "हिन्दी",
-  no: "Norsk"
+  it: "🇮🇹 Italiano",
+  en: "🇬🇧 English",
+  fr: "🇫🇷 Français",
+  de: "🇩🇪 Deutsch",
+  es: "🇪🇸 Español",
+  pt: "🇵🇹 Português",
+  zh: "🇨🇳 简体中文",
+  ru: "🇷🇺 Русский",
+  ja: "🇯🇵 日本語",
+  ko: "🇰🇷 한국어",
+  ar: "🇸🇦 العربية",
+  nl: "🇳🇱 Nederlands",
+  pl: "🇵🇱 Polski",
+  tr: "🇹🇷 Türkçe",
+  cs: "🇨🇿 Čeština",
+  sv: "🇸🇪 Svenska",
+  "pt-BR": "🇧🇷 Português (Brasil)",
+  hi: "🇮🇳 हिन्दी",
+  no: "🇳🇴 Norsk"
 };
 
 export const rtlLocales: Locale[] = ["ar"];

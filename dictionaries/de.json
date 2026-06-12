@@ -1,4 +1,4 @@
-{
+﻿{
   "localeName": "Deutsch",
   "meta": {
     "title": "TuneUniversal - Kostenlose Musiktools",
@@ -12,7 +12,7 @@
   "hero": {
     "eyebrow": "Kostenlose Musik-Microtools",
     "title": "TuneUniversal",
-    "description": "Ein schnelles internationales Labor fuer Stimmung, Tempo und Akkorde auf jedem Geraet.",
+    "description": "Ein schnelles internationales Labor für Stimmung, Tempo und Akkorde auf jedem Gerät.",
     "cta": "Tools ansehen"
   },
   "home": {
@@ -29,7 +29,7 @@
     "inTune": "Gestimmt",
     "requestMic": "Mikrofon aktivieren",
     "stopMic": "Mikrofon stoppen",
-    "micError": "Mikrofonzugriff fehlgeschlagen. Bitte Browserrechte pruefen.",
+    "micError": "Mikrofonzugriff fehlgeschlagen. Bitte Browserrechte prüfen.",
     "bpm": "BPM",
     "start": "Start",
     "stop": "Stopp",
@@ -38,7 +38,7 @@
     "history": "Letzte Taps",
     "meter": "Taktart",
     "inputChords": "Akkordeingabe",
-    "semitones": "Halbtoene",
+    "semitones": "Halbtöne",
     "outputChords": "Transponiertes Ergebnis"
   },
   "common": {
@@ -48,154 +48,414 @@
   },
   "tools": {
     "guitar-tuner": {
-      "title": "Online Gitarrenstimmgeraet",
-      "description": "Stimme eine Standardgitarre schnell mit dem Mikrofon.",
+      "title": "Online-Gitarrenstimmgerät",
+      "description": "Stimme die Standard-Gitarrensaiten schnell und präzise mit deinem Mikrofon — ohne App-Download.",
       "howItWorks": [
-        "Mikrofon erlauben.",
-        "Eine Saite nach der anderen spielen.",
-        "Stimmen, bis die Anzeige passt."
+        "Öffne das Stimmgerät und klicke auf \"Mikrofon aktivieren\" — der Browser fragt beim ersten Mal nach der Erlaubnis.",
+        "Wähle die gewünschte Stimmung (Standard, Drop D, Open G und viele weitere stehen zur Verfügung).",
+        "Spiele eine leere Saite nach der anderen und lass den Ton klar ausklingen, ohne andere Saiten zu berühren.",
+        "Beobachte die Nadel und die Cent-Anzeige: Grün bedeutet gestimmt, Rot bedeutet, dass du nachregeln musst.",
+        "Dreh den Wirbel langsam — kleine Bewegungen machen nahe der Zielnote einen großen Unterschied.",
+        "Wiederhole das für jede Saite vor dem Spielen und prüfe nach einigen Minuten erneut, während sich die Saiten setzen."
       ],
       "faq": [
         {
-          "question": "Funktioniert es mobil?",
-          "answer": "Ja, moderne mobile Browser mit Mikrofonzugriff werden unterstuetzt."
+          "question": "Funktioniert das Gitarrenstimmgerät auf Handys und Tablets?",
+          "answer": "Ja. TuneUniversal funktioniert in jedem modernen Smartphone- oder Tablet-Browser mit Mikrofonzugriff. Auf iOS brauchst du Safari 14.3 oder neuer; auf Android funktionieren Chrome oder Firefox am besten. Erlaube den Mikrofonzugriff, wenn der Browser danach fragt, und halte das Telefon nahe an die Saiten für die klarste Anzeige."
         },
         {
-          "question": "Welche Stimmung?",
-          "answer": "TuneUniversal unterstuetzt die meisten gaengigen Gitarrenstimmungen, darunter Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D und Open G."
+          "question": "Welche Gitarrenstimmungen werden unterstützt?",
+          "answer": "Das Stimmgerät unterstützt viele gängige Stimmungen: Standard (E A D G B E), Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D, Open G und DADGAD, unter anderem. Du kannst alternative Stimmungen im Stimmungs-Hub durchstöbern und das passende Preset direkt von dort öffnen."
+        },
+        {
+          "question": "Warum springt die Nadel, statt still zu stehen?",
+          "answer": "Die Bewegung der Nadel ist normal, solange die Saite frei schwingt. Die Anzeige stabilisiert sich, während der Ton ausklingt. Für eine sauberere Anzeige: Schlage die Saite fest an und lass sie klingen, ohne sie abzudämpfen, wechsle in eine ruhige Umgebung und achte darauf, dass keine andere Saite mitschwingt. Nylonsaiten an Konzertgitarren brauchen länger zum Setzen als Stahlsaiten."
+        },
+        {
+          "question": "Wird mein Audio an einen Server gesendet?",
+          "answer": "Nein. Die gesamte Tonhöhenerkennung läuft vollständig in deinem Browser über die Web Audio API. Es werden keine Audiodaten hochgeladen, gespeichert oder auf einem Server verarbeitet. Dein Mikrofonsignal wird in Echtzeit genutzt und danach verworfen."
+        },
+        {
+          "question": "Wie genau ist ein browserbasiertes Stimmgerät?",
+          "answer": "Ein gut umgesetztes Browser-Stimmgerät wie TuneUniversal ist auf wenige Cent genau, was für die meisten Anwendungen mehr als ausreichend ist. Professionelle Hardware-Stimmgeräte bieten eine ähnliche Genauigkeit. Der wichtigste begrenzende Faktor ist die Qualität und Platzierung des Mikrofons deines Geräts — näher an den Korpus oder das Schallloch zu halten verbessert die Erkennung deutlich."
+        },
+        {
+          "question": "Muss ich etwas installieren?",
+          "answer": "Es ist keine Installation nötig. TuneUniversal läuft vollständig im Browser. Öffne einfach die Seite, erlaube den Mikrofonzugriff und beginne zu stimmen. Es funktioniert auf Windows, macOS, iOS und Android ohne Plugins oder Downloads."
+        },
+        {
+          "question": "Wie oft sollte ich meine Gitarre stimmen?",
+          "answer": "Stimme deine Gitarre jedes Mal, wenn du sie aufnimmst. Saiten verstimmen sich ständig durch Temperatur- und Feuchtigkeitsschwankungen, das Nachlassen der Spannung nach dem Spielen und das natürliche Kriechen des Saitenmaterials. Neue Saiten sind besonders instabil — sie können in den ersten Tagen alle paar Minuten nachgestimmt werden müssen. Ein kurzes Stimmen vor jeder Übungseinheit dauert weniger als eine Minute und verbessert alles, was du spielst."
+        },
+        {
+          "question": "Kann ich eine Akustikgitarre mit dem Smartphone stimmen?",
+          "answer": "Ja, und es funktioniert sehr gut. Halte dein Smartphone etwa 15–25 cm vom Schallloch entfernt und zupfe jede Saite klar an, damit sie voll ausklingt. Das eingebaute Mikrofon moderner Smartphones ist empfindlich genug, um die Tonhöhe in einem ruhigen Raum genau zu erkennen. Reduziere Hintergrundgeräusche durch Schließen von Türen und Fenstern, und vermeide das Stimmen in der Nähe von Ventilatoren oder Klimaanlagen."
+        },
+        {
+          "question": "Was bedeuten 'Cent' bei einem Gitarren-Stimmgerät?",
+          "answer": "Ein Halbton — der Abstand zwischen zwei benachbarten Bünden — ist in 100 Cent unterteilt. Die Cent-Anzeige sagt dir genau, wie weit die Saite von der perfekten Stimmung entfernt ist: +15 Cent bedeutet 15 % eines Halbtons zu hoch; -10 Cent bedeutet leicht zu tief. Für normales Spielen reicht ±10 Cent aus. Für Aufnahmen oder Ensemblespiel solltest du ±5 Cent oder weniger anstreben. TuneUniversal zeigt Cent in Echtzeit an, damit du kleine, präzise Anpassungen vornehmen kannst."
+        },
+        {
+          "question": "In welcher Reihenfolge soll ich die Gitarrensaiten stimmen?",
+          "answer": "Beginne immer mit der tiefsten Saite und arbeite dich zur höchsten vor: tiefes E, A, D, G, H, hohes E. Das Straffen der tiefen Saiten überträgt Spannung auf den Hals, was bereits gestimmte Saiten leicht erhöhen kann. Nach einem vollständigen Durchgang mache eine schnelle zweite Kontrolle ab dem tiefen E — besonders bei neuen Saiten oder nach einer starken Verstimmung. Diese Zwei-Durchgang-Methode sorgt dafür, dass sich alles gemeinsam in die Stimmung einpendelt."
         }
       ]
     },
     "bass-tuner": {
-      "title": "Online Bassstimmgeraet",
-      "description": "Stimme einen viersaitigen Bass mit Echtzeit-Pitch-Erkennung.",
+      "title": "Online-Bassstimmgerät",
+      "description": "Stimme einen vier- oder fünfsaitigen E-Bass mit Echtzeit-Tonhöhenerkennung — kostenlos und im Browser.",
       "howItWorks": [
-        "Mikrofon aktivieren.",
-        "Eine klare leere Saite spielen.",
-        "Zur Zielnote stimmen."
+        "Klicke auf \"Mikrofon aktivieren\" und bestätige die Berechtigungsabfrage des Browsers.",
+        "Platziere Telefon oder Laptop nahe am Bass-Korpus oder Lautsprecher für ein sauberes Signal.",
+        "Spiele eine leere Saite nach der anderen und lass sie voll ausklingen, bevor du die Anzeige prüfst.",
+        "Die Anzeige zeigt den erkannten Ton und wie viele Cent du zu hoch oder zu tief liegst.",
+        "Stelle den Wirbel langsam nach, bis der Indikator grün wird und 0 Cent anzeigt.",
+        "Stimme die Saiten der Reihe nach — E, A, D, G — für ein ausgeglichenes Ergebnis und prüfe dann ab E erneut."
       ],
       "faq": [
         {
-          "question": "Welche Saiten?",
-          "answer": "Standard E A D G."
+          "question": "Welche Bassstimmungen werden unterstützt?",
+          "answer": "Das Bassstimmgerät deckt die Standard-Viersaiterstimmung (E1 A1 D2 G2) und gängige Alternativen wie Drop D (D A D G), Eb Standard und fünfsaitigen Bass (B E A D G) ab. Die tiefen Frequenzen der Basssaiten liegen gut im Erkennungsbereich des Stimmgeräts."
         },
         {
-          "question": "Brauche ich eine App?",
-          "answer": "Nein, es laeuft im Browser."
+          "question": "Warum ist Bass per Mikrofon schwerer zu stimmen?",
+          "answer": "Tiefe Saiten erzeugen Grundtöne, die manche eingebauten Mikrofone weniger klar erfassen als mittlere Gitarrentöne. Für bessere Erkennung: Spiele die Saite fest an, halte das Gerät 20–30 cm vom Korpus entfernt und meide sehr laute Umgebungen. Den Bass bei moderater Lautstärke in einen Verstärker zu spielen kann ebenfalls helfen, wenn die Erkennung schwankt."
+        },
+        {
+          "question": "Brauche ich eine App, um meinen Bass zu stimmen?",
+          "answer": "Keine App nötig. TuneUniversal ist ein vollständig browserbasiertes Stimmgerät, das auf jedem Gerät mit Mikrofon und aktuellem Browser funktioniert. Es gibt nichts zu installieren oder zu aktualisieren — öffne einfach die Seite und beginne zu stimmen."
+        },
+        {
+          "question": "Kann ich es mit einem aktiven Bass verwenden?",
+          "answer": "Ja. Das Stimmgerät erkennt die Tonhöhe über das Mikrofon, egal ob dein Bass passiv oder aktiv ist. Wenn du ein Audio-Interface mit deinem Computer nutzt, kann das Stimmgerät das Signal auch über den Mikrofoneingang des Interfaces aufnehmen."
+        },
+        {
+          "question": "Wie stimme ich einen Fünfsaiter-Bass?",
+          "answer": "Wähle das Fünfsaiter-Preset, falls verfügbar, oder stimme jede Saite manuell anhand des angezeigten Tons. Die tiefe H-Saite (B0) liegt knapp unter E1 auf der chromatischen Skala. Spiele sie langsam und kräftig — die sehr tiefe Frequenz braucht im Browser einen Moment länger für eine zuverlässige Erkennung."
+        },
+        {
+          "question": "Was ist die Standardstimmung des E-Basses?",
+          "answer": "Die Standardstimmung eines viersaitigen E-Basses ist E1 A1 D2 G2, von der tiefsten zur höchsten Saite. Das sind dieselben Notennamen wie die vier tiefsten Saiten einer Gitarre, aber eine Oktave tiefer. Fünfsaitige Bässe ergänzen eine tiefe H1-Saite unterhalb des E, und sechssaitige Bässe fügen sowohl ein tiefes H als auch ein hohes C über dem G hinzu."
+        },
+        {
+          "question": "Woran erkenne ich, ob mein Bass gestimmt ist?",
+          "answer": "Die Nadel des Stimmgeräts sollte sich auf der Zielnote zentrieren und 0 Cent anzeigen — bei TuneUniversal wechselt das Display auf Grün. Über das visuelle Signal hinaus: vertraue deinen Ohren. Spiele die leere A-Saite gegen das A am 5. Bund der tiefen E-Saite: wenn sie gegeneinander schwingen (ein wogender Klang), sind sie nicht ganz im Einklang. Kein Schwebungston bedeutet perfekten Einklang und bestätigt, dass beide Saiten relativ zueinander gestimmt sind."
+        },
+        {
+          "question": "Kann ich einen Fretless-Bass mit einem Online-Stimmgerät stimmen?",
+          "answer": "Ja. Ein Fretless-Bass erzeugt dieselben Grundfrequenzen wie ein normaler Bass — das Stimmgerät erkennt die Note der leeren Saite unabhängig von vorhandenen Bünden. Der Unterschied besteht darin, dass die Intonation bei einem Fretless auch von der Position der linken Hand abhängt, was das Stimmgerät nicht beurteilen kann. Verwende das Stimmgerät für die leeren Saiten und überprüfe dann die Intonation durch Vergleich der Flageoletts an der 12. Bundposition mit dem gegriffenen Ton."
+        },
+        {
+          "question": "Warum klingt mein Bass in höheren Lagen verstimmt?",
+          "answer": "Das ist ein Intonationsproblem, kein Stimmungsproblem. Intonation bezeichnet, ob die gegriffenen Töne über die gesamte Halslänge rein klingen. Wenn die leeren Saiten korrekt gestimmt sind, aber der 12. Bund zu hoch oder zu tief klingt, muss das Stegsattel justiert werden. Das ist eine mechanische Einstellung — nicht etwas, das ein Stimmgerät allein beheben kann. Ein Gitarrentechniker kann die Intonation in wenigen Minuten mit einem Schraubenzieher einstellen."
         }
       ]
     },
     "ukulele-tuner": {
-      "title": "Online Ukulele-Stimmgeraet",
-      "description": "Stimme deine Ukulele in G C E A.",
+      "title": "Online-Ukulele-Stimmgerät",
+      "description": "Stimme deine Sopran-, Konzert-, Tenor- oder Bariton-Ukulele mit dem Mikrofon — kostenlos, schnell, ohne Download.",
       "howItWorks": [
-        "Stimmgeraet starten.",
-        "Eine Saite anschlagen.",
-        "Zu tief, zu hoch oder gestimmt beachten."
+        "Erlaube den Mikrofonzugriff, wenn der Browser fragt.",
+        "Wähle deinen Ukulele-Typ — Sopran, Konzert, Tenor oder Bariton haben jeweils ein anderes Saiten-Preset.",
+        "Schlage eine Saite nach der anderen sauber an und lass den Ton eine volle Sekunde klingen.",
+        "Prüfe den erkannten Ton und die Cent-Anzeige auf dem Bildschirm.",
+        "Dreh den Wirbel sehr langsam — Ukulele-Wirbel sind empfindlich und eine kleine Drehung verändert die Tonhöhe stark.",
+        "Arbeite alle vier Saiten durch: G, C, E, A für die reentrante Standardstimmung."
       ],
       "faq": [
         {
-          "question": "High-G enthalten?",
-          "answer": "Ja, Standard High-G G C E A ist enthalten, mit weiteren Presets je nach gewaehltem Instrument."
+          "question": "Was ist die Standard-Ukulele-Stimmung?",
+          "answer": "Die Standardstimmung für Sopran-, Konzert- und Tenor-Ukulelen ist G4 C4 E4 A4, üblich geschrieben als G C E A. Sie nutzt eine hohe G-Saite, das heißt die Saiten verlaufen nicht von tief nach hoch — die G-Saite liegt höher als die C-Saite. Das nennt man reentrante Stimmung und gibt der Ukulele ihren charakteristisch hellen Klang."
         },
         {
-          "question": "Wird Audio gespeichert?",
-          "answer": "Nein, die Analyse laeuft lokal im Browser."
+          "question": "Welche Stimmung nutzt eine Bariton-Ukulele?",
+          "answer": "Bariton-Ukulelen nutzen die Stimmung D G B E — dieselbe wie die vier höchsten Saiten einer Gitarre. Das erleichtert es Gitarristen, die Bariton-Ukulele zu spielen, ohne völlig neue Akkordgriffe zu lernen, auch wenn die Akkordnamen von der Standard-Ukulele-Stimmung abweichen."
+        },
+        {
+          "question": "Wird die reentrante Stimmung unterstützt?",
+          "answer": "Ja. Die reentrante Standardstimmung mit hohem G (G4 C4 E4 A4) wird voll unterstützt. Manche Spieler bevorzugen die Low-G-Stimmung, bei der die G-Saite eine Oktave tiefer gestimmt wird. Wähle das Low-G-Preset, falls verfügbar, oder stimme die G-Saite manuell auf G3 statt G4 — das Stimmgerät erkennt den Ton in beiden Fällen korrekt."
+        },
+        {
+          "question": "Meine Ukulele-Saiten verstimmen sich ständig — warum?",
+          "answer": "Neue Ukulele-Saiten — besonders aus Nylon oder Fluorocarbon — dehnen sich in der ersten Woche stark. Stimme die Ukulele, spiele einige Minuten und stimme dann erneut. Wiederhole das in der ersten Woche mehrmals täglich und die Saiten stabilisieren sich. Temperatur- und Luftfeuchtigkeitsschwankungen wirken sich auf Nylonsaiten stärker aus als auf Metallsaiten — lagere deine Ukulele also vor direkter Sonne und Heizung geschützt."
+        },
+        {
+          "question": "Funktioniert das Stimmgerät auf iPhone und Android?",
+          "answer": "Ja. Auf iPhone und iPad gewährt Safari ab iOS 14.3 den Mikrofonzugriff korrekt. Auf Android funktionieren Chrome und Firefox gut. Stelle sicher, dass du dem Browser in den Geräteeinstellungen die Nutzung des Mikrofons erlaubt hast."
+        },
+        {
+          "question": "Kann ich eine Tenor-Ukulele genauso stimmen wie eine Sopran-Ukulele?",
+          "answer": "Ja. Sopran-, Konzert- und Tenor-Ukulelen verwenden alle dieselbe Standardstimmung G C E A, also stimmt man alle drei auf exakt gleiche Weise. Die physische Saitenspannung und die Mensur unterscheiden sich, was jeder Größe einen anderen Klangcharakter verleiht, aber die Zielnoten sind identisch. Bariton-Ukulelen sind die Ausnahme — sie verwenden D G B E, dieselbe wie die vier höchsten Saiten einer Gitarre."
+        },
+        {
+          "question": "Was ist der Unterschied zwischen hoher G- und tiefer G-Stimmung bei der Ukulele?",
+          "answer": "Bei der hohen G-Stimmung (reentrant) ist die G-Saite auf G4 gestimmt — über dem mittleren C — also höher als die benachbarte C-Saite. Das ist der traditionelle Ukulele-Klang. Bei der tiefen G-Stimmung ist die G-Saite auf G3 gestimmt — eine Oktave tiefer — was der Ukulele einen volleren, gitarrenähnlicheren Bassklang verleiht. Tiefes G wird für Fingerpicking und Solo-Arrangements bevorzugt. Wähle auf TuneUniversal das richtige Preset, damit die Zielnote zu deiner Saite passt."
+        },
+        {
+          "question": "Wie stimme ich eine Konzert-Ukulele?",
+          "answer": "Die Konzert-Ukulele-Stimmung ist identisch mit der Sopranstimmung: G4 C4 E4 A4. Zupfe jede Saite einzeln und gleiche sie an die Zielnote auf dem Stimmgerät an. Die etwas längere Mensur der Konzert-Ukulele verleiht den Saiten etwas mehr Spannung und einen leicht runderen Ton, aber der Stimmprozess ist identisch. Wenn das Stimmgerät die G- oder A-Saiten nicht klar erkennt, rücke das Gerät einige Zentimeter näher an die Saiten."
+        },
+        {
+          "question": "Soll ich eine Saite nach oben oder unten drehen, um die richtige Stimmung zu erreichen?",
+          "answer": "Drehe die Saite immer nach oben, um die richtige Note zu erreichen. Wenn eine Saite zu hoch ist, lockere sie zunächst über das Ziel hinaus und drehe dann wieder hoch. Wenn du die Stimmung von unten erreichst, steht die Saite unter zunehmender Spannung genau bei der richtigen Stimmung, was sie stabiler macht. Wenn du von oben kommst, steht der Wirbel unter abnehmender Spannung und die Saite neigt dazu, innerhalb von Minuten abzusacken."
         }
       ]
     },
     "metronome": {
-      "title": "Online Metronom",
-      "description": "Uebe mit regelbarer BPM, Akzenten und gaengigen Taktarten.",
+      "title": "Online-Metronom",
+      "description": "Übe mit einem präzisen, regelbaren Metronom — stelle BPM, Taktart und Akzente direkt im Browser ein.",
       "howItWorks": [
-        "BPM einstellen.",
-        "Taktart waehlen.",
-        "Click starten und dem betonten ersten Schlag folgen."
+        "Stelle die BPM mit dem Schieberegler oder den Plus- und Minus-Tasten ein — der Bereich reicht von 20 bis 300 BPM.",
+        "Wähle eine Taktart: 2/4, 3/4, 4/4 oder 6/8 passend zur Musik, die du übst.",
+        "Drücke Start. Der erste Schlag jedes Takts erklingt betont, sodass du immer weißt, wo die Eins liegt.",
+        "Spiele mit — beginne bei einem Tempo, bei dem du jede Note sauber spielen kannst, ohne zu hetzen.",
+        "Erhöhe die BPM nur um jeweils 5, wenn du die Passage fehlerfrei spielen kannst.",
+        "Nutze die Tap-Tempo-Taste, um das Metronom an einen dir bekannten Song anzupassen, und übe von dort aus."
       ],
       "faq": [
         {
-          "question": "Gibt es Tap Tempo?",
-          "answer": "Ja, der Tap-Button schaetzt das Tempo."
+          "question": "Bei welcher BPM sollte ein Anfänger starten?",
+          "answer": "Anfänger sollten bei einem Tempo starten, das langsam genug ist, um jede Note sauber zu spielen — oft 60 BPM oder bei schweren Passagen noch langsamer. Ein sehr langsames Tempo ist keine Schande. Ziel ist es, zuerst das korrekte Muskelgedächtnis aufzubauen. Geschwindigkeit kommt mit der Wiederholung von selbst, sobald die Bewegung sitzt."
         },
         {
-          "question": "Welche Taktarten?",
-          "answer": "2/4, 3/4, 4/4 und 6/8."
+          "question": "Welche Taktarten sind verfügbar?",
+          "answer": "Das Metronom unterstützt 2/4 (Marsch, Polka), 3/4 (Walzer, Menuett), 4/4 (die häufigste Taktart in Pop und Rock) und 6/8 (zusammengesetzter Takt, häufig in Balladen und Blues). Der erste Schlag jedes Takts ist betont, sodass du den Auftakt immer spürst."
+        },
+        {
+          "question": "Wie verbessere ich mit dem Metronom mein Timing?",
+          "answer": "Die wirksamste Methode ist, eine kurze Passage zu isolieren — vier bis acht Takte — und sie bei langsamem Tempo zu wiederholen, bis sie mühelos gelingt. Erhöhe dann die BPM um 5 und wiederhole. Steigere das Tempo nie zu schnell; Hetzen lässt dich Fehler einüben. Sich mit dem Metronom aufzunehmen und anzuhören ist einer der schnellsten Wege, Timing-Probleme zu erkennen."
+        },
+        {
+          "question": "Kann ich Tap Tempo am Metronom nutzen?",
+          "answer": "Ja. Tippe die Tap-Tempo-Taste wiederholt im Takt zu einem Song, den du hörst, und das BPM-Feld passt sich deinen Taps an. Das ist nützlich, wenn du zu einem bestimmten Stück in dessen exaktem Tempo üben willst. Tippe mindestens viermal für einen genauen Durchschnitt."
+        },
+        {
+          "question": "Funktioniert das Metronom ohne Internetverbindung?",
+          "answer": "Sobald die Seite im Browser geladen ist, läuft das Metronom vollständig in JavaScript über die Web Audio API und braucht keine Serververbindung, um den Takt zu halten. Lädst du die Seite offline neu, wird die Audio-Engine eventuell nicht initialisiert — lade die Seite also verbunden und lass den Tab geöffnet."
+        },
+        {
+          "question": "Was ist der Unterschied zwischen 4/4 und 3/4?",
+          "answer": "Im 4/4-Takt gibt es vier Schläge pro Takt mit dem stärksten Akzent auf Schlag 1 und einem Nebenakzent auf Schlag 3. Im 3/4-Takt gibt es drei Schläge pro Takt mit einem Akzent auf Schlag 1 — das erzeugt das typische Eins-zwei-drei-Schwingen eines Walzers. Die Taktart am Metronom zu ändern ist ein einfacher Weg, diesen Unterschied sofort zu spüren."
+        },
+        {
+          "question": "Was bedeuten 120 BPM in musikalischen Begriffen?",
+          "answer": "120 BPM bedeutet 120 Schläge pro Minute — zwei Schläge pro Sekunde. Das liegt im Allegro-Bereich (schnell, lebhaft). Als Referenz: 60 BPM ist ein Schlag pro Sekunde (Adagio, langsam); 80–100 BPM ist Andante bis Moderato (Schritttempo); 120–140 BPM ist Allegro (schnell); über 168 BPM ist Presto (sehr schnell). Die meisten Popsongs liegen zwischen 90 und 130 BPM. 120 BPM ist auch ein praktisches Übungstempo, weil seine gleichmäßige Unterteilung das Mitzählen erleichtert."
+        },
+        {
+          "question": "Wie übt man Tonleitern mit dem Metronom?",
+          "answer": "Stelle das Metronom auf ein Tempo ein, bei dem du jede Note der Tonleiter sauber spielen kannst — auch wenn das bedeutet, bei 40 oder 50 BPM zu beginnen. Spiele zunächst eine Note pro Schlag, dann zwei Noten pro Schlag (Achtel), dann vier pro Schlag (Sechzehntel). Erhöhe das Tempo nur um 5–10 BPM, wenn du drei aufeinanderfolgende Wiederholungen beim aktuellen Tempo sauber spielen kannst. Diese Methode baut echte Geschwindigkeit über Wochen auf und verhindert das Einüben unsauberer Technik."
+        },
+        {
+          "question": "Was ist eine rhythmische Unterteilung und wie nutze ich sie beim Üben?",
+          "answer": "Eine Unterteilung ist eine kleinere rhythmische Einheit innerhalb jedes Schlags. Bei 60 BPM dauert jeder Schlag eine Sekunde. Achtelnoten-Unterteilung bedeutet zwei Noten in dieser Sekunde; Sechzehntel bedeutet vier. Das Üben mit Bewusstsein für Unterteilungen — das mentale Hören jedes unterteilten Impulses, auch wenn man nur auf den Hauptschlägen spielt — ist die Grundlage stabilen Timings. Wenn das Metronom Viertelschläge spielt, zähle laut 'eins-und, zwei-und, drei-und, vier-und', um die Achtelunterteilung zwischen jedem Klick zu spüren."
+        },
+        {
+          "question": "Was ist der Unterschied zwischen 6/8 und 3/4 Takt?",
+          "answer": "Beide haben sechs Achtel pro Takt, aber sie fühlen sich völlig unterschiedlich an. Im 6/8-Takt gruppieren sich die Schläge natürlich in zwei Dreiergruppen (stark-schwach-schwach, stark-schwach-schwach), was ein wiegendes Gefühl erzeugt — häufig in Jigs, Märschen und Balladen. Im 3/4-Takt liegt die Betonung auf drei Viertelschlägen mit anderer interner Unterteilung. Bei langsamem Tempo können beide ähnlich klingen, aber bei Geschwindigkeit hat der 6/8 ein zusammengesetztes Duolengefühl, während der 3/4 wie ein Walzer wirkt."
         }
       ]
     },
     "tap-bpm": {
-      "title": "Tap BPM Zaehler",
-      "description": "Tippe zum Song und berechne die durchschnittliche BPM.",
+      "title": "Tap-BPM-Zähler",
+      "description": "Tippe zu jedem Song im Takt und erhalte sofort eine BPM-Anzeige — finde das Tempo jedes Titels in Sekunden.",
       "howItWorks": [
-        "Im Beat tippen.",
-        "Die durchschnittliche BPM aktualisiert sich.",
-        "Bei neuem Song zuruecksetzen."
+        "Öffne die Tap-BPM-Seite — kein Mikrofon oder Setup nötig.",
+        "Höre dir den Song oder die Musik an, die du messen willst.",
+        "Tippe die große Tap-Taste (oder drücke die Leertaste) einmal pro Schlag im Takt der Musik.",
+        "Nach vier oder mehr Taps aktualisiert sich die durchschnittliche BPM-Anzeige in Echtzeit.",
+        "Tippe weiter für 8–16 Schläge für eine stabilere und genauere Anzeige.",
+        "Drücke Reset, um den Verlauf zu löschen und eine neue Messung für einen anderen Song zu starten."
       ],
       "faq": [
         {
-          "question": "Wie viele Taps?",
-          "answer": "Aktuelle Intervalle werden fuer stabile Werte genutzt."
+          "question": "Wie viele Taps brauche ich für eine genaue BPM-Anzeige?",
+          "answer": "Du brauchst mindestens vier Taps für eine erste Schätzung, aber die Anzeige wird nach acht bis sechzehn Taps deutlich stabiler. Das Tool berechnet das durchschnittliche Intervall zwischen den Taps und wandelt es in BPM um — mehr Taps gleichen kleine Ungenauigkeiten deines Tippens aus."
         },
         {
-          "question": "Tastatur moeglich?",
-          "answer": "Diese Version nutzt den Bildschirmbutton."
+          "question": "Kann ich die Tastatur statt der Maus nutzen?",
+          "answer": "Ja. Die Leertaste zählt als Tap, was es leichter macht, einen gleichmäßigen Rhythmus zu halten als mit der Maustaste. Auf dem Handy ist die große Tap-Schaltfläche so gestaltet, dass sie leicht und gleichmäßig zu treffen ist."
+        },
+        {
+          "question": "Warum ändert sich die BPM-Anzeige ständig?",
+          "answer": "Die BPM aktualisiert sich nach jedem Tap auf Basis eines gleitenden Durchschnitts der letzten Intervalle. Zu Beginn schwankt die Anzeige stärker, weil weniger Datenpunkte vorliegen. Nach acht oder mehr Taps stabilisiert sich der Wert. Schwankt er weiterhin, prüfe, ob du auf den Hauptschlag und nicht auf einen Zwischen- oder Gegenschlag tippst."
+        },
+        {
+          "question": "Was ist BPM und warum ist es für Musiker wichtig?",
+          "answer": "BPM steht für Schläge pro Minute und ist die übliche Art, das Tempo eines Stücks zu beschreiben. Die BPM eines Songs zu kennen erlaubt es, ein Metronom auf genau die richtige Geschwindigkeit zum Üben einzustellen, Drumcomputer und DAWs genau zu programmieren und beim Mitspielen zu einer Aufnahme das Tempo zu treffen. Die meiste populäre Musik liegt zwischen 60 und 180 BPM."
+        },
+        {
+          "question": "Kann ich Tap BPM nutzen, um ein Metronom an einen Song anzupassen?",
+          "answer": "Ja — das ist einer der häufigsten Einsätze. Tippe das Tempo des Songs, den du lernen willst, notiere das BPM-Ergebnis, gib diesen Wert in das Online-Metronom ein und übe in der richtigen Geschwindigkeit mit. Das ist viel schneller, als ein Tempo nach Gehör zu raten."
+        },
+        {
+          "question": "Welches BPM verwenden verschiedene Musikgenres?",
+          "answer": "Die meiste Popmusik liegt zwischen 70 und 180 BPM: Hip-Hop und R&B typischerweise 70–100 BPM; Pop-Songs cluster um 100–130 BPM; Rock und Indie variieren von 110 bis 150 BPM; House und Dance-Musik liegt bei 120–135 BPM; Drum and Bass geht bis 160–180 BPM. Das sind grobe Richtwerte — jedes Genre hat Ausnahmen. Das typische BPM eines Genres zu kennen hilft, ein realistisches Übungstempo einzustellen."
+        },
+        {
+          "question": "Was ist der Unterschied zwischen Tempo und BPM?",
+          "answer": "Tempo und BPM beschreiben dasselbe — die Geschwindigkeit von Musik — aber aus verschiedenen Blickwinkeln. Tempo ist der menschliche Begriff, oft als italienische Bezeichnung (Allegro, Andante, Adagio) oder allgemeine Beschreibung wie 'schnell' oder 'langsam' ausgedrückt. BPM ist der präzise numerische Wert: 120 BPM bedeutet genau 120 Schläge pro Minute. Ein Komponist könnte 'Andante 76' auf einer Partitur schreiben. In der modernen Musikproduktion hat BPM traditionelle Tempobezeichnungen weitgehend ersetzt."
+        },
+        {
+          "question": "Kann ich Tap BPM auf dem Smartphone nutzen?",
+          "answer": "Ja. Das Tap-BPM-Tool von TuneUniversal funktioniert vollständig auf Mobilgeräten. Der große Bildschirmknopf ist zum Antippen mit dem Daumen ausgelegt. Tippe im Takt des Liedes — mindestens acht Taps für eine zuverlässige Lesart — und das BPM erscheint nach den ersten Taps. Für das stabilste Ergebnis tippe durch eine vollständige Strophe oder einen Refrain des Liedes, nicht nur durch einige wenige Schläge."
+        },
+        {
+          "question": "Wie genau ist die BPM-Messung?",
+          "answer": "Die Genauigkeit hängt davon ab, wie gleichmäßig du tippst. Das Tool berechnet das Durchschnittsintervall zwischen allen deinen Taps und rechnet es in BPM um. Nach vier Taps ist die Anzeige eine erste Schätzung; nach sechzehn oder mehr gleichmäßigen Taps wird sie auf 0,5–1 BPM genau. Wenn die Anzeige weiterhin schwankt, überprüfe, ob du auf dem Hauptschlag tippst statt auf einem Zwischen- oder Gegenschlag. Zurücksetzen und erneut versuchen mit bewussten Taps löst normalerweise ungleichmäßige Anzeigen."
         }
       ]
     },
     "chord-transposer": {
       "title": "Akkord-Transposer",
-      "description": "Transponiere Akkordfolgen in Halbtonschritten.",
+      "description": "Transponiere jede Akkordfolge in Halbtonschritten nach oben oder unten — Akkorde einfügen, Versatz wählen, Ergebnis kopieren.",
       "howItWorks": [
-        "Akkordsymbole einfuegen.",
-        "-12 bis +12 Halbtoene waehlen.",
-        "Ergebnis kopieren."
+        "Füge deine Akkordfolge ein oder tippe sie in das Eingabefeld — ein Akkord pro Wort, mehrere Zeilen sind möglich.",
+        "Nutze den Halbton-Schieberegler oder die Tasten, um die Anzahl der Schritte zu wählen: von -12 bis +12.",
+        "Die transponierten Akkorde erscheinen sofort im Ausgabefeld darunter.",
+        "Kopiere das Ergebnis mit der Kopier-Schaltfläche und füge es in deinen Text, dein Leadsheet oder deine Notiz-App ein.",
+        "Positive Werte transponieren nach oben (z. B. von C nach D = +2); negative Werte nach unten (z. B. von G nach F = -2).",
+        "Liedtext und Nicht-Akkord-Text bleiben unverändert — nur erkannte Akkordsymbole werden transponiert."
       ],
       "faq": [
         {
-          "question": "Werden Bs unterstuetzt?",
-          "answer": "Ja, b-Grundtoene werden zu Kreuz-Ausgabe normalisiert."
+          "question": "Welche Akkordtypen unterstützt der Transposer?",
+          "answer": "Der Transposer verarbeitet viele Akkordsymbole: Dur (C, D, G), Moll (Am, Em, Bm), Dominantseptakkorde (G7, A7), Maj7 (Cmaj7), Moll7 (Am7), Sus-Akkorde (Csus2, Csus4), Add9 (Cadd9), verminderte, übermäßige und Slash-Akkorde (G/B, C/E). Der Grundton verschiebt sich um die gewählte Anzahl Halbtöne, während Akkordqualität und Suffix gleich bleiben."
         },
         {
-          "question": "Welche Akkorde?",
-          "answer": "Dur, Moll, Kreuze, Bs, Septakkorde und gaengige Suffixe."
+          "question": "Warum sollte ich Akkorde transponieren?",
+          "answer": "Transponieren ist in vielen Situationen nützlich: ein Stück in eine zur Stimme passende Tonart bringen, sich an die Tonart eines anderen Instruments anpassen, Kapodaster nutzen (ein Kapo im 2. Bund lässt Akkorde zwei Halbtöne höher klingen, also transponierst du -2, um die Originalgriffe zu lesen) und einen Song lernen, der in einer anderen Stimmung aufgenommen wurde."
+        },
+        {
+          "question": "Werden b-Akkorde in Kreuze umgewandelt?",
+          "answer": "Ja. Gibst du Akkorde mit b-Grundton wie Bb, Eb oder Ab ein, normalisiert der Transposer sie intern und gibt das nächste enharmonische Äquivalent aus. Die Ausgabe nutzt standardmäßig Kreuze (z. B. wird Bb zu A#). Bevorzugst du b-Schreibweise, denke daran: A# und Bb sind dieselbe Tonhöhe."
+        },
+        {
+          "question": "Kann ich einen ganzen Song mit Text transponieren?",
+          "answer": "Ja. Füge den vollständigen Text mit darüber oder inline geschriebenen Akkorden ein (z. B. in Nashville-Number-Schreibweise oder als Standard-Leadsheet). Der Transposer erkennt Akkordsymbole und verschiebt sie, während aller andere Text — Wörter, Satzzeichen, Zeilenumbrüche — völlig unverändert bleibt."
+        },
+        {
+          "question": "Wie viele Halbtöne hat eine ganze Oktave?",
+          "answer": "Eine Oktave entspricht 12 Halbtönen. Eine Transposition um +12 oder -12 bringt dich in dieselbe Tonart, aber eine Oktave höher oder tiefer. +7 steigt um eine reine Quinte (z. B. C nach G), +5 um eine reine Quarte (z. B. C nach F). Diese Intervalle sind beim Tonartwechsel auf der Gitarre nützlich zu kennen."
+        },
+        {
+          "question": "In welcher Tonart klingt eine Gitarre mit Capo am 2. Bund?",
+          "answer": "Ein Capo am 2. Bund erhöht die Stimmung aller leeren Saiten um zwei Halbtöne. Wenn du Akkorde in offener E-Lage spielst (E, A, H), klingen diese Formen mit Capo am 2. Bund wie F#, H und C# — zwei Halbtöne höher. Um herauszufinden, welche Tonart ein Capo erzeugt: nimm die Originaltonart und zähle so viele Halbtöne wie die Bundnummer. Capo 1 = +1 Halbton; capo 2 = +2; capo 5 = +5. Der Akkord-Transposer automatisiert dies — gib deine Akkordformen ein, stelle den Offset auf +2, und du siehst die klingende Tonart."
+        },
+        {
+          "question": "Welche Tonart ist am einfachsten für Gitarre?",
+          "answer": "G-Dur und C-Dur gelten als die einfachsten Tonarten für Gitarre, weil sie offene Akkordformen ohne Barré verwenden: G, C, D, Em, Am haben alle angenehme Fingerstellungen. E-Dur und A-Dur sind ebenfalls anfängerfreundlich. Die 'schwerste' gängige Tonart auf Gitarre ist B-Dur, weil beide Hauptakkorde (B und Es) Barrégriffe erfordern. Wenn du ein Stück in B spielen möchtest, erwäge, nach A zu transponieren und einen Capo am 1. Bund zu setzen."
+        },
+        {
+          "question": "Wie transponiere ich Akkorde um einen Halbton nach unten?",
+          "answer": "Stelle den Halbton-Offset auf -1. Wenn ein Lied zum Beispiel in A steht (Akkorde: A, D, E) und du um -1 transponierst, ist das Ergebnis Ab (G#), Db (C#), Eb (D#). Wenn du einfache offene Akkordformen behalten möchtest, transponiere -1 und setze einen Capo am 1. Bund — deine Hände spielen die originale A-Form, aber die Gitarre klingt in Ab. Das ist der praktischste Ansatz für Sänger, die eine leicht tiefere Tonart benötigen."
+        },
+        {
+          "question": "Funktioniert der Transposer auch mit Ukulele-Akkorden?",
+          "answer": "Ja. Akkordsymbole sind dieselben, ob für Gitarre oder Ukulele geschrieben — Cmaj7 ist Cmaj7 auf beiden Instrumenten. Der Transposer verschiebt Grundtöne und behält die Akkordqualität bei, was universell für alle Saiteninstrumente gilt. Füge deine Ukulele-Akkordfolge ein, wähle den Halbton-Offset, und das Ergebnis ist sofort verwendbar."
         }
       ]
     },
     "sound-level-meter": {
       "title": "Online-Schallpegelmesser",
-      "description": "Miss den geschätzten Mikrofon-Schallpegel in dB mit regelbarer Empfindlichkeit.",
+      "description": "Miss den Mikrofon-Schallpegel in Echtzeit — sieh geschätzte dB-, Durchschnitts- und Spitzenwerte direkt im Browser.",
       "howItWorks": [
-        "Mikrofonzugriff erlauben.",
-        "Empfindlichkeit zur Kalibrierung einstellen.",
-        "Geschätzte dB, Durchschnitt und Spitze in Echtzeit ablesen."
+        "Klicke auf \"Mikrofon aktivieren\" und erlaube den Browserzugriff — der Messer startet sofort.",
+        "Beobachte den Live-dB-Balken: Der Hauptbalken zeigt den aktuellen Pegel, die Spitzenmarkierung den höchsten jüngsten Wert.",
+        "Nutze den Empfindlichkeitsregler, um die Anzeige für dein Mikrofon und deine Umgebung zu kalibrieren.",
+        "Die Durchschnitts-dB-Anzeige glättet kurze Spitzen und gibt ein besseres Gefühl für den typischen Pegel.",
+        "Reduziere Lärmquellen im Raum und prüfe, ob der Wert wie erwartet sinkt, um die korrekte Funktion zu bestätigen.",
+        "Klicke zum Schluss auf Mikrofon stoppen, um das Mikrofon an das Betriebssystem zurückzugeben."
       ],
       "faq": [
         {
-          "question": "Ist es ein zertifiziertes Messgerät?",
-          "answer": "Nein. Es nutzt das Browser-Mikrofon und liefert eine nützliche Schätzung, keine professionelle dB-SPL-Messung."
+          "question": "Ist das ein Schallpegelmesser in Profiqualität?",
+          "answer": "Nein. Dies ist ein browserbasiertes Schätzwerkzeug, kein kalibrierter SPL-Messer. Professionelle Schallpegelmesser nutzen ein kalibriertes Mikrofon der Klasse 1 oder 2 und erfüllen die IEC 61672. Die Werte hier hängen ganz vom eingebauten Mikrofon deines Geräts ab, das zwischen Handys, Laptops und Headsets stark variiert. Nutze dieses Tool für grobe Checks, Proberaum-Einschätzungen und Bildungszwecke statt für behördliche oder technische Messungen."
         },
         {
-          "question": "Wie stelle ich die Empfindlichkeit ein?",
-          "answer": "Nutze den Empfindlichkeits-/Kalibrierungsregler, wenn der Wert zu hoch oder zu niedrig wirkt."
+          "question": "Wie kalibriere ich den Empfindlichkeitsregler?",
+          "answer": "Beginne mit einer bekannten Referenz: Erzeuge mit einem Lautsprecher einen Ton in angenehmer Hörlautstärke und bringe das Gerät in eine Distanz, in der du etwa 70–75 dB erwartest (normale Gesprächslautstärke). Stelle den Regler so ein, dass der Wert passt. Einmal für dein Mikrofon und deine Umgebung eingestellt, werden die relativen Werte nützlich, um laute und leise Geräusche zu vergleichen, auch wenn der absolute dB-Wert eine Schätzung bleibt."
+        },
+        {
+          "question": "Welcher Schallpegel ist beim Üben sicher?",
+          "answer": "Pegel über 85 dB über mehr als eine Stunde können mit der Zeit allmähliche Hörschäden verursachen. Ein Rockkonzert misst typischerweise 100–115 dB, was bei längerer Belastung ohne Gehörschutz unsicher ist. Beim Üben mit verstärkten Instrumenten solltest du anhaltende Pegel unter 85 dB halten. Nutze den Durchschnittswert — nicht den Spitzenwert — als Richtwert für längere Belastung."
+        },
+        {
+          "question": "Warum schwankt die Anzeige so stark?",
+          "answer": "Der Schallpegel ändert sich naturgemäß mit jeder Note, jedem Wort oder Geräusch im Raum. Der Live-Balken spiegelt das Momentansignal, das immer schwankt. Die Durchschnittsanzeige glättet dies über ein kurzes Fenster und ist nützlicher zur Beurteilung der Gesamtlautstärke. Die Spitzenmarkierung zeigt den lautesten erfassten Moment, was hilft zu prüfen, ob Transientenspitzen deinen Mikrofoneingang übersteuern."
+        },
+        {
+          "question": "Kann ich Raumgeräusche für Aufnahmen messen?",
+          "answer": "Ja, das ist ein praktischer Anwendungsfall. Stelle dein Gerät in die Raummitte, höre auf zu sprechen und beobachte den Grundpegel — das ist dein Grundrauschen. Ein ruhiger, für Heimaufnahmen geeigneter Raum hat typischerweise ein Grundrauschen unter 40 dB. Zeigt der Messer 50–60 dB ohne dass jemand spricht, hast du möglicherweise Lüftung, Straßenlärm oder Computer-Lüftergeräusche, die Aufnahmen beeinträchtigen könnten."
+        },
+        {
+          "question": "Wie viel Dezibel hat normale Unterhaltung?",
+          "answer": "Normale Unterhaltung von Angesicht zu Angesicht auf etwa einem Meter Abstand misst ungefähr 60–65 dB. Eine stille Bibliothek liegt bei etwa 30–40 dB; ein belebtes Restaurant bei 70–75 dB; ein Staubsauger auf einem Meter bei etwa 70 dB. Diese Werte geben dir eine Referenz aus der realen Welt für die Interpretation der Online-Messungen. Beachte, dass das Messgerät relative Pegel basierend auf deinem Mikrofon anzeigt — die absoluten Werte sind Schätzungen."
+        },
+        {
+          "question": "Wie laut ist ein Live-Konzert?",
+          "answer": "Ein typisches Rock- oder Pop-Konzert misst 100–115 dB in Hörabstand zu den Lautsprechern. Anhaltende Exposition über 85 dB für mehr als eine Stunde kann mit der Zeit Hörschäden verursachen; bei 100 dB können Schäden nach etwa 15 Minuten kontinuierlicher Exposition auftreten. Die WHO empfiehlt nicht mehr als 40 Stunden pro Woche über 80 dB. Wenn du regelmäßig Konzerte besuchst, sind Schaumstoffohrstöpsel (die den Pegel um 25–33 dB reduzieren) ein praktischer und günstiger Schutz."
+        },
+        {
+          "question": "Was ist der Unterschied zwischen Peak- und Durchschnitts-dB?",
+          "answer": "Die Spitzenmessung erfasst den lautesten einzelnen Moment, der vom Mikrofon erkannt wurde — ein Händeklatschen, eine gezupfte Saite, eine zufallende Tür. Die Durchschnittsmessung glättet den Pegel über ein kurzes Zeitfenster und spiegelt die typische anhaltende Lautstärke der Umgebung wider. Für die Hörgesundheit ist der durchschnittliche dB die relevante Messgröße, da Hörschäden durch anhaltende Exposition verursacht werden. Für Aufnahmen sind Spitzenpegel wichtiger, weil sie anzeigen, ob der Mikrofoneingang übersteuert."
+        },
+        {
+          "question": "Wie reduziere ich Lärm in meinem Übungsraum?",
+          "answer": "Beginne damit, die Hauptlärmquellen zu identifizieren: HLK-Systeme, Straßenverkehr und Computerlüfter sind die häufigsten. Weiche Einrichtungsgegenstände — Teppiche, Vorhänge, Bücherregale, Sofas — absorbieren mittel- und hochfrequente Reflexionen und reduzieren den allgemeinen Raumklang. Bei elektrischen Instrumenten verwende Kopfhörerverstärker oder übe bei niedriger Lautstärke. Das Online-Messgerät kann dir helfen zu überprüfen, ob deine Verbesserungen wirken, indem du die Umgebungslärmpegel vor und nach den Änderungen vergleichst."
         }
       ]
     },
     "pitch-generator": {
       "title": "Pitch Generator",
-      "description": "Erzeuge einen reinen Ton von 20 Hz bis 20000 Hz fuer Gehoertraining und Audiotests.",
+      "description": "Erzeuge einen präzisen Referenzton von 20 Hz bis 20000 Hz — für Gehörtraining, Instrumentenstimmung und Audiotests.",
       "howItWorks": [
-        "Waehle eine Frequenz zwischen 20 Hz und 20000 Hz.",
-        "Stelle Lautstaerke und Wellenform ein.",
-        "Starte den Ton und stoppe ihn nach dem Test."
+        "Wähle eine Frequenz mit dem Schieberegler oder gib sie direkt ein — der Bereich reicht von 20 Hz bis 20000 Hz.",
+        "Wähle eine Wellenform: Sinuswellen sind rein und weich; Rechteck- und Sägezahnwellen sind reicher und heller.",
+        "Stelle die Lautstärke auf ein angenehmes Niveau, bevor du auf Wiedergabe drückst.",
+        "Drücke Wiedergabe, um den Ton zu starten. Der Ton hält an, bis du auf Stopp drückst.",
+        "Für Gehörtraining versuche, den Ton durch Singen oder Summen zu treffen, bevor du die Frequenz prüfst.",
+        "Zur Instrumentenstimmung erzeuge die Referenztonhöhe einer Standardnote (z. B. A4 = 440 Hz) und stimme nach Gehör."
       ],
       "faq": [
         {
-          "question": "Kann ich Kopfhoerer verwenden?",
-          "answer": "Ja, aber beginne mit niedriger Lautstaerke, besonders bei hohen Frequenzen."
+          "question": "Was ist die Standard-Kammertonfrequenz?",
+          "answer": "Der internationale Standard-Kammerton ist A4 = 440 Hz, 1955 von der Internationalen Organisation für Normung (ISO 16) festgelegt. Viele Orchester stimmen auf A = 442 Hz oder sogar 443–444 Hz für einen etwas helleren Klang. Ensembles für Alte Musik nutzen manchmal A = 415 Hz (etwa einen Halbton tiefer). Der Generator lässt dich jede dieser Referenzen präzise einstellen."
         },
         {
-          "question": "Welchen Bereich deckt der Generator ab?",
-          "answer": "Er deckt 20 Hz bis 20000 Hz ab, den ungefaehren Bereich des menschlichen Hoerens."
+          "question": "Ist es sicher, Kopfhörer mit diesem Tool zu verwenden?",
+          "answer": "Ja, aber sei vorsichtig bei hohen Tönen über 4000 Hz und bei hoher Lautstärke. Beginne mit dem Lautstärkeregler bei etwa 30 % und steigere langsam. Sehr hohe Frequenzen (über 8000 Hz) können bei hoher Lautstärke unangenehm sein, und anhaltend laute Töne über Kopfhörer bergen dasselbe Hörrisiko wie jeder laute Schall. Nutze kurze Impulse statt langer Dauertöne beim Testen hoher Frequenzen."
+        },
+        {
+          "question": "Wie nutze ich einen Pitch Generator zum Gehörtraining?",
+          "answer": "Ein Pitch Generator ist ein klassisches Gehörtrainingswerkzeug. Stelle ihn auf A4 (440 Hz) und versuche, ihn durch Singen zu treffen. Wechsle dann zu anderen Tönen — E4 (329 Hz), D4 (294 Hz) — und übe, die Intervalle dazwischen zu erkennen. Fortgeschrittenes Gehörtraining umfasst das Erkennen von Intervallen, das Treffen von Akkorden und das Erkennen, ob ein Ton relativ zur Referenz zu hoch oder zu tief ist. Wiederhole diese Übungen täglich für den schnellsten Fortschritt."
+        },
+        {
+          "question": "Welche Wellenformen gibt es und wie klingen sie?",
+          "answer": "Eine Sinuswelle erzeugt einen reinen, flötenartigen Ton ohne Obertöne — die klarste Referenz zum Stimmen. Eine Rechteckwelle fügt ungeradzahlige Obertöne hinzu und klingt hohl und schnarrend, wie eine Klarinette oder ein früher Synthesizer. Eine Sägezahnwelle enthält alle Obertöne und klingt hell und reich, ähnlich einem Streich- oder Blasinstrument. Für die Stimmreferenz nutze Sinus. Für Klangtests und Synthese-Experimente probiere die anderen Wellenformen."
+        },
+        {
+          "question": "Welche Frequenz entspricht welcher Note?",
+          "answer": "Die gleichstufige Standardstimmung weist jeder Note eine bestimmte Frequenz zu. Gängige Referenzen: C4 (mittleres C) = 261,63 Hz, A4 = 440 Hz, E4 = 329,63 Hz, G4 = 392 Hz, B4 = 493,88 Hz. Jede Oktave verdoppelt die Frequenz, also A5 = 880 Hz und A3 = 220 Hz. Der Generator zeigt den nächstgelegenen Notennamen an, während du den Regler bewegst, was das Finden jeder Referenz erleichtert."
+        },
+        {
+          "question": "Kann ich mit dem Pitch Generator Lautsprecher oder Kopfhörer testen?",
+          "answer": "Ja. Ein Sweep von 20 Hz bis 20000 Hz ist ein Standardtest für den Frequenzgang von Lautsprechern. Bewege den Regler langsam von 20 Hz nach oben und höre, welche Frequenzen deine Lautsprecher oder Kopfhörer klar wiedergeben, welche schwach wirken und welche Klirren oder Verzerrung verursachen. Die meisten Consumer-Ohrhörer fallen unter 50 Hz und über 16000 Hz ab. Dieser Test ist rein subjektiv, aber nützlich, um deine Ausrüstung kennenzulernen."
+        },
+        {
+          "question": "Welche Frequenz hat das mittlere C?",
+          "answer": "Das mittlere C — in der wissenschaftlichen Tonhöhennotation als C4 bezeichnet — hat eine Standardfrequenz von 261,63 Hz bei der internationalen Stimmung A4 = 440 Hz. Es liegt in der Mitte der Klaviatur und dient als gemeinsamer Referenzpunkt für Sänger und Instrumentalisten. Du kannst dies im Tongenerator überprüfen, indem du C4 auswählst und die angezeigte Frequenz bestätigst. Bei älteren Stimmungssystemen (wie dem Barockdiapason bei A4 = 415 Hz) verschiebt sich das mittlere C auf etwa 247 Hz."
+        },
+        {
+          "question": "Wie stimme ich ein Instrument ohne Mikrofon mit dem Tongenerator?",
+          "answer": "Wähle die Frequenz der Note aus, die du stimmen möchtest (z. B. A4 = 440 Hz für die A-Saite), spiele dann dieselbe Note auf deinem Instrument und höre aufmerksam auf Schwebungen — ein rhythmisches Pulsieren, das entsteht, wenn zwei Töne nahe beieinander, aber nicht identisch sind. Drehe den Stimmwirbel langsam, bis die Schwebungen verschwinden und die beiden Töne zu einem einzigen stabilen Klang verschmelzen. Diese Methode heißt Stimmen nach einem Referenzton und funktioniert bei jedem Instrument — Gitarre, Geige, Blasinstrumente — ohne Mikrofonzugang."
+        },
+        {
+          "question": "Was ist der Hörbereich des Menschen?",
+          "answer": "Der typische menschliche Hörbereich reicht von etwa 20 Hz bis 20.000 Hz (20 kHz). Tiefe Bassfrequenzen (20–80 Hz) werden mehr als Vibration denn als Ton wahrgenommen; der kritische Bereich für Sprache und Musik liegt bei etwa 200 Hz bis 4.000 Hz; der Bereich über 8.000 Hz trägt die Brillanz und den Glanz hochfrequenter Inhalte. Die Hörsensitivität in hohen Frequenzen nimmt mit dem Alter ab — viele Erwachsene über 40 können über 15.000 Hz oft nicht mehr zuverlässig hören. Nutze den Tongenerator, um herauszufinden, welche Frequenzen du selbst wahrnehmen kannst."
+        },
+        {
+          "question": "Kann ich den Tongenerator nutzen, um die Intonation meines Instruments zu prüfen?",
+          "answer": "Ja. Erzeuge einen stabilen Referenzton für eine bestimmte Note und spiele dann dieselbe Note auf deinem Instrument. Bei korrekter Intonation verschmelzen die beiden Töne zu einem stabilen Klang ohne Schwebungen. Wenn du eine langsame Pulsation hörst, ist das Instrument auf dieser Tonhöhe leicht verstimmt. Indem du mehrere Töne auf dem Griffbrett oder in verschiedenen Oktaven überprüfst, kannst du Intonationsprobleme identifizieren — etwa einen Gitarrensteg, der angepasst werden muss, oder ein Blasinstrument, das im oberen Register zu hoch klingt."
         }
       ]
     }

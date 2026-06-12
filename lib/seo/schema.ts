@@ -7,6 +7,8 @@ import type { StaticPageSlug } from "@/lib/content/staticPages";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
+const DATE_PUBLISHED = "2025-01-15";
+const DATE_MODIFIED = "2026-06-12";
 
 export function websiteSchema(locale: Locale, dictionary: Dictionary) {
   return {
@@ -15,7 +17,8 @@ export function websiteSchema(locale: Locale, dictionary: Dictionary) {
     name: "TuneUniversal",
     inLanguage: locale,
     url: `${siteUrl}/${locale}`,
-    description: dictionary.meta.description
+    description: dictionary.meta.description,
+    dateModified: DATE_MODIFIED
   };
 }
 
@@ -30,7 +33,14 @@ export function toolSchema(locale: Locale, tool: ToolSlug, dictionary: Dictionar
     isAccessibleForFree: true,
     inLanguage: locale,
     url: `${siteUrl}/${locale}/tools/${tool}`,
-    description: content.description
+    description: content.description,
+    datePublished: DATE_PUBLISHED,
+    dateModified: DATE_MODIFIED,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD"
+    }
   };
 }
 
@@ -44,7 +54,41 @@ export function instrumentTunerSchema(locale: Locale, slug: string, content: Ins
     isAccessibleForFree: true,
     inLanguage: locale,
     url: `${siteUrl}/${locale}/tools/${slug}`,
-    description: content.description
+    description: content.description,
+    datePublished: DATE_PUBLISHED,
+    dateModified: DATE_MODIFIED,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD"
+    }
+  };
+}
+
+export function howToSchema(
+  locale: Locale,
+  tool: ToolSlug,
+  dictionary: Dictionary
+) {
+  const content = dictionary.tools[tool];
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: content.title,
+    inLanguage: locale,
+    description: content.description,
+    datePublished: DATE_PUBLISHED,
+    dateModified: DATE_MODIFIED,
+    step: content.howItWorks.map((text, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      text
+    })),
+    isPartOf: {
+      "@type": "WebSite",
+      name: "TuneUniversal",
+      url: siteUrl
+    }
   };
 }
 
@@ -79,6 +123,8 @@ export function staticPageSchema(
     inLanguage: locale,
     url: `${siteUrl}/${locale}/${page}`,
     description: content.description,
+    datePublished: DATE_PUBLISHED,
+    dateModified: DATE_MODIFIED,
     isPartOf: {
       "@type": "WebSite",
       name: "TuneUniversal",
@@ -98,7 +144,8 @@ export function organizationSchema(locale: Locale) {
     description:
       "TuneUniversal is a free multilingual platform with online tuner, guitar tuner, metronome online, music tools and educational resources for musicians.",
     areaServed: "Worldwide",
-    inLanguage: locale
+    inLanguage: locale,
+    foundingDate: DATE_PUBLISHED
   };
 }
 
@@ -110,6 +157,8 @@ export function guideSchema(locale: Locale, guide: GuideSlug, content: GuideCont
     inLanguage: locale,
     url: `${siteUrl}/${locale}/guides/${guide}`,
     description: content.description,
+    datePublished: DATE_PUBLISHED,
+    dateModified: DATE_MODIFIED,
     step: content.steps.map((step, index) => ({
       "@type": "HowToStep",
       position: index + 1,

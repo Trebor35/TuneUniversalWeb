@@ -17,7 +17,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteUrl}${path}`,
       lastModified: new Date(),
       changeFrequency: path.includes("/tools/") ? "monthly" : "weekly",
-      priority: path.includes("/tools/") ? 0.8 : 1,
+      priority:
+        path.includes("/tools/guitar-tuner") && /^\/(en|it|de|es|fr)\//.test(path)
+          ? 0.9
+          : path.includes("/tools/")
+            ? 0.8
+            : 1,
       alternates: {
         languages: {
           ...localizedUrls,

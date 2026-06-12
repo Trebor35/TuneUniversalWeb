@@ -53,153 +53,413 @@
   "tools": {
     "guitar-tuner": {
       "title": "Online guitar tuner",
-      "description": "Use your microphone to tune standard guitar strings quickly.",
+      "description": "Use your microphone to tune standard guitar strings quickly and accurately — no app download required.",
       "howItWorks": [
-        "Allow microphone access.",
-        "Play one string at a time.",
-        "Adjust until the indicator says in tune."
+        "Open the tuner and click 'Enable microphone' — your browser will ask for permission the first time.",
+        "Select the tuning you want to use (Standard, Drop D, Open G, and many more are available).",
+        "Play one open string at a time, letting the note ring clearly without touching other strings.",
+        "Watch the needle and the cent display: green means in tune, red means you need to adjust.",
+        "Turn your tuning peg slowly — small movements make a big difference near the target pitch.",
+        "Repeat for each string before you start playing, and re-check after a few minutes of play while strings settle."
       ],
       "faq": [
         {
-          "question": "Does it work on mobile?",
-          "answer": "Yes, modern mobile browsers with microphone access are supported."
+          "question": "Does the guitar tuner work on mobile phones and tablets?",
+          "answer": "Yes. TuneUniversal works on any modern smartphone or tablet browser that supports microphone access. On iOS you need Safari 14.3 or later; on Android, Chrome or Firefox work best. Make sure to grant microphone permission when the browser prompts you, and keep the phone near the guitar strings for the clearest reading."
         },
         {
-          "question": "Which tuning is included?",
-          "answer": "TuneUniversal supports most common guitar tunings, including Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D and Open G."
+          "question": "Which guitar tunings are supported?",
+          "answer": "The tuner supports a wide range of common tunings: Standard (E A D G B E), Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D, Open G, and DADGAD among others. You can browse alternative tunings in the tuning hub and open the corresponding preset directly from those pages."
+        },
+        {
+          "question": "Why does the needle jump around instead of staying still?",
+          "answer": "Needle movement is normal when the string is vibrating freely. The reading stabilizes as the note sustains. To get a cleaner reading, pick the string firmly and let it ring without palm-muting, move to a quiet environment, and make sure no other strings are ringing sympathetically. Nylon strings on classical guitars can take longer to settle than steel strings."
+        },
+        {
+          "question": "Is my audio sent to any server?",
+          "answer": "No. All pitch detection runs entirely inside your browser using the Web Audio API. No audio data is ever uploaded, stored, or processed on any server. Your microphone signal is used in real time and then discarded."
+        },
+        {
+          "question": "How accurate is a browser-based guitar tuner?",
+          "answer": "A well-implemented browser tuner like TuneUniversal is accurate to within a few cents, which is more than sufficient for most guitar playing. Professional hardware tuners offer similar accuracy. The main limiting factor is the quality and placement of your device's microphone — holding the phone or laptop closer to the guitar body or sound hole improves detection significantly."
+        },
+        {
+          "question": "Do I need to install anything?",
+          "answer": "No installation is required. TuneUniversal runs entirely in the browser. Just open the page, grant microphone access, and start tuning. It works on Windows, macOS, iOS, and Android without any plugins or downloads."
+        },
+        {
+          "question": "How often should I tune my guitar?",
+          "answer": "Tune your guitar every single time you pick it up. Strings go out of tune due to temperature and humidity changes, tension settling after playing, and the natural elasticity of the string material. New strings are particularly unstable — they may need retuning every few minutes for the first few days until they break in. A quick tune-up before every practice session takes less than a minute and makes everything you play sound better."
+        },
+        {
+          "question": "Can I tune an acoustic guitar with my phone?",
+          "answer": "Yes, and it works very well. Hold your phone 15–25 cm from the sound hole and pluck each string cleanly, letting it ring fully. The built-in microphone on modern smartphones is sensitive enough to detect the pitch accurately in a quiet room. Reduce background noise by closing doors and windows, and avoid tuning near fans or air conditioning which can interfere with microphone pickup."
+        },
+        {
+          "question": "What does 'cents' mean on a guitar tuner?",
+          "answer": "A semitone — the distance between two adjacent frets — is divided into 100 cents. The cent reading tells you exactly how far the string is from perfect pitch: +15 cents means 15% of a semitone too sharp; -10 cents means slightly flat. For general playing, staying within ±10 cents is fine. For recording or ensemble playing, aim for ±5 cents or less. TuneUniversal displays cents in real time so you can make small, precise adjustments."
+        },
+        {
+          "question": "In what order should I tune guitar strings?",
+          "answer": "Always start from the lowest string and work up: low E, A, D, G, B, high E. Tensioning the low strings adds neck tension, which can pull the higher strings slightly sharp. After one full pass, do a quick second check from low E — especially with new strings or after being significantly out of tune. This two-pass method ensures everything settles into tune together."
         }
       ]
     },
     "bass-tuner": {
       "title": "Online bass tuner",
-      "description": "Tune a four-string bass with real-time pitch detection.",
+      "description": "Tune a four-string or five-string bass guitar with real-time pitch detection — free and browser-based.",
       "howItWorks": [
-        "Enable the microphone.",
-        "Play a clear open string.",
-        "Tune toward the nearest target note."
+        "Click 'Enable microphone' and accept the browser permission prompt.",
+        "Place your phone or laptop close to the bass body or speaker for a clean signal.",
+        "Play one open string at a time, letting it ring fully before checking the reading.",
+        "The display shows the detected note and how many cents sharp or flat you are.",
+        "Adjust the tuning peg slowly until the indicator turns green and reads 0 cents.",
+        "Tune strings in order — E, A, D, G — for a balanced result, then double-check from E again."
       ],
       "faq": [
         {
-          "question": "Which strings are supported?",
-          "answer": "Standard E A D G bass tuning."
+          "question": "Which bass tunings are supported?",
+          "answer": "The bass tuner covers standard four-string tuning (E1 A1 D2 G2) and common alternative tunings including Drop D (D A D G), Eb standard, and five-string bass (B E A D G). The low frequencies of bass strings are well within the tuner's detection range."
         },
         {
-          "question": "Do I need an app?",
-          "answer": "No, it runs directly in the browser."
+          "question": "Why is bass harder to tune with a microphone?",
+          "answer": "Low-frequency strings produce fundamental pitches that some built-in microphones capture less clearly than mid-range guitar notes. To improve detection, play the string firmly, hold the device within 20–30 cm of the bass body, and avoid very noisy environments. Plugging into an amp at a moderate volume can also help if detection is inconsistent."
+        },
+        {
+          "question": "Do I need an app to tune my bass?",
+          "answer": "No app is needed. TuneUniversal is a fully browser-based tuner that works on any device with a microphone and an up-to-date browser. There is nothing to install or update — just open the page and start tuning."
+        },
+        {
+          "question": "Can I use it with an active bass?",
+          "answer": "Yes. The tuner detects pitch from the microphone regardless of whether your bass is passive or active. If you use an audio interface with your computer, the tuner can also pick up the signal through the interface microphone input."
+        },
+        {
+          "question": "How do I tune a 5-string bass?",
+          "answer": "Select the five-string preset if available, or tune each string manually by identifying the note shown on screen. The low B string (B0) sits just below E1 on the chromatic scale. Play it slowly and firmly — the very low frequency may take a moment longer for the browser to detect reliably."
+        },
+        {
+          "question": "What is standard bass guitar tuning?",
+          "answer": "Standard four-string bass tuning is E1 A1 D2 G2, reading from the lowest to highest string. These are the same note names as the four lowest strings on a guitar, but an octave lower. Five-string basses add a low B1 string below the E, and six-string basses add both a low B and a high C above the G."
+        },
+        {
+          "question": "How do I know when my bass is in tune?",
+          "answer": "The tuner needle should center on the target note with 0 cents shown — on TuneUniversal the display turns green. Beyond the visual signal, trust your ears. Play the open A string against the A at the fifth fret of the low E: if they produce a wavering beat, they are not quite at unison. No beats means perfect unison and confirms both strings are in tune relative to each other."
+        },
+        {
+          "question": "Can I tune a fretless bass with an online tuner?",
+          "answer": "Yes. A fretless bass produces the same fundamental pitches as a fretted bass — the tuner detects the open string note regardless of whether there are frets. The key difference is that intonation on a fretless bass also depends on your left-hand finger placement, which the tuner cannot assess. Use the tuner for open string tuning, then verify intonation by comparing harmonics at the 12th position with the stopped note at that point."
+        },
+        {
+          "question": "Why does my bass sound out of tune when playing higher up the neck?",
+          "answer": "This is an intonation problem, not a tuning problem. Intonation refers to whether fretted notes are in tune along the full length of the neck. If the open strings are correctly tuned but the 12th fret sounds sharp or flat, the bridge saddle needs adjustment. This is a mechanical fix — not something a tuner alone can resolve. A local guitar technician can set intonation in a few minutes with a screwdriver."
         }
       ]
     },
     "ukulele-tuner": {
       "title": "Online ukulele tuner",
-      "description": "Tune your ukulele in standard G C E A tuning.",
+      "description": "Tune your soprano, concert, tenor or baritone ukulele with your microphone — free, fast, no download needed.",
       "howItWorks": [
-        "Start the tuner.",
-        "Pick one string.",
-        "Follow the flat, sharp or in-tune feedback."
+        "Grant microphone permission when the browser asks.",
+        "Select your ukulele type — soprano, concert, tenor, or baritone each has a different string preset.",
+        "Pluck one string at a time cleanly, letting the note ring for a full second.",
+        "Check the detected note and cent reading on screen.",
+        "Turn the tuning peg very slowly — ukulele pegs are sensitive and a small turn moves the pitch a lot.",
+        "Work through all four strings: G, C, E, A for standard reentrant tuning."
       ],
       "faq": [
         {
-          "question": "Is re-entrant tuning supported?",
-          "answer": "Yes, standard high-G G C E A is included, with additional presets depending on the selected instrument."
+          "question": "What is standard ukulele tuning?",
+          "answer": "Standard ukulele tuning for soprano, concert, and tenor ukuleles is G4 C4 E4 A4, commonly written as G C E A. This uses a high-G fourth string, which means the strings do not go from low to high in pitch — the G string sits higher than the C string. This is called reentrant tuning and gives the ukulele its characteristic bright sound."
         },
         {
-          "question": "Is audio recorded?",
-          "answer": "No audio is uploaded; detection runs in the browser."
+          "question": "What tuning does a baritone ukulele use?",
+          "answer": "Baritone ukuleles use D G B E tuning — the same as the four highest strings on a guitar. This makes it easy for guitarists to pick up the baritone ukulele without learning entirely new chord shapes, though the chord names will differ from standard ukulele tuning."
+        },
+        {
+          "question": "Is re-entrant tuning supported?",
+          "answer": "Yes. Standard high-G reentrant tuning (G4 C4 E4 A4) is fully supported. Some players prefer low-G tuning, where the G string is tuned an octave lower. Select the low-G preset if available, or manually tune the G string to G3 instead of G4 — the tuner will identify the note correctly either way."
+        },
+        {
+          "question": "My ukulele strings keep going out of tune — why?",
+          "answer": "New ukulele strings — especially nylon or fluorocarbon — stretch a lot during the first week of use. Tune the ukulele, play for a few minutes, then tune again. Repeat this several times a day for the first week and the strings will stabilize. Temperature and humidity changes also affect nylon strings more than metal strings, so store your ukulele away from direct sunlight and heating vents."
+        },
+        {
+          "question": "Does the tuner work on iPhone and Android?",
+          "answer": "Yes. On iPhone and iPad, Safari grants microphone access correctly from iOS 14.3 onwards. On Android, Chrome and Firefox both work well. Make sure you have allowed the browser to use the microphone in your device settings."
+        },
+        {
+          "question": "Can I tune a tenor ukulele the same way as a soprano?",
+          "answer": "Yes. Soprano, concert, and tenor ukuleles all use the same standard G C E A tuning, so you tune all three exactly the same way. The physical string tension and scale length differ, giving each size a different tonal character, but the target notes are identical. Baritone ukuleles are the exception — they use D G B E tuning, the same as the highest four strings of a guitar."
+        },
+        {
+          "question": "What is the difference between high-G and low-G ukulele tuning?",
+          "answer": "In high-G (reentrant) tuning, the G string is tuned to G4 — above middle C — which makes it higher than the adjacent C string. This is the traditional ukulele sound. In low-G tuning, the G string is tuned to G3 — an octave lower — giving the ukulele a fuller, more guitar-like bass. Low-G is preferred for fingerpicking and solo arrangements. Select the correct preset on TuneUniversal so the target note matches your string."
+        },
+        {
+          "question": "How do I tune a concert ukulele?",
+          "answer": "Concert ukulele tuning is identical to soprano: G4 C4 E4 A4. Pluck each string one at a time and match it to the target note shown on the tuner. The concert ukulele's slightly longer scale length gives the strings a little more tension and a slightly rounder tone than a soprano, but the tuning process is identical. If the tuner cannot detect the G or A strings clearly, move the device a few centimetres closer to the strings."
+        },
+        {
+          "question": "Should I tune a string up or down to reach the correct pitch?",
+          "answer": "Always tune up to the correct pitch rather than down. If a string is sharp, loosen it past the target and then tighten back up to it. Arriving at pitch from below means the string is under increasing tension at the exact pitch, which keeps it more stable and reduces slipping. Arriving from above leaves the peg under decreasing tension and the string is more likely to slip flat within minutes."
         }
       ]
     },
     "metronome": {
       "title": "Online metronome",
-      "description": "Practice with adjustable BPM, accents and common meters.",
+      "description": "Practice with a precise, adjustable metronome — set BPM, time signature, and accents directly in your browser.",
       "howItWorks": [
-        "Set the BPM.",
-        "Choose a meter.",
-        "Start the pulse and follow the accented first beat."
+        "Set the BPM using the slider or by clicking the plus and minus buttons — the range covers 20 to 300 BPM.",
+        "Choose a time signature: 2/4, 3/4, 4/4, or 6/8 to match the music you are practicing.",
+        "Press Start. The first beat of each bar plays with an accented click so you always know where beat 1 falls.",
+        "Practice along — start at a tempo where you can play every note cleanly without rushing.",
+        "Gradually increase the BPM by 5 at a time only when you can play through the passage without mistakes.",
+        "Use the Tap Tempo button to match the metronome to a song you already know, then practice from there."
       ],
       "faq": [
         {
-          "question": "Can I tap tempo?",
-          "answer": "Yes, use the tap control to estimate a tempo."
+          "question": "What BPM should a beginner start at?",
+          "answer": "Beginners should start at a tempo slow enough to play every note cleanly — often 60 BPM or even slower for difficult passages. There is no shame in a very slow tempo. The goal is to build correct muscle memory first. Speed comes naturally with repetition once the movement pattern is accurate."
         },
         {
-          "question": "Which meters are available?",
-          "answer": "2/4, 3/4, 4/4 and 6/8."
+          "question": "Which time signatures are available?",
+          "answer": "The metronome supports 2/4 (march, polka), 3/4 (waltz, minuet), 4/4 (the most common time signature in popular and rock music), and 6/8 (compound time, common in ballads and blues). The first beat of each bar is accented so you can always feel the downbeat."
+        },
+        {
+          "question": "How do I use the metronome to improve my timing?",
+          "answer": "The most effective practice method is to isolate a short passage — four to eight bars — and loop it at a slow tempo until it feels effortless. Then raise the BPM by 5 and repeat. Never skip ahead by raising tempo too fast; rushing causes you to practice mistakes. Recording yourself alongside the metronome and listening back is one of the fastest ways to spot timing issues."
+        },
+        {
+          "question": "Can I use tap tempo on the metronome?",
+          "answer": "Yes. Tap the Tap Tempo button repeatedly in time with a song you are listening to, and the BPM field will update to match your taps. This is useful when you want to practice along with a specific track at its exact tempo. Tap at least four times for an accurate average."
+        },
+        {
+          "question": "Does the metronome work without an internet connection?",
+          "answer": "Once the page has loaded in your browser, the metronome runs entirely in JavaScript using the Web Audio API and does not need a server connection to keep the beat. If you reload the page offline the audio engine may not initialize, so load the page while connected and keep the tab open."
+        },
+        {
+          "question": "What is the difference between 4/4 and 3/4 time?",
+          "answer": "In 4/4 time there are four beats per bar, with the strongest accent on beat 1 and a secondary accent on beat 3. In 3/4 time there are three beats per bar with one accent on beat 1 — this creates the characteristic 'one two three' lilt of a waltz. Changing the time signature on the metronome is a simple way to feel this difference immediately."
+        },
+        {
+          "question": "What does 120 BPM mean in musical terms?",
+          "answer": "120 BPM means 120 beats per minute — two beats every second. This falls in the Allegro range (fast, lively). As a reference: 60 BPM is one beat per second (Adagio, slow); 80–100 BPM is Andante to Moderato (walking pace); 120–140 BPM is Allegro (fast); above 168 BPM is Presto (very fast). Most pop songs sit between 90 and 130 BPM. 120 BPM is a convenient practice tempo because its even subdivision makes it easy to count along."
+        },
+        {
+          "question": "How do I practice scales with a metronome?",
+          "answer": "Set the metronome to a tempo where you can play every note of the scale cleanly — even if that means starting at 40 or 50 BPM. Play one note per beat first, then try two notes per beat (eighth notes), then four per beat (sixteenth notes). Only raise the tempo by 5–10 BPM when you can play three consecutive repetitions cleanly at the current speed. This method builds real speed over weeks rather than days, and prevents cementing sloppy technique."
+        },
+        {
+          "question": "What is a rhythmic subdivision and how do I use it in practice?",
+          "answer": "A subdivision is a smaller rhythmic unit within each beat. At 60 BPM, each beat lasts one second. Eighth-note subdivision means two notes fit in that second; sixteenth-note subdivision means four. Practicing with subdivision awareness — mentally hearing each subdivided pulse even when playing only on the main beats — is the foundation of solid time. If the metronome plays quarter-note clicks, count 'one-and, two-and, three-and, four-and' aloud to feel the eighth-note subdivision between each click."
+        },
+        {
+          "question": "What is the difference between 6/8 and 3/4 time?",
+          "answer": "Both have six eighth notes per bar, but they feel completely different. In 6/8 the beats naturally group into two groups of three (strong-weak-weak, strong-weak-weak), giving a rocking 'one-two-three, one-two-three' feel — common in jigs, marches, and ballads. In 3/4 the emphasis falls on three quarter-note beats with a different internal subdivision. At slow tempos the two can sound similar, but at speed 6/8 has a compound-duple feel while 3/4 feels like a waltz."
         }
       ]
     },
     "tap-bpm": {
       "title": "Tap BPM counter",
-      "description": "Tap along to music and calculate the average BPM.",
+      "description": "Tap along to any song and get an instant BPM reading — find the tempo of any track in seconds.",
       "howItWorks": [
-        "Tap with the beat.",
-        "The average BPM updates automatically.",
-        "Reset when starting a new song."
+        "Open the Tap BPM page — no microphone or setup needed.",
+        "Listen to the song or music you want to measure.",
+        "Tap the large Tap button (or press the spacebar) once per beat, in time with the music.",
+        "After four or more taps the average BPM display updates in real time.",
+        "Keep tapping for 8–16 beats for a more stable and accurate reading.",
+        "Press Reset to clear the history and start a new measurement for a different song."
       ],
       "faq": [
         {
-          "question": "How many taps are used?",
-          "answer": "The tool keeps recent intervals for a stable estimate."
+          "question": "How many taps do I need for an accurate BPM reading?",
+          "answer": "You need at least four taps to get a first estimate, but the reading becomes much more stable after eight to sixteen taps. The tool calculates the average interval between taps and converts it to BPM, so more taps smooth out any slight timing inconsistencies in your tapping."
         },
         {
-          "question": "Can I use keyboard taps?",
-          "answer": "This version uses the on-screen button."
+          "question": "Can I use the keyboard instead of clicking?",
+          "answer": "Yes. Pressing the spacebar on a keyboard registers as a tap, which makes it easier to keep a steady rhythm than clicking a mouse button. On mobile, the large on-screen tap button is designed to be easy to hit consistently."
+        },
+        {
+          "question": "Why does the BPM reading keep changing?",
+          "answer": "The BPM updates after every tap based on a rolling average of recent intervals. Early in a session the reading fluctuates more because there are fewer data points. After eight or more taps the number stabilizes. If it still fluctuates, check that you are tapping on the main beat rather than a sub-beat or the off-beat."
+        },
+        {
+          "question": "What is BPM and why does it matter for musicians?",
+          "answer": "BPM stands for beats per minute and is the standard way to describe the tempo of a piece of music. Knowing the BPM of a song lets you set a metronome to exactly the right speed for practice, program drum machines and DAWs accurately, and match the tempo when playing along with a recording. Most popular music falls between 60 and 180 BPM."
+        },
+        {
+          "question": "Can I use Tap BPM to match a metronome to a song?",
+          "answer": "Yes — this is one of the most common uses. Tap the tempo of the song you want to learn, note the BPM result, then enter that value into the online metronome and practice along at the correct speed. This is much faster than trying to guess a tempo by ear."
+        },
+        {
+          "question": "What BPM do different music genres typically use?",
+          "answer": "Most popular music sits between 70 and 180 BPM: hip-hop and R&B typically run 70–100 BPM; pop songs cluster around 100–130 BPM; rock and indie range from 110–150 BPM; house and dance music sits at 120–135 BPM; drum and bass pushes 160–180 BPM. These are rough guides — any genre has exceptions. Knowing the typical BPM for a genre helps you set a realistic starting tempo for practice or production."
+        },
+        {
+          "question": "What is the difference between tempo and BPM?",
+          "answer": "Tempo and BPM describe the same thing — the speed of music — but from different angles. Tempo is the human term, often expressed as an Italian marking (Allegro, Andante, Adagio) or a general description like 'fast' or 'slow'. BPM is the precise numerical value: 120 BPM means exactly 120 beats every minute. A composer might write 'Andante ♩= 76' on a score, meaning walking pace at 76 BPM. In modern music production, BPM has largely replaced traditional tempo markings."
+        },
+        {
+          "question": "Can I use Tap BPM on a mobile device?",
+          "answer": "Yes. TuneUniversal's Tap BPM tool works fully on mobile. The large on-screen button is designed for tapping with a thumb. Tap along with the beat of the song — at least eight taps for a reliable reading — and the BPM appears after the first few taps. For the most stable result, tap for a full verse or chorus of the song rather than just a few beats."
+        },
+        {
+          "question": "How accurate is the tap BPM reading?",
+          "answer": "The accuracy depends on how consistently you tap. The tool calculates the average interval between all your taps and converts it to BPM. After four taps the reading is an initial estimate; after sixteen or more consistent taps it becomes reliable to within 0.5–1 BPM. If the reading keeps jumping, check that you are tapping on the main beat rather than a half-beat or off-beat. Resetting and trying again with deliberate taps usually resolves inconsistent readings."
         }
       ]
     },
     "chord-transposer": {
       "title": "Chord transposer",
-      "description": "Transpose chord progressions up or down by semitones.",
+      "description": "Transpose any chord progression up or down by semitones — paste chords, choose offset, copy the result.",
       "howItWorks": [
-        "Paste chord symbols.",
-        "Choose semitones from -12 to +12.",
-        "Copy the transposed result."
+        "Paste or type your chord progression into the input field — one chord per word, multiple lines are fine.",
+        "Use the semitone slider or buttons to choose how many steps to transpose: from -12 to +12.",
+        "The transposed chords appear instantly in the output panel below.",
+        "Copy the result with the copy button and paste it into your lyrics, lead sheet, or notes app.",
+        "Positive values transpose up (e.g. from C to D is +2); negative values transpose down (e.g. from G to F is -2).",
+        "Lyrics and non-chord text pass through unchanged — only recognized chord symbols are transposed."
       ],
       "faq": [
         {
-          "question": "Are flats supported?",
-          "answer": "Yes, flat roots are normalized to sharp output."
+          "question": "What chord types does the transposer support?",
+          "answer": "The transposer handles a wide range of chord symbols: major (C, D, G), minor (Am, Em, Bm), dominant seventh (G7, A7), major seventh (Cmaj7), minor seventh (Am7), suspended (Csus2, Csus4), added ninth (Cadd9), diminished, augmented, and slash chords (G/B, C/E). The root note shifts by the chosen number of semitones while the chord quality and suffix stay the same."
         },
         {
-          "question": "Which chord types work?",
-          "answer": "Major, minor, sharps, flats, sevenths and common suffixes are supported."
+          "question": "Why would I need to transpose chords?",
+          "answer": "Transposing is useful in many common situations: changing a song to a key that suits your vocal range, matching the key of another instrument in an ensemble, capo use on guitar (a capo on fret 2 means chords sound two semitones higher, so you transpose down 2 to read the original shapes), and learning a song that was recorded in a tuning different from standard."
+        },
+        {
+          "question": "Are flat chords converted to sharps?",
+          "answer": "Yes. When you input flat-root chords like Bb, Eb, or Ab, the transposer normalizes them internally and outputs the closest enharmonic equivalent. The output uses sharps by default (e.g. Bb becomes A#). If you prefer flats in the output, keep that in mind when reading the result — A# and Bb are the same pitch."
+        },
+        {
+          "question": "Can I transpose a whole song with lyrics?",
+          "answer": "Yes. Paste the full lyrics with chords written above or inline (e.g. in the Nashville number style or standard lead-sheet format). The transposer recognizes chord symbols and shifts them while leaving all other text — words, punctuation, line breaks — completely unchanged."
+        },
+        {
+          "question": "How many semitones is a full octave?",
+          "answer": "One octave equals 12 semitones. Transposing by +12 or -12 brings you back to the same key but one octave higher or lower. Transposing by +7 moves up a perfect fifth (e.g. C to G), and transposing by +5 moves up a perfect fourth (e.g. C to F). These intervals are useful to know when changing keys on guitar."
+        },
+        {
+          "question": "What key does a capo on fret 2 produce?",
+          "answer": "A capo on fret 2 raises the pitch of all open strings by two semitones. If you play chords in open E-shape (E, A, B), with a capo on fret 2 those shapes sound as F#, B, and C# — two semitones higher. To find out what key a capo produces: take the original key and count up by the fret number. Capo 1 = +1 semitone; capo 2 = +2; capo 5 = +5. The chord transposer automates this — input your chords, set the offset to +2, and you see the sounding key."
+        },
+        {
+          "question": "What is the easiest key to play guitar in?",
+          "answer": "G major and C major are widely considered the easiest keys for guitar because they use open chord shapes with no barres: G, C, D, Em, Am all have comfortable fingerings. E major and A major are also beginner-friendly. The 'hardest' common key on guitar is Bb major, because the two main chords (Bb and Eb) both require barre chords. If you want to play a song in Bb, consider transposing to A and using a capo on fret 1."
+        },
+        {
+          "question": "How do I transpose chords down by a half step?",
+          "answer": "Set the semitone offset to -1. For example, if a song is in A (chords: A, D, E) and you transpose by -1, the output is Ab (G#), Db (C#), Eb (D#). If you want to keep easy open chord shapes, transpose -1 and add a capo on fret 1 instead — your hands play the original A-shape chords but the guitar sounds in Ab. This is the most practical approach for singers who need a slightly lower key."
+        },
+        {
+          "question": "Does the transposer work with ukulele chords?",
+          "answer": "Yes. Chord symbols are the same whether written for guitar or ukulele — Cmaj7 is Cmaj7 on both instruments. The transposer shifts root notes and preserves the chord quality, which is universal across fretted instruments. Paste your ukulele chord progression, choose the semitone offset, and the output is ready to use. The only difference is that the shape you play on the ukulele neck will differ from the guitar shape, but that is your instrument's concern, not the transposer's."
         }
       ]
     },
     "sound-level-meter": {
       "title": "Online sound level meter",
-      "description": "Measure estimated microphone sound level in dB with adjustable sensitivity.",
+      "description": "Measure microphone sound levels in real time — see estimated dB, average, and peak readings directly in your browser.",
       "howItWorks": [
-        "Allow microphone access.",
-        "Adjust sensitivity to calibrate the reading.",
-        "Read estimated dB, average and peak in real time."
+        "Click 'Enable microphone' and grant browser permission — the meter activates immediately.",
+        "Watch the live dB bar: the main bar shows the current level, the peak marker shows the highest recent value.",
+        "Use the sensitivity slider to calibrate the reading for your specific microphone and environment.",
+        "The average dB display smooths short spikes and gives you a better sense of the typical level.",
+        "Reduce noise sources in the room and check whether the reading drops as expected to verify the meter is responding correctly.",
+        "When finished, click Stop microphone to release the microphone back to the operating system."
       ],
       "faq": [
         {
-          "question": "Is it a certified sound meter?",
-          "answer": "No. It uses the browser microphone and gives a useful estimate for practice and room checks, not a professional dB SPL measurement."
+          "question": "Is this a professional-grade sound level meter?",
+          "answer": "No. This is a browser-based estimation tool, not a calibrated SPL meter. Professional sound level meters use a Class 1 or Class 2 calibrated microphone and conform to IEC 61672. The readings here depend entirely on your device's built-in microphone, which varies significantly between phones, laptops, and headsets. Use this tool for rough checks, practice room assessments, and educational purposes rather than regulatory or engineering measurements."
         },
         {
-          "question": "How do I adjust sensitivity?",
-          "answer": "Use the sensitivity/calibration slider if the reading feels too high or too low for your environment."
+          "question": "How do I calibrate the sensitivity slider?",
+          "answer": "Start with a known reference: generate a tone at a comfortable listening volume with a speaker and move the device to a distance where you expect roughly 70–75 dB (normal conversation level). Adjust the sensitivity slider until the reading matches. Once set for your specific microphone and environment, the relative readings become useful for comparing loud vs. quiet sounds even if the absolute dB value is an estimate."
+        },
+        {
+          "question": "What is a safe sound level for music practice?",
+          "answer": "Sound levels above 85 dB sustained for more than an hour can cause gradual hearing damage over time. A live rock concert typically measures 100–115 dB, which is unsafe without hearing protection for extended exposure. For practice with amplified instruments, aim to keep sustained levels below 85 dB. Use the meter's average reading — not the peak — as your guide for sustained exposure."
+        },
+        {
+          "question": "Why does the reading fluctuate so much?",
+          "answer": "Sound level varies naturally with every note, word, or noise in the room. The live bar reflects the instantaneous signal, which will always jump around. The average display smooths this over a short window and is more useful for judging overall loudness. The peak marker shows the loudest moment detected, which is useful for checking whether transient peaks are clipping your microphone input."
+        },
+        {
+          "question": "Can I measure noise in a room for recording?",
+          "answer": "Yes, this is a practical use case. Place your device in the center of the room, stop speaking, and watch the floor level — this is your ambient noise floor. A quiet room suitable for home recording typically has a noise floor below 40 dB. If the meter shows 50–60 dB with no one speaking, you may have HVAC, street noise, or computer fan noise that could affect recordings."
+        },
+        {
+          "question": "What dB level is normal conversation?",
+          "answer": "Normal face-to-face conversation at about one metre distance registers approximately 60–65 dB. A quiet library is around 30–40 dB; a busy restaurant around 70–75 dB; a vacuum cleaner at one metre is around 70 dB. These values give you a real-world reference when interpreting readings from the online meter. Keep in mind that the meter reads relative levels based on your microphone — the absolute values are estimates, not precision measurements."
+        },
+        {
+          "question": "How loud is a live concert in dB?",
+          "answer": "A typical live rock or pop concert measures 100–115 dB at audience distance from the speakers. Sustained exposure above 85 dB for more than one hour can begin to cause hearing damage over time; at 100 dB damage can occur after about 15 minutes of continuous exposure. The WHO recommends no more than 40 hours per week above 80 dB. If you attend concerts regularly, foam earplugs (which reduce level by 25–33 dB) are a practical and inexpensive form of protection."
+        },
+        {
+          "question": "What is the difference between peak and average dB readings?",
+          "answer": "The peak reading captures the loudest single moment detected by the microphone — a hand clap, a plucked string, or a door slamming. The average reading smooths the level over a short window and reflects the typical sustained loudness of the environment. For hearing safety, average dB is the relevant measure, because hearing damage is caused by sustained exposure rather than brief transients. For recording, peak levels matter more because they indicate whether the microphone input is clipping."
+        },
+        {
+          "question": "How do I reduce noise in my home practice space?",
+          "answer": "Start by identifying the main noise sources: HVAC systems, street traffic, and computer fans are the most common. Soft furnishings — carpets, curtains, bookshelves, sofas — absorb mid and high frequency reflections and reduce overall room noise. For electric instruments, use headphone amps or practise at low volume rather than an open speaker cab. The online meter can help you verify whether your improvements are working by comparing floor noise levels before and after changes."
         }
       ]
     },
     "pitch-generator": {
       "title": "Pitch Generator",
-      "description": "Generate a pure tone from 20 Hz to 20000 Hz for ear training, audio checks and reference pitches.",
+      "description": "Generate a precise reference tone from 20 Hz to 20000 Hz — use it for ear training, instrument tuning, and audio testing.",
       "howItWorks": [
-        "Choose a frequency between 20 Hz and 20000 Hz.",
-        "Set volume and waveform.",
-        "Press play to generate the tone, then stop it when finished."
+        "Choose a frequency using the slider or type it directly into the frequency input — the range is 20 Hz to 20000 Hz.",
+        "Select a waveform: sine waves are pure and smooth; square and sawtooth waves are richer and brighter.",
+        "Set the volume to a comfortable level before pressing play.",
+        "Press Play to start the tone. The tone sustains until you press Stop.",
+        "For ear training, try matching the tone by singing or humming it before checking the frequency.",
+        "For instrument tuning, generate the reference pitch of a standard note (e.g. A4 = 440 Hz) and tune to it by ear."
       ],
       "faq": [
         {
-          "question": "Can I use headphones?",
-          "answer": "Yes, but start with a low volume, especially with high frequencies."
+          "question": "What is the standard concert pitch frequency?",
+          "answer": "The international standard concert pitch is A4 = 440 Hz, adopted by the International Organization for Standardization (ISO 16) in 1955. Many orchestras tune to A = 442 Hz or even 443–444 Hz for a slightly brighter sound. Early music ensembles sometimes use A = 415 Hz (approximately a semitone lower). The pitch generator lets you set any of these reference pitches precisely."
         },
         {
-          "question": "What frequency range is supported?",
-          "answer": "The generator covers 20 Hz to 20000 Hz, the approximate range of human hearing."
+          "question": "Is it safe to use headphones with this tool?",
+          "answer": "Yes, but take care with high-frequency tones above 4000 Hz and any tone at high volume. Start with the volume slider at around 30% and raise it gradually. Very high frequencies (above 8000 Hz) can be uncomfortable at high volumes, and sustained loud tones through headphones carry the same hearing risk as any loud sound. Use short bursts rather than long sustained tones when testing high frequencies."
+        },
+        {
+          "question": "How can I use a pitch generator for ear training?",
+          "answer": "A pitch generator is a classic ear training tool. Set it to A4 (440 Hz) and try to match it by singing. Then move to other notes — E4 (329 Hz), D4 (294 Hz) — and practice recognizing the intervals between them. Advanced ear training involves identifying intervals, matching chords, and recognizing whether a played note is sharp or flat relative to the reference. Repeat these exercises daily for the fastest improvement."
+        },
+        {
+          "question": "What are the different waveforms and how do they sound?",
+          "answer": "A sine wave produces a pure, flute-like tone with no harmonics — it is the clearest reference for tuning. A square wave adds odd-numbered harmonics and sounds hollow and buzzy, like a clarinet or early synthesizer. A sawtooth wave contains all harmonics and sounds bright and rich, similar to a string or brass instrument. For tuning reference, use sine. For sound testing and synthesis experiments, try the other waveforms."
+        },
+        {
+          "question": "What frequency corresponds to each musical note?",
+          "answer": "The standard equal-temperament scale assigns specific frequencies to each note. Common references: C4 (middle C) = 261.63 Hz, A4 = 440 Hz, E4 = 329.63 Hz, G4 = 392 Hz, B4 = 493.88 Hz. Each octave doubles the frequency, so A5 = 880 Hz and A3 = 220 Hz. The pitch generator displays the nearest note name as you move the slider, making it easy to find any reference pitch."
+        },
+        {
+          "question": "Can I use the pitch generator to test speakers or headphones?",
+          "answer": "Yes. A sweep from 20 Hz to 20000 Hz is a standard speaker frequency response test. Move the slider slowly upward from 20 Hz and listen for which frequencies your speakers or headphones reproduce clearly, which seem weak, and which cause rattles or distortion. Most consumer earbuds roll off below 50 Hz and above 16000 Hz. This test is purely subjective but useful for understanding your equipment."
+        },
+        {
+          "question": "What frequency is middle C?",
+          "answer": "Middle C — written as C4 in scientific pitch notation — has a standard frequency of 261.63 Hz when tuned to the international A4 = 440 Hz standard. It sits in the middle of the piano keyboard and serves as a common reference point for both singers and instrumentalists. You can verify this on the pitch generator by selecting C4 and confirming the displayed frequency. Note that in older or specialist tuning systems (such as baroque pitch at A4 = 415 Hz) middle C shifts to approximately 247 Hz."
+        },
+        {
+          "question": "How do I tune an instrument without a microphone using the pitch generator?",
+          "answer": "Select the pitch matching the note you want to tune (for example A4 = 440 Hz for a standard A string), then play that note on your instrument and listen carefully for the beating pattern — a rhythmic wavering that occurs when two pitches are close but not identical. Slowly adjust your instrument's tuning peg until the beating disappears and the two tones merge into a single, stable sound. This method is called tuning by ear to a reference tone and works on any instrument, including guitar, violin, and wind instruments, without needing any microphone access."
+        },
+        {
+          "question": "What is the range of human hearing?",
+          "answer": "The typical human hearing range spans from approximately 20 Hz to 20,000 Hz (20 kHz). The lowest audible bass frequencies (20–80 Hz) are felt as much as heard; the critical range for speech and music is roughly 200 Hz to 4,000 Hz; and the upper range above 8,000 Hz carries the 'air' and shimmer of high-frequency content. Hearing sensitivity at high frequencies decreases with age — many adults over 40 cannot reliably hear above 15,000 Hz. Use the pitch generator to explore which frequencies you can personally detect."
+        },
+        {
+          "question": "Can I use the pitch generator to check my instrument's intonation?",
+          "answer": "Yes. Generate a steady reference pitch for a specific note, then play the same note on your instrument. If the intonation is correct, the two tones will fuse into a stable sound with no wavering. If you hear a slow pulsing (beating), the instrument is slightly out of tune at that pitch. By checking multiple notes across the fretboard or across different octaves you can identify intonation problems — for example, a guitar saddle that needs adjusting or a wind instrument that plays sharp in the upper register."
         }
       ]
     }

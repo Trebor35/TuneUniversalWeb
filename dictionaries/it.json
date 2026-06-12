@@ -53,153 +53,409 @@
   "tools": {
     "guitar-tuner": {
       "title": "Accordatore chitarra online",
-      "description": "Usa il microfono per accordare rapidamente la chitarra standard.",
+      "description": "Usa il microfono per accordare la chitarra con precisione — nessun download richiesto, funziona direttamente nel browser.",
       "howItWorks": [
-        "Consenti l'accesso al microfono.",
-        "Suona una corda alla volta.",
-        "Regola finche l'indicatore dice intonato."
+        "Apri l'accordatore e clicca Attiva microfono — il browser chiedera il permesso la prima volta.",
+        "Seleziona l'accordatura: Standard, Drop D, Open G e molte altre sono disponibili.",
+        "Suona una corda a vuoto alla volta, lasciandola vibrare senza toccare le altre.",
+        "Osserva l'ago e il display in cent: verde significa intonata, rosso indica che devi correggere.",
+        "Gira la chiave di accordatura lentamente — piccoli movimenti fanno grande differenza vicino alla nota target.",
+        "Ripeti per ogni corda e ricontrolla dopo qualche minuto mentre le corde si assestano."
       ],
       "faq": [
         {
-          "question": "Funziona su mobile?",
-          "answer": "Si, sono supportati i browser mobile moderni con accesso microfono."
+          "question": "L'accordatore funziona su smartphone e tablet?",
+          "answer": "Si. TuneUniversal funziona su qualsiasi smartphone o tablet moderno con un browser che supporta l'accesso al microfono. Su iOS serve Safari 14.3 o versioni successive; su Android funzionano bene Chrome e Firefox. Assicurati di concedere il permesso al microfono quando il browser lo richiede e tieni il telefono vicino alle corde per una lettura piu precisa."
         },
         {
-          "question": "Quale accordatura include?",
-          "answer": "TuneUniversal supporta la maggior parte delle accordature comuni, tra cui Standard, Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D e Open G."
+          "question": "Quali accordature sono supportate?",
+          "answer": "L'accordatore supporta un'ampia gamma di accordature comuni: Standard (Mi La Re Sol Si Mi), Eb Standard, D Standard, Drop D, Drop D#, Drop C#, Drop C, Open D, Open G e DADGAD tra le altre. Puoi esplorare le accordature alternative nell'hub delle accordature e aprire direttamente il preset corrispondente da quelle pagine."
+        },
+        {
+          "question": "Perche l'ago salta invece di restare fermo?",
+          "answer": "Il movimento dell'ago e normale quando la corda vibra liberamente. La lettura si stabilizza mentre la nota sustain. Per una lettura piu pulita, pizzica la corda con decisione e lasciala risuonare senza palm muting, vai in un ambiente silenzioso e assicurati che nessun'altra corda risuoni per simpatia. Le corde di nylon sulle chitarre classiche impiegano piu tempo a stabilizzarsi rispetto alle corde in acciaio."
+        },
+        {
+          "question": "L'audio viene inviato a qualche server?",
+          "answer": "No. Tutto il rilevamento del pitch avviene interamente nel browser usando la Web Audio API. Nessun dato audio viene mai caricato, memorizzato o elaborato su alcun server. Il segnale del microfono viene utilizzato in tempo reale e poi scartato."
+        },
+        {
+          "question": "Quanto e preciso un accordatore basato sul browser?",
+          "answer": "Un accordatore browser ben implementato come TuneUniversal e preciso entro pochi cent, piu che sufficiente per la maggior parte della pratica chitarristica. I fattori limitanti principali sono la qualita e il posizionamento del microfono — tenere il telefono o laptop piu vicino alla buca o al corpo della chitarra migliora significativamente il rilevamento."
+        },
+        {
+          "question": "Devo installare qualcosa?",
+          "answer": "Non e richiesta alcuna installazione. TuneUniversal funziona interamente nel browser. Basta aprire la pagina, concedere l'accesso al microfono e iniziare ad accordare. Funziona su Windows, macOS, iOS e Android senza plugin ne download."
+        },
+        {
+          "question": "Ogni quanto devo accordare la chitarra?",
+          "answer": "Accorda la chitarra ogni volta che la prendi in mano. Le corde si scordano costantemente per variazioni di temperatura e umidita, per il cedimento della tensione dopo aver suonato e per l'allungamento elastico naturale del materiale. Le corde nuove sono particolarmente instabili — possono richiedere accordature ogni pochi minuti per i primi giorni finche non si assestano. Una rapida accordatura prima di ogni sessione di pratica richiede meno di un minuto e migliora tutto quello che suoni."
+        },
+        {
+          "question": "Posso accordare una chitarra acustica con il telefono?",
+          "answer": "Si, e funziona molto bene. Tieni il telefono a 15–25 cm dall'occhio della chitarra e pizzica ogni corda in modo pulito, lasciandola risuonare completamente. Il microfono integrato degli smartphone moderni e abbastanza sensibile da rilevare la frequenza con precisione in un ambiente silenzioso. Riduci il rumore di fondo chiudendo porte e finestre, ed evita di accordare vicino a ventilatori o condizionatori."
+        },
+        {
+          "question": "Cosa significa 'cent' su un accordatore?",
+          "answer": "Un semitono — la distanza tra due tasti adiacenti sulla chitarra — e diviso in 100 cent. Il valore in cent indica di quanto la corda si scosta dall'intonazione perfetta: +15 cent significa che e del 15% di un semitono troppo alta; -10 cent significa leggermente bassa. Per suonare in modo generale, rimanere entro ±10 cent e sufficiente. Per la registrazione o il suonare in ensemble, punta a ±5 cent o meno. TuneUniversal mostra i cent in tempo reale cosi puoi fare regolazioni piccole e precise."
+        },
+        {
+          "question": "In quale ordine si accordano le corde della chitarra?",
+          "answer": "Inizia sempre dalla corda piu bassa e sali: Mi basso, La, Re, Sol, Si, Mi acuto. Tendere le corde basse aggiunge tensione al manico, il che puo alzare leggermente le corde piu acute. Dopo un primo giro completo, fai un rapido secondo controllo dal Mi basso — specialmente con corde nuove o dopo una scordatura importante. Questo metodo a due passaggi assicura che tutto si assesti insieme nell'accordatura."
         }
       ]
     },
     "bass-tuner": {
       "title": "Accordatore basso online",
-      "description": "Accorda un basso a quattro corde con rilevamento pitch in tempo reale.",
+      "description": "Accorda il basso a quattro o cinque corde con rilevamento pitch in tempo reale — gratuito e direttamente nel browser.",
       "howItWorks": [
-        "Attiva il microfono.",
-        "Suona una corda a vuoto pulita.",
-        "Accorda verso la nota target piu vicina."
+        "Clicca Attiva microfono e accetta il permesso del browser.",
+        "Posiziona il telefono o laptop vicino al corpo del basso per un segnale pulito.",
+        "Suona una corda a vuoto alla volta, lasciandola risuonare completamente prima di controllare.",
+        "Il display mostra la nota rilevata e quanti cent sei in eccesso o difetto.",
+        "Regola la chiave lentamente fino a quando l'indicatore diventa verde e legge 0 cent.",
+        "Accorda le corde in ordine Mi, La, Re, Sol per un risultato equilibrato, poi ricontrolla dal Mi."
       ],
       "faq": [
         {
-          "question": "Quali corde sono supportate?",
-          "answer": "Accordatura standard E A D G."
+          "question": "Quali accordature del basso sono supportate?",
+          "answer": "L'accordatore basso copre la standard a quattro corde (Mi1 La1 Re2 Sol2) e le accordature alternative comuni tra cui Drop D, Eb standard e basso a cinque corde (Si Mi La Re Sol). Le basse frequenze delle corde del basso rientrano perfettamente nel range di rilevamento dell'accordatore."
         },
         {
-          "question": "Serve un'app?",
-          "answer": "No, funziona direttamente nel browser."
+          "question": "Perche il basso e piu difficile da accordare con il microfono?",
+          "answer": "Le corde a bassa frequenza producono fondamentali che alcuni microfoni integrati captano meno chiaramente. Per migliorare il rilevamento, pizzica la corda con forza, tieni il dispositivo a 20-30 cm dal corpo del basso e evita ambienti molto rumorosi. Suonare attraverso un amplificatore a volume moderato puo anche aiutare se il rilevamento e inconsistente."
+        },
+        {
+          "question": "Serve un'app per accordare il basso?",
+          "answer": "No. TuneUniversal e un accordatore interamente basato sul browser che funziona su qualsiasi dispositivo con microfono e browser aggiornato. Non c'e niente da installare o aggiornare."
+        },
+        {
+          "question": "Posso usarlo con un basso attivo?",
+          "answer": "Si. L'accordatore rileva il pitch dal microfono indipendentemente dal fatto che il basso sia passivo o attivo. Se usi un'interfaccia audio con il computer, l'accordatore puo captare il segnale anche attraverso l'ingresso microfono dell'interfaccia."
+        },
+        {
+          "question": "Come accordo un basso a 5 corde?",
+          "answer": "Seleziona il preset a cinque corde se disponibile, oppure accorda ogni corda manualmente identificando la nota mostrata sullo schermo. La corda bassa Si (Si0) si trova appena sotto il Mi1 nella scala cromatica. Suonala lentamente e con forza — la frequenza molto bassa potrebbe richiedere un momento in piu per essere rilevata in modo affidabile."
+        },
+        {
+          "question": "Qual e l'accordatura standard del basso?",
+          "answer": "L'accordatura standard di un basso a quattro corde e Mi1 La1 Re2 Sol2, dalla corda piu bassa alla piu alta. Sono gli stessi nomi di note delle quattro corde piu basse della chitarra, ma un'ottava sotto. I bassi a cinque corde aggiungono un Si1 basso sotto il Mi, e quelli a sei corde aggiungono sia un Si basso che un Do acuto sopra il Sol."
+        },
+        {
+          "question": "Come faccio a sapere quando il mio basso e accordato?",
+          "answer": "L'indicatore sull'accordatore deve centrarsi sulla nota target con 0 cent mostrati — su TuneUniversal il display diventa verde. Oltre al segnale visivo, fidati dell'orecchio. Suona la corda La aperta contro il La al quinto tasto del Mi basso: se producono un battimento ondeggiante, non sono esattamente all'unisono. Nessun battimento significa unisono perfetto e conferma che entrambe le corde sono accordate l'una rispetto all'altra."
+        },
+        {
+          "question": "Posso accordare un basso fretless con un accordatore online?",
+          "answer": "Si. Un basso fretless produce le stesse frequenze fondamentali di un basso tradizionale — l'accordatore rileva la nota della corda a vuoto indipendentemente dalla presenza dei tasti. La differenza e che l'intonazione sul fretless dipende anche dalla posizione della mano sinistra, che l'accordatore non puo valutare. Usa l'accordatore per l'accordatura delle corde a vuoto, poi verifica l'intonazione confrontando gli armonici al dodicesimo tasto con la nota pizzicata a quella posizione."
+        },
+        {
+          "question": "Perche il mio basso suona stonato in posizione alta sul manico?",
+          "answer": "E un problema di intonazione, non di accordatura. L'intonazione riguarda se le note con i tasti premuti sono in tono lungo tutta la lunghezza del manico. Se le corde a vuoto sono accordate correttamente ma il dodicesimo tasto suona acuto o basso, il ponticello deve essere regolato. Questa e una regolazione meccanica — non qualcosa che si risolve solo con l'accordatore. Un tecnico locale puo impostare l'intonazione in pochi minuti con un cacciavite."
         }
       ]
     },
     "ukulele-tuner": {
       "title": "Accordatore ukulele online",
-      "description": "Accorda l'ukulele in standard G C E A.",
+      "description": "Accorda il tuo ukulele soprano, concerto, tenore o baritono con il microfono — gratuito, veloce, senza download.",
       "howItWorks": [
-        "Avvia l'accordatore.",
-        "Pizzica una corda.",
-        "Segui il feedback calante, crescente o intonato."
+        "Concedi il permesso al microfono quando il browser lo richiede.",
+        "Seleziona il tipo di ukulele — soprano, concerto, tenore o baritono hanno preset di corde diversi.",
+        "Pizzica una corda alla volta in modo pulito, lasciando la nota risuonare per un secondo intero.",
+        "Controlla la nota rilevata e la lettura in cent sullo schermo.",
+        "Gira la chiave di accordatura molto lentamente — le chiavi dell'ukulele sono sensibili.",
+        "Lavora su tutte e quattro le corde: Sol, Do, Mi, La per la standard reentrant."
       ],
       "faq": [
         {
-          "question": "Supporta high-G?",
-          "answer": "Si, l'accordatura standard high-G G C E A e inclusa, con altri preset in base allo strumento selezionato."
+          "question": "Qual e l'accordatura standard dell'ukulele?",
+          "answer": "L'accordatura standard per ukulele soprano, concerto e tenore e Sol4 Do4 Mi4 La4, scritta G C E A. Usa una quarta corda Sol alta — le corde non vanno dal grave all'acuto, la corda Sol e piu alta della corda Do. Questa si chiama accordatura reentrant e conferisce all'ukulele il suo caratteristico suono brillante."
         },
         {
-          "question": "L'audio viene registrato?",
-          "answer": "No, l'analisi resta nel browser."
+          "question": "Quale accordatura usa il baritono ukulele?",
+          "answer": "Gli ukulele baritoni usano l'accordatura Re Sol Si Mi — le stesse delle quattro corde piu alte della chitarra. Questo rende facile per i chitarristi imparare il baritono senza dover imparare forme di accordi completamente nuove."
+        },
+        {
+          "question": "Supporta la high-G reentrant?",
+          "answer": "Si. La standard high-G reentrant (Sol4 Do4 Mi4 La4) e completamente supportata. Alcuni suonatori preferiscono la low-G, dove la corda Sol e accordata un'ottava piu in basso. L'accordatore identifichera correttamente la nota in entrambi i casi."
+        },
+        {
+          "question": "Il mio ukulele continua a scordare — perche?",
+          "answer": "Le nuove corde di ukulele — specialmente nylon o fluorocarbon — si allungano molto durante la prima settimana d'uso. Accorda, suona per qualche minuto, poi accorda di nuovo. Ripeti piu volte al giorno per la prima settimana e le corde si stabilizzeranno. Anche le variazioni di temperatura e umidita influenzano le corde di nylon."
+        },
+        {
+          "question": "L'accordatore funziona su iPhone e Android?",
+          "answer": "Si. Su iPhone e iPad, Safari concede l'accesso al microfono da iOS 14.3 in poi. Su Android funzionano bene Chrome e Firefox. Assicurati di aver autorizzato il browser a usare il microfono nelle impostazioni del dispositivo."
+        },
+        {
+          "question": "Posso accordare un ukulele tenore come un soprano?",
+          "answer": "Si. Soprano, concerto e tenore usano tutti la stessa accordatura standard Sol Do Mi La, quindi si accordano nello stesso modo. La tensione delle corde e la lunghezza della tastiera sono diverse, dando a ogni dimensione un carattere sonoro diverso, ma le note target sono identiche. I baritoni fanno eccezione — usano l'accordatura Re Sol Si Mi, le stesse delle quattro corde piu alte della chitarra."
+        },
+        {
+          "question": "Qual e la differenza tra accordatura con Sol acuto e Sol basso?",
+          "answer": "Con il Sol acuto (reentrant), la corda Sol e accordata a Sol4 — sopra il Do centrale — rendendola piu alta della corda Do adiacente. Questo e il suono tradizionale dell'ukulele. Con il Sol basso, la corda Sol e accordata a Sol3 — un'ottava piu bassa — dando all'ukulele un registro piu completo e simile alla chitarra. Il Sol basso e preferito per il fingerpicking e gli arrangiamenti solisti. Seleziona il preset corretto su TuneUniversal in modo che la nota target corrisponda alle tue corde."
+        },
+        {
+          "question": "Come si accorda un ukulele concerto?",
+          "answer": "L'accordatura dell'ukulele concerto e identica al soprano: Sol4 Do4 Mi4 La4. Pizzica ogni corda una alla volta e falla corrispondere alla nota target mostrata sull'accordatore. La lunghezza di scala leggermente piu lunga del concerto da alle corde un po' piu di tensione e un suono leggermente piu rotondo del soprano, ma il processo di accordatura e identico. Se l'accordatore non rileva chiaramente le corde Sol o La, avvicina il dispositivo di qualche centimetro alle corde."
+        },
+        {
+          "question": "Devo accordare una corda verso l'alto o verso il basso per raggiungere l'intonazione corretta?",
+          "answer": "Accorda sempre verso l'alto per raggiungere la nota corretta. Se una corda e troppo alta, allentala oltre la nota target e poi ritendi fino ad essa. Arrivare all'intonazione dal basso significa che la corda e sotto tensione crescente esattamente all'intonazione corretta, il che la mantiene piu stabile. Arrivare dall'alto lascia il pirolo sotto tensione decrescente e la corda tende a calare in pochi minuti."
         }
       ]
     },
     "metronome": {
       "title": "Metronomo online",
-      "description": "Studia con BPM regolabile, accenti e metri comuni.",
+      "description": "Studia con un metronomo preciso e regolabile — imposta BPM, metro e accenti direttamente nel browser.",
       "howItWorks": [
-        "Imposta il BPM.",
-        "Scegli il metro.",
-        "Avvia il click e segui il primo beat accentato."
+        "Imposta il BPM con lo slider o con i pulsanti piu e meno — il range va da 20 a 300 BPM.",
+        "Scegli il metro: 2/4, 3/4, 4/4 o 6/8 per corrispondere alla musica che stai studiando.",
+        "Premi Start. Il primo beat di ogni battuta suona con un click accentato cosi sai sempre dove cade il tempo 1.",
+        "Studia seguendo il click — parti a un tempo dove riesci a suonare ogni nota pulita senza correre.",
+        "Aumenta gradualmente il BPM di 5 alla volta solo quando riesci a eseguire il passaggio senza errori.",
+        "Usa il pulsante Tap Tempo per trovare il tempo di un brano che conosci, poi studia da li."
       ],
       "faq": [
         {
-          "question": "Posso usare tap tempo?",
-          "answer": "Si, il controllo tap stima il tempo."
+          "question": "A che BPM dovrebbe iniziare un principiante?",
+          "answer": "I principianti dovrebbero iniziare a un tempo abbastanza lento da permettere di suonare ogni nota pulita — spesso 60 BPM o anche meno per i passaggi difficili. Non c'e nessuna vergogna in un tempo molto lento. L'obiettivo e costruire prima la memoria muscolare corretta. La velocita arriva naturalmente con la ripetizione una volta che il pattern di movimento e preciso."
         },
         {
           "question": "Quali metri sono disponibili?",
-          "answer": "2/4, 3/4, 4/4 e 6/8."
+          "answer": "Il metronomo supporta 2/4 (marcia, polka), 3/4 (valzer, minuetto), 4/4 (il metro piu comune nella musica pop e rock), e 6/8 (tempo composto, comune nei ballad e nel blues). Il primo beat di ogni battuta e accentato cosi si sente sempre il downbeat."
+        },
+        {
+          "question": "Come uso il metronomo per migliorare il timing?",
+          "answer": "Il metodo piu efficace e isolare un breve passaggio — quattro-otto battute — e ripeterlo a un tempo lento fino a che non si sente naturale. Poi alza il BPM di 5 e ripeti. Non alzare il tempo troppo velocemente: correre porta a esercitare gli errori. Registrarti accanto al metronomo e riascoltare e uno dei modi piu rapidi per individuare i problemi di timing."
+        },
+        {
+          "question": "Posso usare il tap tempo sul metronomo?",
+          "answer": "Si. Premi il pulsante Tap Tempo piu volte in tempo con un brano che stai ascoltando, e il campo BPM si aggiornera per corrispondere ai tuoi tap. E utile quando vuoi studiare un brano specifico al suo tempo esatto. Premi almeno quattro volte per una media precisa."
+        },
+        {
+          "question": "Qual e la differenza tra il 4/4 e il 3/4?",
+          "answer": "In 4/4 ci sono quattro battiti per misura, con l'accento piu forte sul beat 1 e un accento secondario sul beat 3. In 3/4 ci sono tre battiti per misura con un accento sul beat 1 — questo crea il caratteristico andamento uno due tre di un valzer. Cambiare il metro sul metronomo e un modo semplice per sentire immediatamente questa differenza."
+        },
+        {
+          "question": "Il metronomo funziona senza connessione internet?",
+          "answer": "Una volta caricata la pagina nel browser, il metronomo funziona interamente in JavaScript usando la Web Audio API e non ha bisogno di una connessione server per tenere il tempo. Carica la pagina mentre sei connesso e tieni la scheda aperta."
+        },
+        {
+          "question": "Cosa significa 120 BPM in termini musicali?",
+          "answer": "120 BPM significa 120 battiti al minuto — due battiti al secondo. Questo rientra nella gamma Allegro (veloce, vivace). Come riferimento: 60 BPM e un battito al secondo (Adagio, lento); 80–100 BPM e Andante-Moderato (passo di camminata); 120–140 BPM e Allegro (veloce); oltre 168 BPM e Presto (molto veloce). La maggior parte delle canzoni pop e tra 90 e 130 BPM. 120 BPM e un tempo di pratica conveniente perche la sua suddivisione pari facilita il conteggio."
+        },
+        {
+          "question": "Come si praticano le scale con il metronomo?",
+          "answer": "Imposta il metronomo a un tempo in cui riesci a suonare ogni nota della scala in modo pulito — anche se cio significa partire da 40 o 50 BPM. Prima suona una nota per battito, poi prova due note per battito (ottavi), poi quattro per battito (sedicesimi). Aumenta il tempo solo di 5–10 BPM quando riesci a fare tre ripetizioni consecutive in modo pulito alla velocita attuale. Questo metodo costruisce velocita reale nel corso di settimane, non giorni, e impedisce di consolidare una tecnica sciatta."
+        },
+        {
+          "question": "Cos'e una suddivisione ritmica e come si usa nella pratica?",
+          "answer": "Una suddivisione e un'unita ritmica piu piccola all'interno di ogni battito. A 60 BPM, ogni battito dura un secondo. La suddivisione in ottavi significa due note in quel secondo; in sedicesimi, quattro. Praticare consapevoli della suddivisione — sentendo mentalmente ogni impulso suddiviso anche quando si suona solo sui battiti principali — e la base del tempo solido. Se il metronomo suona crome, conta 'uno-e, due-e, tre-e, quattro-e' ad alta voce per sentire la suddivisione tra i click."
+        },
+        {
+          "question": "Qual e la differenza tra il tempo 6/8 e il 3/4?",
+          "answer": "Entrambi hanno sei ottavi per battuta, ma si sentono completamente diversi. Nel 6/8 i battiti si raggruppano naturalmente in due gruppi di tre (forte-debole-debole, forte-debole-debole), creando una sensazione di dondolio — comune in giga, marce e ballate. Nel 3/4 l'accento cade su tre battiti di semiminima con una suddivisione interna diversa. A tempo lento i due possono sembrare simili, ma in velocita il 6/8 ha una sensazione composta mentre il 3/4 sembra un valzer."
         }
       ]
     },
     "tap-bpm": {
-      "title": "Conta BPM tap",
-      "description": "Batti il tempo della musica e calcola il BPM medio.",
+      "title": "Tap BPM counter",
+      "description": "Batti il tempo di qualsiasi brano e ottieni una lettura BPM immediata — trova il tempo di qualsiasi traccia in pochi secondi.",
       "howItWorks": [
-        "Premi tap sul beat.",
-        "Il BPM medio si aggiorna automaticamente.",
-        "Resetta quando inizi un nuovo brano."
+        "Apri la pagina Tap BPM — non serve microfono ne configurazione.",
+        "Ascolta il brano di cui vuoi misurare il tempo.",
+        "Premi il grande pulsante Tap (o la barra spaziatrice) una volta per beat, in tempo con la musica.",
+        "Dopo quattro o piu tap il display BPM medio si aggiorna in tempo reale.",
+        "Continua a battere per 8-16 beat per una lettura piu stabile e precisa.",
+        "Premi Reset per azzerare la cronologia e iniziare una nuova misurazione per un brano diverso."
       ],
       "faq": [
         {
-          "question": "Quanti tap usa?",
-          "answer": "Mantiene gli intervalli recenti per una stima stabile."
+          "question": "Quanti tap servono per una lettura BPM precisa?",
+          "answer": "Servono almeno quattro tap per ottenere una prima stima, ma la lettura diventa molto piu stabile dopo otto-sedici tap. Il tool calcola l'intervallo medio tra i tap e lo converte in BPM, quindi piu tap allineati smorzano eventuali piccole imprecisioni nel battere il tempo."
         },
         {
-          "question": "Posso usare la tastiera?",
-          "answer": "Questa versione usa il pulsante a schermo."
+          "question": "Posso usare la tastiera invece di cliccare?",
+          "answer": "Si. Premere la barra spaziatrice registra come tap, il che rende piu facile mantenere un ritmo regolare rispetto a cliccare un pulsante del mouse. Su mobile, il grande pulsante tap a schermo e progettato per essere facile da premere in modo consistente."
+        },
+        {
+          "question": "Perche la lettura BPM continua a cambiare?",
+          "answer": "Il BPM si aggiorna dopo ogni tap basandosi su una media mobile degli intervalli recenti. All'inizio la lettura oscilla di piu perche ci sono meno dati. Dopo otto o piu tap il numero si stabilizza. Se continua a oscillare, verifica di stare battendo sul beat principale e non su un sub-beat o sul controtempo."
+        },
+        {
+          "question": "Cos'e il BPM e perche e importante per i musicisti?",
+          "answer": "BPM sta per battiti al minuto ed e il modo standard per descrivere il tempo di un pezzo musicale. Conoscere il BPM di un brano permette di impostare un metronomo alla velocita esatta per lo studio, programmare drum machine e DAW con precisione, e corrispondere al tempo quando si suona insieme a una registrazione. La maggior parte della musica popolare si trova tra 60 e 180 BPM."
+        },
+        {
+          "question": "Posso usare Tap BPM per abbinare un metronomo a un brano?",
+          "answer": "Si — questo e uno degli usi piu comuni. Batti il tempo del brano che vuoi imparare, nota il risultato BPM, poi inserisci quel valore nel metronomo online e studia alla velocita corretta. E molto piu veloce che cercare di indovinare un tempo ad orecchio."
+        },
+        {
+          "question": "Quale BPM usano i diversi generi musicali?",
+          "answer": "La maggior parte della musica popolare e tra 70 e 180 BPM: hip-hop e R&B tipicamente 70–100 BPM; le canzoni pop si raggruppano intorno a 100–130 BPM; rock e indie variano da 110 a 150 BPM; house e dance si attestano a 120–135 BPM; drum and bass spinge fino a 160–180 BPM. Sono indicazioni approssimative — ogni genere ha eccezioni. Conoscere il BPM tipico di un genere aiuta a impostare un tempo di pratica realistico."
+        },
+        {
+          "question": "Qual e la differenza tra tempo e BPM?",
+          "answer": "Tempo e BPM descrivono la stessa cosa — la velocita della musica — ma da angolazioni diverse. Il tempo e il termine umano, spesso espresso come indicazione italiana (Allegro, Andante, Adagio) o una descrizione generale come 'veloce' o 'lento'. Il BPM e il valore numerico preciso: 120 BPM significa esattamente 120 battiti ogni minuto. Un compositore puo scrivere 'Andante 76' su uno spartito, che significa 'passo di camminata a 76 BPM'. Nella produzione musicale moderna, il BPM ha largamente sostituito le indicazioni di tempo tradizionali."
+        },
+        {
+          "question": "Posso usare il Tap BPM sul telefono?",
+          "answer": "Si. Lo strumento Tap BPM di TuneUniversal funziona completamente su mobile. Il grande pulsante sullo schermo e progettato per essere toccato con il pollice. Batti in tempo con il ritmo della canzone — almeno otto tocchi per una lettura affidabile — e il BPM appare dopo i primi tocchi. Per il risultato piu stabile, batti per un'intera strofa o ritornello della canzone piuttosto che per pochi battiti."
+        },
+        {
+          "question": "Quanto e precisa la lettura del BPM?",
+          "answer": "La precisione dipende da quanto batti in modo costante. Lo strumento calcola l'intervallo medio tra tutti i tuoi tocchi e lo converte in BPM. Dopo quattro tocchi la lettura e una stima iniziale; dopo sedici o piu tocchi costanti diventa affidabile entro 0,5–1 BPM. Se la lettura continua a variare, controlla di stare battendo sul battito principale piuttosto che su un mezzo tempo o un contrattempo. Azzerare e riprovare con tocchi deliberati di solito risolve le letture inconsistenti."
         }
       ]
     },
     "chord-transposer": {
       "title": "Traspositore accordi",
-      "description": "Trasponi progressioni di accordi su o giu per semitoni.",
+      "description": "Trasponi qualsiasi progressione di accordi su o giu per semitoni — incolla gli accordi, scegli l'offset, copia il risultato.",
       "howItWorks": [
-        "Incolla gli accordi.",
-        "Scegli i semitoni da -12 a +12.",
-        "Copia il risultato trasposto."
+        "Incolla o scrivi la progressione di accordi nel campo input — un accordo per parola, piu righe vanno bene.",
+        "Usa lo slider dei semitoni per scegliere quanti passi trasporre: da -12 a +12.",
+        "Gli accordi trasposti appaiono immediatamente nel pannello output sottostante.",
+        "Copia il risultato con il pulsante copia e incollalo nel tuo testo, lead sheet o app note.",
+        "I valori positivi traspongono in su (es. da Do a Re e +2); i negativi in giu (es. da Sol a Fa e -2).",
+        "Testo e parti non-accordo passano invariati — vengono trasposti solo i simboli di accordo riconosciuti."
       ],
       "faq": [
         {
-          "question": "Supporta i bemolli?",
-          "answer": "Si, le fondamentali bemolli vengono convertite in diesis."
+          "question": "Quali tipi di accordi supporta il traspositore?",
+          "answer": "Il traspositore gestisce: maggiori (Do, Re, Sol), minori (La m, Mi m), settima dominante (Sol7), settima maggiore (Domaj7), settima minore (Lam7), sospesi (sus2, sus4), nona aggiunta (add9), diminuiti, aumentati e slash chords (Sol/Si). La fondamentale si sposta del numero scelto di semitoni mentre la qualita e il suffisso restano invariati."
         },
         {
-          "question": "Quali accordi funzionano?",
-          "answer": "Maggiori, minori, diesis, bemolli, settime e suffissi comuni."
+          "question": "Perche potrei dover trasporre gli accordi?",
+          "answer": "Trasporre e utile in molte situazioni comuni: cambiare un brano in una tonalita adatta alla propria voce, abbinare la tonalita di un altro strumento, uso del capotasto sulla chitarra (un capotasto al tasto 2 significa che gli accordi suonano due semitoni piu alti, quindi si traspone di -2 per leggere le forme originali), e imparare un brano registrato in un'accordatura diversa."
+        },
+        {
+          "question": "I bemolle vengono convertiti in diesis?",
+          "answer": "Si. Quando inserisci accordi con fondamentale bemolle come Sib, Mib o Lab, il traspositore li normalizza internamente e restituisce l'equivalente enarmonico piu vicino. L'output usa i diesis per default. Tieni presente che La# e Sib sono la stessa altezza."
+        },
+        {
+          "question": "Posso trasporre un brano intero con il testo?",
+          "answer": "Si. Incolla il testo completo con gli accordi scritti sopra o in linea. Il traspositore riconosce i simboli degli accordi e li sposta lasciando tutto il resto del testo — parole, punteggiatura, a capo — completamente invariato."
+        },
+        {
+          "question": "Quanti semitoni fa un'ottava intera?",
+          "answer": "Un'ottava equivale a 12 semitoni. Trasporre di +12 o -12 riporta nella stessa tonalita ma un'ottava piu alta o bassa. Trasporre di +7 sale di una quinta giusta (es. Do a Sol), e di +5 sale di una quarta giusta (es. Do a Fa)."
+        },
+        {
+          "question": "In quale tonalita suona una chitarra con il capo al secondo tasto?",
+          "answer": "Un capo al secondo tasto alza l'intonazione di tutte le corde a vuoto di due semitoni. Se suoni accordi con la forma aperta in Mi (Mi, La, Si), con il capo al secondo tasto quelle forme suonano come Fa#, Si e Do# — due semitoni piu alti. Per trovare la tonalita prodotta da un capo: prendi la tonalita originale e conta di tanti semitoni quanti e il tasto. Capo 1 = +1 semitono; capo 2 = +2; capo 5 = +5. Il traspositore di accordi automatizza questo — inserisci le tue forme di accordo, imposta l'offset a +2, e vedi la tonalita risultante."
+        },
+        {
+          "question": "Qual e la tonalita piu facile per suonare la chitarra?",
+          "answer": "Sol maggiore e Do maggiore sono considerate le tonalita piu facili per la chitarra perche usano forme di accordi aperti senza barre: Sol, Do, Re, Mi minore, La minore hanno posizioni delle dita comode. Mi maggiore e La maggiore sono anche adatte per i principianti. La tonalita piu 'difficile' comune sulla chitarra e Si bemolle maggiore, perche i due accordi principali (Si bemolle e Mi bemolle) richiedono entrambi il barre. Se vuoi suonare una canzone in Si bemolle, considera di trasporre a La e usare un capo al primo tasto."
+        },
+        {
+          "question": "Come si trasporta un accordo verso il basso di un semitono?",
+          "answer": "Imposta l'offset dei semitoni a -1. Per esempio, se una canzone e in La (accordi: La, Re, Mi) e trasponi di -1, l'output e Lab, Reb, Mib. Se vuoi mantenere forme di accordi aperti facili, trasponi -1 e aggiungi un capo al primo tasto — le mani suonano gli accordi originali in forma di La ma la chitarra suona in Lab. Questo e l'approccio piu pratico per i cantanti che hanno bisogno di una tonalita leggermente piu bassa."
+        },
+        {
+          "question": "Il traspositore funziona con gli accordi di ukulele?",
+          "answer": "Si. I simboli degli accordi sono gli stessi sia per chitarra che per ukulele — Cmaj7 e Cmaj7 su entrambi gli strumenti. Il traspositore sposta le note fondamentali e preserva la qualita dell'accordo, che e universale tra gli strumenti a corde. Incolla la tua progressione di accordi per ukulele, scegli l'offset dei semitoni, e l'output e pronto da usare. L'unica differenza e che la forma che suoni sul manico dell'ukulele sara diversa da quella della chitarra, ma questo riguarda il tuo strumento, non il traspositore."
         }
       ]
     },
     "sound-level-meter": {
       "title": "Fonometro online",
-      "description": "Misura il livello sonoro stimato in dB dal microfono con sensibilità regolabile.",
+      "description": "Misura i livelli sonori del microfono in tempo reale — visualizza dB stimati, media e picco direttamente nel browser.",
       "howItWorks": [
-        "Consenti l'accesso al microfono.",
-        "Regola la sensibilità per calibrare la lettura.",
-        "Leggi dB stimati, media e picco in tempo reale."
+        "Clicca Attiva microfono e concedi il permesso del browser — il misuratore si attiva immediatamente.",
+        "Guarda la barra dB in diretta: la barra principale mostra il livello attuale, il marcatore di picco indica il valore piu alto recente.",
+        "Usa lo slider di sensibilita per calibrare la lettura al tuo microfono e ambiente specifici.",
+        "Il display dB medio attenua i picchi brevi e da un'idea migliore del livello tipico.",
+        "Riduci le fonti di rumore nella stanza e controlla se la lettura scende come previsto.",
+        "Al termine, clicca Stop microfono per rilasciare il microfono al sistema operativo."
       ],
       "faq": [
         {
-          "question": "È un fonometro certificato?",
-          "answer": "No. Usa il microfono del browser e fornisce una stima utile per studio e ambiente, non una misura professionale dB SPL."
+          "question": "E un fonometro professionale certificato?",
+          "answer": "No. Questo e uno strumento di stima basato sul browser, non un fonometro SPL calibrato. I fonometri professionali usano un microfono calibrato Classe 1 o Classe 2 e sono conformi alla IEC 61672. Le letture qui dipendono interamente dal microfono integrato del dispositivo. Usa questo strumento per controlli approssimativi, valutazioni della sala prove e scopi educativi."
         },
         {
-          "question": "Come regolo la sensibilità?",
-          "answer": "Usa il cursore sensibilità/calibrazione se la lettura sembra troppo alta o troppo bassa rispetto al tuo ambiente."
+          "question": "Come calibro lo slider di sensibilita?",
+          "answer": "Inizia con un riferimento noto: genera un tono a un volume confortevole con un altoparlante e avvicina il dispositivo a una distanza dove ti aspetti circa 70-75 dB (livello di conversazione normale). Regola lo slider di sensibilita finche la lettura non corrisponde. Una volta impostato per il tuo microfono e ambiente, le letture relative diventano utili per confrontare suoni forti e silenziosi."
+        },
+        {
+          "question": "Qual e un livello sonoro sicuro per la pratica musicale?",
+          "answer": "Livelli sonori superiori a 85 dB sostenuti per piu di un'ora possono causare danni uditivi graduali nel tempo. Un concerto rock dal vivo misura tipicamente 100-115 dB, insicuro senza protezione uditiva. Per la pratica con strumenti amplificati, cerca di mantenere i livelli sostenuti sotto gli 85 dB. Usa la lettura media del misuratore — non il picco — come guida."
+        },
+        {
+          "question": "Perche la lettura oscilla cosi tanto?",
+          "answer": "Il livello sonoro varia naturalmente con ogni nota, parola o rumore nella stanza. La barra in diretta riflette il segnale istantaneo, che saltara sempre. Il display medio attenua questo su una breve finestra temporale ed e piu utile per giudicare la sonoritae generale. Il marcatore di picco mostra il momento piu rumoroso rilevato."
+        },
+        {
+          "question": "Posso misurare il rumore in una stanza per la registrazione?",
+          "answer": "Si. Posiziona il dispositivo al centro della stanza, smetti di parlare e osserva il livello base — questo e il tuo rumore di fondo ambientale. Una stanza silenziosa adatta alla registrazione casalinga ha tipicamente un rumore di fondo inferiore a 40 dB. Se il misuratore mostra 50-60 dB senza che nessuno parli, potresti avere rumore di HVAC, traffico stradale o ventola del computer."
+        },
+        {
+          "question": "Quanti decibel ha una conversazione normale?",
+          "answer": "Una normale conversazione faccia a faccia a circa un metro di distanza registra approssimativamente 60–65 dB. Una biblioteca silenziosa e intorno a 30–40 dB; un ristorante affollato intorno a 70–75 dB; un aspirapolvere a un metro circa 70 dB. Questi valori ti danno un riferimento concreto per interpretare le letture del misuratore online. Tieni presente che il misuratore legge livelli relativi basati sul tuo microfono — i valori assoluti sono stime, non misurazioni di precisione."
+        },
+        {
+          "question": "Quanto e forte un concerto dal vivo?",
+          "answer": "Un tipico concerto rock o pop dal vivo misura 100–115 dB a distanza dal palco. L'esposizione sostenuta sopra gli 85 dB per piu di un'ora puo iniziare a causare danni all'udito nel tempo; a 100 dB i danni possono verificarsi dopo circa 15 minuti di esposizione continua. L'OMS raccomanda non piu di 40 ore alla settimana sopra gli 80 dB. Se frequenti concerti regolarmente, i tappi in schiuma (che riducono il livello di 25–33 dB) sono una protezione pratica ed economica."
+        },
+        {
+          "question": "Qual e la differenza tra la lettura dB di picco e quella media?",
+          "answer": "La lettura di picco cattura il singolo momento piu forte rilevato dal microfono — un applauso, una corda pizzicata, una porta che sbatte. La lettura media smooths il livello su una breve finestra temporale e riflette la sonoritae sostenuta tipica dell'ambiente. Per la sicurezza dell'udito, il dB medio e la misura rilevante, perche i danni uditivi sono causati dall'esposizione sostenuta. Per la registrazione, i livelli di picco sono piu importanti perche indicano se l'ingresso del microfono sta saturando."
+        },
+        {
+          "question": "Come riduco il rumore nella mia sala prove casalinga?",
+          "answer": "Inizia identificando le principali fonti di rumore: sistemi HVAC, traffico stradale e ventole del computer sono le piu comuni. I mobili morbidi — tappeti, tende, scaffali, divani — assorbono le riflessioni medio-alte e riducono il rumore generale della stanza. Per gli strumenti elettrici, usa amplificatori per cuffie o pratica a basso volume invece di un diffusore aperto. Il misuratore online puo aiutarti a verificare se i tuoi miglioramenti stanno funzionando confrontando i livelli di rumore ambientale prima e dopo i cambiamenti."
         }
       ]
     },
     "pitch-generator": {
-      "title": "Pitch Generator",
-      "description": "Genera un tono puro da 20 Hz a 20000 Hz per ear training, test audio e riferimenti di frequenza.",
+      "title": "Generatore di toni",
+      "description": "Genera un tono di riferimento preciso da 20 Hz a 20000 Hz — usalo per ear training, accordatura e test audio.",
       "howItWorks": [
-        "Scegli una frequenza tra 20 Hz e 20000 Hz.",
-        "Regola volume e forma d'onda.",
-        "Premi genera tono per avviare il suono e Stop per fermarlo."
+        "Scegli una frequenza con lo slider o digitala nell'input — il range e da 20 Hz a 20000 Hz.",
+        "Seleziona una forma d'onda: le onde sinusoidali sono pure; le onde quadre e a dente di sega sono piu ricche.",
+        "Imposta il volume a un livello confortevole prima di premere play.",
+        "Premi Play per avviare il tono. Il tono continua fino a quando non premi Stop.",
+        "Per l'ear training, prova a corrispondere il tono cantando prima di controllare la frequenza.",
+        "Per l'accordatura, genera il pitch di riferimento di una nota standard (es. La4 = 440 Hz) e accorda ad orecchio."
       ],
       "faq": [
         {
-          "question": "Posso usarlo con le cuffie?",
-          "answer": "Si, ma parti sempre con volume basso, soprattutto sulle frequenze alte."
+          "question": "Qual e la frequenza del diapason standard?",
+          "answer": "Il diapason internazionale standard e La4 = 440 Hz, adottato dall'ISO (ISO 16) nel 1955. Molte orchestre accordano a La = 442 Hz per un suono leggermente piu brillante. I gruppi di musica antica usano talvolta La = 415 Hz, circa un semitono piu basso. Il generatore di toni ti permette di impostare qualsiasi frequenza di riferimento con precisione."
         },
         {
-          "question": "Che intervallo di frequenze copre?",
-          "answer": "Il generatore copre da 20 Hz a 20000 Hz, circa il range dell'udito umano."
+          "question": "E sicuro usarlo con le cuffie?",
+          "answer": "Si, ma fai attenzione con i toni ad alta frequenza sopra i 4000 Hz e qualsiasi tono ad alto volume. Inizia con lo slider del volume intorno al 30% e alzalo gradualmente. Le frequenze molto alte possono essere scomode ad alti volumi, e i toni sostenuti forti attraverso le cuffie comportano lo stesso rischio uditivo di qualsiasi suono forte."
+        },
+        {
+          "question": "Come posso usare un generatore di toni per l'ear training?",
+          "answer": "Il generatore di toni e uno strumento classico per l'allenamento dell'orecchio. Impostalo su La4 (440 Hz) e prova a corrisponderlo cantando. Poi passa ad altre note — Mi4 (329 Hz), Re4 (294 Hz) — e pratica il riconoscimento degli intervalli tra di esse. L'ear training avanzato implica identificare gli intervalli, corrispondere gli accordi e riconoscere se una nota e acuta o grave rispetto al riferimento."
+        },
+        {
+          "question": "Quali sono le diverse forme d'onda e come suonano?",
+          "answer": "Un'onda sinusoidale produce un tono puro simile a un flauto senza armoniche — e il riferimento piu chiaro per l'accordatura. Un'onda quadra aggiunge armoniche di numero dispari e suona cava e ronzante, come un clarinetto vintage. Un'onda a dente di sega contiene tutte le armoniche e suona brillante e ricca, simile a uno strumento ad arco. Per il riferimento di accordatura, usa il seno."
+        },
+        {
+          "question": "Quale frequenza corrisponde a ogni nota musicale?",
+          "answer": "La scala standard assegna frequenze specifiche a ogni nota. Riferimenti comuni: Do4 (Do centrale) = 261,63 Hz, La4 = 440 Hz, Mi4 = 329,63 Hz, Sol4 = 392 Hz, Si4 = 493,88 Hz. Ogni ottava raddoppia la frequenza: La5 = 880 Hz e La3 = 220 Hz. Il generatore di toni mostra il nome della nota piu vicina mentre muovi lo slider."
+        },
+        {
+          "question": "Qual e la frequenza del Do centrale?",
+          "answer": "Il Do centrale — indicato come Do4 nella notazione scientifica — ha una frequenza standard di 261,63 Hz quando accordato allo standard internazionale La4 = 440 Hz. Si trova al centro della tastiera del pianoforte e serve come punto di riferimento comune per cantanti e strumentisti. Puoi verificarlo sul generatore di toni selezionando Do4 e confermando la frequenza visualizzata. Nota che nei sistemi di accordatura piu antichi (come il diapason barocco a La4 = 415 Hz), il Do centrale scende a circa 247 Hz."
+        },
+        {
+          "question": "Come accordo uno strumento senza microfono usando il generatore di toni?",
+          "answer": "Seleziona la frequenza corrispondente alla nota che vuoi accordare (ad esempio La4 = 440 Hz per la corda La), suona la stessa nota sul tuo strumento e ascolta attentamente i battimenti — una pulsazione ritmica che si produce quando due suoni sono vicini ma non identici. Ruota lentamente il pirolo di accordatura finche i battimenti scompaiono e i due suoni si fondono in uno solo stabile. Questo metodo si chiama accordatura per riferimento sonoro e funziona su qualsiasi strumento — chitarra, violino, fiati — senza bisogno di accedere al microfono."
+        },
+        {
+          "question": "Qual e il range dell'udito umano?",
+          "answer": "Il tipico range uditivo umano va da circa 20 Hz a 20.000 Hz (20 kHz). Le frequenze basse (20–80 Hz) si percepiscono piu come vibrazioni che come suoni; la fascia critica per musica e voce e circa 200 Hz–4.000 Hz; l'area sopra gli 8.000 Hz porta le armoniche alte e la brillantezza del suono. La sensibilita uditiva nelle frequenze alte diminuisce con l'eta — molti adulti sopra i 40 anni non riescono a sentire oltre i 15.000 Hz. Usa il generatore di toni per esplorare quali frequenze riesci a percepire."
+        },
+        {
+          "question": "Posso usare il generatore di toni per verificare l'intonazione del mio strumento?",
+          "answer": "Si. Genera un tono di riferimento stabile per una nota specifica, poi suona la stessa nota sul tuo strumento. Se l'intonazione e corretta, i due suoni si fondono stabilmente senza pulsazioni. Se senti una pulsazione lenta (battimento), lo strumento e leggermente stonato su quella nota. Controllando piu note in diversi punti della tastiera o in ottave diverse puoi identificare problemi di intonazione — ad esempio un ponticello della chitarra da regolare o uno strumento a fiato che suona troppo alto nel registro acuto."
         }
       ]
     }

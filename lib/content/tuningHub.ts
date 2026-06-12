@@ -126,7 +126,88 @@ export const tuningHubContent: Record<Locale, TuningHubContent> = withLocaleFall
       { question: "同一个调音器能用于替代调弦吗？", answer: "可以。选择乐器或预设，然后按参考音逐弦调音。" }
     ]
   }
-} satisfies Record<BaseLocale, TuningHubContent>);
+} satisfies Record<BaseLocale, TuningHubContent>, {
+  hi: {
+    title: "वाद्यंत्र ट्यूनिंग",
+    description: "गिटार, बास, यूकुलेले और बैंजो की सामान्य ट्यूनिंग के लिए TuneUniversal गाइड।",
+    intro: "स्टैंडर्ड ट्यूनिंग से शुरू करें, फिर लोअर रिफ्स, ओपन कॉर्ड्स या अलग साउंड के लिए अल्टर्नेट ट्यूनिंग आज़माएं।",
+    keywords: ["गिटार ट्यूनिंग", "Drop D", "Open G", "बास ट्यूनिंग", "यूकुलेले ट्यूनिंग", "TuneUniversal"],
+    faq: [
+      { question: "शुरुआती लोगों के लिए कौन सी ट्यूनिंग सबसे अच्छी है?", answer: "अपने वाद्यंत्र की स्टैंडर्ड ट्यूनिंग से शुरू करें, क्योंकि यह अधिकतर गानों और लेसन में इस्तेमाल होती है।" },
+      { question: "एक ट्यूनर अल्टर्नेट ट्यूनिंग के लिए भी काम करता है?", answer: "हाँ। वाद्यंत्र या प्रीसेट चुनें और रेफरेंस नोट्स के अनुसार हर तार ट्यून करें।" }
+    ]
+  },
+  "pt-BR": {
+    title: "Afinações de instrumentos",
+    description: "Guia TuneUniversal de afinações comuns para violão, guitarra, baixo, ukulele e banjo.",
+    intro: "Comece pela afinação padrão e use afinações alternativas quando precisar de riffs mais graves, acordes abertos ou outro timbre.",
+    keywords: ["afinações guitarra", "afinações violão", "Drop D", "Open G", "afinação baixo", "afinação ukulele", "TuneUniversal"],
+    faq: [
+      { question: "Qual afinação é melhor para começar?", answer: "Comece pela afinação padrão do instrumento, pois ela aparece na maioria das músicas e aulas." },
+      { question: "O mesmo afinador serve para afinações alternativas?", answer: "Sim. Escolha o instrumento ou preset e afine cada corda pelas notas de referência." }
+    ]
+  },
+  nl: {
+    title: "Instrumentstemmingen",
+    description: "TuneUniversal-gids voor veelgebruikte stemmingen voor gitaar, bas, ukulele en banjo.",
+    intro: "Begin met de standaardstemming en gebruik alternatieve stemmingen als je diepere riffs, open akkoorden of een ander geluid nodig hebt.",
+    keywords: ["gitaarstemmingen", "Drop D", "Open G", "basstemming", "ukulelestemming", "TuneUniversal"],
+    faq: [
+      { question: "Welke stemming is het beste voor beginners?", answer: "Begin met de standaardstemming van je instrument, want die wordt in de meeste nummers en lessen gebruikt." },
+      { question: "Kan één stemmer meerdere stemmingen aan?", answer: "Ja. Kies het instrument of preset en stem elke snaar op de referentienoten." }
+    ]
+  },
+  pl: {
+    title: "Stroje instrumentów",
+    description: "Przewodnik TuneUniversal po popularnych strojach gitary, basu, ukulele i banjo.",
+    intro: "Zacznij od standardowego stroju, a alternatywnych używaj, gdy potrzebujesz niższych riffów, otwartych akordów lub innego brzmienia.",
+    keywords: ["stroje gitary", "Drop D", "Open G", "strój basu", "strój ukulele", "TuneUniversal"],
+    faq: [
+      { question: "Który strój jest najlepszy dla początkujących?", answer: "Zacznij od standardowego stroju instrumentu, bo pojawia się w większości piosenek i lekcji." },
+      { question: "Czy jeden stroik obsłuży różne stroje?", answer: "Tak. Wybierz instrument lub preset i nastroij każdą strunę według nut referencyjnych." }
+    ]
+  },
+  tr: {
+    title: "Enstrüman akortları",
+    description: "Gitar, bas, ukulele ve banjo için yaygın akortlara TuneUniversal rehberi.",
+    intro: "Standart akortla başlayın, daha sonra daha derin riffler, açık akorlar veya farklı bir ses için alternatif akortları deneyin.",
+    keywords: ["gitar akortları", "Drop D", "Open G", "bas akoru", "ukulele akoru", "TuneUniversal"],
+    faq: [
+      { question: "Yeni başlayanlar için en iyi akort hangisi?", answer: "Enstrümanınızın standart akorduyla başlayın, çünkü çoğu şarkıda ve derste kullanılır." },
+      { question: "Tek akordlayıcı alternatif akortları kaldırabilir mi?", answer: "Evet. Enstrümanı veya ön ayarı seçin ve her teli referans notlarına göre akort edin." }
+    ]
+  },
+  cs: {
+    title: "Ladění nástrojů",
+    description: "Průvodce TuneUniversal k běžným ladění kytary, baskytary, ukulele a banja.",
+    intro: "Začněte standardním laděním a alternativní ladění používejte, když potřebujete nižší riffy, otevřené akordy nebo jiný zvuk.",
+    keywords: ["ladění kytary", "Drop D", "Open G", "ladění baskytary", "ladění ukulele", "TuneUniversal"],
+    faq: [
+      { question: "Které ladění je nejlepší pro začátečníky?", answer: "Začněte standardním laděním nástroje, protože se používá ve většině písní a lekcí." },
+      { question: "Zvládne jedna ladička alternativní ladění?", answer: "Ano. Vyberte nástroj nebo předvolbu a nalaďte každou strunu podle referenčních not." }
+    ]
+  },
+  sv: {
+    title: "Instrumentstämningar",
+    description: "TuneUniversal-guide till vanliga stämningar för gitarr, bas, ukulele och banjo.",
+    intro: "Börja med standardstämning och använd alternativa stämningar när du behöver lägre riffs, öppna ackord eller ett annat ljud.",
+    keywords: ["gitarrstämningar", "Drop D", "Open G", "basstämning", "ukulelestämning", "TuneUniversal"],
+    faq: [
+      { question: "Vilken stämning är bäst för nybörjare?", answer: "Börja med standardstämningen för ditt instrument, eftersom den används i de flesta låtar och lektioner." },
+      { question: "Kan en stämmare hantera alternativa stämningar?", answer: "Ja. Välj instrument eller preset och stäm varje sträng efter referensnoterna." }
+    ]
+  },
+  no: {
+    title: "Instrumentstemminger",
+    description: "TuneUniversal-guide til vanlige stemminger for gitar, bass, ukulele og banjo.",
+    intro: "Begynn med standardstemming og bruk alternative stemminger når du trenger lavere riffs, åpne akkorder eller en annen lyd.",
+    keywords: ["gitarstemminger", "Drop D", "Open G", "bassstemming", "ukulelestemmning", "TuneUniversal"],
+    faq: [
+      { question: "Hvilken stemming er best for nybegynnere?", answer: "Begynn med standardstemming for instrumentet ditt, siden den brukes i de fleste låter og leksjoner." },
+      { question: "Kan én stemmer håndtere alternative stemminger?", answer: "Ja. Velg instrument eller forhåndsinnstilling og stem hver streng etter referansenotene." }
+    ]
+  }
+});
 
 const tuningGroupDefinitions: { guides: GuideSlug[]; key: "banjo" | "bass" | "guitar" | "ukulele" }[] = [
   {

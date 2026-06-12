@@ -14,7 +14,7 @@ import { toolsHubContent } from "@/lib/content/toolsHub";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getContentLocale, withLocaleFallbacks, isLocale, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { buildToolsIndexMetadata } from "@/lib/seo/metadata";
-import { breadcrumbSchema, faqItemsSchema } from "@/lib/seo/schema";
+import { breadcrumbSchema, faqItemsSchema, organizationSchema, websiteSchema } from "@/lib/seo/schema";
 import { instrumentIds, type Instrument } from "@/lib/tools/toolConfig";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
@@ -194,6 +194,8 @@ export default async function ToolsIndexPage({ params }: PageProps) {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10 sm:py-14">
+      <JsonLd data={websiteSchema(locale, dictionary)} />
+      <JsonLd data={organizationSchema(locale)} />
       <JsonLd
         data={breadcrumbSchema([
           { name: "TuneUniversal", url: `${siteUrl}/${locale}` },

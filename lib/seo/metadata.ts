@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { instrumentTunerSlugs, type InstrumentTunerContent } from "@/lib/content/instrumentTuners";
 import { getContentLocale, locales, type Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -51,7 +51,11 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "Tap BPM اونلاين | اعرف سرعة الاغنية بسرعة | TuneUniversal",
       description:
         "اضغط مع الموسيقى لمعرفة متوسط BPM بسرعة، ثم انسخ النتيجة وانتقل مباشرة الى التمرين بالمترونوم."
-    }
+    },
+    "bass-tuner": { title: "موالف باس مجاني اونلاين | مع الميكروفون | TuneUniversal", description: "اضبط الباس اونلاين بموالف كروماتيك مجاني مع كشف الطبقة بالميكروفون ودعم الضبط القياسي والبديل." },
+    "ukulele-tuner": { title: "موالف أوكليلي مجاني اونلاين | GCEA بالميكروفون | TuneUniversal", description: "اضبط الأوكليلي اونلاين بموالف مجاني مع دعم الضبط القياسي GCEA وLow G وضبطات بديلة أخرى." },
+    "sound-level-meter": { title: "مقياس مستوى الصوت اونلاين مجاني | قياس ديسيبل في المتصفح | TuneUniversal", description: "اقيس مستوى الصوت المقدر بالديسيبل عبر ميكروفون المتصفح مع رسم بياني فوري وحساسية قابلة للتعديل." },
+    "pitch-generator": { title: "مولد النغمات اونلاين مجاني | من 20 هرتز الى 20000 هرتز | TuneUniversal", description: "انشئ نغمات نقية من 20 هرتز الى 20000 هرتز للتدريب على الاذن ومرجع ضبط الالات واختبار الصوت." }
   },
   en: {
     "chord-transposer": {
@@ -73,7 +77,11 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "Tap BPM Online | Find Song Tempo Fast | TuneUniversal",
       description:
         "Tap along to music, find the average BPM in seconds, copy the tempo and move straight into metronome practice."
-    }
+    },
+    "bass-tuner": { title: "Bass Tuner Online | Free Microphone Tuner | TuneUniversal", description: "Tune bass guitar online with a free chromatic tuner, microphone pitch detection, standard tuning and common alternate tunings." },
+    "ukulele-tuner": { title: "Ukulele Tuner Online | Free GCEA Tuner with Microphone | TuneUniversal", description: "Tune ukulele online with a free browser tuner, GCEA standard tuning, Low G and other alternate tunings." },
+    "sound-level-meter": { title: "Sound Level Meter Online | Free dB Meter in Browser | TuneUniversal", description: "Measure estimated sound levels in dB with your browser microphone, real-time graph and adjustable sensitivity." },
+    "pitch-generator": { title: "Pitch Generator Online | Free Tone Generator 20Hz to 20kHz | TuneUniversal", description: "Generate pure tones from 20 Hz to 20000 Hz for ear training, instrument reference and audio testing in your browser." }
   },
   de: {
     "chord-transposer": {
@@ -95,7 +103,11 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "Tap BPM online | Songtempo schnell finden | TuneUniversal",
       description:
         "Tippe zum Song mit, ermittle den durchschnittlichen BPM-Wert in Sekunden, kopiere das Tempo und starte direkt mit dem Metronom."
-    }
+    },
+    "bass-tuner": { title: "Bass-Tuner online kostenlos | Mit Mikrofon | TuneUniversal", description: "Stimme Bass online mit kostenlosem Tuner, Mikrofon-Erkennung und Standard- sowie alternativen Stimmungen." },
+    "ukulele-tuner": { title: "Ukulele-Tuner online kostenlos | GCEA mit Mikrofon | TuneUniversal", description: "Stimme Ukulele online mit kostenlosem Tuner, Standard-GCEA, Low G und anderen Stimmungsvarianten." },
+    "sound-level-meter": { title: "Schallpegelmesser online kostenlos | dB-Meter im Browser | TuneUniversal", description: "Miss den Schallpegel in dB mit dem Browser-Mikrofon, Echtzeit-Grafik und einstellbarer Empfindlichkeit." },
+    "pitch-generator": { title: "Ton-Generator online kostenlos | 20 Hz bis 20000 Hz | TuneUniversal", description: "Erzeuge reine Toene von 20 Hz bis 20000 Hz fuer Gehoertraining, Stimmreferenz und Audiotest im Browser." }
   },
   es: {
     "chord-transposer": {
@@ -117,7 +129,11 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "Tap BPM online | Encuentra el tempo de una cancion | TuneUniversal",
       description:
         "Marca el pulso con la musica, calcula el BPM medio en segundos, copia el tempo y pasa al metronomo enseguida."
-    }
+    },
+    "bass-tuner": { title: "Afinador de bajo online gratis | Con microfono | TuneUniversal", description: "Afina el bajo online con un afinador cromatico gratuito, deteccion por microfono y afinaciones standard y alternativas." },
+    "ukulele-tuner": { title: "Afinador de ukelele online gratis | GCEA con microfono | TuneUniversal", description: "Afina el ukelele online con un afinador gratuito, afinacion estandar GCEA, Low G y otras variantes." },
+    "sound-level-meter": { title: "Sonometro online gratis | Medidor dB en el navegador | TuneUniversal", description: "Mide el nivel de sonido estimado en dB con el microfono del navegador, grafico en tiempo real y sensibilidad ajustable." },
+    "pitch-generator": { title: "Generador de tono online gratis | De 20 Hz a 20000 Hz | TuneUniversal", description: "Genera tonos puros de 20 Hz a 20000 Hz para entrenamiento auditivo, referencia de notas y pruebas de audio." }
   },
   fr: {
     "chord-transposer": {
@@ -139,7 +155,11 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "Tap BPM en ligne | Trouver rapidement le tempo d'un morceau | TuneUniversal",
       description:
         "Tapez le rythme d'un morceau, calculez le BPM moyen en quelques secondes, copiez le tempo et passez au metronome."
-    }
+    },
+    "bass-tuner": { title: "Accordeur basse gratuit en ligne | Avec microphone | TuneUniversal", description: "Accordez la basse en ligne avec un accordeur chromatique gratuit, detection micro et accordages standard et alternatifs." },
+    "ukulele-tuner": { title: "Accordeur ukulele gratuit en ligne | GCEA avec microphone | TuneUniversal", description: "Accordez l'ukulele en ligne avec un accordeur gratuit, accordage GCEA standard, Low G et autres variantes." },
+    "sound-level-meter": { title: "Sonometre gratuit en ligne | Mesureur dB dans le navigateur | TuneUniversal", description: "Mesurez le niveau sonore estime en dB avec le microphone du navigateur, graphique en temps reel et sensibilite reglable." },
+    "pitch-generator": { title: "Generateur de son gratuit en ligne | De 20 Hz a 20000 Hz | TuneUniversal", description: "Generez des tonalites pures de 20 Hz a 20000 Hz pour l'ear training, la reference de notes et les tests audio." }
   },
   it: {
     "chord-transposer": {
@@ -161,7 +181,11 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "Tap BPM online | Trova subito il tempo di un brano | TuneUniversal",
       description:
         "Batti il tempo della musica, calcola il BPM medio in pochi secondi, copia il valore e passa subito al metronomo."
-    }
+    },
+    "bass-tuner": { title: "Accordatore basso online gratis | Con microfono | TuneUniversal", description: "Accorda il basso online con un accordatore cromatico gratuito, rilevamento microfono e accordature standard e alternative." },
+    "ukulele-tuner": { title: "Accordatore ukulele online gratis | GCEA con microfono | TuneUniversal", description: "Accorda l'ukulele online con un accordatore gratuito, accordatura standard GCEA, Low G e altre varianti." },
+    "sound-level-meter": { title: "Fonometro online gratis | Misuratore dB nel browser | TuneUniversal", description: "Misura il livello sonoro stimato in dB con il microfono del browser, grafico in tempo reale e sensibilita regolabile." },
+    "pitch-generator": { title: "Generatore di toni online gratis | Da 20 Hz a 20000 Hz | TuneUniversal", description: "Genera toni puri da 20 Hz a 20000 Hz per ear training, intonazione strumenti e test audio nel browser." }
   },
   ja: {
     "chord-transposer": {
@@ -183,7 +207,11 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "Tap BPM オンライン | 曲のテンポをすばやく計測 | TuneUniversal",
       description:
         "音楽に合わせてタップし、平均BPMをすばやく計算。結果をコピーしてそのままメトロノーム練習へ進めます。"
-    }
+    },
+    "bass-tuner": { title: "無料オンライン ベースチューナー | マイク対応クロマチック | TuneUniversal", description: "無料のブラウザチューナーでベースをオンライン調弦。マイク検出、標準チューニングと代替チューニングに対応。" },
+    "ukulele-tuner": { title: "無料オンライン ウクレレチューナー | GCEA マイク対応 | TuneUniversal", description: "無料のブラウザチューナーでウクレレをオンライン調弦。GCEA標準、Low Gとその他の代替チューニングに対応。" },
+    "sound-level-meter": { title: "無料オンライン 騒音計 | ブラウザで dB 測定 | TuneUniversal", description: "ブラウザのマイクを使って音量をdBで測定。リアルタイムグラフと感度調整で練習環境を確認できます。" },
+    "pitch-generator": { title: "無料オンライン ピッチジェネレーター | 20Hz から 20kHz | TuneUniversal", description: "20Hzから20000Hzまでの純音を生成。耳のトレーニング、楽器の基準音、音響テストに使えます。" }
   },
   ko: {
     "chord-transposer": {
@@ -205,7 +233,11 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "Tap BPM 온라인 | 곡 템포 빠르게 찾기 | TuneUniversal",
       description:
         "음악에 맞춰 탭해 평균 BPM을 빠르게 계산하고 값을 복사한 뒤 바로 메트로놈 연습으로 이어가세요."
-    }
+    },
+    "bass-tuner": { title: "무료 온라인 베이스 튜너 | 마이크 지원 크로매틱 | TuneUniversal", description: "무료 크로매틱 브라우저 튜너로 베이스를 온라인 조율하세요. 마이크 감지, 표준 및 대체 튜닝 지원." },
+    "ukulele-tuner": { title: "무료 온라인 우쿨렐레 튜너 | GCEA 마이크 지원 | TuneUniversal", description: "무료 브라우저 튜너로 우쿨렐레를 온라인 조율하세요. GCEA 표준, Low G 및 기타 대체 튜닝 지원." },
+    "sound-level-meter": { title: "무료 온라인 소음 측정기 | 브라우저 dB 미터 | TuneUniversal", description: "브라우저 마이크로 추정 데시벨 레벨을 측정하세요. 실시간 그래프와 조절 가능한 감도로 연습 환경을 확인합니다." },
+    "pitch-generator": { title: "무료 온라인 피치 제너레이터 | 20Hz 에서 20kHz | TuneUniversal", description: "20Hz에서 20000Hz까지 순음을 생성하세요. 귀 훈련, 악기 기준음 및 오디오 테스트에 활용합니다." }
   },
   pt: {
     "chord-transposer": {
@@ -227,29 +259,37 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "Tap BPM online | Descubra rapido o tempo da musica | TuneUniversal",
       description:
         "Toque no pulso da musica, calcule o BPM medio em segundos, copie o valor e passe direto para o metronomo."
-    }
+    },
+    "bass-tuner": { title: "Afinador de baixo online gratis | Com microfone | TuneUniversal", description: "Afine o baixo online com afinador cromatico gratuito, deteccao por microfone e afinacoes padrao e alternativas." },
+    "ukulele-tuner": { title: "Afinador de ukulele online gratis | GCEA com microfone | TuneUniversal", description: "Afine o ukulele online com afinador gratuito, afinacao padrao GCEA, Low G e outras variantes." },
+    "sound-level-meter": { title: "Sonometro online gratis | Medidor dB no navegador | TuneUniversal", description: "Meca o nivel de som estimado em dB com o microfone do navegador, grafico em tempo real e sensibilidade ajustavel." },
+    "pitch-generator": { title: "Gerador de tom online gratis | De 20 Hz a 20000 Hz | TuneUniversal", description: "Gere tons puros de 20 Hz a 20000 Hz para treinamento auditivo, referencia de notas e testes de audio." }
   },
   ru: {
     "chord-transposer": {
-      title: "Chord transposer online | Change key by semitones | TuneUniversal",
+      title: "Транспозер аккордов онлайн | Смена тональности по полутонам | TuneUniversal",
       description:
-        "Transpose chords online by semitones, keep slash chords intact, choose sharps or flats and copy the result instantly."
+        "Транспонируйте аккорды онлайн по полутонам, сохраняйте slash-аккорды, выбирайте диезы или бемоли и копируйте результат сразу."
     },
     "guitar-tuner": {
-      title: "Online guitar tuner | Free chromatic tuner with microphone | TuneUniversal",
+      title: "Онлайн тюнер для гитары | Бесплатный хроматический тюнер с микрофоном | TuneUniversal",
       description:
-        "Tune guitar online with microphone pitch detection, cents display, note recognition and support for standard and alternate tunings."
+        "Настройте гитару онлайн с помощью бесплатного хроматического тюнера, определения высоты тона через микрофон, отображения центов и поддержки альтернативных строев."
     },
     metronome: {
-      title: "Online metronome | Free BPM, subdivisions and practice cycle | TuneUniversal",
+      title: "Онлайн метроном | Бесплатный BPM, доли и цикл практики | TuneUniversal",
       description:
-        "Practice with a free online metronome featuring BPM control, accents, time signatures, subdivisions, Tap Tempo and speed cycles."
+        "Занимайтесь с бесплатным онлайн-метрономом: управление BPM, акценты, размеры, доли, Tap Tempo и прогрессивные циклы скорости."
     },
     "tap-bpm": {
-      title: "Tap BPM online | Find song tempo fast | TuneUniversal",
+      title: "Tap BPM онлайн | Быстро найти темп песни | TuneUniversal",
       description:
-        "Tap along to music, calculate the average BPM in seconds, copy the tempo and move straight into metronome practice."
-    }
+        "Отбивайте ритм под музыку, вычисляйте средний BPM за секунды, копируйте темп и сразу переходите к практике с метрономом."
+    },
+    "bass-tuner": { title: "Онлайн тюнер для бас-гитары | Бесплатный с микрофоном | TuneUniversal", description: "Настройте бас-гитару онлайн с помощью бесплатного хроматического тюнера, микрофона и поддержки стандартных и альтернативных строёв." },
+    "ukulele-tuner": { title: "Онлайн тюнер для укулеле | Бесплатный GCEA с микрофоном | TuneUniversal", description: "Настройте укулеле онлайн с бесплатным тюнером, строевкой GCEA, Low G и другими вариантами." },
+    "sound-level-meter": { title: "Онлайн шумомер | Бесплатный измеритель дБ в браузере | TuneUniversal", description: "Измеряйте уровень звука в дБ с помощью микрофона браузера, графика реального времени и регулируемой чувствительности." },
+    "pitch-generator": { title: "Онлайн генератор тонов | Бесплатный от 20 Гц до 20000 Гц | TuneUniversal", description: "Генерируйте чистые тоны от 20 Гц до 20000 Гц для слухового тренинга, настройки инструментов и тестирования звука." }
   },
   zh: {
     "chord-transposer": {
@@ -271,7 +311,91 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
       title: "在线 Tap BPM | 快速计算歌曲速度 | TuneUniversal",
       description:
         "跟着音乐点击节拍，快速计算平均 BPM，复制结果后可直接进入节拍器练习。"
-    }
+    },
+    "bass-tuner": { title: "免费在线贝斯调音器 | 支持麦克风 | TuneUniversal", description: "使用免费的浏览器调音器在线为贝斯调音，支持麦克风音高检测、标准调弦和常见替代调弦。" },
+    "ukulele-tuner": { title: "免费在线尤克里里调音器 | GCEA 麦克风支持 | TuneUniversal", description: "使用免费的浏览器调音器在线为尤克里里调音，支持 GCEA 标准调弦、低音 G 和其他替代调弦。" },
+    "sound-level-meter": { title: "免费在线声级计 | 浏览器 dB 测量仪 | TuneUniversal", description: "使用浏览器麦克风测量估计声级，配有实时图表和可调灵敏度，适合检查练习环境。" },
+    "pitch-generator": { title: "免费在线音调发生器 | 20Hz 至 20kHz | TuneUniversal", description: "生成 20Hz 至 20000Hz 的纯音，用于耳音训练、乐器参考音和音频测试。" }
+  },
+  nl: {
+    "guitar-tuner": { title: "Gratis online gitaar stemmer | Chromatische stemmer met microfoon | TuneUniversal", description: "Stem je gitaar online met een gratis chromatische stemmer, microfoonstemmen, centsweergave en ondersteuning voor alternatieve stemmingen." },
+    "bass-tuner": { title: "Gratis online bas stemmer | Met microfoon | TuneUniversal", description: "Stem je bas online met een gratis chromatische stemmer, microfoonstemmen en standaard en alternatieve stemmingen." },
+    "ukulele-tuner": { title: "Gratis online ukulele stemmer | GCEA met microfoon | TuneUniversal", description: "Stem je ukulele online met standaard GCEA, Low G en andere stemmingen via de microfoon van je browser." },
+    metronome: { title: "Gratis online metronoom | BPM, maatsoorten en oefencycli | TuneUniversal", description: "Oefen met een gratis online metronoom: BPM instellen, accenten, maatsoorten, Tap Tempo en progressieve snelheidscycli." },
+    "tap-bpm": { title: "Tap BPM online | Snel het tempo van een nummer vinden | TuneUniversal", description: "Tik op het ritme van de muziek, bereken het gemiddelde BPM en ga direct verder met de metronoom." },
+    "chord-transposer": { title: "Online akkoordentransposer | Toonsoort per halve toon wijzigen | TuneUniversal", description: "Transponeer akkoorden online per halve toon, behoud slash-akkoorden en kopieer het resultaat direct." },
+    "sound-level-meter": { title: "Gratis online geluidsniveaumeter | dB-meting in de browser | TuneUniversal", description: "Meet het geschatte geluidsniveau in dB met de browsermicrofoon, realtime grafiek en instelbare gevoeligheid." },
+    "pitch-generator": { title: "Gratis online toonopwekker | 20 Hz tot 20000 Hz | TuneUniversal", description: "Genereer zuivere tonen van 20 Hz tot 20000 Hz voor gehoortraining, referentietonen en audiotests." }
+  },
+  pl: {
+    "guitar-tuner": { title: "Darmowy stroik gitarowy online | Chromatyczny z mikrofonem | TuneUniversal", description: "Stroj gitare online za darmo chromatycznym stroikiem z mikrofonem, wyswietlaniem centow i obsluga alternatywnych stroj." },
+    "bass-tuner": { title: "Darmowy stroik do basu online | Z mikrofonem | TuneUniversal", description: "Stroj bas online za darmo z mikrofonem, detekcja wysokosci dzwieku i obsluga stroju standardowego i alternatywnego." },
+    "ukulele-tuner": { title: "Darmowy stroik do ukulele online | GCEA z mikrofonem | TuneUniversal", description: "Stroj ukulele online za darmo, standard GCEA, Low G i inne warianty przez mikrofon przegladarki." },
+    metronome: { title: "Darmowy metronom online | BPM, metrum i cykle cwiczen | TuneUniversal", description: "Cwicz z darmowym metronomen online: ustawianie BPM, akcenty, metrum, Tap Tempo i progresywne cykle predkosci." },
+    "tap-bpm": { title: "Tap BPM online | Szybkie znajdowanie tempa piosenki | TuneUniversal", description: "Stukaj w rytm muzyki, oblicz srednie BPM w kilka sekund i przejdz od razu do metronomu." },
+    "chord-transposer": { title: "Transpozytor akordow online | Zmiana tonacji o polton | TuneUniversal", description: "Transponuj akordy online o polton, zachowaj slash-akordy i skopiuj wynik od razu." },
+    "sound-level-meter": { title: "Miernik poziomu dzwieku online | Darmowy dB w przegladarce | TuneUniversal", description: "Zmierz szacunkowy poziom dzwieku w dB mikrofonem przegladarki, wykres na zywo i regulowana czulosc." },
+    "pitch-generator": { title: "Generator tonow online | 20 Hz do 20000 Hz | TuneUniversal", description: "Generuj czyste tony od 20 Hz do 20000 Hz do treningu sluchu, strojenia instrumentow i testow audio." }
+  },
+  tr: {
+    "guitar-tuner": { title: "Ucretsiz online gitar akordlayici | Mikrofonlu kromatik akordlayici | TuneUniversal", description: "Gitarinizi ucretsiz kromatik akordlayici ile online akord edin, mikrofon ile ses algilama ve alternatif akord destegi." },
+    "bass-tuner": { title: "Ucretsiz online bas akordlayici | Mikrofonlu | TuneUniversal", description: "Bas gitarinizi online akord edin, ucretsiz mikrofon algilama ve standart ile alternatif akordlar destegi." },
+    "ukulele-tuner": { title: "Ucretsiz online ukulele akordlayici | GCEA mikrofonlu | TuneUniversal", description: "Ukuleleyi online akord edin, standart GCEA, Low G ve diger akordlar tarayici mikrofonu ile." },
+    metronome: { title: "Ucretsiz online metronom | BPM, olcu ve pratik dongusu | TuneUniversal", description: "Ucretsiz online metronom ile calisin: BPM ayari, vurgular, olcular, Tap Tempo ve ilerleme hiz dongusu." },
+    "tap-bpm": { title: "Tap BPM online | Sarki temposunu hizlica bulun | TuneUniversal", description: "Muzige vurun, saniyeler icinde ortalama BPM hesaplayin ve hemen metronomla pratik yapin." },
+    "chord-transposer": { title: "Online akor transpozisyoncusu | Yarim ton tonal degisim | TuneUniversal", description: "Akorlari online olarak yari ton bazinda transpoz edin, slash akordlari koruyun ve sonucu kopyalayin." },
+    "sound-level-meter": { title: "Ucretsiz online ses seviyesi olceri | Tarayici dB olcumu | TuneUniversal", description: "Tarayici mikrofonu ile tahmini ses seviyesini dB olarak olcun, gercek zamanli grafik ve ayarlanabilir hassasiyet." },
+    "pitch-generator": { title: "Ucretsiz online ses ureteci | 20 Hz ile 20000 Hz | TuneUniversal", description: "Kulak egitimi, alet referansi ve ses testi icin 20 Hz ile 20000 Hz arasi saf tonlar uretin." }
+  },
+  cs: {
+    "guitar-tuner": { title: "Zdarma ladicky na kytaru online | Chromaticky s mikrofonem | TuneUniversal", description: "Naladte kytaru online zdarma chromatickou ladickou s mikrofonem, zobrazenim centu a podporou alternativnich ladeni." },
+    "bass-tuner": { title: "Zdarma ladicky na baskytaru online | S mikrofonem | TuneUniversal", description: "Naladte baskytaru online zdarma s mikrofonem, detekcí výšky tónu a podporou standardnich a alternativnich ladeni." },
+    "ukulele-tuner": { title: "Zdarma ladicky na ukulele online | GCEA s mikrofonem | TuneUniversal", description: "Naladte ukulele online zdarma, standardni GCEA, Low G a dalsi varianty pres mikrofon prohlizece." },
+    metronome: { title: "Zdarma online metronom | BPM, takty a cykly cviceni | TuneUniversal", description: "Cvicte s bezplatnym online metronomen: nastaveni BPM, akcentace, takty, Tap Tempo a progresivni cykly." },
+    "tap-bpm": { title: "Tap BPM online | Rychle najdete tempo skladby | TuneUniversal", description: "Klepejte v rytmu hudby, vypoctete prumerne BPM za sekundy a ihned prejdete k metronomu." },
+    "chord-transposer": { title: "Online transpozer akkordov | Zmena tonality po pultonu | TuneUniversal", description: "Transponujte akordy online po pultonu, zachovejte slash-akordy a zkopirujte vysledek hned." },
+    "sound-level-meter": { title: "Zdarma online meric hluku | Mereni dB v prohlizeci | TuneUniversal", description: "Merte odhadovanou hladinu zvuku v dB mikrofonem prohlizece, graf v realnem case a nastavitelna citlivost." },
+    "pitch-generator": { title: "Zdarma generator tonu online | 20 Hz az 20000 Hz | TuneUniversal", description: "Generujte ciste tony od 20 Hz do 20000 Hz pro trenovani sluchu, reference nastroju a testy zvuku." }
+  },
+  sv: {
+    "guitar-tuner": { title: "Gratis gitarrstämmare online | Kromatisk med mikrofon | TuneUniversal", description: "Stäm gitarren online gratis med en kromatisk stämmare, mikrofondetektering, centvisning och alternativa stämningar." },
+    "bass-tuner": { title: "Gratis basstämmare online | Med mikrofon | TuneUniversal", description: "Stäm basgitarren online gratis med mikrofon, tonhöjdsdetektering och standard och alternativa stämningar." },
+    "ukulele-tuner": { title: "Gratis ukulelestämmare online | GCEA med mikrofon | TuneUniversal", description: "Stäm ukulelen online gratis med standard GCEA, Low G och andra varianter via webbläsarens mikrofon." },
+    metronome: { title: "Gratis metronom online | BPM, taktarter och övningscykler | TuneUniversal", description: "Öva med en gratis online-metronom: BPM-inställning, accenter, taktarter, Tap Tempo och progressiva hastighetscykler." },
+    "tap-bpm": { title: "Tap BPM online | Hitta låtens tempo snabbt | TuneUniversal", description: "Knacka i takt med musiken, beräkna genomsnittlig BPM på sekunder och gå direkt till metronomen." },
+    "chord-transposer": { title: "Online ackordstransponerare | Ändra tonart i halvtoner | TuneUniversal", description: "Transponera ackord online i halvtoner, bevara slash-ackord och kopiera resultatet direkt." },
+    "sound-level-meter": { title: "Gratis ljudnivåmätare online | dB-mätning i webbläsaren | TuneUniversal", description: "Mät uppskattad ljudnivå i dB med webbläsarens mikrofon, realtidsgraf och justerbar känslighet." },
+    "pitch-generator": { title: "Gratis tonsignal online | 20 Hz till 20000 Hz | TuneUniversal", description: "Generera rena toner från 20 Hz till 20000 Hz för gehörsträning, instrumentreferens och ljudtester." }
+  },
+  "pt-BR": {
+    "guitar-tuner": { title: "Afinador de violao online gratis | Cromatico com microfone | TuneUniversal", description: "Afine seu violao ou guitarra online com afinador cromatico gratuito, microfone, exibicao de cents e afinacoes alternativas." },
+    "bass-tuner": { title: "Afinador de baixo online gratis | Com microfone | TuneUniversal", description: "Afine o contrabaixo online com afinador cromatico gratuito, deteccao por microfone e afinacoes padrao e alternativas." },
+    "ukulele-tuner": { title: "Afinador de ukulele online gratis | GCEA com microfone | TuneUniversal", description: "Afine seu ukulele online com afinacao padrao GCEA, Low G e outras variacoes pelo microfone do navegador." },
+    metronome: { title: "Metronomo online gratis | BPM, subdivisoes e ciclo de pratica | TuneUniversal", description: "Treine com metronomo online gratuito: controle de BPM, acentos, compassos, Tap Tempo e ciclos progressivos." },
+    "tap-bpm": { title: "Tap BPM online | Encontre o tempo da musica rapido | TuneUniversal", description: "Bata no ritmo da musica, calcule o BPM medio em segundos e vá direto para o metronomo." },
+    "chord-transposer": { title: "Transpositor de acordes online | Muda tom por semitons | TuneUniversal", description: "Transponha acordes online por semitons, mantenha slash chords, escolha sustenidos ou bemois e copie o resultado." },
+    "sound-level-meter": { title: "Decibelimetro online gratis | Medicao dB no navegador | TuneUniversal", description: "Meca o nivel de som estimado em dB com o microfone do navegador, grafico em tempo real e sensibilidade ajustavel." },
+    "pitch-generator": { title: "Gerador de frequencia online gratis | 20 Hz a 20000 Hz | TuneUniversal", description: "Gere tons puros de 20 Hz a 20000 Hz para treinamento auditivo, referencia de notas e testes de audio." }
+  },
+  hi: {
+    "guitar-tuner": { title: "मुफ्त ऑनलाइन गिटार ट्यूनर | माइक्रोफोन के साथ | TuneUniversal", description: "अपने गिटार को ऑनलाइन मुफ्त क्रोमैटिक ट्यूनर से ट्यून करें, माइक्रोफोन से पिच डिटेक्शन और वैकल्पिक ट्यूनिंग के साथ।" },
+    "bass-tuner": { title: "मुफ्त ऑनलाइन बास ट्यूनर | माइक्रोफोन के साथ | TuneUniversal", description: "बास गिटार को ऑनलाइन मुफ्त ट्यून करें, माइक्रोफोन से पिच डिटेक्शन और स्टैंडर्ड व वैकल्पिक ट्यूनिंग के साथ।" },
+    "ukulele-tuner": { title: "मुफ्त ऑनलाइन यूकुलेले ट्यूनर | GCEA माइक्रोफोन के साथ | TuneUniversal", description: "यूकुलेले को ऑनलाइन ट्यून करें, स्टैंडर्ड GCEA, Low G और अन्य ट्यूनिंग ब्राउज़र माइक्रोफोन से।" },
+    metronome: { title: "मुफ्त ऑनलाइन मेट्रोनोम | BPM, ताल और अभ्यास चक्र | TuneUniversal", description: "मुफ्त ऑनलाइन मेट्रोनोम से अभ्यास करें: BPM सेटिंग, एक्सेंट, ताल, Tap Tempo और प्रगतिशील गति चक्र।" },
+    "tap-bpm": { title: "Tap BPM ऑनलाइन | गाने का टेम्पो जल्दी खोजें | TuneUniversal", description: "संगीत की लय पर टैप करें, सेकंड में औसत BPM की गणना करें और सीधे मेट्रोनोम पर जाएं।" },
+    "chord-transposer": { title: "ऑनलाइन कॉर्ड ट्रांसपोज़र | अर्धस्वर में की बदलाव | TuneUniversal", description: "अर्धस्वर में ऑनलाइन कॉर्ड ट्रांसपोज़ करें, slash कॉर्ड सुरक्षित रखें और परिणाम तुरंत कॉपी करें।" },
+    "sound-level-meter": { title: "मुफ्त ऑनलाइन साउंड लेवल मीटर | ब्राउज़र dB मापक | TuneUniversal", description: "ब्राउज़र माइक्रोफोन से अनुमानित ध्वनि स्तर dB में मापें, रियल-टाइम ग्राफ और समायोज्य संवेदनशीलता।" },
+    "pitch-generator": { title: "मुफ्त ऑनलाइन पिच जनरेटर | 20 Hz से 20000 Hz | TuneUniversal", description: "कान प्रशिक्षण, वाद्ययंत्र संदर्भ और ऑडियो परीक्षण के लिए 20 Hz से 20000 Hz तक शुद्ध स्वर उत्पन्न करें।" }
+  },
+  no: {
+    "guitar-tuner": { title: "Gratis gitarstemmer online | Kromatisk med mikrofon | TuneUniversal", description: "Stem gitaren online gratis med kromatisk stemmer, mikrofondetektering, sentvisning og støtte for alternative stemninger." },
+    "bass-tuner": { title: "Gratis bassstemmer online | Med mikrofon | TuneUniversal", description: "Stem bassguitar online gratis med mikrofon, tonehøydedetektering og standard og alternative stemninger." },
+    "ukulele-tuner": { title: "Gratis ukulelestemmer online | GCEA med mikrofon | TuneUniversal", description: "Stem ukulelen online gratis med standard GCEA, Low G og andre varianter via nettleserens mikrofon." },
+    metronome: { title: "Gratis metronom online | BPM, taktarter og øvelsessykluser | TuneUniversal", description: "Øv med gratis online-metronom: BPM-innstilling, aksenter, taktarter, Tap Tempo og progressive hastighetssykluser." },
+    "tap-bpm": { title: "Tap BPM online | Finn sangens tempo raskt | TuneUniversal", description: "Tapp i takt med musikken, beregn gjennomsnittlig BPM på sekunder og gå direkte til metronomen." },
+    "chord-transposer": { title: "Online akkordtransponerare | Endre toneart i halvtoner | TuneUniversal", description: "Transponerere akkorder online i halvtoner, behold slash-akkorder og kopier resultatet direkte." },
+    "sound-level-meter": { title: "Gratis lydnivåmåler online | dB-måling i nettleseren | TuneUniversal", description: "Mål estimert lydnivå i dB med nettleserens mikrofon, sanntidsgraf og justerbar følsomhet." },
+    "pitch-generator": { title: "Gratis tonsignal online | 20 Hz til 20000 Hz | TuneUniversal", description: "Generer rene toner fra 20 Hz til 20000 Hz for gehørtrening, instrumentreferanse og lydtester." }
   }
 };
 
@@ -360,24 +484,20 @@ const instrumentMetadataOverrides: Partial<
   },
   ru: {
     "12-string-guitar-tuner": {
-      title: "12 string guitar tuner online | TuneUniversal",
-      description:
-        "Tune a 12 string guitar online with microphone help, reference notes and a stable browser tuner for octave pairs."
+      title: "Онлайн тюнер для 12-струнной гитары | TuneUniversal",
+      description: "Настройте 12-струнную гитару онлайн с микрофоном, опорными нотами и стабильным тюнером для проверки октавных пар."
     },
     "cello-tuner": {
-      title: "Online cello tuner | Free | TuneUniversal",
-      description:
-        "Free online cello tuner with microphone support, reference notes and a quick browser workflow for daily tuning."
+      title: "Онлайн тюнер для виолончели | Бесплатно | TuneUniversal",
+      description: "Бесплатный онлайн-тюнер для виолончели с поддержкой микрофона, опорными нотами и быстрым рабочим процессом для ежедневной настройки."
     },
     "cimbalom-tuner": {
-      title: "Online cimbalom tuner | TuneUniversal",
-      description:
-        "Tune cimbalom online with microphone input, reference notes and a free browser tuner from TuneUniversal."
+      title: "Онлайн тюнер для цимбал | TuneUniversal",
+      description: "Настройте цимбалы онлайн с вводом через микрофон, опорными нотами и бесплатным браузерным тюнером от TuneUniversal."
     },
     "guitar-tuner": {
-      title: "Online guitar tuner | Free chromatic tuner | TuneUniversal",
-      description:
-        "Free online guitar tuner with microphone pitch detection, cents display and support for standard and alternate tunings."
+      title: "Онлайн тюнер для гитары | Бесплатный хроматический тюнер | TuneUniversal",
+      description: "Бесплатный онлайн-тюнер для гитары с определением высоты тона через микрофон, отображением центов и поддержкой стандартных и альтернативных строёв."
     }
   }
 };
@@ -417,6 +537,18 @@ const priorityInstrumentMetadataOverrides: Partial<
     "koto-tuner": {
       title: "موالف كوتو اونلاين | TuneUniversal",
       description: "استعمل موالف كوتو اونلاين مع الميكروفون ونغمات مرجعية لتثبيت الضبط بسرعة داخل المتصفح."
+    },
+    "sitar-tuner": {
+      title: "موالف سيتار اونلاين مجاني | بالميكروفون | TuneUniversal",
+      description: "اضبط السيتار اونلاين مع الميكروفون ونغمات مرجعية للضبط الهندي الكلاسيكي C# F# B C# F# G# بسرعة في المتصفح."
+    },
+    "erhu-tuner": {
+      title: "موالف أرهو اونلاين مجاني | وترا D وA | TuneUniversal",
+      description: "اضبط الأرهو اونلاين مع الميكروفون ونغمتا D4 وA4 المرجعيتان للضبط القياسي للكمان الصيني."
+    },
+    "santur-tuner": {
+      title: "موالف سنطور اونلاين مجاني | TuneUniversal",
+      description: "اضبط السنطور اونلاين مع الميكروفون ونغمات مرجعية للسلم الكروماتي للصيانة السريعة والدراسة."
     }
   },
   de: {
@@ -451,6 +583,18 @@ const priorityInstrumentMetadataOverrides: Partial<
     "koto-tuner": {
       title: "Koto online stimmen | TuneUniversal",
       description: "Stimme Koto online mit Mikrofon und Referenznoten, um die Stimmung schnell und einfach im Browser zu pruefen."
+    },
+    "sitar-tuner": {
+      title: "Sitar online stimmen | Kostenloser Tuner | TuneUniversal",
+      description: "Stimme Sitar online mit Mikrofon und Referenznoten fuer das klassische indische C# F# B C# F# G# Setup schnell im Browser."
+    },
+    "erhu-tuner": {
+      title: "Erhu online stimmen | Kostenloser D-A Tuner | TuneUniversal",
+      description: "Stimme Erhu online mit Mikrofon und den zwei Referenztoenen D4 und A4 fuer das Standard-Chinesische-Geige-Setup."
+    },
+    "santur-tuner": {
+      title: "Santur online stimmen | Kostenloser Tuner | TuneUniversal",
+      description: "Stimme Santur online mit Mikrofon und chromatischen Referenztoenen fuer schnelle Kontrolle und regelmaessige Wartung."
     }
   },
   en: {
@@ -485,6 +629,18 @@ const priorityInstrumentMetadataOverrides: Partial<
     "koto-tuner": {
       title: "Koto Tuner Online | Free Browser Tuner | TuneUniversal",
       description: "Tune koto online with microphone input, reference notes and a fast browser workflow for everyday tuning practice."
+    },
+    "sitar-tuner": {
+      title: "Sitar Tuner Online | Free Microphone Tuner | TuneUniversal",
+      description: "Tune sitar online with microphone pitch detection and reference notes for the classical Indian C# F# B C# F# G# setup."
+    },
+    "erhu-tuner": {
+      title: "Erhu Tuner Online | Free D A Tuner | TuneUniversal",
+      description: "Tune erhu online with microphone input and D4 A4 reference notes for the standard two-string Chinese fiddle tuning."
+    },
+    "santur-tuner": {
+      title: "Santur Tuner Online | Free Chromatic Tuner | TuneUniversal",
+      description: "Tune santur online with microphone input and chromatic reference notes for the Persian hammered dulcimer standard setup."
     }
   },
   es: {
@@ -519,6 +675,18 @@ const priorityInstrumentMetadataOverrides: Partial<
     "koto-tuner": {
       title: "Afinador de koto online | Gratis | TuneUniversal",
       description: "Usa un afinador de koto online con microfono y notas de referencia para estudiar afinacion de forma rapida en el navegador."
+    },
+    "sitar-tuner": {
+      title: "Afinador de sitar online | Gratis | TuneUniversal",
+      description: "Afina sitar online con microfono y notas de referencia para la afinacion clasica india C# F# B C# F# G# directamente en el navegador."
+    },
+    "erhu-tuner": {
+      title: "Afinador de erhu online | Gratis | TuneUniversal",
+      description: "Afina erhu online con microfono y las notas de referencia D4 y A4 para la afinacion estandar del violin chino de dos cuerdas."
+    },
+    "santur-tuner": {
+      title: "Afinador de santur online | Gratis | TuneUniversal",
+      description: "Afina santur online con microfono y notas cromaticas de referencia para la afinacion estandar de la cimbala martillada persa."
     }
   },
   fr: {
@@ -553,6 +721,18 @@ const priorityInstrumentMetadataOverrides: Partial<
     "koto-tuner": {
       title: "Accordeur koto en ligne | Gratuit | TuneUniversal",
       description: "Accordez un koto en ligne avec micro, notes de reference et une aide simple pour l'accord quotidien."
+    },
+    "sitar-tuner": {
+      title: "Accordeur sitar en ligne | Gratuit | TuneUniversal",
+      description: "Accordez un sitar en ligne avec micro et notes de reference pour l'accordage indien classique C# F# B C# F# G# directement dans le navigateur."
+    },
+    "erhu-tuner": {
+      title: "Accordeur erhu en ligne | Gratuit D A | TuneUniversal",
+      description: "Accordez un erhu en ligne avec micro et les notes de reference D4 et A4 pour l'accordage standard du violon chinois a deux cordes."
+    },
+    "santur-tuner": {
+      title: "Accordeur santour en ligne | Gratuit | TuneUniversal",
+      description: "Accordez un santour en ligne avec micro et notes chromatiques de reference pour l'accordage standard du cymbalum persan."
     }
   },
   it: {
@@ -587,6 +767,18 @@ const priorityInstrumentMetadataOverrides: Partial<
     "koto-tuner": {
       title: "Accordatore koto online | TuneUniversal",
       description: "Usa un accordatore koto online con microfono e note di riferimento per verificare l'accordatura direttamente dal browser."
+    },
+    "sitar-tuner": {
+      title: "Accordatore sitar online gratis | TuneUniversal",
+      description: "Accorda il sitar online con microfono e note di riferimento per l'accordatura classica indiana C# F# B C# F# G# direttamente nel browser."
+    },
+    "erhu-tuner": {
+      title: "Accordatore erhu online gratis | TuneUniversal",
+      description: "Accorda l'erhu online con microfono e le note di riferimento D4 e A4 per l'accordatura standard del violino cinese a due corde."
+    },
+    "santur-tuner": {
+      title: "Accordatore santur online gratis | TuneUniversal",
+      description: "Accorda il santur online con microfono e note cromatiche di riferimento per la manutenzione e lo studio dello strumento."
     }
   },
   ja: {
@@ -621,6 +813,18 @@ const priorityInstrumentMetadataOverrides: Partial<
     "koto-tuner": {
       title: "オンライン 箏チューナー | TuneUniversal",
       description: "箏の調弦をオンラインで確認できるチューナー。マイク入力と基準音で日常の調整をすばやく行えます。"
+    },
+    "sitar-tuner": {
+      title: "無料オンライン シタールチューナー | TuneUniversal",
+      description: "マイクと基準音を使ってシタールをオンラインで調弦。インド古典音楽の C# F# B C# F# G# 標準セットアップに対応。"
+    },
+    "erhu-tuner": {
+      title: "無料オンライン 二胡チューナー | D A | TuneUniversal",
+      description: "マイク入力と D4・A4 基準音を使って二胡をオンラインで調弦。二弦中国弓弦楽器の標準チューニングをブラウザで確認。"
+    },
+    "santur-tuner": {
+      title: "無料オンライン サントゥールチューナー | TuneUniversal",
+      description: "マイクとクロマチック基準音を使ってサントゥールをオンラインで調弦。ペルシャの打弦楽器のメンテナンスと練習に最適。"
     }
   },
   ko: {
@@ -655,6 +859,18 @@ const priorityInstrumentMetadataOverrides: Partial<
     "koto-tuner": {
       title: "온라인 코토 튜너 | TuneUniversal",
       description: "코토 조율을 빠르게 확인할 수 있는 온라인 튜너입니다. 마이크 입력과 기준음으로 일상 조율에 적합합니다."
+    },
+    "sitar-tuner": {
+      title: "무료 온라인 시타르 튜너 | TuneUniversal",
+      description: "마이크와 기준음을 사용해 시타르를 온라인에서 조율하세요. 인도 고전 음악의 C# F# B C# F# G# 표준 세팅을 지원합니다."
+    },
+    "erhu-tuner": {
+      title: "무료 온라인 얼후 튜너 | D A | TuneUniversal",
+      description: "마이크 입력과 D4·A4 기준음으로 얼후를 온라인에서 조율하세요. 2현 중국 찰현악기의 표준 튜닝을 브라우저에서 확인할 수 있습니다."
+    },
+    "santur-tuner": {
+      title: "무료 온라인 산투르 튜너 | TuneUniversal",
+      description: "마이크와 크로매틱 기준음을 사용해 산투르를 온라인에서 조율하세요. 페르시아 타현악기의 일상 관리와 연습에 적합합니다."
     }
   },
   pt: {
@@ -689,40 +905,64 @@ const priorityInstrumentMetadataOverrides: Partial<
     "koto-tuner": {
       title: "Afinador de koto online | Gratis | TuneUniversal",
       description: "Use um afinador de koto online com microfone e notas de referencia para checar a afinacao diretamente no navegador."
+    },
+    "sitar-tuner": {
+      title: "Afinador de sitar online | Gratis | TuneUniversal",
+      description: "Afine sitar online com microfone e notas de referencia para a afinacao indiana classica C# F# B C# F# G# diretamente no navegador."
+    },
+    "erhu-tuner": {
+      title: "Afinador de erhu online | Gratis | TuneUniversal",
+      description: "Afine erhu online com microfone e as notas de referencia D4 e A4 para a afinacao padrao do violino chines de duas cordas."
+    },
+    "santur-tuner": {
+      title: "Afinador de santur online | Gratis | TuneUniversal",
+      description: "Afine santur online com microfone e notas cromaticas de referencia para manutencao e estudo do instrumento persa."
     }
   },
   ru: {
     "7-string-guitar-tuner": {
-      title: "Online 7 string guitar tuner | TuneUniversal",
-      description: "Tune 7 string guitar online with low B support, microphone pitch detection and a stable browser display for practice."
+      title: "Онлайн тюнер для 7-струнной гитары | Бесплатно | TuneUniversal",
+      description: "Настройте 7-струнную гитару онлайн с поддержкой низкой ноты B, определением высоты тона через микрофон и стабильным отображением для ежедневной практики."
     },
     "8-string-guitar-tuner": {
-      title: "Online 8 string guitar tuner | TuneUniversal",
-      description: "Tune 8 string guitar online with microphone input, reference notes and support for extended-range tuning setups."
+      title: "Онлайн тюнер для 8-струнной гитары | Бесплатно | TuneUniversal",
+      description: "Настройте 8-струнную гитару онлайн с микрофоном, опорными нотами и поддержкой расширенных строёв для современного металла."
     },
     "12-string-guitar-tuner": {
-      title: "Online 12 string guitar tuner | TuneUniversal",
-      description: "Tune a 12 string guitar online with microphone help, reference notes and stable support for octave-pair tuning."
+      title: "Онлайн тюнер для 12-струнной гитары | Бесплатно | TuneUniversal",
+      description: "Настройте 12-струнную гитару онлайн с микрофоном и опорными нотами для удобной проверки октавных пар и хоровых струн."
     },
     "bass-tuner": {
-      title: "Online bass tuner | TuneUniversal",
-      description: "Tune bass online with microphone support, stable note detection and quick reference notes for 4 and 5 string setups."
+      title: "Онлайн тюнер для баса | Бесплатно | TuneUniversal",
+      description: "Настройте бас онлайн с поддержкой микрофона, стабильным определением нот и опорными нотами для 4- и 5-струнных инструментов."
     },
     "violin-tuner": {
-      title: "Online violin tuner | TuneUniversal",
-      description: "Tune violin online with browser microphone input, G D A E reference notes and a clear daily tuning workflow."
+      title: "Онлайн тюнер для скрипки | Бесплатно | TuneUniversal",
+      description: "Настройте скрипку онлайн с микрофоном браузера, опорными нотами G D A E и чётким отображением для ежедневного использования."
     },
     "cello-tuner": {
-      title: "Online cello tuner | TuneUniversal",
-      description: "Tune cello online with microphone support, clear reference notes and a quick browser workflow for practice and rehearsal."
+      title: "Онлайн тюнер для виолончели | Бесплатно | TuneUniversal",
+      description: "Настройте виолончель онлайн с поддержкой микрофона, опорными нотами и быстрым рабочим процессом в браузере для репетиций."
     },
     "cimbalom-tuner": {
-      title: "Online cimbalom tuner | TuneUniversal",
-      description: "Tune cimbalom online with microphone input, reference notes and a fast browser tuner for regular maintenance."
+      title: "Онлайн тюнер для цимбал | TuneUniversal",
+      description: "Настройте цимбалы онлайн с вводом через микрофон и опорными нотами для быстрой проверки строя и регулярного обслуживания."
     },
     "koto-tuner": {
-      title: "Online koto tuner | TuneUniversal",
-      description: "Tune koto online with microphone input, reference notes and a quick browser workflow for everyday tuning practice."
+      title: "Онлайн тюнер для кото | TuneUniversal",
+      description: "Настройте кото онлайн с микрофоном и опорными нотами для быстрой ежедневной настройки прямо в браузере."
+    },
+    "sitar-tuner": {
+      title: "Онлайн тюнер для ситара | Бесплатно | TuneUniversal",
+      description: "Настройте ситар онлайн с микрофоном и опорными нотами для классического индийского строя C# F# B C# F# G# прямо в браузере."
+    },
+    "erhu-tuner": {
+      title: "Онлайн тюнер для эрху | D A | TuneUniversal",
+      description: "Настройте эрху онлайн с микрофоном и опорными нотами D4 и A4 для стандартного строя китайской двухструнной скрипки."
+    },
+    "santur-tuner": {
+      title: "Онлайн тюнер для сантура | Бесплатно | TuneUniversal",
+      description: "Настройте сантур онлайн с микрофоном и хроматическими опорными нотами для быстрой настройки персидского цимбалона."
     }
   },
   zh: {
@@ -757,6 +997,64 @@ const priorityInstrumentMetadataOverrides: Partial<
     "koto-tuner": {
       title: "在线筝调音器 | 免费 | TuneUniversal",
       description: "使用在线筝调音器，通过麦克风输入和参考音在浏览器中快速检查调弦状态。"
+    },
+    "sitar-tuner": {
+      title: "免费在线西塔琴调音器 | TuneUniversal",
+      description: "使用麦克风和参考音在线为西塔琴调音，支持印度古典音乐标准调弦 C# F# B C# F# G#。"
+    },
+    "erhu-tuner": {
+      title: "免费在线二胡调音器 | D A | TuneUniversal",
+      description: "使用麦克风和 D4、A4 参考音在线为二胡调音，快速确认两弦中国拉弦乐器的标准调弦。"
+    },
+    "santur-tuner": {
+      title: "免费在线桑图尔调音器 | TuneUniversal",
+      description: "使用麦克风和半音阶参考音在线为桑图尔调音，适合波斯击弦乐器的日常维护和练习。"
+    }
+  },
+  hi: {
+    "7-string-guitar-tuner": {
+      title: "7 तार गिटार ट्यूनर ऑनलाइन | मुफ्त | TuneUniversal",
+      description: "माइक्रोफोन से 7 तार गिटार ऑनलाइन ट्यून करें, लो B सपोर्ट और रोज़ की प्रैक्टिस के लिए।"
+    },
+    "8-string-guitar-tuner": {
+      title: "8 तार गिटार ट्यूनर ऑनलाइन | मुफ्त | TuneUniversal",
+      description: "माइक्रोफोन से 8 तार एक्सटेंडेड-रेंज गिटार ऑनलाइन ट्यून करें।"
+    },
+    "12-string-guitar-tuner": {
+      title: "12 तार गिटार ट्यूनर ऑनलाइन | मुफ्त | TuneUniversal",
+      description: "माइक्रोफोन से 12 तार गिटार ऑनलाइन ट्यून करें, ऑक्टेव पेयर नोट्स के साथ।"
+    },
+    "bass-tuner": {
+      title: "बास ट्यूनर ऑनलाइन | मुफ्त माइक्रोफोन ट्यूनर | TuneUniversal",
+      description: "4 और 5 तार बास को माइक्रोफोन से ऑनलाइन ट्यून करें, रेफरेंस नोट्स के साथ।"
+    },
+    "violin-tuner": {
+      title: "वायलिन ट्यूनर ऑनलाइन | मुफ्त G D A E ट्यूनर | TuneUniversal",
+      description: "माइक्रोफोन से वायलिन ऑनलाइन ट्यून करें, G D A E रेफरेंस नोट्स और क्लियर डिस्प्ले के साथ।"
+    },
+    "cello-tuner": {
+      title: "सेलो ट्यूनर ऑनलाइन | मुफ्त माइक्रोफोन ट्यूनर | TuneUniversal",
+      description: "माइक्रोफोन से सेलो ऑनलाइन ट्यून करें, रेफरेंस नोट्स और प्रैक्टिस के लिए।"
+    },
+    "sitar-tuner": {
+      title: "सितार ट्यूनर ऑनलाइन | मुफ्त माइक्रोफोन ट्यूनर | TuneUniversal",
+      description: "माइक्रोफोन से सितार ऑनलाइन ट्यून करें — भारतीय शास्त्रीय C# F# B C# F# G# सेटअप के लिए रेफरेंस नोट्स।"
+    },
+    "erhu-tuner": {
+      title: "एर्हू ट्यूनर ऑनलाइन | D A | TuneUniversal",
+      description: "माइक्रोफोन और D4 A4 रेफरेंस नोट्स से एर्हू ऑनलाइन ट्यून करें।"
+    },
+    "santur-tuner": {
+      title: "संतूर ट्यूनर ऑनलाइन | मुफ्त | TuneUniversal",
+      description: "माइक्रोफोन और क्रोमैटिक रेफरेंस नोट्स से संतूर ऑनलाइन ट्यून करें।"
+    },
+    "koto-tuner": {
+      title: "कोटो ट्यूनर ऑनलाइन | मुफ्त | TuneUniversal",
+      description: "माइक्रोफोन और रेफरेंस नोट्स से कोटो ऑनलाइन ट्यून करें।"
+    },
+    "cimbalom-tuner": {
+      title: "सिम्बालोम ट्यूनर ऑनलाइन | मुफ्त | TuneUniversal",
+      description: "माइक्रोफोन से सिम्बालोम ऑनलाइन ट्यून करें, नियमित रखरखाव के लिए।"
     }
   }
 };
@@ -1070,36 +1368,36 @@ const priorityGuideMetadataOverrides: Partial<Record<Locale, Partial<Record<Guid
   },
   ru: {
     "how-to-tune-bass": {
-      title: "How to tune a bass online | TuneUniversal",
-      description: "Tune bass online to E A D G with clear steps and practical help for both 4 string and 5 string setups."
+      title: "Как настроить бас онлайн | Руководство для 4 и 5 струн | TuneUniversal",
+      description: "Настройте бас онлайн на E A D G с чёткими шагами и практической поддержкой для 4- и 5-струнных инструментов."
     },
     "how-to-tune-violin": {
-      title: "How to tune a violin online | TuneUniversal",
-      description: "Tune violin online to G D A E with simple steps and a steadier microphone workflow for daily practice."
+      title: "Как настроить скрипку онлайн | Руководство G D A E | TuneUniversal",
+      description: "Настройте скрипку онлайн на G D A E с простыми шагами и более стабильной работой микрофона для ежедневной практики."
     },
     "standard-bass-tuning": {
-      title: "Standard bass tuning guide | TuneUniversal",
-      description: "See the standard bass tuning E A D G and learn why it remains the default setup for most bass players."
+      title: "Стандартный строй баса | E A D G | TuneUniversal",
+      description: "Изучите стандартный строй баса E A D G и узнайте, почему он остаётся основной настройкой для большинства басистов."
     },
     "common-guitar-tunings": {
-      title: "Common guitar tunings | TuneUniversal",
-      description: "Compare Standard, Drop D, Eb Standard, Open D and Open G in one practical guide to common guitar tunings."
+      title: "Распространённые строи гитары | Standard, Drop D, Open D | TuneUniversal",
+      description: "Сравните Standard, Drop D, Eb Standard, Open D и Open G в одном практическом руководстве по строям гитары."
     },
     "drop-d-tuning": {
-      title: "Drop D tuning guide | TuneUniversal",
-      description: "Tune guitar to Drop D for heavier low riffs and easier power chords while keeping the rest of the neck familiar."
+      title: "Руководство по строю Drop D | D A D G B E | TuneUniversal",
+      description: "Настройте гитару на Drop D для более тяжёлых низких риффов и удобных пауэр-аккордов, сохранив привычное ощущение грифа."
     },
     "drop-c-tuning": {
-      title: "Drop C tuning guide | TuneUniversal",
-      description: "Learn the exact Drop C notes and why this tuning is so common in modern rock and metal rhythm guitar."
+      title: "Руководство по строю Drop C | Ноты и применение | TuneUniversal",
+      description: "Изучите точные ноты строя Drop C и узнайте, почему он так распространён в современном роке и метале."
     },
     "open-d-tuning": {
-      title: "Open D tuning guide | TuneUniversal",
-      description: "Use Open D tuning for resonant open strings, slide guitar and wider acoustic chord voicings."
+      title: "Руководство по строю Open D | Открытые струны и слайд | TuneUniversal",
+      description: "Используйте строй Open D для резонирующих открытых струн, слайд-гитары и более широких акустических аккордов."
     },
     "eb-standard-tuning": {
-      title: "Eb Standard tuning guide | TuneUniversal",
-      description: "Lower every guitar string by a semitone to Eb Ab Db Gb Bb Eb for softer tension and a darker overall voice."
+      title: "Руководство по строю Eb Standard | На полтона ниже | TuneUniversal",
+      description: "Опустите все струны гитары на полтона до Eb Ab Db Gb Bb Eb для меньшего натяжения и более тёмного звучания."
     }
   },
   zh: {
@@ -1215,9 +1513,9 @@ const guideMetadataOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, {
   },
   ru: {
     "drop-c-sharp-tuning": {
-      title: "Drop C sharp tuning guide | Online tuner | TuneUniversal",
+      title: "Руководство по строю Drop C# | Онлайн тюнер | TuneUniversal",
       description:
-        "Learn Drop C sharp guitar tuning, reference notes, common use cases and open the online tuner from the guide."
+        "Изучите строй Drop C# для гитары, ноты по струнам, типичные применения и откройте онлайн-тюнер прямо из руководства."
     }
   }
 };
@@ -1250,7 +1548,8 @@ export function buildHomeMetadata(locale: Locale, dictionary: Dictionary): Metad
       siteName: "TuneUniversal",
       type: "website",
       locale
-    }
+    },
+    twitter: { card: "summary_large_image", title, description }
   };
 }
 
@@ -1273,7 +1572,8 @@ export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Di
       siteName: "TuneUniversal",
       type: "article",
       locale
-    }
+    },
+    twitter: { card: "summary_large_image", title, description }
   };
 }
 
@@ -1294,7 +1594,8 @@ export function buildInstrumentTunerMetadata(locale: Locale, slug: string, conte
       siteName: "TuneUniversal",
       type: "article",
       locale
-    }
+    },
+    twitter: { card: "summary_large_image", title, description }
   };
 }
 
@@ -1316,7 +1617,8 @@ export function buildStaticPageMetadata(
       siteName: "TuneUniversal",
       type: "article",
       locale
-    }
+    },
+    twitter: { card: "summary_large_image", title, description }
   };
 }
 
@@ -1335,7 +1637,8 @@ export function buildGuideIndexMetadata(locale: Locale): Metadata {
       siteName: "TuneUniversal",
       type: "website",
       locale
-    }
+    },
+    twitter: { card: "summary_large_image", title: `${content.title} | TuneUniversal`, description: content.description }
   };
 }
 
@@ -1356,7 +1659,8 @@ export function buildToolsIndexMetadata(locale: Locale, dictionary: Dictionary, 
       siteName: "TuneUniversal",
       type: "website",
       locale
-    }
+    },
+    twitter: { card: "summary_large_image", title: `${content.title} | TuneUniversal`, description: content.description }
   };
 }
 
@@ -1375,7 +1679,8 @@ export function buildTuningHubMetadata(locale: Locale): Metadata {
       siteName: "TuneUniversal",
       type: "website",
       locale
-    }
+    },
+    twitter: { card: "summary_large_image", title: `${content.title} | TuneUniversal`, description: content.description }
   };
 }
 
@@ -1397,7 +1702,8 @@ export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: Gu
       siteName: "TuneUniversal",
       type: "article",
       locale
-    }
+    },
+    twitter: { card: "summary_large_image", title, description }
   };
 }
 
@@ -1427,7 +1733,8 @@ export function buildSongsIndexMetadata(locale: Locale): Metadata {
       siteName: "TuneUniversal",
       type: "website",
       locale
-    }
+    },
+    twitter: { card: "summary_large_image", title: `${content.title} | TuneUniversal`, description: content.description }
   };
 }
 
@@ -1464,7 +1771,8 @@ export function buildSongMetadata(locale: Locale, song: PublicDomainSong): Metad
       siteName: "TuneUniversal",
       type: "article",
       locale
-    }
+    },
+    twitter: { card: "summary_large_image", title, description }
   };
 }
 

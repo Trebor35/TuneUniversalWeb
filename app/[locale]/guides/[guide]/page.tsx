@@ -17,6 +17,20 @@ import { buildGuideMetadata } from "@/lib/seo/metadata";
 import { breadcrumbSchema, faqItemsSchema, guideSchema } from "@/lib/seo/schema";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
+const DATE_MODIFIED = "2026-06-12";
+const updatedLabels: Record<Locale, string> = withLocaleFallbacks({
+  ar: "آخر تحديث: 12 يونيو 2026",
+  de: "Aktualisiert: 12. Juni 2026",
+  en: "Updated: June 12, 2026",
+  es: "Actualizado: 12 de junio de 2026",
+  fr: "Mis à jour le 12 juin 2026",
+  it: "Aggiornato il 12 giugno 2026",
+  ja: "更新日：2026年6月12日",
+  ko: "업데이트: 2026년 6월 12일",
+  pt: "Atualizado em 12 de junho de 2026",
+  ru: "Обновлено: 12 июня 2026 г.",
+  zh: "更新于 2026年6月12日"
+} satisfies Record<BaseLocale, string>);
 
 type PageProps = { params: Promise<{ locale: string; guide: string }> };
 
@@ -194,6 +208,9 @@ export default async function GuidePage({ params }: PageProps) {
       <p className="text-xs font-bold uppercase tracking-[0.18em] text-mint">TuneUniversal Guide</p>
       <h1 className="mt-3 text-3xl font-black leading-tight sm:text-5xl">{content.title}</h1>
       <p className="mt-4 text-lg leading-8 text-ink/70">{content.description}</p>
+      <p className="mt-3 text-sm text-ink/45">
+        <time dateTime={DATE_MODIFIED}>{updatedLabels[locale]}</time>
+      </p>
 
       <AdSlot className="mt-8" />
 
