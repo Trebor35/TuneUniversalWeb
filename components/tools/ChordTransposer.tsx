@@ -20,17 +20,17 @@ const labels: Record<
     transpose: string;
   }
 > = {
-  ar: { copied: "ØªÙ… Ø§Ù„Ù†Ø³Ø®", copy: "Ù†Ø³Ø® Ø§Ù„Ù†ØªÙŠØ¬Ø©", empty: "Ø£Ù„ØµÙ‚ Ø¨Ø¹Ø¶ Ø§Ù„Ø£ÙˆØªØ§Ø± Ø£ÙˆÙ„Ø§.", flats: "Ø¨ÙŠÙ…ÙˆÙ„", format: "ØµÙŠØºØ© Ø§Ù„Ù†ØªÙŠØ¬Ø©", sharps: "Ø¯ÙŠÙŠØ²", transpose: "Ø§Ù†Ù‚Ù„" },
+  ar: { copied: "تم النسخ", copy: "نسخ النتيجة", empty: "ألصق بعض الأوتار أولا.", flats: "بيمول", format: "صيغة النتيجة", sharps: "دييز", transpose: "انقل" },
   de: { copied: "Kopiert", copy: "Ergebnis kopieren", empty: "Fuge zuerst Akkorde ein.", flats: "Bs", format: "Ausgabeformat", sharps: "Kreuze", transpose: "Transponieren" },
   en: { copied: "Copied", copy: "Copy result", empty: "Paste some chords first.", flats: "Flats", format: "Output format", sharps: "Sharps", transpose: "Transpose" },
   es: { copied: "Copiado", copy: "Copiar resultado", empty: "Pega primero algunos acordes.", flats: "Bemoles", format: "Formato del resultado", sharps: "Sostenidos", transpose: "Transponer" },
   fr: { copied: "Copie", copy: "Copier le resultat", empty: "Collez d'abord des accords.", flats: "Bemols", format: "Format du resultat", sharps: "Diesen", transpose: "Transposer" },
   it: { copied: "Copiato", copy: "Copia risultato", empty: "Incolla prima una sequenza di accordi.", flats: "Bemolli", format: "Formato risultato", sharps: "Diesis", transpose: "Trasponi" },
-  ja: { copied: "ã‚³ãƒ”ãƒ¼æ¸ˆã¿", copy: "çµæžœã‚’ã‚³ãƒ”ãƒ¼", empty: "ã¾ãšã‚³ãƒ¼ãƒ‰ã‚’è²¼ã‚Šä»˜ã‘ã¦ãã ã•ã„ã€‚", flats: "ãƒ•ãƒ©ãƒƒãƒˆ", format: "å‡ºåŠ›å½¢å¼", sharps: "ã‚·ãƒ£ãƒ¼ãƒ—", transpose: "ç§»èª¿ã™ã‚‹" },
-  ko: { copied: "ë³µì‚¬ë¨", copy: "ê²°ê³¼ ë³µì‚¬", empty: "ë¨¼ì € ì½”ë“œë¥¼ ë¶™ì—¬ ë„£ìœ¼ì„¸ìš”.", flats: "í”Œëž«", format: "ì¶œë ¥ í˜•ì‹", sharps: "ìƒ¤í”„", transpose: "ì¡°ì˜®ê¹€" },
+  ja: { copied: "コピー済み", copy: "結果をコピー", empty: "まずコードを貼り付けてください。", flats: "フラット", format: "出力形式", sharps: "シャープ", transpose: "移調する" },
+  ko: { copied: "복사됨", copy: "결과 복사", empty: "먼저 코드를 붙여 넣으세요.", flats: "플랫", format: "출력 형식", sharps: "샤프", transpose: "조옮김" },
   pt: { copied: "Copiado", copy: "Copiar resultado", empty: "Cole primeiro alguns acordes.", flats: "Bemois", format: "Formato do resultado", sharps: "Sustenidos", transpose: "Transpor" },
-  ru: { copied: "Ð¡ÐºÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¾", copy: "ÐšÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚", empty: "Ð¡Ð½Ð°Ñ‡Ð°Ð»Ð° Ð²ÑÑ‚Ð°Ð²ÑŒÑ‚Ðµ Ð°ÐºÐºÐ¾Ñ€Ð´Ñ‹.", flats: "Ð‘ÐµÐ¼Ð¾Ð»Ð¸", format: "Ð¤Ð¾Ñ€Ð¼Ð°Ñ‚ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð°", sharps: "Ð”Ð¸ÐµÐ·Ñ‹", transpose: "Ð¢Ñ€Ð°Ð½ÑÐ¿Ð¾Ð½Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ" },
-  zh: { copied: "å·²å¤åˆ¶", copy: "å¤åˆ¶ç»“æžœ", empty: "è¯·å…ˆç²˜è´´å’Œå¼¦ã€‚", flats: "é™å·", format: "ç»“æžœæ ¼å¼", sharps: "å‡å·", transpose: "ç§»è°ƒ" }
+  ru: { copied: "Скопировано", copy: "Копировать результат", empty: "Сначала вставьте аккорды.", flats: "Бемоли", format: "Формат результата", sharps: "Диезы", transpose: "Транспонировать" },
+  zh: { copied: "已复制", copy: "复制结果", empty: "请先粘贴和弦。", flats: "降号", format: "结果格式", sharps: "升号", transpose: "移调" }
 } satisfies Record<BaseLocale, {
   copied: string;
   copy: string;
@@ -41,8 +41,18 @@ const labels: Record<
   transpose: string;
 }>;
 
+const extendedLabels: Partial<Record<Locale, (typeof labels)[BaseLocale]>> = {
+  hi: { copied: "कॉपी किया", copy: "नतीजा कॉपी करें", empty: "पहले कुछ कॉर्ड पेस्ट करें।", flats: "फ़्लैट", format: "आउटपुट फ़ॉर्मेट", sharps: "शार्प", transpose: "ट्रांसपोज़ करें" },
+  nl: { copied: "Gekopieerd", copy: "Resultaat kopiëren", empty: "Plak eerst wat akkoorden.", flats: "Mollen", format: "Uitvoerformaat", sharps: "Kruisen", transpose: "Transponeren" },
+  pl: { copied: "Skopiowano", copy: "Kopiuj wynik", empty: "Najpierw wklej kilka akordów.", flats: "Bemole", format: "Format wyniku", sharps: "Krzyżyki", transpose: "Transponuj" },
+  tr: { copied: "Kopyalandı", copy: "Sonucu kopyala", empty: "Önce birkaç akor yapıştırın.", flats: "Bemoller", format: "Çıktı biçimi", sharps: "Diyezler", transpose: "Transpoze et" },
+  cs: { copied: "Zkopírováno", copy: "Kopírovat výsledek", empty: "Nejprve vložte nějaké akordy.", flats: "Béčka", format: "Formát výstupu", sharps: "Křížky", transpose: "Transponovat" },
+  sv: { copied: "Kopierat", copy: "Kopiera resultat", empty: "Klistra in några ackord först.", flats: "B", format: "Utdataformat", sharps: "Kors", transpose: "Transponera" },
+  no: { copied: "Kopiert", copy: "Kopier resultat", empty: "Lim inn noen akkorder først.", flats: "B", format: "Utdataformat", sharps: "Kryss", transpose: "Transponer" }
+};
+
 export function ChordTransposer({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
-  const ui = labels[getContentLocale(locale)] ?? labels.en;
+  const ui = extendedLabels[locale] ?? labels[getContentLocale(locale)] ?? labels.en;
   const [input, setInput] = useState("C G Am F");
   const [semitones, setSemitones] = useState(2);
   const [notation, setNotation] = useState<ChordNotation>("sharp");
