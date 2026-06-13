@@ -50,7 +50,7 @@ const songPageLabels: Record<
   allGuides: string;
   allTools: string;
   relatedGuides: string;
-}}, {
+}>, {
   nl: { continueLearning: "Ga hier verder", continueLearningDescription: "Gebruik deze liedpagina als brug naar ritme, akkoorden en de meest nuttige leergidsen.", allSongs: "Alle nummers", allGuides: "Alle gidsen", allTools: "Alle tools", relatedGuides: "Handige gidsen" },
   pl: { continueLearning: "Kontynuuj stąd", continueLearningDescription: "Użyj tej strony piosenki jako mostu do rytmu, akordów i najużyteczniejszych poradników.", allSongs: "Wszystkie piosenki", allGuides: "Wszystkie poradniki", allTools: "Wszystkie narzędzia", relatedGuides: "Pomocne poradniki" },
   tr: { continueLearning: "Buradan devam edin", continueLearningDescription: "Bu şarkı sayfasını ritim, akorlar ve en faydalı öğrenme rehberlerine köprü olarak kullanın.", allSongs: "Tüm şarkılar", allGuides: "Tüm rehberler", allTools: "Tüm araçlar", relatedGuides: "Yararlı rehberler" },

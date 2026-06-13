@@ -92,7 +92,7 @@ const songsBridgeLabels: Record<
   tunings: string;
   practiceTools: string;
   learningGuides: string;
-}}, {
+}>, {
   nl: { continueLearning: "Ga hier verder", continueLearningDescription: "Verbind deze liedpagina's met praktische tools, ritmisch werk en kerngidsen voor dagelijkse oefening.", allGuides: "Alle gidsen", allTools: "Alle tools", tunings: "Stemmingen", practiceTools: "Oefentools", learningGuides: "Handige gidsen" },
   pl: { continueLearning: "Kontynuuj stąd", continueLearningDescription: "Połącz te strony piosenek z praktycznymi narzędziami, pracą rytmiczną i podstawowymi gidami muzycznymi.", allGuides: "Wszystkie poradniki", allTools: "Wszystkie narzędzia", tunings: "Stroje", practiceTools: "Narzędzia do ćwiczeń", learningGuides: "Pomocne poradniki" },
   tr: { continueLearning: "Buradan devam edin", continueLearningDescription: "Bu şarkı sayfalarını pratik araçlar, ritim çalışması ve temel müzik rehberleriyle bağlayın.", allGuides: "Tüm rehberler", allTools: "Tüm araçlar", tunings: "Akortlar", practiceTools: "Pratik araçlar", learningGuides: "Yararlı rehberler" },
