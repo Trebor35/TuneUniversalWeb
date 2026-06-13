@@ -78,9 +78,46 @@ const menuLabels: Record<
   zh: { instrumentGuides: "乐器指南", instrumentTuners: "乐器调音器", menu: "菜单", pages: "页面", tuningGuides: "调弦指南" }
 };
 
-function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGroup[] {
+type HeaderLabels = {
+  about: string;
+  guides: string;
+  instrumentGuides: string;
+  instrumentTuners: string;
+  menu: string;
+  pages: string;
+  songs: string;
+  tuningGuides: string;
+  tunings: string;
+};
+
+const extendedHeaderLabels: Partial<Record<Locale, HeaderLabels>> = {
+  nl: { about: "Over ons", guides: "Gidsen", instrumentGuides: "Instrumentgidsen", instrumentTuners: "Instrumentstemmers", menu: "Menu", pages: "Pagina's", songs: "Bladmuziek", tuningGuides: "Stemmingsgidsen", tunings: "Instrumentstemmingen" },
+  pl: { about: "O nas", guides: "Poradniki", instrumentGuides: "Poradniki instrumentów", instrumentTuners: "Stroiki instrumentów", menu: "Menu", pages: "Strony", songs: "Nuty", tuningGuides: "Poradniki strojenia", tunings: "Strojenia instrumentów" },
+  tr: { about: "Hakkımızda", guides: "Rehberler", instrumentGuides: "Enstrüman rehberleri", instrumentTuners: "Enstrüman akort aletleri", menu: "Menü", pages: "Sayfalar", songs: "Notalar", tuningGuides: "Akort rehberleri", tunings: "Enstrüman akortları" },
+  cs: { about: "O nás", guides: "Průvodci", instrumentGuides: "Průvodci nástroji", instrumentTuners: "Ladičky nástrojů", menu: "Nabídka", pages: "Stránky", songs: "Noty", tuningGuides: "Průvodci laděním", tunings: "Ladění nástrojů" },
+  sv: { about: "Om oss", guides: "Guider", instrumentGuides: "Instrumentguider", instrumentTuners: "Instrumentstämmare", menu: "Meny", pages: "Sidor", songs: "Noter", tuningGuides: "Stämningsguider", tunings: "Instrumentstämningar" },
+  "pt-BR": { about: "Sobre", guides: "Guias", instrumentGuides: "Guias de instrumentos", instrumentTuners: "Afinadores", menu: "Menu", pages: "Páginas", songs: "Partituras", tuningGuides: "Guias de afinação", tunings: "Afinações de instrumentos" },
+  hi: { about: "हमारे बारे में", guides: "गाइड", instrumentGuides: "वाद्य गाइड", instrumentTuners: "वाद्य ट्यूनर", menu: "मेन्यू", pages: "पेज", songs: "शीट म्यूज़िक", tuningGuides: "ट्यूनिंग गाइड", tunings: "वाद्य ट्यूनिंग" },
+  no: { about: "Om oss", guides: "Guider", instrumentGuides: "Instrumentguider", instrumentTuners: "Instrumentstemmere", menu: "Meny", pages: "Sider", songs: "Noter", tuningGuides: "Stemmeguider", tunings: "Instrumentstemminger" }
+};
+
+function getHeaderLabels(locale: Locale): HeaderLabels {
   const contentLocale = getContentLocale(locale);
-  const labels = menuLabels[contentLocale];
+  return extendedHeaderLabels[locale] ?? {
+    about: aboutLabels[contentLocale],
+    guides: guidesLabels[contentLocale],
+    instrumentGuides: menuLabels[contentLocale].instrumentGuides,
+    instrumentTuners: menuLabels[contentLocale].instrumentTuners,
+    menu: menuLabels[contentLocale].menu,
+    pages: menuLabels[contentLocale].pages,
+    songs: songsLabels[contentLocale],
+    tuningGuides: menuLabels[contentLocale].tuningGuides,
+    tunings: tuningHubContent[contentLocale].title
+  };
+}
+
+function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGroup[] {
+  const labels = getHeaderLabels(locale);
   const tuningGuideSlugs: GuideSlug[] = [...alternativeTuningGuideSlugs, ...utilityGuideSlugs];
 
   return [
@@ -89,9 +126,9 @@ function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGro
       links: [
         { href: `/${locale}`, label: "TuneUniversal" },
         { href: `/${locale}/tools`, label: dictionary.nav.tools },
-        { href: `/${locale}/tunings`, label: tuningHubContent[contentLocale].title },
-        { href: `/${locale}/guides`, label: guidesLabels[contentLocale] },
-        { href: `/${locale}/songs`, label: songsLabels[contentLocale] },
+        { href: `/${locale}/tunings`, label: labels.tunings },
+        { href: `/${locale}/guides`, label: labels.guides },
+        { href: `/${locale}/songs`, label: labels.songs },
         { href: `/${locale}/about`, label: getStaticPageContent(locale, "about").title },
         { href: `/${locale}/privacy-policy`, label: getStaticPageContent(locale, "privacy-policy").title },
         { href: `/${locale}/cookie-policy`, label: getStaticPageContent(locale, "cookie-policy").title }
@@ -126,7 +163,7 @@ function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGro
       }))
     },
     {
-      title: songsLabels[contentLocale],
+      title: labels.songs,
       links: publicDomainSongSlugs.map((song) => ({
         href: `/${locale}/songs/${song}`,
         label: publicDomainSongs[song].title
@@ -136,14 +173,14 @@ function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGro
 }
 
 export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
-  const contentLocale = getContentLocale(locale);
+  const labels = getHeaderLabels(locale);
   const mobileGroups = buildMobileGroups(locale, dictionary);
 
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-paper/88 backdrop-blur">
       <div className="mx-auto max-w-6xl lg:hidden">
         <div className="flex items-center gap-3 px-3 py-3">
-          <MobileMenu groups={mobileGroups} label={menuLabels[contentLocale].menu} />
+          <MobileMenu groups={mobileGroups} label={labels.menu} />
           <Link href={`/${locale}/tools/guitar-tuner`} className="inline-flex min-w-0 flex-1 items-center gap-2 font-bold">
             <span className="shrink-0 rounded-md bg-ink p-2 text-white">
               <AudioLines size={18} aria-hidden />
@@ -170,16 +207,16 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
         </Link>
         <div className="flex shrink-0 items-center gap-2">
           <Link href={`/${locale}/about`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
-            {aboutLabels[contentLocale]}
+            {labels.about}
           </Link>
           <Link href={`/${locale}/guides`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white md:inline-flex">
-            {guidesLabels[contentLocale]}
+            {labels.guides}
           </Link>
           <Link href={`/${locale}/tunings`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white lg:inline-flex">
-            {tuningHubContent[contentLocale].title}
+            {labels.tunings}
           </Link>
           <Link href={`/${locale}/songs`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white lg:inline-flex">
-            {songsLabels[contentLocale]}
+            {labels.songs}
           </Link>
           <Link href={`/${locale}/tools`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white sm:inline-flex">
             {dictionary.nav.tools}

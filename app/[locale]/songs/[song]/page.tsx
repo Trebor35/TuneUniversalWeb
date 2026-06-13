@@ -7,7 +7,7 @@ import { ChordHowTo } from "@/components/songs/ChordHowTo";
 import { getGuideContent } from "@/lib/content/guides";
 import { clusterSectionLabels, getSongClusterGuides, getSongClusterTools } from "@/lib/content/internalLinking";
 import {
-  getPublicDomainSong,
+  getLocalizedSong,
   isPublicDomainSongSlug,
   publicDomainSongSlugs,
   songsUi
@@ -68,7 +68,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale: rawLocale, song: rawSong } = await params;
   if (!isLocale(rawLocale) || !isPublicDomainSongSlug(rawSong)) return {};
-  return buildSongMetadata(rawLocale, getPublicDomainSong(rawSong));
+  return buildSongMetadata(rawLocale, getLocalizedSong(rawSong, rawLocale));
 }
 
 export default async function SongPage({ params }: PageProps) {
@@ -78,7 +78,7 @@ export default async function SongPage({ params }: PageProps) {
   const locale = rawLocale as Locale;
   const ui = songsUi[locale];
   const dictionary = await getDictionary(locale);
-  const song = getPublicDomainSong(rawSong);
+  const song = getLocalizedSong(rawSong, locale);
   const labels = songPageLabels[locale];
   const clusterLabels = clusterSectionLabels[locale];
   const guideSlugs = getSongClusterGuides(song.slug);

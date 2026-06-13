@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getGuideContent, guideIndexContent, type GuideSlug } from "@/lib/content/guides";
 import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
+import { getStaticPageContent } from "@/lib/content/staticPages";
 import { tuningHubContent } from "@/lib/content/tuningHub";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
@@ -16,6 +17,33 @@ const footerGuideSlugs: GuideSlug[] = [
   "how-to-tune-cello",
   "how-to-tune-piano"
 ];
+
+const extendedFooterHeadings: Partial<Record<Locale, { guides: string; songs: string; tunings: string }>> = {
+  hi: {
+    guides: "TuneUniversal गाइड",
+    songs: "मुफ़्त सार्वजनिक-डोमेन शीट म्यूज़िक",
+    tunings: "वाद्य ट्यूनिंग"
+  }
+};
+
+const extendedFooterGuideTitles: Partial<Record<Locale, Partial<Record<GuideSlug, string>>>> = {
+  hi: {
+    "how-to-tune-guitar": "गिटार को ऑनलाइन कैसे ट्यून करें",
+    "how-to-tune-bass": "बास को ऑनलाइन कैसे ट्यून करें",
+    "how-to-tune-ukulele": "यूकुलेले को ऑनलाइन कैसे ट्यून करें",
+    "how-to-tune-violin": "वायलिन को ऑनलाइन कैसे ट्यून करें",
+    "how-to-tune-cello": "सेलो को ऑनलाइन कैसे ट्यून करें",
+    "how-to-tune-piano": "पियानो को ऑनलाइन कैसे ट्यून करें"
+  }
+};
+
+const extendedFooterSongTitles: Partial<Record<Locale, Record<string, string>>> = {
+  hi: {
+    "ode-to-joy": "ओड टू जॉय",
+    "amazing-grace": "अमेज़िंग ग्रेस",
+    greensleeves: "ग्रीन्सलीव्स"
+  }
+};
 
 const footerPageLabels: Record<(typeof footerPages)[number], Record<BaseLocale, string>> = {
   about: {
@@ -87,6 +115,7 @@ const footerPageLabels: Record<(typeof footerPages)[number], Record<BaseLocale, 
 
 export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const contentLocale = getContentLocale(locale);
+  const headings = extendedFooterHeadings[locale];
 
   return (
     <footer className="border-t border-line">
@@ -105,31 +134,31 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
           </div>
           <div className="grid content-start gap-2">
             <Link href={`/${locale}/tunings`} className="text-sm font-bold text-ink hover:text-mint">
-              {tuningHubContent[contentLocale].title}
+              {headings?.tunings ?? tuningHubContent[contentLocale].title}
             </Link>
             <Link href={`/${locale}/guides`} className="text-sm font-bold text-ink hover:text-mint">
-              {guideIndexContent[contentLocale].title}
+              {headings?.guides ?? guideIndexContent[contentLocale].title}
             </Link>
             {footerGuideSlugs.map((guide) => (
               <Link key={guide} href={`/${locale}/guides/${guide}`} className="text-sm font-medium text-ink/72 hover:text-mint">
-                {getGuideContent(locale, guide).title}
+                {extendedFooterGuideTitles[locale]?.[guide] ?? getGuideContent(locale, guide).title}
               </Link>
             ))}
           </div>
           <div className="grid content-start gap-2">
             <Link href={`/${locale}/songs`} className="text-sm font-bold text-ink hover:text-mint">
-              {songsUi[contentLocale].title}
+              {headings?.songs ?? songsUi[contentLocale].title}
             </Link>
             {publicDomainSongSlugs.slice(0, 3).map((song) => (
               <Link key={song} href={`/${locale}/songs/${song}`} className="text-sm font-medium text-ink/72 hover:text-mint">
-                {getPublicDomainSong(song).title}
+                {extendedFooterSongTitles[locale]?.[song] ?? getPublicDomainSong(song).title}
               </Link>
             ))}
           </div>
           <div className="grid content-start gap-2">
             {footerPages.map((page) => (
               <Link key={page} href={`/${locale}/${page}`} className="text-sm font-medium text-ink/72 hover:text-mint">
-                {footerPageLabels[page][contentLocale]}
+                {locale === contentLocale ? footerPageLabels[page][contentLocale] : getStaticPageContent(locale, page).title}
               </Link>
             ))}
           </div>

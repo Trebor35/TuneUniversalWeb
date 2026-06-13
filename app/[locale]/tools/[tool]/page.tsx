@@ -354,6 +354,40 @@ type ToolFollowUp = {
   question: string;
 };
 
+type ToolFollowUpCopy = {
+  metronomeBpmAnswer: string;
+  metronomeBpmQuestion: string;
+  metronomeSubdivisionAnswer: string;
+  metronomeSubdivisionQuestion: string;
+  nextToolAnswer: string;
+  nextToolQuestion: string;
+  nextStepAnswer: string;
+  nextStepQuestion: string;
+};
+
+const toolFollowUpCopy: Record<Locale, ToolFollowUpCopy> = withLocaleFallbacks({
+  ar: { metronomeBpmAnswer: "استخدم Tap BPM لتقدير سرعة المقطوعة ثم تدرب عليها مباشرة باستخدام المترونوم.", metronomeBpmQuestion: "هل يجب تحديد BPM للمقطوعة أولا؟", metronomeSubdivisionAnswer: "لبداية ثابتة، تدرب على أثمان منتظمة ثم انتقل إلى الثلاثيات أو السداسيات عشر.", metronomeSubdivisionQuestion: "بأي تقسيم إيقاعي تبدأ؟", nextToolAnswer: "إذا كنت تتدرب على مقطوعة، فاستخدام المترونوم أو Tap BPM مع هذه الأداة يجعل التدريب أكثر فاعلية.", nextToolQuestion: "ما الأداة الأخرى المناسبة معها؟", nextStepAnswer: "بعد هذه الأداة، تكون الخطوة الأكثر فائدة عادة فتح دليل عملي مرتبط أو صفحة ضبط.", nextStepQuestion: "ما الخطوة التالية الأكثر فائدة؟" },
+  de: { metronomeBpmAnswer: "Mit Tap BPM kannst du das Tempo eines Songs schätzen und ihn danach direkt mit dem Metronom üben.", metronomeBpmQuestion: "Solltest du zuerst die BPM des Songs bestimmen?", metronomeSubdivisionAnswer: "Beginne für einen stabilen Einstieg mit geraden Achteln und wechsle später zu Triolen oder Sechzehnteln.", metronomeSubdivisionQuestion: "Mit welcher Unterteilung solltest du beginnen?", nextToolAnswer: "Wenn du einen Song übst, macht die Kombination mit Metronom oder Tap BPM das Training meist wirkungsvoller.", nextToolQuestion: "Welches andere Tool passt dazu?", nextStepAnswer: "Nach diesem Tool ist meist eine passende Praxisanleitung oder eine Stimmungsseite der sinnvollste nächste Schritt.", nextStepQuestion: "Was ist der sinnvollste nächste Schritt?" },
+  en: { metronomeBpmAnswer: "You can estimate the song tempo with Tap BPM and then practice it right away with the metronome.", metronomeBpmQuestion: "Should you find the BPM of the song first?", metronomeSubdivisionAnswer: "For a stable start, begin with straight eighth notes and move to triplets or sixteenths later.", metronomeSubdivisionQuestion: "Which subdivision should you practice first?", nextToolAnswer: "If you are practicing a song, pairing this with the metronome or Tap BPM usually makes practice more effective.", nextToolQuestion: "Which other tool should you open alongside this one?", nextStepAnswer: "After this tool, the most useful next step is usually a related practical guide or a tuning page.", nextStepQuestion: "What is the most useful next step?" },
+  es: { metronomeBpmAnswer: "Puedes estimar el tempo con Tap BPM y practicarlo enseguida con el metrónomo.", metronomeBpmQuestion: "¿Conviene encontrar primero el BPM de la canción?", metronomeSubdivisionAnswer: "Para empezar con estabilidad, practica corcheas regulares y pasa después a tresillos o semicorcheas.", metronomeSubdivisionQuestion: "¿Con qué subdivisión conviene empezar?", nextToolAnswer: "Si estás practicando una canción, combinar esta herramienta con el metrónomo o Tap BPM suele hacer el estudio más eficaz.", nextToolQuestion: "¿Qué otra herramienta conviene abrir junto a esta?", nextStepAnswer: "Después de esta herramienta, el paso más útil suele ser abrir una guía práctica relacionada o una página de afinación.", nextStepQuestion: "¿Cuál es el siguiente paso más útil?" },
+  fr: { metronomeBpmAnswer: "Utilisez Tap BPM pour estimer le tempo du morceau, puis travaillez-le immédiatement avec le métronome.", metronomeBpmQuestion: "Faut-il d'abord trouver le BPM du morceau ?", metronomeSubdivisionAnswer: "Pour commencer régulièrement, travaillez des croches droites avant de passer aux triolets ou aux doubles croches.", metronomeSubdivisionQuestion: "Quelle subdivision travailler en premier ?", nextToolAnswer: "Pour travailler un morceau, associer cet outil au métronome ou à Tap BPM rend généralement la pratique plus efficace.", nextToolQuestion: "Quel autre outil ouvrir avec celui-ci ?", nextStepAnswer: "Après cet outil, l'étape la plus utile est généralement un guide pratique associé ou une page d'accordage.", nextStepQuestion: "Quelle est l'étape suivante la plus utile ?" },
+  it: { metronomeBpmAnswer: "Puoi usare Tap BPM per stimare il tempo del brano e poi studiarlo subito col metronomo.", metronomeBpmQuestion: "Conviene trovare prima il BPM del brano?", metronomeSubdivisionAnswer: "Per iniziare in modo stabile, parti dagli ottavi regolari e poi passa a terzine o sedicesimi.", metronomeSubdivisionQuestion: "Da quale suddivisione conviene partire?", nextToolAnswer: "Se stai studiando un brano, affiancare metronomo o Tap BPM rende l'allenamento molto più concreto.", nextToolQuestion: "Quale altro tool conviene aprire insieme?", nextStepAnswer: "Dopo questo tool, il passo più utile di solito è aprire una guida pratica collegata o una pagina di accordature.", nextStepQuestion: "Qual è il passo successivo più utile?" },
+  ja: { metronomeBpmAnswer: "Tap BPMで曲のテンポを確認し、そのままメトロノームで練習できます。", metronomeBpmQuestion: "最初に曲のBPMを確認するべきですか？", metronomeSubdivisionAnswer: "安定して始めるには、均等な8分音符から練習し、その後3連符や16分音符に進みます。", metronomeSubdivisionQuestion: "最初にどの分割を練習しますか？", nextToolAnswer: "曲を練習している場合は、メトロノームやTap BPMを組み合わせると練習がより効果的になります。", nextToolQuestion: "一緒に使うとよいツールは？", nextStepAnswer: "このツールの後は、関連する実践ガイドやチューニングページを見るのが便利です。", nextStepQuestion: "次に行うとよいことは？" },
+  ko: { metronomeBpmAnswer: "Tap BPM으로 곡의 템포를 확인한 뒤 메트로놈으로 바로 연습할 수 있습니다.", metronomeBpmQuestion: "먼저 곡의 BPM을 찾아야 하나요?", metronomeSubdivisionAnswer: "안정적으로 시작하려면 일정한 8분음표부터 연습하고 이후 셋잇단음표나 16분음표로 넘어가세요.", metronomeSubdivisionQuestion: "어떤 박자 분할부터 연습해야 하나요?", nextToolAnswer: "곡을 연습한다면 메트로놈이나 Tap BPM을 함께 사용하면 연습 효과가 더 좋아집니다.", nextToolQuestion: "어떤 도구를 함께 사용하면 좋나요?", nextStepAnswer: "이 도구 다음에는 관련 실전 가이드나 튜닝 페이지를 여는 것이 가장 유용합니다.", nextStepQuestion: "가장 유용한 다음 단계는 무엇인가요?" },
+  pt: { metronomeBpmAnswer: "Use o Tap BPM para estimar o andamento da música e depois pratique imediatamente com o metrônomo.", metronomeBpmQuestion: "Vale a pena descobrir primeiro o BPM da música?", metronomeSubdivisionAnswer: "Para começar com estabilidade, pratique colcheias regulares e depois avance para tercinas ou semicolcheias.", metronomeSubdivisionQuestion: "Com qual subdivisão começar?", nextToolAnswer: "Ao estudar uma música, combinar esta ferramenta com o metrônomo ou Tap BPM torna a prática mais eficaz.", nextToolQuestion: "Qual outra ferramenta usar junto?", nextStepAnswer: "Depois desta ferramenta, o próximo passo mais útil costuma ser um guia prático relacionado ou uma página de afinação.", nextStepQuestion: "Qual é o próximo passo mais útil?" },
+  ru: { metronomeBpmAnswer: "Определите темп композиции с помощью Tap BPM, а затем сразу тренируйтесь с метрономом.", metronomeBpmQuestion: "Стоит ли сначала определить BPM композиции?", metronomeSubdivisionAnswer: "Для устойчивого начала тренируйте ровные восьмые, а затем переходите к триолям или шестнадцатым.", metronomeSubdivisionQuestion: "С какого деления ритма начать?", nextToolAnswer: "При разучивании композиции сочетание этого инструмента с метрономом или Tap BPM обычно делает занятия эффективнее.", nextToolQuestion: "Какой ещё инструмент открыть вместе с этим?", nextStepAnswer: "После этого инструмента полезнее всего открыть связанное практическое руководство или страницу строя.", nextStepQuestion: "Какой следующий шаг самый полезный?" },
+  zh: { metronomeBpmAnswer: "可以先用Tap BPM估算歌曲速度，然后立即用节拍器练习。", metronomeBpmQuestion: "是否应该先找到歌曲的BPM？", metronomeSubdivisionAnswer: "为了稳定开始，先练习均匀的八分音符，再练三连音或十六分音符。", metronomeSubdivisionQuestion: "应该先练哪种节奏细分？", nextToolAnswer: "练习歌曲时，同时使用节拍器或Tap BPM通常会让练习更有效。", nextToolQuestion: "还适合同时打开哪个工具？", nextStepAnswer: "使用此工具后，最有帮助的下一步通常是查看相关实用指南或调弦页面。", nextStepQuestion: "最有帮助的下一步是什么？" }
+} satisfies Record<BaseLocale, ToolFollowUpCopy>, {
+  nl: { metronomeBpmAnswer: "Bepaal het tempo met Tap BPM en oefen het daarna direct met de metronoom.", metronomeBpmQuestion: "Moet je eerst de BPM van het nummer bepalen?", metronomeSubdivisionAnswer: "Begin voor een stabiele basis met rechte achtste noten en ga later verder met triolen of zestienden.", metronomeSubdivisionQuestion: "Met welke onderverdeling begin je?", nextToolAnswer: "Als je een nummer oefent, maakt de combinatie met de metronoom of Tap BPM de oefening meestal effectiever.", nextToolQuestion: "Welk ander tool kun je erbij gebruiken?", nextStepAnswer: "Na dit tool is een gerelateerde praktijkgids of stempagina meestal de nuttigste volgende stap.", nextStepQuestion: "Wat is de nuttigste volgende stap?" },
+  pl: { metronomeBpmAnswer: "Użyj Tap BPM, aby oszacować tempo utworu, a następnie od razu ćwicz z metronomem.", metronomeBpmQuestion: "Czy najpierw znaleźć BPM utworu?", metronomeSubdivisionAnswer: "Na początek ćwicz równe ósemki, a później przejdź do triol lub szesnastek.", metronomeSubdivisionQuestion: "Od jakiego podziału rytmicznego zacząć?", nextToolAnswer: "Podczas ćwiczenia utworu połączenie tego narzędzia z metronomem lub Tap BPM zwykle zwiększa skuteczność nauki.", nextToolQuestion: "Jakie inne narzędzie warto otworzyć?", nextStepAnswer: "Po tym narzędziu najbardziej użyteczny jest zwykle powiązany poradnik praktyczny lub strona strojenia.", nextStepQuestion: "Jaki jest najbardziej użyteczny następny krok?" },
+  tr: { metronomeBpmAnswer: "Tap BPM ile parçanın temposunu tahmin edin ve ardından metronomla hemen çalışın.", metronomeBpmQuestion: "Önce parçanın BPM değerini bulmalı mısınız?", metronomeSubdivisionAnswer: "Dengeli bir başlangıç için düz sekizliklerle başlayın, sonra üçlemelere veya onaltılıklara geçin.", metronomeSubdivisionQuestion: "Önce hangi alt bölümü çalışmalısınız?", nextToolAnswer: "Bir parça çalışıyorsanız bu aracı metronom veya Tap BPM ile kullanmak çalışmayı daha verimli hale getirir.", nextToolQuestion: "Bunun yanında hangi araç açılmalı?", nextStepAnswer: "Bu araçtan sonra en yararlı adım genellikle ilgili bir pratik rehber veya akort sayfasıdır.", nextStepQuestion: "En yararlı sonraki adım nedir?" },
+  cs: { metronomeBpmAnswer: "Pomocí Tap BPM odhadněte tempo skladby a potom ji hned procvičujte s metronomem.", metronomeBpmQuestion: "Máte nejprve zjistit BPM skladby?", metronomeSubdivisionAnswer: "Pro stabilní začátek procvičujte rovné osminy a později přejděte k triolám nebo šestnáctinám.", metronomeSubdivisionQuestion: "Kterým rytmickým dělením začít?", nextToolAnswer: "Při nácviku skladby bývá spojení s metronomem nebo Tap BPM účinnější.", nextToolQuestion: "Který další nástroj použít společně?", nextStepAnswer: "Po tomto nástroji je obvykle nejužitečnější související praktický průvodce nebo stránka ladění.", nextStepQuestion: "Jaký je nejužitečnější další krok?" },
+  sv: { metronomeBpmAnswer: "Använd Tap BPM för att uppskatta låtens tempo och öva sedan direkt med metronomen.", metronomeBpmQuestion: "Bör du hitta låtens BPM först?", metronomeSubdivisionAnswer: "Börja med raka åttondelar och gå senare vidare till trioler eller sextondelar.", metronomeSubdivisionQuestion: "Vilken underdelning bör du börja med?", nextToolAnswer: "När du övar en låt blir träningen ofta effektivare om du kombinerar detta med metronomen eller Tap BPM.", nextToolQuestion: "Vilket annat verktyg passar tillsammans med detta?", nextStepAnswer: "Efter det här verktyget är en relaterad praktisk guide eller stämningssida oftast nästa bästa steg.", nextStepQuestion: "Vilket är det mest användbara nästa steget?" },
+  "pt-BR": { metronomeBpmAnswer: "Use o Tap BPM para estimar o andamento da música e depois pratique imediatamente com o metrônomo.", metronomeBpmQuestion: "Vale a pena descobrir primeiro o BPM da música?", metronomeSubdivisionAnswer: "Para começar com estabilidade, pratique colcheias regulares e depois avance para tercinas ou semicolcheias.", metronomeSubdivisionQuestion: "Com qual subdivisão começar?", nextToolAnswer: "Ao estudar uma música, combinar esta ferramenta com o metrônomo ou Tap BPM torna a prática mais eficaz.", nextToolQuestion: "Qual outra ferramenta usar junto?", nextStepAnswer: "Depois desta ferramenta, o próximo passo mais útil costuma ser um guia prático relacionado ou uma página de afinação.", nextStepQuestion: "Qual é o próximo passo mais útil?" },
+  hi: { metronomeBpmAnswer: "Tap BPM से गाने की गति का अनुमान लगाएं और फिर मेट्रोनोम के साथ तुरंत अभ्यास करें।", metronomeBpmQuestion: "क्या पहले गाने का BPM पता करना चाहिए?", metronomeSubdivisionAnswer: "स्थिर शुरुआत के लिए समान आठवें नोट से अभ्यास शुरू करें, फिर ट्रिपलेट या सोलहवें नोट पर जाएं।", metronomeSubdivisionQuestion: "सबसे पहले किस ताल विभाजन का अभ्यास करें?", nextToolAnswer: "यदि आप किसी गाने का अभ्यास कर रहे हैं, तो मेट्रोनोम या Tap BPM को साथ उपयोग करने से अभ्यास अधिक प्रभावी होता है।", nextToolQuestion: "इसके साथ कौन-सा दूसरा टूल खोलना चाहिए?", nextStepAnswer: "इस टूल के बाद सबसे उपयोगी अगला कदम आमतौर पर संबंधित व्यावहारिक गाइड या ट्यूनिंग पेज खोलना है।", nextStepQuestion: "सबसे उपयोगी अगला कदम क्या है?" },
+  no: { metronomeBpmAnswer: "Bruk Tap BPM til å anslå tempoet og øv deretter med metronomen med en gang.", metronomeBpmQuestion: "Bør du finne BPM for sangen først?", metronomeSubdivisionAnswer: "Start med jevne åttedeler og gå senere videre til trioler eller sekstendeler.", metronomeSubdivisionQuestion: "Hvilken underdeling bør du starte med?", nextToolAnswer: "Når du øver på en sang, blir treningen ofte mer effektiv sammen med metronomen eller Tap BPM.", nextToolQuestion: "Hvilket annet verktøy passer sammen med dette?", nextStepAnswer: "Etter dette verktøyet er en relevant praktisk guide eller stemmeside vanligvis det nyttigste neste steget.", nextStepQuestion: "Hva er det nyttigste neste steget?" }
+});
+
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
     Array.from(new Set([...toolSlugs, ...instrumentTunerSlugs])).map((tool) => ({ locale, tool }))
@@ -447,58 +481,35 @@ export default async function ToolPage({ params }: PageProps) {
   const relatedSearchGuides: GuideSlug[] = [...relatedPracticeGuides, ...relatedTuningGuides]
     .filter((guide, index, source) => source.indexOf(guide) === index)
     .slice(0, 4);
+  const followUpCopy = toolFollowUpCopy[locale];
   const followUpQuestions: ToolFollowUp[] =
     coreTool === "metronome"
       ? [
           {
-            answer:
-              locale === "it"
-                ? "Per iniziare in modo stabile, parti dagli ottavi regolari e poi passa a terzine o sedicesimi."
-                : "For a stable start, begin with straight eighth notes and move to triplets or sixteenths later.",
+            answer: followUpCopy.metronomeSubdivisionAnswer,
             href: `/${locale}/guides/metronome-subdivisions`,
             label: getGuideContent(locale, "metronome-subdivisions").title,
-            question:
-              locale === "it"
-                ? "Da quale suddivisione conviene partire?"
-                : "Which subdivision should you practice first?"
+            question: followUpCopy.metronomeSubdivisionQuestion
           },
           {
-            answer:
-              locale === "it"
-                ? "Puoi usare Tap BPM per stimare il tempo del brano e poi studiarlo subito col metronomo."
-                : "You can estimate the song tempo with Tap BPM and then practice it right away with the metronome.",
+            answer: followUpCopy.metronomeBpmAnswer,
             href: `/${locale}/tools/tap-bpm`,
             label: dictionary.tools["tap-bpm"].title,
-            question:
-              locale === "it"
-                ? "Conviene trovare prima il BPM del brano?"
-                : "Should you find the BPM of the song first?"
+            question: followUpCopy.metronomeBpmQuestion
           }
         ]
       : [
           {
-            answer:
-              locale === "it"
-                ? "Dopo questo tool, il passo piu utile di solito e aprire una guida pratica collegata o una pagina di accordature."
-                : "After this tool, the most useful next step is usually a related practical guide or a tuning page.",
+            answer: followUpCopy.nextStepAnswer,
             href: `/${locale}/guides`,
             label: pageLabels.allGuides,
-            question:
-              locale === "it"
-                ? "Qual e il passo successivo piu utile?"
-                : "What is the most useful next step?"
+            question: followUpCopy.nextStepQuestion
           },
           {
-            answer:
-              locale === "it"
-                ? "Se stai studiando un brano, affiancare metronomo o Tap BPM rende l'allenamento molto piu concreto."
-                : "If you are practicing a song, pairing this with the metronome or Tap BPM usually makes practice more effective.",
+            answer: followUpCopy.nextToolAnswer,
             href: `/${locale}/tools/metronome`,
             label: dictionary.tools.metronome.title,
-            question:
-              locale === "it"
-                ? "Quale altro tool conviene aprire insieme?"
-                : "Which other tool should you open alongside this one?"
+            question: followUpCopy.nextToolQuestion
           }
         ];
 

@@ -24,6 +24,16 @@ const labels = {
   zh: { frequency: "频率", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "请从低音量开始，尤其是使用耳机时。", play: "播放音调", stop: "停止", volume: "音量", waveform: "波形" }
 } satisfies Record<BaseLocale, { frequency: string; hz: string; max: string; min: string; note: string; play: string; stop: string; volume: string; waveform: string }>;
 
+const extendedLabels: Partial<Record<Locale, (typeof labels)[BaseLocale]>> = {
+  hi: { frequency: "फ़्रीक्वेंसी", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "कम वॉल्यूम से शुरू करें, खासकर हेडफ़ोन इस्तेमाल करते समय।", play: "टोन बजाएं", stop: "रोकें", volume: "वॉल्यूम", waveform: "वेवफ़ॉर्म" },
+  nl: { frequency: "Frequentie", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "Begin met laag volume, vooral met een koptelefoon.", play: "Toon afspelen", stop: "Stoppen", volume: "Volume", waveform: "Golfvorm" },
+  pl: { frequency: "Częstotliwość", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "Zacznij od niskiej głośności, zwłaszcza w słuchawkach.", play: "Odtwórz ton", stop: "Zatrzymaj", volume: "Głośność", waveform: "Kształt fali" },
+  tr: { frequency: "Frekans", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "Özellikle kulaklık kullanırken düşük sesle başlayın.", play: "Tonu çal", stop: "Durdur", volume: "Ses düzeyi", waveform: "Dalga biçimi" },
+  cs: { frequency: "Frekvence", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "Začněte na nízké hlasitosti, zejména se sluchátky.", play: "Přehrát tón", stop: "Zastavit", volume: "Hlasitost", waveform: "Průběh vlny" },
+  sv: { frequency: "Frekvens", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "Börja med låg volym, särskilt med hörlurar.", play: "Spela ton", stop: "Stoppa", volume: "Volym", waveform: "Vågform" },
+  no: { frequency: "Frekvens", hz: "Hz", max: "20000 Hz", min: "20 Hz", note: "Start med lavt volum, særlig med hodetelefoner.", play: "Spill tone", stop: "Stopp", volume: "Volum", waveform: "Bølgeform" }
+};
+
 const waveformOptions = ["sine", "square", "triangle", "sawtooth"] as const;
 
 function clampFrequency(value: number) {
@@ -31,7 +41,7 @@ function clampFrequency(value: number) {
 }
 
 export function PitchGenerator({ locale }: { locale: Locale }) {
-  const copy = labels[getContentLocale(locale)] ?? labels.en;
+  const copy = extendedLabels[locale] ?? labels[getContentLocale(locale)] ?? labels.en;
   const [frequency, setFrequency] = useState(440);
   const [volume, setVolume] = useState(18);
   const [waveform, setWaveform] = useState<OscillatorType>("sine");

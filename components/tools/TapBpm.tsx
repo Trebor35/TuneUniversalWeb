@@ -20,6 +20,16 @@ const labels: Record<BaseLocale, { average: string; copied: string; copy: string
   zh: { average: "平均 BPM", copied: "已复制", copy: "复制 BPM", instant: "即时 BPM", taps: "点击" }
 };
 
+const extendedLabels: Partial<Record<Locale, (typeof labels)[BaseLocale]>> = {
+  hi: { average: "औसत BPM", copied: "कॉपी किया", copy: "BPM कॉपी करें", instant: "तुरंत BPM", taps: "टैप" },
+  nl: { average: "Gemiddeld BPM", copied: "Gekopieerd", copy: "BPM kopiëren", instant: "Direct BPM", taps: "Tikken" },
+  pl: { average: "Średnie BPM", copied: "Skopiowano", copy: "Kopiuj BPM", instant: "Natychmiastowe BPM", taps: "Stuknięcia" },
+  tr: { average: "Ortalama BPM", copied: "Kopyalandı", copy: "BPM kopyala", instant: "Anlık BPM", taps: "Vuruşlar" },
+  cs: { average: "Průměrné BPM", copied: "Zkopírováno", copy: "Kopírovat BPM", instant: "Okamžité BPM", taps: "Ťuknutí" },
+  sv: { average: "Genomsnittligt BPM", copied: "Kopierat", copy: "Kopiera BPM", instant: "Omedelbart BPM", taps: "Knackningar" },
+  no: { average: "Gjennomsnittlig BPM", copied: "Kopiert", copy: "Kopier BPM", instant: "Umiddelbar BPM", taps: "Tapp" }
+};
+
 function getValidIntervals(taps: number[]) {
   return taps.slice(1).map((tap, index) => tap - taps[index]).filter((gap) => gap > 150 && gap < 3000);
 }
@@ -42,7 +52,7 @@ export function TapBpm({ dictionary, locale }: { dictionary: Dictionary; locale:
       intervals
     };
   }, [taps]);
-  const ui = labels[getContentLocale(locale)] ?? labels.en;
+  const ui = extendedLabels[locale] ?? labels[getContentLocale(locale)] ?? labels.en;
 
   function tap() {
     setCopied(false);

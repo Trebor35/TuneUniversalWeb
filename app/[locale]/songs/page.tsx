@@ -6,7 +6,7 @@ import { AdSlot } from "@/components/ads/AdSlot";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getGuideContent } from "@/lib/content/guides";
 import { clusterSectionLabels, getSongClusterGuides, getSongClusterTools } from "@/lib/content/internalLinking";
-import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
+import { getLocalizedSong, getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/content/publicDomainSongs";
 import { hubEnhancements } from "@/lib/content/seoEnhancements";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getContentLocale, withLocaleFallbacks, isLocale, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
@@ -132,7 +132,7 @@ export default async function SongsIndexPage({ params }: PageProps) {
   );
   const practiceTools = Array.from(new Set(publicDomainSongSlugs.flatMap((slug) => getSongClusterTools(slug))));
   const renderSongCard = (slug: (typeof publicDomainSongSlugs)[number]) => {
-    const song = getPublicDomainSong(slug);
+    const song = getLocalizedSong(slug, locale);
     return (
       <Link
         key={slug}

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { defaultLocale, getTextDirection, isLocale } from "@/lib/i18n/locales";
 import "./globals.css";
 
 const adsenseClient = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT ?? "ca-pub-4436218293452548";
@@ -24,9 +26,13 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const requestHeaders = await headers();
+  const requestedLocale = requestHeaders.get("x-tune-locale");
+  const locale = requestedLocale && isLocale(requestedLocale) ? requestedLocale : defaultLocale;
+
   return (
-    <html translate="no" className="notranslate">
+    <html lang={locale} dir={getTextDirection(locale)} translate="no" className="notranslate">
       <head>
         <script
           async

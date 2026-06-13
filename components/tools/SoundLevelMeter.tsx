@@ -280,12 +280,54 @@ const uiLabels: Record<BaseLocale, { average?: string; current: string; environm
   zh: { current: "当前", environment: "环境", environments: "环境参考", history: "最近30秒", maximum: "最大值", minimum: "最小值" }
 };
 
+type SoundCopy = {
+  average: string;
+  calibration: string;
+  db: string;
+  estimated: string;
+  peak: string;
+  resetPeak: string;
+  statuses: Record<SoundLevel, string>;
+  warning: string;
+};
+
+// Native copy for extended locales that otherwise fall back to en via getContentLocale.
+const extendedCopy: Partial<Record<Locale, SoundCopy>> = {
+  hi: { average: "औसत", calibration: "संवेदनशीलता / कैलिब्रेशन", db: "dB", estimated: "अनुमानित स्तर", peak: "पीक", resetPeak: "पीक रीसेट करें", statuses: { loud: "तेज़", normal: "सामान्य", quiet: "शांत", "very-loud": "बहुत तेज़" }, warning: "यह ब्राउज़र माइक्रोफ़ोन से अनुमान है, प्रमाणित dB SPL माप नहीं।" },
+  nl: { average: "Gemiddeld", calibration: "Gevoeligheid / kalibratie", db: "dB", estimated: "Geschat niveau", peak: "Piek", resetPeak: "Piek resetten", statuses: { loud: "Luid", normal: "Normaal", quiet: "Stil", "very-loud": "Zeer luid" }, warning: "Dit is een schatting via de browsermicrofoon, geen gecertificeerde dB SPL-meting." },
+  pl: { average: "Średnia", calibration: "Czułość / kalibracja", db: "dB", estimated: "Szacowany poziom", peak: "Szczyt", resetPeak: "Resetuj szczyt", statuses: { loud: "Głośno", normal: "Normalnie", quiet: "Cicho", "very-loud": "Bardzo głośno" }, warning: "To szacunek z mikrofonu przeglądarki, a nie certyfikowany pomiar dB SPL." },
+  tr: { average: "Ortalama", calibration: "Hassasiyet / kalibrasyon", db: "dB", estimated: "Tahmini seviye", peak: "Tepe", resetPeak: "Tepeyi sıfırla", statuses: { loud: "Yüksek", normal: "Normal", quiet: "Sessiz", "very-loud": "Çok yüksek" }, warning: "Bu, tarayıcı mikrofonundan bir tahmindir, sertifikalı bir dB SPL ölçümü değildir." },
+  cs: { average: "Průměr", calibration: "Citlivost / kalibrace", db: "dB", estimated: "Odhadovaná hladina", peak: "Špička", resetPeak: "Resetovat špičku", statuses: { loud: "Hlasité", normal: "Normální", quiet: "Tiché", "very-loud": "Velmi hlasité" }, warning: "Toto je odhad z mikrofonu prohlížeče, nikoli certifikované měření dB SPL." },
+  sv: { average: "Medel", calibration: "Känslighet / kalibrering", db: "dB", estimated: "Uppskattad nivå", peak: "Topp", resetPeak: "Återställ topp", statuses: { loud: "Högt", normal: "Normalt", quiet: "Tyst", "very-loud": "Mycket högt" }, warning: "Detta är en uppskattning från webbläsarens mikrofon, inte en certifierad dB SPL-mätning." },
+  no: { average: "Gjennomsnitt", calibration: "Følsomhet / kalibrering", db: "dB", estimated: "Anslått nivå", peak: "Topp", resetPeak: "Tilbakestill topp", statuses: { loud: "Høyt", normal: "Normalt", quiet: "Stille", "very-loud": "Veldig høyt" }, warning: "Dette er et anslag fra nettleserens mikrofon, ikke en sertifisert dB SPL-måling." }
+};
+
+const extendedEnvironmentRows: Partial<Record<Locale, { db: number; environment: string }[]>> = {
+  hi: [{ db: 30, environment: "पुस्तकालय" }, { db: 40, environment: "शांत घर" }, { db: 60, environment: "बातचीत" }, { db: 80, environment: "ट्रैफ़िक" }, { db: 100, environment: "कॉन्सर्ट" }],
+  nl: [{ db: 30, environment: "Bibliotheek" }, { db: 40, environment: "Stil huis" }, { db: 60, environment: "Gesprek" }, { db: 80, environment: "Verkeer" }, { db: 100, environment: "Concert" }],
+  pl: [{ db: 30, environment: "Biblioteka" }, { db: 40, environment: "Cichy dom" }, { db: 60, environment: "Rozmowa" }, { db: 80, environment: "Ruch uliczny" }, { db: 100, environment: "Koncert" }],
+  tr: [{ db: 30, environment: "Kütüphane" }, { db: 40, environment: "Sessiz ev" }, { db: 60, environment: "Konuşma" }, { db: 80, environment: "Trafik" }, { db: 100, environment: "Konser" }],
+  cs: [{ db: 30, environment: "Knihovna" }, { db: 40, environment: "Tichý domov" }, { db: 60, environment: "Rozhovor" }, { db: 80, environment: "Doprava" }, { db: 100, environment: "Koncert" }],
+  sv: [{ db: 30, environment: "Bibliotek" }, { db: 40, environment: "Tyst hem" }, { db: 60, environment: "Samtal" }, { db: 80, environment: "Trafik" }, { db: 100, environment: "Konsert" }],
+  no: [{ db: 30, environment: "Bibliotek" }, { db: 40, environment: "Stille hjem" }, { db: 60, environment: "Samtale" }, { db: 80, environment: "Trafikk" }, { db: 100, environment: "Konsert" }]
+};
+
+const extendedUiLabels: Partial<Record<Locale, (typeof uiLabels)[BaseLocale]>> = {
+  hi: { current: "वर्तमान", environment: "वातावरण", environments: "वातावरण संदर्भ", history: "पिछले 30 सेकंड", maximum: "अधिकतम", minimum: "न्यूनतम" },
+  nl: { current: "Huidig", environment: "Omgeving", environments: "Omgevingsreferentie", history: "Laatste 30 seconden", maximum: "Maximum", minimum: "Minimum" },
+  pl: { current: "Bieżący", environment: "Środowisko", environments: "Odniesienia środowiskowe", history: "Ostatnie 30 sekund", maximum: "Maksimum", minimum: "Minimum" },
+  tr: { current: "Şu an", environment: "Ortam", environments: "Ortam referansı", history: "Son 30 saniye", maximum: "Maksimum", minimum: "Minimum" },
+  cs: { current: "Aktuální", environment: "Prostředí", environments: "Referenční prostředí", history: "Posledních 30 sekund", maximum: "Maximum", minimum: "Minimum" },
+  sv: { current: "Nuvarande", environment: "Miljö", environments: "Miljöreferens", history: "Senaste 30 sekunderna", maximum: "Maximum", minimum: "Minimum" },
+  no: { current: "Nåværende", environment: "Miljø", environments: "Miljøreferanse", history: "Siste 30 sekunder", maximum: "Maksimum", minimum: "Minimum" }
+};
+
 type HistoryPoint = { db: number; time: number };
 
 export function SoundLevelMeter({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   const contentLocale = getContentLocale(locale);
-  const labels = copy[contentLocale] ?? copy.en;
-  const extraLabels = uiLabels[contentLocale] ?? uiLabels.en;
+  const labels = extendedCopy[locale] ?? copy[contentLocale] ?? copy.en;
+  const extraLabels = extendedUiLabels[locale] ?? uiLabels[contentLocale] ?? uiLabels.en;
   const [active, setActive] = useState(false);
   const [db, setDb] = useState(0);
   const [peakDb, setPeakDb] = useState(0);
@@ -445,7 +487,7 @@ export function SoundLevelMeter({ dictionary, locale }: { dictionary: Dictionary
         <div className="grid grid-cols-[90px_1fr] text-sm">
           <div className="bg-paper px-4 py-2 font-bold">{labels.db}</div>
           <div className="bg-paper px-4 py-2 font-bold">{extraLabels.environment}</div>
-          {environmentRows[contentLocale].map((row) => (
+          {(extendedEnvironmentRows[locale] ?? environmentRows[contentLocale]).map((row) => (
             <div key={row.db} className="contents">
               <div className="border-t border-line px-4 py-3 font-bold">{row.db}</div>
               <div className="border-t border-line px-4 py-3">{row.environment}</div>

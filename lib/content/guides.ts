@@ -842,6 +842,142 @@ const guideContentOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, Gu
       intro:
         "Drop C sharp lowers the guitar for a heavier register while keeping fast riff shapes practical. Use this page to check the exact notes before opening the tuner."
     }
+  },
+  nl: {
+    "chromatic-tuner-guide": { title: "Gids voor chromatische stemmers", description: "Leer wanneer je een chromatische stemmer gebruikt om elke noot snel en nauwkeurig te herkennen." },
+    "guitar-tuner-with-microphone": { title: "Gitaarstemmer met microfoon", description: "Gebruik de microfoon van je browser om de toonhoogte van je gitaar te meten zonder een app te installeren." },
+    "how-to-tune-guitar": { title: "Gitaar online stemmen", description: "Een stapsgewijze gids om gitaar te stemmen met de microfoon van je browser. Referentienoten: E - A - D - G - B - E. Geen app nodig." },
+    "common-guitar-tunings": { title: "Veelgebruikte gitaarstemmingen", description: "Vergelijk Standard, Drop D, Eb Standard, Open D en Open G in één praktische gids." },
+    "how-to-read-chords": { title: "Akkoordsymbolen lezen", description: "Leer wat C, Am, G7 en veelgebruikte akkoordnamen betekenen." },
+    "standard-guitar-tuning": { title: "Standard-stemming voor gitaar", description: "Leer de Standard-stemming voor gitaar. Referentienoten: E - A - D - G - B - E." },
+    "eb-standard-tuning": { title: "Gids voor Eb Standard-stemming", description: "Stem alle gitaarsnaren een halve toon lager naar Eb Ab Db Gb Bb Eb voor minder spanning en een donkerdere klank." },
+    "half-step-down-tuning": { title: "Half Step Down-stemming voor gitaar", description: "Leer de Half Step Down-stemming voor gitaar. Referentienoten: D# - G# - C# - F# - A# - D#." },
+    "d-standard-tuning": { title: "D Standard-stemming voor gitaar", description: "Leer de D Standard-stemming voor gitaar. Referentienoten: D - G - C - F - A - D." },
+    "full-step-down-tuning": { title: "Full Step Down-stemming voor gitaar", description: "Leer de Full Step Down-stemming voor gitaar. Referentienoten: D - G - C - F - A - D." },
+    "drop-d-tuning": { title: "Gids voor Drop D-stemming", description: "Stem de gitaar naar D A D G B E voor zwaardere lage riffs en eenvoudige powerakkoorden met één vinger." },
+    "drop-c-tuning": { title: "Gids voor Drop C-stemming", description: "Leer de exacte Drop C-noten en wanneer deze stemming wordt gebruikt voor moderne rock en metal." },
+    "open-g-tuning": { title: "Open G-stemming voor gitaar", description: "Leer de Open G-stemming voor gitaar. Referentienoten: D - G - D - G - B - D." },
+    "metronome-for-guitar": { title: "Metronoom voor gitaaroefeningen", description: "Oefen riffs, aanslag en akkoordwisselingen met een online metronoom voor gitaristen." },
+    "sound-meter-db-guide": { title: "Gids voor geluidsmeting in dB", description: "Meet het geschatte geluidsniveau van een ruimte en vergelijk stille en luide omgevingen." },
+    "pitch-generator-guide": { title: "Online toongenerator-gids", description: "Genereer een vaste toon voor gehoortraining, referentietonen en audiocontroles." }
+  },
+  pl: {
+    "chromatic-tuner-guide": { title: "Poradnik stroika chromatycznego", description: "Dowiedz się, kiedy używać stroika chromatycznego, aby szybko i dokładnie rozpoznawać każdą nutę." },
+    "guitar-tuner-with-microphone": { title: "Stroik gitarowy z mikrofonem", description: "Użyj mikrofonu przeglądarki, aby wykryć wysokość dźwięku gitary bez instalowania aplikacji." },
+    "how-to-tune-guitar": { title: "Jak nastroić gitarę online", description: "Poradnik krok po kroku strojenia gitary mikrofonem w przeglądarce. Dźwięki odniesienia: E - A - D - G - B - E. Bez instalowania aplikacji." },
+    "common-guitar-tunings": { title: "Popularne stroje gitarowe", description: "Porównaj Standard, Drop D, Eb Standard, Open D i Open G w jednym praktycznym poradniku." },
+    "how-to-read-chords": { title: "Jak czytać symbole akordów", description: "Dowiedz się, co oznaczają C, Am, G7 i popularne nazwy akordów." },
+    "standard-guitar-tuning": { title: "Strój Standard dla gitary", description: "Poznaj strój Standard dla gitary. Dźwięki odniesienia: E - A - D - G - B - E." },
+    "eb-standard-tuning": { title: "Poradnik stroju Eb Standard", description: "Obniż wszystkie struny gitary o pół tonu do Eb Ab Db Gb Bb Eb, aby uzyskać mniejsze napięcie i ciemniejsze brzmienie." },
+    "half-step-down-tuning": { title: "Strój Half Step Down dla gitary", description: "Poznaj strój Half Step Down dla gitary. Dźwięki odniesienia: D# - G# - C# - F# - A# - D#." },
+    "d-standard-tuning": { title: "Strój D Standard dla gitary", description: "Poznaj strój D Standard dla gitary. Dźwięki odniesienia: D - G - C - F - A - D." },
+    "full-step-down-tuning": { title: "Strój Full Step Down dla gitary", description: "Poznaj strój Full Step Down dla gitary. Dźwięki odniesienia: D - G - C - F - A - D." },
+    "drop-d-tuning": { title: "Poradnik stroju Drop D", description: "Nastrój gitarę do D A D G B E, aby uzyskać cięższe niskie riffy i łatwiejsze power chordy." },
+    "drop-c-tuning": { title: "Poradnik stroju Drop C", description: "Poznaj dokładne dźwięki Drop C i zastosowanie tego stroju w nowoczesnym rocku i metalu." },
+    "open-g-tuning": { title: "Strój Open G dla gitary", description: "Poznaj strój Open G dla gitary. Dźwięki odniesienia: D - G - D - G - B - D." },
+    "metronome-for-guitar": { title: "Metronom do ćwiczeń na gitarze", description: "Ćwicz riffy, kostkowanie i zmiany akordów z internetowym metronomem dla gitarzystów." },
+    "sound-meter-db-guide": { title: "Poradnik miernika dźwięku dB", description: "Zmierz przybliżoną głośność pomieszczenia i porównaj ciche oraz głośne otoczenie." },
+    "pitch-generator-guide": { title: "Poradnik generatora tonów", description: "Generuj stały ton do treningu słuchu, strojenia i szybkich testów audio." }
+  },
+  tr: {
+    "chromatic-tuner-guide": { title: "Kromatik akort aleti rehberi", description: "Her notayı hızlı ve doğru algılamak için kromatik akort aletinin ne zaman kullanılacağını öğrenin." },
+    "guitar-tuner-with-microphone": { title: "Mikrofonlu gitar akort aleti", description: "Uygulama yüklemeden gitar perdesini algılamak için tarayıcı mikrofonunu kullanın." },
+    "how-to-tune-guitar": { title: "Online gitar nasıl akort edilir", description: "Tarayıcı mikrofonuyla gitar akort etmek için adım adım rehber. Referans notalar: E - A - D - G - B - E. Uygulama gerekmez." },
+    "common-guitar-tunings": { title: "Yaygın gitar akortları", description: "Standard, Drop D, Eb Standard, Open D ve Open G akortlarını tek bir pratik rehberde karşılaştırın." },
+    "how-to-read-chords": { title: "Akor sembolleri nasıl okunur", description: "C, Am, G7 ve yaygın akor adlarının ne anlama geldiğini öğrenin." },
+    "standard-guitar-tuning": { title: "Gitar için Standard akort", description: "Gitar için Standard akordu öğrenin. Referans notalar: E - A - D - G - B - E." },
+    "eb-standard-tuning": { title: "Eb Standard akort rehberi", description: "Daha yumuşak tel gerilimi ve koyu ton için tüm gitar tellerini Eb Ab Db Gb Bb Eb seslerine yarım ton indirin." },
+    "half-step-down-tuning": { title: "Gitar için Half Step Down akort", description: "Gitar için Half Step Down akordu öğrenin. Referans notalar: D# - G# - C# - F# - A# - D#." },
+    "d-standard-tuning": { title: "Gitar için D Standard akort", description: "Gitar için D Standard akordu öğrenin. Referans notalar: D - G - C - F - A - D." },
+    "full-step-down-tuning": { title: "Gitar için Full Step Down akort", description: "Gitar için Full Step Down akordu öğrenin. Referans notalar: D - G - C - F - A - D." },
+    "drop-d-tuning": { title: "Drop D akort rehberi", description: "Daha ağır alt riffler ve kolay power akorlar için gitarı D A D G B E seslerine akort edin." },
+    "drop-c-tuning": { title: "Drop C akort rehberi", description: "Drop C notalarını ve bu akordun modern rock ile metalde ne zaman kullanıldığını öğrenin." },
+    "open-g-tuning": { title: "Gitar için Open G akort", description: "Gitar için Open G akordu öğrenin. Referans notalar: D - G - D - G - B - D." },
+    "metronome-for-guitar": { title: "Gitar çalışması için metronom", description: "Gitaristler için online metronomla riff, pena ve akor geçişleri çalışın." },
+    "sound-meter-db-guide": { title: "dB ses ölçer rehberi", description: "Bir odanın tahmini ses seviyesini ölçün ve sessiz ortamlarla gürültülü ortamları karşılaştırın." },
+    "pitch-generator-guide": { title: "Online ton üreteci rehberi", description: "Kulak eğitimi, referans ses ve ses kontrolleri için sabit bir ton üretin." }
+  },
+  cs: {
+    "chromatic-tuner-guide": { title: "Průvodce chromatickou ladičkou", description: "Zjistěte, kdy použít chromatickou ladičku k rychlému a přesnému rozpoznání libovolného tónu." },
+    "guitar-tuner-with-microphone": { title: "Kytarová ladička s mikrofonem", description: "Použijte mikrofon prohlížeče k rozpoznání výšky tónu kytary bez instalace aplikace." },
+    "how-to-tune-guitar": { title: "Jak naladit kytaru online", description: "Podrobný průvodce laděním kytary pomocí mikrofonu v prohlížeči. Referenční tóny: E - A - D - G - B - E. Bez instalace aplikace." },
+    "common-guitar-tunings": { title: "Běžná kytarová ladění", description: "Porovnejte Standard, Drop D, Eb Standard, Open D a Open G v jednom praktickém průvodci." },
+    "how-to-read-chords": { title: "Jak číst akordové značky", description: "Zjistěte, co znamenají C, Am, G7 a běžné názvy akordů." },
+    "standard-guitar-tuning": { title: "Standardní ladění kytary", description: "Naučte se Standardní ladění kytary. Referenční tóny: E - A - D - G - B - E." },
+    "eb-standard-tuning": { title: "Průvodce laděním Eb Standard", description: "Snižte všechny struny o půltón na Eb Ab Db Gb Bb Eb pro menší napětí a temnější zvuk." },
+    "half-step-down-tuning": { title: "Ladění Half Step Down pro kytaru", description: "Naučte se ladění Half Step Down. Referenční tóny: D# - G# - C# - F# - A# - D#." },
+    "d-standard-tuning": { title: "Ladění D Standard pro kytaru", description: "Naučte se ladění D Standard. Referenční tóny: D - G - C - F - A - D." },
+    "full-step-down-tuning": { title: "Ladění Full Step Down pro kytaru", description: "Naučte se ladění Full Step Down. Referenční tóny: D - G - C - F - A - D." },
+    "drop-d-tuning": { title: "Průvodce laděním Drop D", description: "Nalaďte kytaru na D A D G B E pro hlubší riffy a snadnější power akordy." },
+    "drop-c-tuning": { title: "Průvodce laděním Drop C", description: "Naučte se přesné tóny Drop C a použití tohoto ladění v moderním rocku a metalu." },
+    "open-g-tuning": { title: "Ladění Open G pro kytaru", description: "Naučte se ladění Open G. Referenční tóny: D - G - D - G - B - D." },
+    "metronome-for-guitar": { title: "Metronom pro cvičení na kytaru", description: "Procvičujte riffy, trsání a změny akordů s online metronomem pro kytaristy." },
+    "sound-meter-db-guide": { title: "Průvodce měřičem zvuku v dB", description: "Změřte přibližnou hlasitost místnosti a porovnejte tiché a hlučné prostředí." },
+    "pitch-generator-guide": { title: "Průvodce online generátorem tónů", description: "Vytvořte stálý tón pro trénink sluchu, referenční výšku a kontrolu zvuku." }
+  },
+  sv: {
+    "chromatic-tuner-guide": { title: "Guide till kromatisk stämapparat", description: "Lär dig när du använder en kromatisk stämapparat för att känna igen alla toner snabbt och exakt." },
+    "guitar-tuner-with-microphone": { title: "Gitarrstämmare med mikrofon", description: "Använd webbläsarens mikrofon för att känna av gitarrens tonhöjd utan att installera en app." },
+    "how-to-tune-guitar": { title: "Så stämmer du gitarr online", description: "En steg-för-steg-guide för att stämma gitarr med webbläsarens mikrofon. Referenstoner: E - A - D - G - B - E. Ingen app behövs." },
+    "common-guitar-tunings": { title: "Vanliga gitarrstämningar", description: "Jämför Standard, Drop D, Eb Standard, Open D och Open G i en praktisk guide." },
+    "how-to-read-chords": { title: "Så läser du ackordsymboler", description: "Lär dig vad C, Am, G7 och vanliga ackordnamn betyder." },
+    "standard-guitar-tuning": { title: "Standardstämning för gitarr", description: "Lär dig Standardstämning för gitarr. Referenstoner: E - A - D - G - B - E." },
+    "eb-standard-tuning": { title: "Guide till Eb Standard-stämning", description: "Sänk alla gitarrsträngar en halvton till Eb Ab Db Gb Bb Eb för mjukare spänning och mörkare klang." },
+    "half-step-down-tuning": { title: "Half Step Down-stämning för gitarr", description: "Lär dig Half Step Down-stämning. Referenstoner: D# - G# - C# - F# - A# - D#." },
+    "d-standard-tuning": { title: "D Standard-stämning för gitarr", description: "Lär dig D Standard-stämning. Referenstoner: D - G - C - F - A - D." },
+    "full-step-down-tuning": { title: "Full Step Down-stämning för gitarr", description: "Lär dig Full Step Down-stämning. Referenstoner: D - G - C - F - A - D." },
+    "drop-d-tuning": { title: "Guide till Drop D-stämning", description: "Stäm gitarren till D A D G B E för tyngre låga riff och enklare powerackord." },
+    "drop-c-tuning": { title: "Guide till Drop C-stämning", description: "Lär dig de exakta Drop C-tonerna och när stämningen används i modern rock och metal." },
+    "open-g-tuning": { title: "Open G-stämning för gitarr", description: "Lär dig Open G-stämning. Referenstoner: D - G - D - G - B - D." },
+    "metronome-for-guitar": { title: "Metronom för gitarrövning", description: "Öva riff, plektrumteknik och ackordbyten med en online-metronom för gitarrister." },
+    "sound-meter-db-guide": { title: "Guide till ljudmätare i dB", description: "Mät rummets uppskattade ljudnivå och jämför tysta och högljudda miljöer." },
+    "pitch-generator-guide": { title: "Guide till ton-generator online", description: "Skapa en stadig ton för gehörsträning, referenstoner och ljudkontroller." }
+  },
+  "pt-BR": {
+    "chromatic-tuner-guide": { title: "Guia do afinador cromático", description: "Aprenda quando usar um afinador cromático para reconhecer qualquer nota com rapidez e precisão." },
+    "guitar-tuner-with-microphone": { title: "Afinador de violão com microfone", description: "Use o microfone do navegador para detectar a afinação do violão sem instalar aplicativo." },
+    "metronome-for-guitar": { title: "Metrônomo para estudar violão", description: "Pratique riffs, palhetada e trocas de acordes com um metrônomo online para violão." },
+    "sound-meter-db-guide": { title: "Guia do medidor de som em dB", description: "Meça o volume estimado do ambiente e compare locais silenciosos e barulhentos." },
+    "pitch-generator-guide": { title: "Guia do gerador de frequência", description: "Gere um tom contínuo para treino auditivo, referência e testes de áudio." }
+  },
+  hi: {
+    "chromatic-tuner-guide": { title: "क्रोमैटिक ट्यूनर गाइड", description: "किसी भी नोट को जल्दी और सटीक पहचानने के लिए क्रोमैटिक ट्यूनर का उपयोग कब करें, यह जानें।" },
+    "guitar-tuner-with-microphone": { title: "माइक्रोफ़ोन वाला गिटार ट्यूनर", description: "कोई ऐप इंस्टॉल किए बिना गिटार की पिच पहचानने के लिए ब्राउज़र माइक्रोफ़ोन का उपयोग करें।" },
+    "how-to-tune-guitar": { title: "गिटार को ऑनलाइन कैसे ट्यून करें", description: "ब्राउज़र माइक्रोफ़ोन से गिटार ट्यून करने की चरण-दर-चरण गाइड। संदर्भ नोट: E - A - D - G - B - E। किसी ऐप की आवश्यकता नहीं।" },
+    "common-guitar-tunings": { title: "गिटार की सामान्य ट्यूनिंग", description: "एक व्यावहारिक गाइड में Standard, Drop D, Eb Standard, Open D और Open G ट्यूनिंग की तुलना करें।" },
+    "how-to-read-chords": { title: "कॉर्ड संकेतों को कैसे पढ़ें", description: "C, Am, G7 और सामान्य कॉर्ड नामों का अर्थ समझें।" },
+    "standard-guitar-tuning": { title: "गिटार की Standard ट्यूनिंग", description: "गिटार की Standard ट्यूनिंग सीखें। संदर्भ नोट: E - A - D - G - B - E।" },
+    "eb-standard-tuning": { title: "Eb Standard ट्यूनिंग गाइड", description: "कम तनाव और गहरी ध्वनि के लिए सभी गिटार तारों को आधा सुर नीचे Eb Ab Db Gb Bb Eb पर ट्यून करें।" },
+    "half-step-down-tuning": { title: "गिटार की Half Step Down ट्यूनिंग", description: "गिटार की Half Step Down ट्यूनिंग सीखें। संदर्भ नोट: D# - G# - C# - F# - A# - D#।" },
+    "d-standard-tuning": { title: "गिटार की D Standard ट्यूनिंग", description: "गिटार की D Standard ट्यूनिंग सीखें। संदर्भ नोट: D - G - C - F - A - D।" },
+    "full-step-down-tuning": { title: "गिटार की Full Step Down ट्यूनिंग", description: "गिटार की Full Step Down ट्यूनिंग सीखें। संदर्भ नोट: D - G - C - F - A - D।" },
+    "drop-d-tuning": { title: "Drop D ट्यूनिंग गाइड", description: "भारी लो रिफ़ और आसान पावर कॉर्ड के लिए गिटार को D A D G B E पर ट्यून करें।" },
+    "drop-c-tuning": { title: "Drop C ट्यूनिंग गाइड", description: "Drop C के सही नोट और आधुनिक रॉक व मेटल में इस ट्यूनिंग के उपयोग को जानें।" },
+    "open-g-tuning": { title: "गिटार की Open G ट्यूनिंग", description: "गिटार की Open G ट्यूनिंग सीखें। संदर्भ नोट: D - G - D - G - B - D।" },
+    "metronome-for-guitar": { title: "गिटार अभ्यास के लिए मेट्रोनोम", description: "गिटार के लिए ऑनलाइन मेट्रोनोम के साथ रिफ़, पिकिंग और कॉर्ड बदलाव का अभ्यास करें।" },
+    "how-to-use-metronome": { title: "मेट्रोनोम का उपयोग कैसे करें", description: "BPM, एक्सेंट, मीटर और ताल विभाजन के साथ अभ्यास करना सीखें।" },
+    "metronome-subdivisions": { title: "मेट्रोनोम ताल विभाजन गाइड", description: "आंतरिक टाइमिंग सुधारने के लिए ऑनलाइन मेट्रोनोम के साथ डुपलेट, ट्रिपलेट और चौगुने विभाजन का अभ्यास करें।" },
+    "how-to-find-bpm": { title: "गाने का BPM कैसे पता करें", description: "ताल के साथ टैप करके गाने की गति का अनुमान लगाने के लिए Tap BPM का उपयोग करें।" },
+    "sound-meter-db-guide": { title: "dB साउंड मीटर गाइड", description: "कमरे के अनुमानित ध्वनि स्तर को मापें और शांत व तेज़ वातावरण की तुलना करें।" },
+    "pitch-generator-guide": { title: "ऑनलाइन पिच जनरेटर गाइड", description: "कान के अभ्यास, संदर्भ पिच और ऑडियो जाँच के लिए स्थिर टोन उत्पन्न करें।" }
+  },
+  no: {
+    "chromatic-tuner-guide": { title: "Guide til kromatisk stemmer", description: "Lær når du bruker en kromatisk stemmer for å gjenkjenne alle toner raskt og nøyaktig." },
+    "guitar-tuner-with-microphone": { title: "Gitarstemmer med mikrofon", description: "Bruk mikrofonen i nettleseren til å registrere gitarens tonehøyde uten å installere en app." },
+    "how-to-tune-guitar": { title: "Slik stemmer du gitar på nett", description: "En trinnvis guide til å stemme gitar med mikrofonen i nettleseren. Referansetoner: E - A - D - G - B - E. Ingen app kreves." },
+    "common-guitar-tunings": { title: "Vanlige gitarstemminger", description: "Sammenlign Standard, Drop D, Eb Standard, Open D og Open G i én praktisk guide til gitarstemming." },
+    "how-to-read-chords": { title: "Slik leser du akkordsymboler", description: "Lær hva C, Am, G7 og vanlige akkordnavn betyr." },
+    "standard-guitar-tuning": { title: "Standard stemming for gitar", description: "Lær Standard stemming for gitar. Referansetoner: E - A - D - G - B - E." },
+    "eb-standard-tuning": { title: "Guide til Eb Standard-stemming", description: "Senk alle gitarstrengene en halvtone til Eb Ab Db Gb Bb Eb for mykere spenning og en mørkere klang." },
+    "half-step-down-tuning": { title: "Half Step Down-stemming for gitar", description: "Lær Half Step Down-stemming for gitar. Referansetoner: D# - G# - C# - F# - A# - D#." },
+    "d-standard-tuning": { title: "D Standard-stemming for gitar", description: "Lær D Standard-stemming for gitar. Referansetoner: D - G - C - F - A - D." },
+    "full-step-down-tuning": { title: "Full Step Down-stemming for gitar", description: "Lær Full Step Down-stemming for gitar. Referansetoner: D - G - C - F - A - D." },
+    "drop-d-tuning": { title: "Guide til Drop D-stemming", description: "Stem gitaren til D A D G B E for tyngre lave riff og enklere powerakkorder med én finger." },
+    "drop-c-tuning": { title: "Guide til Drop C-stemming", description: "Lær de nøyaktige Drop C-tonene og når denne stemmingen brukes i moderne rock og metal." },
+    "open-g-tuning": { title: "Open G-stemming for gitar", description: "Lær Open G-stemming for gitar. Referansetoner: D - G - D - G - B - D." },
+    "metronome-for-guitar": { title: "Metronom for gitarøving", description: "Øv på riff, plekterspill og akkordskifter med en nettbasert metronom for gitarister." },
+    "sound-meter-db-guide": { title: "Guide til lydmåler i dB", description: "Mål det omtrentlige lydnivået i rommet og sammenlign stille og høylytte omgivelser." },
+    "pitch-generator-guide": { title: "Guide til tonegenerator på nett", description: "Lag en stabil tone for gehørtrening, referansetone og lydkontroller." }
   }
 };
 
@@ -1129,7 +1265,7 @@ function guideCtrRecoveryOverrides(locale: Locale): Partial<Record<GuideSlug, Gu
 function applyGuideOverride(base: GuideContent, locale: Locale, guide: GuideSlug): GuideContent {
   const priorityOverride = searchConsolePriorityGuideOverrides(locale)[guide];
   const ctrOverride = guideCtrRecoveryOverrides(locale)[guide];
-  const manualOverride = guideContentOverrides[getContentLocale(locale)]?.[guide];
+  const manualOverride = guideContentOverrides[locale]?.[guide] ?? guideContentOverrides[getContentLocale(locale)]?.[guide];
   const override = priorityOverride || ctrOverride || manualOverride ? { ...priorityOverride, ...ctrOverride, ...manualOverride } : null;
   return override ? { ...base, ...override } : base;
 }
@@ -3322,4 +3458,3 @@ export function guidesForInstrument(instrument: Instrument): GuideSlug[] {
 
   return [primaryGuide, ...relatedTunings].filter(Boolean) as GuideSlug[];
 }
-

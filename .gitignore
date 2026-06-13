@@ -1,0 +1,7 @@
+.next/
+node_modules/
+*.log
+tsconfig.tsbuildinfo
+/tools/
+/video-output/
+/fix3d.ps1

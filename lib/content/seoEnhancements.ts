@@ -1461,7 +1461,1234 @@ const extraToolEnhancements: Record<
   }
 };
 
+// Native SEO content for extended locales that would otherwise fall back to a base
+// locale (hi/nl/pl/tr/cs/sv/no all map to en via localeFallbacks). pt-BR is omitted
+// on purpose: it inherits correct Portuguese content from pt.
+const extendedToolSeoEnhancements: Partial<Record<Locale, Partial<Record<ToolSlug, ToolSeoEnhancement>>>> = {
+  hi: {
+    "guitar-tuner": {
+      heroTitle: "मुफ़्त ऑनलाइन गिटार ट्यूनर",
+      heroDescription:
+        "माइक्रोफ़ोन पिच डिटेक्शन और रेफरेंस नोट्स के साथ अकॉस्टिक, इलेक्ट्रिक या क्लासिकल गिटार ट्यून करें — Standard, Drop D, Eb, D Standard, Open D और Open G सपोर्ट।",
+      highlights: [
+        { label: "इनपुट", value: "माइक्रोफ़ोन + रेफरेंस नोट्स" },
+        { label: "ट्यूनिंग", value: "Standard, Drop और Open" },
+        { label: "बेस्ट फ़ॉर", value: "क्लासिकल, अकॉस्टिक और इलेक्ट्रिक" }
+      ],
+      quickAnswers: [
+        { title: "क्या यह तेज़ ट्यूनिंग के लिए अच्छा है?", body: "हाँ। माइक्रोफ़ोन चालू करें, एक बार में एक तार बजाएं और रीडिंग स्थिर होने का इंतज़ार करें, फिर समायोजित करें।" },
+        { title: "आगे कौन सी ट्यूनिंग आज़माएं?", body: "Standard के बाद Drop D सबसे आसान अगला कदम है, जबकि Eb Standard पूरे वाद्य को नीचे कर देता है।" }
+      ],
+      sections: [
+        { title: "सही ट्यूनिंग चुनें", body: "ज़्यादातर गानों के लिए Standard ट्यूनिंग, नीचे के रिफ़ के लिए Drop D, कम तनाव के लिए Eb Standard, और ओपन कॉर्ड साउंड के लिए Open G या Open D का इस्तेमाल करें।" },
+        { title: "ज़्यादा स्थिर रीडिंग पाएं", body: "वाद्य को माइक्रोफ़ोन के पास रखें, एक बार में एक तार बजाएं और समायोजित करने से पहले पिच के स्थिर होने का थोड़ा इंतज़ार करें।" },
+        { title: "कॉर्ड और की", body: "जब कोई गाना बहुत ऊँचा या बहुत नीचा लगे तो कॉर्ड ट्रांसपोज़र का उपयोग करें। हर कॉर्ड को समान संख्या में सेमीटोन से खिसकाएं।" }
+      ],
+      faqs: [
+        { question: "सुई क्यों उछलती है?", answer: "कमरे का शोर या एक साथ बजते कई तार पिच डिटेक्शन को भ्रमित कर सकते हैं। एक तार साफ़ बजाएं और उसे स्थिर होने दें।" },
+        { question: "शुरुआती लोगों को कौन सी ट्यूनिंग इस्तेमाल करनी चाहिए?", answer: "छह तार वाले गिटार के लिए Drop D, Eb Standard या ओपन ट्यूनिंग आज़माने से पहले Standard E A D G B E से शुरू करें।" }
+      ]
+    },
+    metronome: {
+      heroTitle: "BPM और सबडिवीज़न वाला ऑनलाइन मेट्रोनोम",
+      heroDescription:
+        "सटीक BPM कंट्रोल, सबडिवीज़न, एक्सेंट, Tap Tempo और प्रगतिशील स्पीड साइकिल वाले पूर्ण ऑनलाइन मेट्रोनोम के साथ अभ्यास करें।",
+      highlights: [
+        { label: "टेम्पो", value: "सटीक BPM + Tap Tempo" },
+        { label: "रिदम", value: "एक्सेंट और सबडिवीज़न" },
+        { label: "रूटीन", value: "टारगेट BPM तक अभ्यास साइकिल" }
+      ],
+      quickAnswers: [
+        { title: "शुरुआती किस BPM से शुरू करें?", body: "उस सबसे तेज़ टेम्पो से शुरू करें जहाँ आप साफ़ और आराम से बजा सकें, फिर छोटे-छोटे कदमों में बढ़ाएं।" },
+        { title: "सबडिवीज़न क्यों इस्तेमाल करें?", body: "सबडिवीज़न भीतरी पल्स को स्पष्ट बनाते हैं और टाइमिंग, ग्रूव व निरंतरता में बहुत मदद करते हैं।" }
+      ],
+      sections: [
+        { title: "बेहतर अभ्यास तरीका", body: "धीरे शुरू करें, पहले बीट पर एक्सेंट दें और कई साफ़ साइकिल के बाद ही BPM बढ़ाएं।" },
+        { title: "स्पीड बढ़ाने की रूटीन", body: "अभ्यास साइकिल का उपयोग करके चुने हुए बार या सेकंड के बाद शुरुआती BPM से टारगेट BPM तक छोटे कदमों में बढ़ें।" }
+      ],
+      faqs: [
+        { question: "मुझे किस BPM पर अभ्यास करना चाहिए?", answer: "उस सबसे तेज़ टेम्पो से शुरू करें जहाँ आप साफ़ और आराम से बजा सकें, फिर धीरे-धीरे बढ़ाएं।" },
+        { question: "सबडिवीज़न क्यों इस्तेमाल करें?", answer: "ये हर बीट के अंदर की लय सुनने में मदद करते हैं, सिर्फ़ मुख्य क्लिक नहीं।" }
+      ]
+    },
+    "tap-bpm": {
+      heroTitle: "ऑनलाइन Tap BPM काउंटर",
+      heroDescription:
+        "किसी भी गाने के साथ टैप करें, तुरंत और औसत BPM पाएं, नतीजा कॉपी करें और सीधे मेट्रोनोम अभ्यास पर जाएं।",
+      highlights: [
+        { label: "रीडआउट", value: "तुरंत और औसत BPM" },
+        { label: "कॉपी", value: "एक टैप में नतीजा कॉपी करें" },
+        { label: "अगला कदम", value: "सीधे मेट्रोनोम अभ्यास पर जाएं" }
+      ],
+      quickAnswers: [
+        { title: "कितने टैप काफ़ी हैं?", body: "आठ या अधिक टैप आमतौर पर बहुत छोटे सैंपल की तुलना में ज़्यादा स्थिर औसत देते हैं।" },
+        { title: "क्या चलते गाने को माप सकते हैं?", body: "हाँ, जब तक आप लगातार एक ही पल्स पॉइंट पर टैप करते रहें।" }
+      ],
+      sections: [
+        { title: "Tap BPM कब इस्तेमाल करें", body: "जब आप कोई गाना सुनें और मेट्रोनोम सेट करने से पहले उसका टेम्पो जल्दी जानना चाहें, तब Tap BPM का उपयोग करें।" }
+      ],
+      faqs: [
+        { question: "मुझे कितने टैप चाहिए?", answer: "आठ या अधिक टैप आमतौर पर ज़्यादा स्थिर औसत BPM देते हैं।" },
+        { question: "क्या इसे किसी भी गाने के साथ इस्तेमाल कर सकते हैं?", answer: "हाँ, जब तक आप एक ही पल्स पॉइंट पर लगातार टैप करते रहें।" }
+      ]
+    },
+    "chord-transposer": {
+      heroTitle: "की बदलने के लिए ऑनलाइन कॉर्ड ट्रांसपोज़र",
+      heroDescription:
+        "कॉर्ड प्रोग्रेशन को सेमीटोन के हिसाब से ट्रांसपोज़ करें, slash chords बरकरार रखें, शार्प या फ़्लैट चुनें और नया प्रोग्रेशन तुरंत कॉपी करें।",
+      highlights: [
+        { label: "रेंज", value: "-12 से +12 सेमीटोन" },
+        { label: "आउटपुट", value: "शार्प या फ़्लैट" },
+        { label: "सपोर्ट", value: "Slash chords और कॉर्ड क्वालिटी" }
+      ],
+      quickAnswers: [
+        { title: "क्या यह कॉर्ड क्वालिटी बनाए रखता है?", body: "हाँ। केवल रूट नोट बदलता है, जबकि m, 7, maj7, sus4, add9 जैसी क्वालिटी बरकरार रहती हैं।" },
+        { title: "क्या पूरे लिरिक्स और कॉर्ड शीट ट्रांसपोज़ कर सकते हैं?", body: "हाँ। टूल स्पेसिंग और लाइन ब्रेक बनाए रखता है और कॉर्ड न होने वाले शब्द नहीं बदलता।" }
+      ],
+      sections: [
+        { title: "आसान की ढूँढें", body: "गाने को ऐसी की में ट्रांसपोज़ करें जो आपकी आवाज़ के लिए या बजाने के लिए आसान हो, फिर वाद्य के साथ नतीजा जाँचें।" },
+        { title: "कॉर्ड और की", body: "जब कोई गाना बहुत ऊँचा या बहुत नीचा लगे तो कॉर्ड ट्रांसपोज़र का उपयोग करें। हर कॉर्ड को समान संख्या में सेमीटोन से खिसकाएं।" }
+      ],
+      faqs: [
+        { question: "क्या ट्रांसपोज़ करने से सिर्फ़ कॉर्ड के नाम बदलते हैं?", answer: "यह की बदलता है और कॉर्ड्स के बीच का हार्मोनिक रिश्ता बरकरार रखता है।" },
+        { question: "क्या यह शार्प और फ़्लैट सपोर्ट करता है?", answer: "यह आम मेजर, माइनर, शार्प, फ़्लैट और सेवेंथ कॉर्ड नामों को सपोर्ट करता है।" }
+      ]
+    },
+    "bass-tuner": {
+      heroTitle: "ऑनलाइन बास ट्यूनर",
+      heroDescription: "माइक्रोफ़ोन पिच डिटेक्शन, स्टैंडर्ड और वैकल्पिक ट्यूनिंग के साथ ब्राउज़र में बास गिटार जल्दी ट्यून करें।",
+      highlights: [
+        { label: "इनपुट", value: "माइक्रोफ़ोन + रेफरेंस नोट्स" },
+        { label: "ट्यूनिंग", value: "Standard, Drop D, 5-स्ट्रिंग" },
+        { label: "बेस्ट फ़ॉर", value: "इलेक्ट्रिक और अकॉस्टिक बास" }
+      ],
+      quickAnswers: [
+        { title: "क्या 5-स्ट्रिंग बास ट्यून कर सकते हैं?", body: "हाँ। 5-स्ट्रिंग प्रीसेट चुनें और लो B सहित हर तार ट्यून करें।" },
+        { title: "स्थिर रीडिंग कैसे पाएं?", body: "एक तार मज़बूती से बजाएं और स्थिर रखें। कम फ़्रीक्वेंसी को रजिस्टर होने में थोड़ा अधिक समय लगता है।" }
+      ],
+      sections: [
+        { title: "जल्दी ट्यून में आएं", body: "माइक्रोफ़ोन चालू करें, एक बार में एक तार बजाएं और ट्यूनिंग पेग समायोजित करने से पहले सुई के स्थिर होने का इंतज़ार करें।" },
+        { title: "स्टैंडर्ड और वैकल्पिक बास ट्यूनिंग", body: "Standard E A D G ज़्यादातर शैलियों के लिए उपयुक्त है। Drop D एक भारी लो स्ट्रिंग जोड़ता है। 5-स्ट्रिंग विस्तृत रेंज के लिए लो B जोड़ता है।" }
+      ],
+      faqs: [
+        { question: "माइक्रोफ़ोन से बास कैसे ट्यून करें?", answer: "माइक्रोफ़ोन चालू करें, एक तार साफ़ बजाएं और सुई के स्थिर होने के लिए एक सेकंड रुकें, फिर बीच की ओर समायोजित करें।" },
+        { question: "स्टैंडर्ड बास ट्यूनिंग क्या है?", answer: "4-स्ट्रिंग बास की स्टैंडर्ड ट्यूनिंग सबसे नीचे से ऊपर तक E1 A1 D2 G2 है।" }
+      ]
+    },
+    "ukulele-tuner": {
+      heroTitle: "ऑनलाइन उकुलेले ट्यूनर",
+      heroDescription: "GCEA स्टैंडर्ड ट्यूनिंग, Low G और वैकल्पिक ट्यूनिंग के साथ ब्राउज़र में उकुलेले जल्दी ट्यून करें।",
+      highlights: [
+        { label: "इनपुट", value: "माइक्रोफ़ोन + रेफरेंस नोट्स" },
+        { label: "ट्यूनिंग", value: "GCEA, Low G, बैरिटोन D-G-B-E" },
+        { label: "बेस्ट फ़ॉर", value: "सोप्रानो, कॉन्सर्ट, टेनर, बैरिटोन" }
+      ],
+      quickAnswers: [
+        { title: "स्टैंडर्ड उकुलेले ट्यूनिंग क्या है?", body: "सोप्रानो, कॉन्सर्ट और टेनर उकुलेले G4-C4-E4-A4 का उपयोग करते हैं। बैरिटोन D3-G3-B3-E4 का उपयोग करता है।" },
+        { title: "High G और Low G में क्या फ़र्क है?", body: "High G स्टैंडर्ड री-एंट्रेंट ट्यूनिंग है। Low G इसे गहरी आवाज़ और व्यापक रेंज के लिए निचले G तार से बदल देता है।" }
+      ],
+      sections: [
+        { title: "उकुलेले को जल्दी कैसे ट्यून करें", body: "GCEA प्रीसेट चुनें, माइक्रोफ़ोन चालू करें और हर तार बजाएं जब तक रीडिंग स्थिर न हो, फिर पेग समायोजित करें।" },
+        { title: "आम उकुलेले ट्यूनिंग", body: "GCEA से शुरू करें। गहरी आवाज़ के लिए Low G, चमकीले टोन के लिए D-tuning, या गिटार जैसा अनुभव पाने के लिए बैरिटोन D-G-B-E आज़माएं।" }
+      ],
+      faqs: [
+        { question: "माइक्रोफ़ोन से उकुलेले कैसे ट्यून करें?", answer: "माइक्रोफ़ोन चालू करें, हर तार साफ़ बजाएं और पेग को तब तक समायोजित करें जब तक सुई सही नोट पर केंद्रित न हो।" },
+        { question: "क्या यह बैरिटोन उकुलेले के लिए काम करता है?", answer: "हाँ। D-G-B-E बैरिटोन प्रीसेट चुनें और हर तार को उसी अनुसार ट्यून करें।" }
+      ]
+    },
+    "sound-level-meter": {
+      heroTitle: "ऑनलाइन साउंड लेवल मीटर",
+      heroDescription: "अपने ब्राउज़र माइक्रोफ़ोन और रियल-टाइम ग्राफ़ के साथ dB में अनुमानित ध्वनि स्तर मापें।",
+      highlights: [
+        { label: "रीडिंग", value: "माइक्रोफ़ोन से अनुमानित dB" },
+        { label: "डिस्प्ले", value: "मिन/मैक्स/औसत के साथ लाइव ग्राफ़" },
+        { label: "उपयोग", value: "अभ्यास के माहौल की जाँच" }
+      ],
+      quickAnswers: [
+        { title: "क्या यह अभ्यास के लिए पर्याप्त सटीक है?", body: "माहौल की तुलना और तेज़ सेशन ट्रैक करने के लिए हाँ। पेशेवर माप के लिए प्रमाणित नहीं है।" },
+        { title: "संगीत अभ्यास के लिए सुरक्षित स्तर क्या है?", body: "अकॉस्टिक वाद्यों के लिए 60–75 dB। 85 dB से ऊपर लगातार स्तर लंबे समय में सुनने की थकान पैदा कर सकता है।" }
+      ],
+      sections: [
+        { title: "साउंड लेवल मीटर कैसे इस्तेमाल करें", body: "माइक्रोफ़ोन चालू करें, डिवाइस को कमरे में स्थिर रखें और लाइव dB रीडआउट व चलता औसत देखें।" },
+        { title: "रीडिंग को समझना", body: "शांत कमरे 30–45 dB दिखाते हैं। सामान्य बातचीत लगभग 60 dB। तेज़ अभ्यास सेशन आमतौर पर 75–90 dB।" }
+      ],
+      faqs: [
+        { question: "मीटर कितना सटीक है?", answer: "यह माइक्रोफ़ोन सिग्नल पर आधारित अनुमान है, पेशेवर रूप से कैलिब्रेटेड नहीं, पर तुलना और निगरानी के लिए उपयोगी है।" },
+        { question: "क्या इसे कोई विशेष अनुमति चाहिए?", answer: "हाँ, वाद्य ट्यूनर की तरह ही ब्राउज़र माइक्रोफ़ोन एक्सेस ज़रूरी है।" }
+      ]
+    },
+    "pitch-generator": {
+      heroTitle: "ऑनलाइन पिच जेनरेटर",
+      heroDescription: "ईयर ट्रेनिंग, वाद्य रेफरेंस और ऑडियो टेस्टिंग के लिए 20 Hz से 20000 Hz तक शुद्ध टोन जेनरेट करें।",
+      highlights: [
+        { label: "रेंज", value: "20 Hz से 20000 Hz" },
+        { label: "आउटपुट", value: "ब्राउज़र में शुद्ध साइन टोन" },
+        { label: "उपयोग", value: "ईयर ट्रेनिंग और रेफरेंस पिच" }
+      ],
+      quickAnswers: [
+        { title: "क्या इसे कान से वाद्य ट्यून करने के लिए इस्तेमाल कर सकते हैं?", body: "हाँ। ज़रूरी नोट पर फ़्रीक्वेंसी सेट करें, फिर अपने वाद्य के तार को जेनरेट किए टोन से मिलाएं।" },
+        { title: "क्या ऊँची फ़्रीक्वेंसी सुरक्षित हैं?", body: "हमेशा कम वॉल्यूम से शुरू करें, खासकर 8000 Hz से ऊपर, और धीरे-धीरे बढ़ाएं।" }
+      ],
+      sections: [
+        { title: "पिच जेनरेटर किस काम आता है", body: "कान से ट्यून करने के लिए रेफरेंस पिच के रूप में, इंटरवल पहचान के अभ्यास के लिए, या स्पीकर और हेडफ़ोन टेस्ट करने के लिए इसका उपयोग करें।" },
+        { title: "उपयोग के सुझाव", body: "कम वॉल्यूम से शुरू करें। रेफरेंस पिच के लिए 440 Hz (A4) इस्तेमाल करें। टेस्ट करते समय रेंज में धीरे-धीरे स्वीप करें।" }
+      ],
+      faqs: [
+        { question: "कौन सी फ़्रीक्वेंसी किस नोट से मेल खाती है?", answer: "A4 = 440 Hz। C4 = 261.6 Hz। G4 = 392 Hz। बाकी नोट्स हर ऑक्टेव पर दोगुना या आधा करके निकलते हैं।" },
+        { question: "क्या टोन अपने आप रुक जाता है?", answer: "नहीं। सुनने की थकान से बचने के लिए काम पूरा होने पर हमेशा Stop दबाएं।" }
+      ]
+    }
+  },
+  nl: {
+    "guitar-tuner": {
+      heroTitle: "Gratis online gitaarstemmer",
+      heroDescription:
+        "Stem akoestische, elektrische of klassieke gitaar met microfoon-toonherkenning, referentienoten en ondersteuning voor Standard, Drop D, Eb, D Standard, Open D en Open G.",
+      highlights: [
+        { label: "Invoer", value: "Microfoon + referentienoten" },
+        { label: "Stemmingen", value: "Standard, Drop en Open" },
+        { label: "Ideaal voor", value: "Klassiek, akoestisch en elektrisch" }
+      ],
+      quickAnswers: [
+        { title: "Is dit goed voor snel stemmen?", body: "Ja. Zet de microfoon aan, speel één snaar tegelijk en wacht even tot de meting stabiel is voordat je bijstelt." },
+        { title: "Welke stemming kun je daarna proberen?", body: "Na Standard is Drop D de makkelijkste volgende stap, terwijl Eb Standard het hele instrument verlaagt." }
+      ],
+      sections: [
+        { title: "Kies de juiste stemming", body: "Gebruik Standard voor de meeste nummers, Drop D voor lagere riffs, Eb Standard voor lagere spanning en Open G of Open D voor open akkoorden." },
+        { title: "Krijg een stabielere meting", body: "Houd het instrument dicht bij de microfoon, speel één snaar tegelijk en wacht even tot de toonhoogte stabiel is voordat je bijstelt." },
+        { title: "Akkoorden en toonsoort", body: "Gebruik de akkoordtransposer als een nummer te hoog of te laag aanvoelt. Verschuif elk akkoord met hetzelfde aantal halve tonen." }
+      ],
+      faqs: [
+        { question: "Waarom springt de naald?", answer: "Omgevingsgeluid of meerdere klinkende snaren kunnen de toonherkenning verstoren. Speel één snaar duidelijk en laat hem uitklinken." },
+        { question: "Welke stemming moeten beginners gebruiken?", answer: "Begin voor een zessnarige gitaar met Standard E A D G B E voordat je Drop D, Eb Standard of open stemmingen probeert." }
+      ]
+    },
+    metronome: {
+      heroTitle: "Online metronoom met BPM en onderverdelingen",
+      heroDescription:
+        "Oefen met een volledige online metronoom met nauwkeurige BPM-regeling, onderverdelingen, accenten, Tap Tempo en progressieve snelheidscycli.",
+      highlights: [
+        { label: "Tempo", value: "Nauwkeurige BPM + Tap Tempo" },
+        { label: "Ritme", value: "Accenten en onderverdelingen" },
+        { label: "Routine", value: "Oefencyclus tot doel-BPM" }
+      ],
+      quickAnswers: [
+        { title: "Met welke BPM moeten beginners starten?", body: "Begin op het snelste tempo waarop je nog schoon en ontspannen kunt spelen, en verhoog dan in kleine stappen." },
+        { title: "Waarom onderverdelingen gebruiken?", body: "Onderverdelingen maken de innerlijke puls duidelijker en helpen veel met timing, groove en consistentie." }
+      ],
+      sections: [
+        { title: "Een betere oefenmethode", body: "Begin langzaam, accentueer de eerste tel en verhoog de BPM pas na meerdere schone cycli." },
+        { title: "Routine om sneller te worden", body: "Gebruik de oefencyclus om in kleine stappen van een start-BPM naar een doel-BPM te gaan na een gekozen aantal maten of seconden." }
+      ],
+      faqs: [
+        { question: "Op welke BPM moet ik oefenen?", answer: "Begin op het snelste tempo waarop je nog schoon en ontspannen speelt, en verhoog dan geleidelijk." },
+        { question: "Waarom onderverdelingen gebruiken?", answer: "Ze helpen je het ritme binnen elke tel te horen, niet alleen de hoofdklik." }
+      ]
+    },
+    "tap-bpm": {
+      heroTitle: "Online Tap BPM-teller",
+      heroDescription:
+        "Tik mee met elk nummer, krijg directe en gemiddelde BPM, kopieer het resultaat en ga direct door naar metronoomoefening.",
+      highlights: [
+        { label: "Uitlezing", value: "Directe en gemiddelde BPM" },
+        { label: "Kopiëren", value: "Kopieer het resultaat met één tik" },
+        { label: "Volgende stap", value: "Ga direct naar metronoomoefening" }
+      ],
+      quickAnswers: [
+        { title: "Hoeveel tikken zijn genoeg?", body: "Acht of meer tikken geven meestal een veel stabieler gemiddelde dan een heel korte meting." },
+        { title: "Kun je een lopend nummer meten?", body: "Ja, zolang je consistent op hetzelfde pulspunt blijft tikken." }
+      ],
+      sections: [
+        { title: "Wanneer Tap BPM gebruiken", body: "Gebruik Tap BPM als je een nummer hoort en snel het tempo wilt inschatten voordat je de metronoom instelt." }
+      ],
+      faqs: [
+        { question: "Hoeveel tikken heb ik nodig?", answer: "Acht of meer tikken geven meestal een stabieler gemiddelde BPM." },
+        { question: "Kan ik het met elk nummer gebruiken?", answer: "Ja, zolang je consistent op hetzelfde pulspunt tikt." }
+      ]
+    },
+    "chord-transposer": {
+      heroTitle: "Online akkoordtransposer voor toonsoortwisselingen",
+      heroDescription:
+        "Transponeer akkoordprogressies per halve toon, houd slash-akkoorden intact, kies kruisen of mollen en kopieer de nieuwe progressie meteen.",
+      highlights: [
+        { label: "Bereik", value: "-12 tot +12 halve tonen" },
+        { label: "Uitvoer", value: "Kruisen of mollen" },
+        { label: "Ondersteuning", value: "Slash-akkoorden en akkoordkwaliteit" }
+      ],
+      quickAnswers: [
+        { title: "Blijft de akkoordkwaliteit behouden?", body: "Ja. Alleen de grondtoon verschuift, terwijl m, 7, maj7, sus4, add9 en vergelijkbare kwaliteiten intact blijven." },
+        { title: "Kun je volledige songteksten en akkoordbladen transponeren?", body: "Ja. De tool behoudt spaties en regeleinden en laat niet-akkoordwoorden ongewijzigd." }
+      ],
+      sections: [
+        { title: "Vind een makkelijkere toonsoort", body: "Transponeer een nummer naar een toonsoort die makkelijker is voor je stem of om te spelen, en controleer het resultaat met het instrument." },
+        { title: "Akkoorden en toonsoort", body: "Gebruik de akkoordtransposer als een nummer te hoog of te laag aanvoelt. Verschuif elk akkoord met hetzelfde aantal halve tonen." }
+      ],
+      faqs: [
+        { question: "Hernoemt transponeren alleen akkoorden?", answer: "Het verandert de toonsoort en behoudt de harmonische relatie tussen de akkoorden." },
+        { question: "Ondersteunt het kruisen en mollen?", answer: "Het ondersteunt gangbare majeur-, mineur-, kruis-, mol- en septiemakkoorden." }
+      ]
+    },
+    "bass-tuner": {
+      heroTitle: "Online basgitaarstemmer",
+      heroDescription: "Stem je basgitaar snel in de browser met microfoon-toonherkenning, standaard- en alternatieve stemmingen.",
+      highlights: [
+        { label: "Invoer", value: "Microfoon + referentienoten" },
+        { label: "Stemmingen", value: "Standard, Drop D, 5-snarig" },
+        { label: "Ideaal voor", value: "Elektrische en akoestische bas" }
+      ],
+      quickAnswers: [
+        { title: "Kan ik een 5-snarige bas stemmen?", body: "Ja. Kies de 5-snarige preset en stem elke snaar, inclusief de lage B." },
+        { title: "Hoe krijg ik een stabiele meting?", body: "Speel één snaar stevig aan en houd vast. Lage frequenties hebben iets meer tijd nodig om te registreren." }
+      ],
+      sections: [
+        { title: "Snel in stemming komen", body: "Zet de microfoon aan, speel één snaar tegelijk en wacht tot de naald stabiel is voordat je de stemschroef bijstelt." },
+        { title: "Standaard en alternatieve basstemmingen", body: "Standard E A D G past bij de meeste genres. Drop D voegt een zwaardere lage snaar toe. 5-snarig voegt een lage B toe voor meer bereik." }
+      ],
+      faqs: [
+        { question: "Hoe stem ik bas met een microfoon?", answer: "Zet de microfoon aan, tokkel één snaar duidelijk en wacht een seconde tot de naald stabiel is, stel dan bij richting het midden." },
+        { question: "Wat is standaard basstemming?", answer: "Standaard 4-snarige basstemming is E1 A1 D2 G2, van laagste naar hoogste snaar." }
+      ]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Online ukelelestemmer",
+      heroDescription: "Stem je ukelele snel in de browser met GCEA-standaardstemming, Low G en alternatieve stemmingen.",
+      highlights: [
+        { label: "Invoer", value: "Microfoon + referentienoten" },
+        { label: "Stemmingen", value: "GCEA, Low G, bariton D-G-B-E" },
+        { label: "Ideaal voor", value: "Sopraan, concert, tenor, bariton" }
+      ],
+      quickAnswers: [
+        { title: "Wat is standaard ukelelestemming?", body: "Sopraan-, concert- en tenorukelele gebruiken G4-C4-E4-A4. Bariton gebruikt D3-G3-B3-E4." },
+        { title: "Wat is het verschil tussen High G en Low G?", body: "High G is de standaard re-entrant stemming. Low G vervangt die door een lagere G-snaar voor een vollere klank en groter bereik." }
+      ],
+      sections: [
+        { title: "Hoe stem je een ukelele snel", body: "Kies de GCEA-preset, zet de microfoon aan en tokkel elke snaar tot de meting stabiel is, stel dan de stemschroef bij." },
+        { title: "Veelgebruikte ukelelestemmingen", body: "Begin met GCEA. Probeer Low G voor een vollere klank, D-stemming voor een helderere toon, of bariton D-G-B-E voor een gitaarachtig gevoel." }
+      ],
+      faqs: [
+        { question: "Hoe stem ik een ukelele met een microfoon?", answer: "Zet de microfoon aan, tokkel elke snaar duidelijk en stel de stemschroef bij tot de naald op de juiste noot staat." },
+        { question: "Werkt het voor baritonukelele?", answer: "Ja. Kies de D-G-B-E baritonpreset en stem elke snaar daarop." }
+      ]
+    },
+    "sound-level-meter": {
+      heroTitle: "Online geluidsniveaumeter",
+      heroDescription: "Meet het geschatte geluidsniveau in dB met je browsermicrofoon en een realtime grafiek.",
+      highlights: [
+        { label: "Meting", value: "Geschatte dB via microfoon" },
+        { label: "Weergave", value: "Live grafiek met min/max/gemiddelde" },
+        { label: "Gebruik", value: "Controle van de oefenomgeving" }
+      ],
+      quickAnswers: [
+        { title: "Is het nauwkeurig genoeg om te oefenen?", body: "Ja, om omgevingen te vergelijken en luide sessies te volgen. Niet gecertificeerd voor professionele metingen." },
+        { title: "Wat is een veilig niveau voor muziekoefening?", body: "60–75 dB voor akoestische instrumenten. Aanhoudende niveaus boven 85 dB kunnen op termijn gehoorvermoeidheid veroorzaken." }
+      ],
+      sections: [
+        { title: "Hoe gebruik je de geluidsniveaumeter", body: "Zet de microfoon aan, houd het apparaat stil in de ruimte en bekijk de live dB-uitlezing en het lopende gemiddelde." },
+        { title: "De metingen interpreteren", body: "Stille ruimtes lezen 30–45 dB. Normaal gesprek rond 60 dB. Luide oefensessies doorgaans 75–90 dB." }
+      ],
+      faqs: [
+        { question: "Hoe nauwkeurig is de meter?", answer: "Het is een schatting op basis van het microfoonsignaal, niet professioneel gekalibreerd, maar nuttig voor vergelijking en monitoring." },
+        { question: "Heeft het speciale toestemming nodig?", answer: "Ja, browsertoegang tot de microfoon is vereist, net als bij de instrumentstemmers." }
+      ]
+    },
+    "pitch-generator": {
+      heroTitle: "Online toongenerator",
+      heroDescription: "Genereer zuivere tonen van 20 Hz tot 20000 Hz voor gehoortraining, instrumentreferentie en audiotests.",
+      highlights: [
+        { label: "Bereik", value: "20 Hz tot 20000 Hz" },
+        { label: "Uitvoer", value: "Zuivere sinustoon in de browser" },
+        { label: "Gebruik", value: "Gehoortraining en referentietoon" }
+      ],
+      quickAnswers: [
+        { title: "Kan ik er instrumenten op het gehoor mee stemmen?", body: "Ja. Stel de frequentie in op de noot die je nodig hebt en stem je snaar gelijk aan de gegenereerde toon." },
+        { title: "Zijn hoge frequenties veilig?", body: "Begin altijd op laag volume, vooral boven 8000 Hz, en verhoog geleidelijk." }
+      ],
+      sections: [
+        { title: "Waarvoor is de toongenerator goed", body: "Gebruik hem als referentietoon om op het gehoor te stemmen, om intervallen te oefenen, of om luidsprekers en koptelefoons te testen." },
+        { title: "Gebruikstips", body: "Begin op laag volume. Gebruik voor referentietoon 440 Hz (A4). Veeg bij het testen langzaam door het bereik." }
+      ],
+      faqs: [
+        { question: "Welke frequentie hoort bij welke noot?", answer: "A4 = 440 Hz. C4 = 261,6 Hz. G4 = 392 Hz. Andere noten volgen door per octaaf te verdubbelen of te halveren." },
+        { question: "Stopt de toon automatisch?", answer: "Nee. Druk altijd op Stop als je klaar bent om luistervermoeidheid te voorkomen." }
+      ]
+    }
+  },
+  pl: {
+    "guitar-tuner": {
+      heroTitle: "Darmowy stroik gitarowy online",
+      heroDescription:
+        "Strój gitarę akustyczną, elektryczną lub klasyczną z wykrywaniem dźwięku przez mikrofon, nutami referencyjnymi i obsługą Standard, Drop D, Eb, D Standard, Open D i Open G.",
+      highlights: [
+        { label: "Wejście", value: "Mikrofon + nuty referencyjne" },
+        { label: "Stroje", value: "Standard, Drop i Open" },
+        { label: "Najlepsze do", value: "Klasyczna, akustyczna i elektryczna" }
+      ],
+      quickAnswers: [
+        { title: "Czy nadaje się do szybkiego strojenia?", body: "Tak. Włącz mikrofon, zagraj jedną strunę naraz i poczekaj chwilę, aż odczyt się ustabilizuje, zanim go skorygujesz." },
+        { title: "Jaki strój wypróbować następnie?", body: "Po Standard najłatwiejszym krokiem jest Drop D, a Eb Standard obniża cały instrument." }
+      ],
+      sections: [
+        { title: "Wybierz właściwy strój", body: "Używaj Standard do większości utworów, Drop D do niższych riffów, Eb Standard dla mniejszego napięcia oraz Open G lub Open D dla brzmienia otwartych akordów." },
+        { title: "Uzyskaj stabilniejszy odczyt", body: "Trzymaj instrument blisko mikrofonu, graj jedną strunę naraz i poczekaj chwilę, aż wysokość się ustabilizuje, zanim skorygujesz strój." },
+        { title: "Akordy i tonacja", body: "Użyj transpozytora akordów, gdy utwór jest zbyt wysoki lub zbyt niski. Przesuń każdy akord o tę samą liczbę półtonów." }
+      ],
+      faqs: [
+        { question: "Dlaczego wskazówka skacze?", answer: "Hałas w pomieszczeniu lub kilka brzmiących strun mogą zakłócać wykrywanie. Zagraj jedną strunę wyraźnie i pozwól jej wybrzmieć." },
+        { question: "Jakiego stroju powinni używać początkujący?", answer: "Dla gitary sześciostrunowej zacznij od Standard E A D G B E, zanim spróbujesz Drop D, Eb Standard lub strojów otwartych." }
+      ]
+    },
+    metronome: {
+      heroTitle: "Metronom online z BPM i podziałami",
+      heroDescription:
+        "Ćwicz z pełnym metronomem online z precyzyjną kontrolą BPM, podziałami, akcentami, Tap Tempo i progresywnymi cyklami tempa.",
+      highlights: [
+        { label: "Tempo", value: "Precyzyjne BPM + Tap Tempo" },
+        { label: "Rytm", value: "Akcenty i podziały" },
+        { label: "Rutyna", value: "Cykl ćwiczeń do docelowego BPM" }
+      ],
+      quickAnswers: [
+        { title: "Od jakiego BPM zaczynać?", body: "Zacznij od najszybszego tempa, w którym wciąż grasz czysto i swobodnie, a potem zwiększaj małymi krokami." },
+        { title: "Po co stosować podziały?", body: "Podziały wyraźniej oddają wewnętrzny puls i bardzo pomagają w czuciu czasu, groovie i równości." }
+      ],
+      sections: [
+        { title: "Lepsza metoda ćwiczeń", body: "Zacznij wolno, zaakcentuj pierwszą miarę i zwiększaj BPM dopiero po kilku czystych cyklach." },
+        { title: "Rutyna budowania szybkości", body: "Użyj cyklu ćwiczeń, aby przejść od początkowego BPM do docelowego małymi krokami po wybranej liczbie taktów lub sekund." }
+      ],
+      faqs: [
+        { question: "Przy jakim BPM ćwiczyć?", answer: "Zacznij od najszybszego tempa, w którym grasz czysto i swobodnie, a potem stopniowo zwiększaj." },
+        { question: "Po co stosować podziały?", answer: "Pomagają usłyszeć rytm wewnątrz każdej miary, nie tylko główny klik." }
+      ]
+    },
+    "tap-bpm": {
+      heroTitle: "Licznik Tap BPM online",
+      heroDescription:
+        "Stukaj do dowolnego utworu, uzyskaj natychmiastowe i średnie BPM, skopiuj wynik i przejdź prosto do ćwiczeń z metronomem.",
+      highlights: [
+        { label: "Odczyt", value: "Natychmiastowe i średnie BPM" },
+        { label: "Kopiowanie", value: "Skopiuj wynik jednym stuknięciem" },
+        { label: "Następny krok", value: "Przejdź wprost do ćwiczeń z metronomem" }
+      ],
+      quickAnswers: [
+        { title: "Ile stuknięć wystarczy?", body: "Osiem lub więcej stuknięć daje zwykle znacznie stabilniejszą średnią niż bardzo krótka próbka." },
+        { title: "Czy można zmierzyć grający utwór?", body: "Tak, o ile konsekwentnie stukasz w ten sam punkt pulsu." }
+      ],
+      sections: [
+        { title: "Kiedy używać Tap BPM", body: "Użyj Tap BPM, gdy słyszysz utwór i chcesz szybko oszacować tempo przed ustawieniem metronomu." }
+      ],
+      faqs: [
+        { question: "Ile stuknięć potrzebuję?", answer: "Osiem lub więcej stuknięć daje zwykle stabilniejszą średnią BPM." },
+        { question: "Czy mogę używać go z dowolnym utworem?", answer: "Tak, o ile stukasz konsekwentnie w ten sam punkt pulsu." }
+      ]
+    },
+    "chord-transposer": {
+      heroTitle: "Transpozytor akordów online do zmiany tonacji",
+      heroDescription:
+        "Transponuj progresje akordów o półton, zachowaj akordy slash, wybierz krzyżyki lub bemole i od razu skopiuj nową progresję.",
+      highlights: [
+        { label: "Zakres", value: "Od -12 do +12 półtonów" },
+        { label: "Wyjście", value: "Krzyżyki lub bemole" },
+        { label: "Obsługa", value: "Akordy slash i jakość akordu" }
+      ],
+      quickAnswers: [
+        { title: "Czy zachowuje jakość akordu?", body: "Tak. Przesuwa się tylko prymka, a m, 7, maj7, sus4, add9 i podobne jakości pozostają bez zmian." },
+        { title: "Czy można transponować całe teksty z akordami?", body: "Tak. Narzędzie zachowuje odstępy i podziały wierszy oraz nie zmienia słów niebędących akordami." }
+      ],
+      sections: [
+        { title: "Znajdź łatwiejszą tonację", body: "Transponuj utwór do tonacji wygodniejszej dla głosu lub do grania, a następnie sprawdź wynik na instrumencie." },
+        { title: "Akordy i tonacja", body: "Użyj transpozytora akordów, gdy utwór jest zbyt wysoki lub zbyt niski. Przesuń każdy akord o tę samą liczbę półtonów." }
+      ],
+      faqs: [
+        { question: "Czy transpozycja tylko zmienia nazwy akordów?", answer: "Zmienia tonację, zachowując relacje harmoniczne między akordami." },
+        { question: "Czy obsługuje krzyżyki i bemole?", answer: "Obsługuje popularne akordy durowe, molowe, z krzyżykiem, bemolem i septymowe." }
+      ]
+    },
+    "bass-tuner": {
+      heroTitle: "Stroik basowy online",
+      heroDescription: "Szybko nastrój gitarę basową w przeglądarce dzięki wykrywaniu dźwięku przez mikrofon oraz strojom standardowym i alternatywnym.",
+      highlights: [
+        { label: "Wejście", value: "Mikrofon + nuty referencyjne" },
+        { label: "Stroje", value: "Standard, Drop D, 5-strunowy" },
+        { label: "Najlepsze do", value: "Bas elektryczny i akustyczny" }
+      ],
+      quickAnswers: [
+        { title: "Czy mogę nastroić bas 5-strunowy?", body: "Tak. Wybierz preset 5-strunowy i nastrój każdą strunę, w tym niskie H." },
+        { title: "Jak uzyskać stabilny odczyt?", body: "Zagraj jedną strunę zdecydowanie i przytrzymaj. Niskie częstotliwości potrzebują chwili dłużej, by się zarejestrować." }
+      ],
+      sections: [
+        { title: "Szybkie strojenie", body: "Włącz mikrofon, zagraj jedną strunę naraz i poczekaj, aż wskazówka się ustabilizuje, zanim poruszysz kluczem." },
+        { title: "Standardowe i alternatywne stroje basu", body: "Standard E A D G pasuje do większości gatunków. Drop D dodaje cięższą niską strunę. 5-strunowy dodaje niskie H dla szerszego zakresu." }
+      ],
+      faqs: [
+        { question: "Jak nastroić bas mikrofonem?", answer: "Włącz mikrofon, zagraj jedną strunę wyraźnie i poczekaj sekundę, aż wskazówka się ustabilizuje, potem koryguj ku środkowi." },
+        { question: "Jaki jest standardowy strój basu?", answer: "Standardowy strój basu 4-strunowego to E1 A1 D2 G2, od najniższej do najwyższej struny." }
+      ]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Stroik ukulele online",
+      heroDescription: "Szybko nastrój ukulele w przeglądarce dzięki strojowi standardowemu GCEA, Low G i strojom alternatywnym.",
+      highlights: [
+        { label: "Wejście", value: "Mikrofon + nuty referencyjne" },
+        { label: "Stroje", value: "GCEA, Low G, baryton D-G-B-E" },
+        { label: "Najlepsze do", value: "Sopranowe, koncertowe, tenorowe, barytonowe" }
+      ],
+      quickAnswers: [
+        { title: "Jaki jest standardowy strój ukulele?", body: "Ukulele sopranowe, koncertowe i tenorowe używają G4-C4-E4-A4. Barytonowe używa D3-G3-B3-E4." },
+        { title: "Jaka jest różnica między High G a Low G?", body: "High G to standardowy strój re-entrant. Low G zastępuje ją niższą struną G dla głębszego brzmienia i szerszego zakresu." }
+      ],
+      sections: [
+        { title: "Jak szybko nastroić ukulele", body: "Wybierz preset GCEA, włącz mikrofon i zagraj każdą strunę, aż odczyt się ustabilizuje, potem koryguj kluczem." },
+        { title: "Popularne stroje ukulele", body: "Zacznij od GCEA. Wypróbuj Low G dla głębszego brzmienia, strój D dla jaśniejszego tonu lub baryton D-G-B-E dla gitarowego charakteru." }
+      ],
+      faqs: [
+        { question: "Jak nastroić ukulele mikrofonem?", answer: "Włącz mikrofon, zagraj każdą strunę wyraźnie i koryguj klucz, aż wskazówka ustawi się na właściwej nucie." },
+        { question: "Czy działa dla ukulele barytonowego?", answer: "Tak. Wybierz preset barytonowy D-G-B-E i nastrój każdą strunę odpowiednio." }
+      ]
+    },
+    "sound-level-meter": {
+      heroTitle: "Miernik poziomu dźwięku online",
+      heroDescription: "Mierz szacowany poziom dźwięku w dB za pomocą mikrofonu przeglądarki i wykresu w czasie rzeczywistym.",
+      highlights: [
+        { label: "Odczyt", value: "Szacowane dB przez mikrofon" },
+        { label: "Wyświetlanie", value: "Wykres na żywo z min/maks/średnią" },
+        { label: "Zastosowanie", value: "Kontrola środowiska ćwiczeń" }
+      ],
+      quickAnswers: [
+        { title: "Czy jest wystarczająco dokładny do ćwiczeń?", body: "Tak, do porównywania środowisk i śledzenia głośnych sesji. Nie jest certyfikowany do pomiarów profesjonalnych." },
+        { title: "Jaki poziom jest bezpieczny do ćwiczeń muzycznych?", body: "60–75 dB dla instrumentów akustycznych. Stałe poziomy powyżej 85 dB mogą z czasem powodować zmęczenie słuchu." }
+      ],
+      sections: [
+        { title: "Jak używać miernika poziomu dźwięku", body: "Włącz mikrofon, trzymaj urządzenie nieruchomo w pomieszczeniu i obserwuj odczyt dB na żywo oraz średnią kroczącą." },
+        { title: "Interpretacja odczytów", body: "Ciche pomieszczenia to 30–45 dB. Normalna rozmowa około 60 dB. Głośne sesje ćwiczeń zwykle 75–90 dB." }
+      ],
+      faqs: [
+        { question: "Jak dokładny jest miernik?", answer: "To szacunek na podstawie sygnału mikrofonu, nie jest profesjonalnie skalibrowany, ale przydaje się do porównań i monitorowania." },
+        { question: "Czy wymaga specjalnego pozwolenia?", answer: "Tak, wymagany jest dostęp przeglądarki do mikrofonu, tak jak w stroikach." }
+      ]
+    },
+    "pitch-generator": {
+      heroTitle: "Generator dźwięku online",
+      heroDescription: "Generuj czyste tony od 20 Hz do 20000 Hz do treningu słuchu, jako referencję dla instrumentów i do testów audio.",
+      highlights: [
+        { label: "Zakres", value: "Od 20 Hz do 20000 Hz" },
+        { label: "Wyjście", value: "Czysty ton sinusoidalny w przeglądarce" },
+        { label: "Zastosowanie", value: "Trening słuchu i ton referencyjny" }
+      ],
+      quickAnswers: [
+        { title: "Czy mogę nim stroić instrumenty ze słuchu?", body: "Tak. Ustaw częstotliwość na potrzebną nutę, a następnie dostrój strunę do wygenerowanego tonu." },
+        { title: "Czy wysokie częstotliwości są bezpieczne?", body: "Zawsze zaczynaj od niskiej głośności, zwłaszcza powyżej 8000 Hz, i zwiększaj stopniowo." }
+      ],
+      sections: [
+        { title: "Do czego służy generator dźwięku", body: "Używaj go jako tonu referencyjnego do strojenia ze słuchu, do ćwiczenia rozpoznawania interwałów lub do testowania głośników i słuchawek." },
+        { title: "Wskazówki użycia", body: "Zaczynaj od niskiej głośności. Dla tonu referencyjnego użyj 440 Hz (A4). Podczas testów powoli przesuwaj się po zakresie." }
+      ],
+      faqs: [
+        { question: "Która częstotliwość odpowiada której nucie?", answer: "A4 = 440 Hz. C4 = 261,6 Hz. G4 = 392 Hz. Pozostałe nuty wynikają z podwajania lub połowienia na oktawę." },
+        { question: "Czy ton zatrzymuje się automatycznie?", answer: "Nie. Po zakończeniu zawsze naciśnij Stop, aby uniknąć zmęczenia słuchu." }
+      ]
+    }
+  },
+  tr: {
+    "guitar-tuner": {
+      heroTitle: "Ücretsiz online gitar akort aleti",
+      heroDescription:
+        "Akustik, elektro veya klasik gitarı mikrofonla perde algılama, referans notalar ve Standard, Drop D, Eb, D Standard, Open D ve Open G desteğiyle akort edin.",
+      highlights: [
+        { label: "Giriş", value: "Mikrofon + referans notalar" },
+        { label: "Akortlar", value: "Standard, Drop ve Open" },
+        { label: "İdeal", value: "Klasik, akustik ve elektro" }
+      ],
+      quickAnswers: [
+        { title: "Hızlı akort için uygun mu?", body: "Evet. Mikrofonu açın, her seferinde tek tel çalın ve ayar yapmadan önce okumanın oturmasını bekleyin." },
+        { title: "Sonra hangi akordu denemeli?", body: "Standard'dan sonra Drop D en kolay adımdır, Eb Standard ise tüm enstrümanı indirir." }
+      ],
+      sections: [
+        { title: "Doğru akordu seçin", body: "Çoğu şarkı için Standard, daha kalın riff'ler için Drop D, daha düşük gerginlik için Eb Standard ve açık akor tınısı için Open G veya Open D kullanın." },
+        { title: "Daha kararlı okuma alın", body: "Enstrümanı mikrofona yakın tutun, her seferinde tek tel çalın ve ayar yapmadan önce perdenin oturmasını kısa süre bekleyin." },
+        { title: "Akorlar ve ton", body: "Bir şarkı çok tiz veya çok pes geldiğinde akor transpoze aracını kullanın. Her akoru aynı sayıda yarım ses kaydırın." }
+      ],
+      faqs: [
+        { question: "İbre neden zıplıyor?", answer: "Oda gürültüsü veya aynı anda titreşen birkaç tel algılamayı şaşırtabilir. Tek bir teli net çalın ve oturmasını bekleyin." },
+        { question: "Yeni başlayanlar hangi akordu kullanmalı?", answer: "Altı telli gitar için Drop D, Eb Standard veya açık akortları denemeden önce Standard E A D G B E ile başlayın." }
+      ]
+    },
+    metronome: {
+      heroTitle: "BPM ve alt bölünmeli online metronom",
+      heroDescription:
+        "Hassas BPM kontrolü, alt bölünmeler, vurgular, Tap Tempo ve kademeli hız döngüleri olan eksiksiz bir online metronomla çalışın.",
+      highlights: [
+        { label: "Tempo", value: "Hassas BPM + Tap Tempo" },
+        { label: "Ritim", value: "Vurgular ve alt bölünmeler" },
+        { label: "Rutin", value: "Hedef BPM'e çalışma döngüsü" }
+      ],
+      quickAnswers: [
+        { title: "Yeni başlayan hangi BPM'de başlamalı?", body: "Hâlâ temiz ve rahat çalabildiğiniz en hızlı tempoda başlayın, sonra küçük adımlarla artırın." },
+        { title: "Alt bölünmeleri neden kullanmalı?", body: "Alt bölünmeler iç nabzı netleştirir ve zamanlama, groove ve tutarlılıkta çok yardımcı olur." }
+      ],
+      sections: [
+        { title: "Daha iyi bir çalışma yöntemi", body: "Yavaş başlayın, ilk vuruşu vurgulayın ve BPM'i ancak birkaç temiz döngüden sonra artırın." },
+        { title: "Hız geliştirme rutini", body: "Seçtiğiniz ölçü veya saniye sonrasında başlangıç BPM'inden hedef BPM'e küçük adımlarla geçmek için çalışma döngüsünü kullanın." }
+      ],
+      faqs: [
+        { question: "Hangi BPM'de çalışmalıyım?", answer: "Temiz ve rahat çalabildiğiniz en hızlı tempoda başlayın, sonra kademeli olarak artırın." },
+        { question: "Alt bölünmeleri neden kullanmalı?", answer: "Yalnızca ana tıklamayı değil, her vuruşun içindeki ritmi duymanıza yardımcı olur." }
+      ]
+    },
+    "tap-bpm": {
+      heroTitle: "Online Tap BPM sayacı",
+      heroDescription:
+        "Herhangi bir şarkıya vurun, anlık ve ortalama BPM alın, sonucu kopyalayın ve doğrudan metronom çalışmasına geçin.",
+      highlights: [
+        { label: "Okuma", value: "Anlık ve ortalama BPM" },
+        { label: "Kopyalama", value: "Sonucu tek dokunuşla kopyalayın" },
+        { label: "Sonraki adım", value: "Doğrudan metronom çalışmasına geçin" }
+      ],
+      quickAnswers: [
+        { title: "Kaç vuruş yeterli?", body: "Sekiz veya daha fazla vuruş genellikle çok kısa bir örneğe göre çok daha kararlı bir ortalama verir." },
+        { title: "Çalan bir şarkı ölçülebilir mi?", body: "Evet, aynı nabız noktasına tutarlı şekilde vurduğunuz sürece." }
+      ],
+      sections: [
+        { title: "Tap BPM ne zaman kullanılır", body: "Bir şarkı duyduğunuzda ve metronomu ayarlamadan önce temposunu hızlıca tahmin etmek istediğinizde Tap BPM'i kullanın." }
+      ],
+      faqs: [
+        { question: "Kaç vuruşa ihtiyacım var?", answer: "Sekiz veya daha fazla vuruş genellikle daha kararlı bir ortalama BPM verir." },
+        { question: "Herhangi bir şarkıyla kullanabilir miyim?", answer: "Evet, aynı nabız noktasına tutarlı şekilde vurduğunuz sürece." }
+      ]
+    },
+    "chord-transposer": {
+      heroTitle: "Ton değişimi için online akor transpoze aracı",
+      heroDescription:
+        "Akor dizilerini yarım ses transpoze edin, slash akorları koruyun, diyez veya bemol seçin ve yeni diziyi anında kopyalayın.",
+      highlights: [
+        { label: "Aralık", value: "-12 ile +12 yarım ses" },
+        { label: "Çıktı", value: "Diyez veya bemol" },
+        { label: "Destek", value: "Slash akorlar ve akor niteliği" }
+      ],
+      quickAnswers: [
+        { title: "Akor niteliğini korur mu?", body: "Evet. Yalnızca kök nota kayar; m, 7, maj7, sus4, add9 gibi nitelikler korunur." },
+        { title: "Tüm şarkı sözleri ve akor sayfaları transpoze edilebilir mi?", body: "Evet. Araç boşlukları ve satır sonlarını korur, akor olmayan kelimeleri değiştirmez." }
+      ],
+      sections: [
+        { title: "Daha kolay bir ton bulun", body: "Şarkıyı sesiniz için veya çalmak için daha kolay bir tona transpoze edin, sonra sonucu enstrümanla kontrol edin." },
+        { title: "Akorlar ve ton", body: "Bir şarkı çok tiz veya çok pes geldiğinde akor transpoze aracını kullanın. Her akoru aynı sayıda yarım ses kaydırın." }
+      ],
+      faqs: [
+        { question: "Transpoze sadece akor adlarını mı değiştirir?", answer: "Tonu değiştirir ve akorlar arasındaki armonik ilişkiyi korur." },
+        { question: "Diyez ve bemolleri destekler mi?", answer: "Yaygın majör, minör, diyez, bemol ve yedili akor adlarını destekler." }
+      ]
+    },
+    "bass-tuner": {
+      heroTitle: "Online bas gitar akort aleti",
+      heroDescription: "Bas gitarı tarayıcıda mikrofonla perde algılama, standart ve alternatif akortlarla hızlıca akort edin.",
+      highlights: [
+        { label: "Giriş", value: "Mikrofon + referans notalar" },
+        { label: "Akortlar", value: "Standard, Drop D, 5 telli" },
+        { label: "İdeal", value: "Elektro ve akustik bas" }
+      ],
+      quickAnswers: [
+        { title: "5 telli bası akort edebilir miyim?", body: "Evet. 5 telli ön ayarı seçin ve pes B dâhil her teli akort edin." },
+        { title: "Kararlı okumayı nasıl alırım?", body: "Bir teli sıkıca çalın ve sabit tutun. Düşük frekansların kaydedilmesi biraz daha uzun sürer." }
+      ],
+      sections: [
+        { title: "Hızlıca akorda gelin", body: "Mikrofonu açın, her seferinde tek tel çalın ve burguyu ayarlamadan önce ibrenin oturmasını bekleyin." },
+        { title: "Standart ve alternatif bas akortları", body: "Standard E A D G çoğu türe uyar. Drop D daha ağır bir pes tel ekler. 5 telli, geniş aralık için pes B ekler." }
+      ],
+      faqs: [
+        { question: "Bası mikrofonla nasıl akort ederim?", answer: "Mikrofonu açın, bir teli net çalın ve ibrenin oturması için bir saniye bekleyin, sonra ortaya doğru ayarlayın." },
+        { question: "Standart bas akordu nedir?", answer: "4 telli bas için standart akort en pesten en tize E1 A1 D2 G2'dir." }
+      ]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Online ukulele akort aleti",
+      heroDescription: "Ukuleleyi tarayıcıda GCEA standart akordu, Low G ve alternatif akortlarla hızlıca akort edin.",
+      highlights: [
+        { label: "Giriş", value: "Mikrofon + referans notalar" },
+        { label: "Akortlar", value: "GCEA, Low G, bariton D-G-B-E" },
+        { label: "İdeal", value: "Soprano, konser, tenor, bariton" }
+      ],
+      quickAnswers: [
+        { title: "Standart ukulele akordu nedir?", body: "Soprano, konser ve tenor ukulele G4-C4-E4-A4 kullanır. Bariton D3-G3-B3-E4 kullanır." },
+        { title: "High G ile Low G arasındaki fark nedir?", body: "High G standart re-entrant akorttur. Low G, daha derin bir tını ve geniş aralık için onu daha pes bir G teliyle değiştirir." }
+      ],
+      sections: [
+        { title: "Ukulele nasıl hızlıca akort edilir", body: "GCEA ön ayarını seçin, mikrofonu açın ve okuma oturana kadar her teli çalın, sonra burguyu ayarlayın." },
+        { title: "Yaygın ukulele akortları", body: "GCEA ile başlayın. Daha derin tını için Low G, daha parlak ton için D akordu veya gitar hissi için bariton D-G-B-E deneyin." }
+      ],
+      faqs: [
+        { question: "Ukuleleyi mikrofonla nasıl akort ederim?", answer: "Mikrofonu açın, her teli net çalın ve ibre doğru notada ortalanana kadar burguyu ayarlayın." },
+        { question: "Bariton ukulele için çalışır mı?", answer: "Evet. D-G-B-E bariton ön ayarını seçin ve her teli buna göre akort edin." }
+      ]
+    },
+    "sound-level-meter": {
+      heroTitle: "Online ses seviyesi ölçer",
+      heroDescription: "Tarayıcı mikrofonunuz ve gerçek zamanlı grafikle dB cinsinden tahmini ses seviyelerini ölçün.",
+      highlights: [
+        { label: "Okuma", value: "Mikrofonla tahmini dB" },
+        { label: "Görüntü", value: "Min/maks/ortalama ile canlı grafik" },
+        { label: "Kullanım", value: "Çalışma ortamı kontrolü" }
+      ],
+      quickAnswers: [
+        { title: "Çalışma için yeterince doğru mu?", body: "Ortamları karşılaştırmak ve gürültülü seansları izlemek için evet. Profesyonel ölçüm için sertifikalı değildir." },
+        { title: "Müzik çalışması için güvenli seviye nedir?", body: "Akustik enstrümanlar için 60–75 dB. 85 dB üzerindeki sürekli seviyeler zamanla işitme yorgunluğuna yol açabilir." }
+      ],
+      sections: [
+        { title: "Ses seviyesi ölçer nasıl kullanılır", body: "Mikrofonu açın, cihazı odada sabit tutun ve canlı dB okumasını ve hareketli ortalamayı izleyin." },
+        { title: "Okumaları yorumlama", body: "Sessiz odalar 30–45 dB gösterir. Normal konuşma yaklaşık 60 dB. Gürültülü çalışma seansları genellikle 75–90 dB." }
+      ],
+      faqs: [
+        { question: "Ölçer ne kadar doğru?", answer: "Mikrofon sinyaline dayalı bir tahmindir, profesyonel olarak kalibre edilmemiştir ama karşılaştırma ve izleme için yararlıdır." },
+        { question: "Özel bir izin gerekir mi?", answer: "Evet, akort aletlerinde olduğu gibi tarayıcı mikrofon erişimi gerekir." }
+      ]
+    },
+    "pitch-generator": {
+      heroTitle: "Online ton üreteci",
+      heroDescription: "Kulak eğitimi, enstrüman referansı ve ses testi için 20 Hz ile 20000 Hz arasında saf tonlar üretin.",
+      highlights: [
+        { label: "Aralık", value: "20 Hz ile 20000 Hz" },
+        { label: "Çıktı", value: "Tarayıcıda saf sinüs tonu" },
+        { label: "Kullanım", value: "Kulak eğitimi ve referans perde" }
+      ],
+      quickAnswers: [
+        { title: "Enstrümanları kulaktan akort etmek için kullanabilir miyim?", body: "Evet. Frekansı ihtiyacınız olan notaya ayarlayın, sonra enstrüman telinizi üretilen tona eşleyin." },
+        { title: "Yüksek frekanslar güvenli mi?", body: "Özellikle 8000 Hz üzerinde her zaman düşük seviyede başlayın ve kademeli olarak artırın." }
+      ],
+      sections: [
+        { title: "Ton üreteci ne işe yarar", body: "Kulaktan akort için referans perde olarak, aralık tanıma çalışması için veya hoparlör ve kulaklık testi için kullanın." },
+        { title: "Kullanım ipuçları", body: "Düşük seviyede başlayın. Referans perde için 440 Hz (A4) kullanın. Test ederken aralığı yavaşça tarayın." }
+      ],
+      faqs: [
+        { question: "Hangi frekans hangi notaya karşılık gelir?", answer: "A4 = 440 Hz. C4 = 261,6 Hz. G4 = 392 Hz. Diğer notalar her oktavda iki katına çıkarak veya yarıya inerek bulunur." },
+        { question: "Ton otomatik olarak durur mu?", answer: "Hayır. İşitme yorgunluğunu önlemek için bitirince her zaman Durdur'a basın." }
+      ]
+    }
+  },
+  cs: {
+    "guitar-tuner": {
+      heroTitle: "Bezplatná online ladička na kytaru",
+      heroDescription:
+        "Laďte akustickou, elektrickou nebo klasickou kytaru pomocí mikrofonu, referenčních tónů a podpory Standard, Drop D, Eb, D Standard, Open D a Open G.",
+      highlights: [
+        { label: "Vstup", value: "Mikrofon + referenční tóny" },
+        { label: "Ladění", value: "Standard, Drop a Open" },
+        { label: "Ideální pro", value: "Klasická, akustická a elektrická" }
+      ],
+      quickAnswers: [
+        { title: "Hodí se na rychlé ladění?", body: "Ano. Zapněte mikrofon, hrajte vždy jednu strunu a než upravíte, počkejte chvíli, až se údaj ustálí." },
+        { title: "Které ladění zkusit dál?", body: "Po Standard je nejsnazším krokem Drop D, zatímco Eb Standard sníží celý nástroj." }
+      ],
+      sections: [
+        { title: "Vyberte správné ladění", body: "Pro většinu skladeb použijte Standard, pro nižší riffy Drop D, pro nižší napětí Eb Standard a pro zvuk otevřených akordů Open G nebo Open D." },
+        { title: "Získejte stabilnější údaj", body: "Držte nástroj blízko mikrofonu, hrajte vždy jednu strunu a než upravíte ladění, chvíli počkejte, až se výška ustálí." },
+        { title: "Akordy a tónina", body: "Použijte transpozér akordů, když je skladba příliš vysoká nebo nízká. Posuňte každý akord o stejný počet půltónů." }
+      ],
+      faqs: [
+        { question: "Proč ručička skáče?", answer: "Hluk v místnosti nebo více znějících strun mohou detekci rušit. Zahrajte jednu strunu jasně a nechte ji doznít." },
+        { question: "Jaké ladění mají používat začátečníci?", answer: "U šestistrunné kytary začněte se Standard E A D G B E, než zkusíte Drop D, Eb Standard nebo otevřená ladění." }
+      ]
+    },
+    metronome: {
+      heroTitle: "Online metronom s BPM a dělením",
+      heroDescription:
+        "Cvičte s plnohodnotným online metronomem s přesným ovládáním BPM, děleními, akcenty, Tap Tempo a postupnými rychlostními cykly.",
+      highlights: [
+        { label: "Tempo", value: "Přesné BPM + Tap Tempo" },
+        { label: "Rytmus", value: "Akcenty a dělení" },
+        { label: "Rutina", value: "Cvičební cyklus k cílovému BPM" }
+      ],
+      quickAnswers: [
+        { title: "Na jakém BPM mají začít začátečníci?", body: "Začněte na nejrychlejším tempu, kde stále hrajete čistě a uvolněně, a pak po malých krocích zvyšujte." },
+        { title: "Proč používat dělení?", body: "Dělení zpřehledňují vnitřní puls a hodně pomáhají s timingem, groovem a stálostí." }
+      ],
+      sections: [
+        { title: "Lepší metoda cvičení", body: "Začněte pomalu, zdůrazněte první dobu a BPM zvyšte až po několika čistých cyklech." },
+        { title: "Rutina pro budování rychlosti", body: "Pomocí cvičebního cyklu přejděte z počátečního BPM na cílové po malých krocích po zvoleném počtu taktů nebo sekund." }
+      ],
+      faqs: [
+        { question: "Na jakém BPM mám cvičit?", answer: "Začněte na nejrychlejším tempu, kde hrajete čistě a uvolněně, a pak postupně zvyšujte." },
+        { question: "Proč používat dělení?", answer: "Pomáhají slyšet rytmus uvnitř každé doby, nejen hlavní klik." }
+      ]
+    },
+    "tap-bpm": {
+      heroTitle: "Online počítadlo Tap BPM",
+      heroDescription:
+        "Ťukejte do libovolné skladby, získejte okamžité a průměrné BPM, zkopírujte výsledek a přejděte rovnou ke cvičení s metronomem.",
+      highlights: [
+        { label: "Údaj", value: "Okamžité a průměrné BPM" },
+        { label: "Kopírování", value: "Zkopírujte výsledek jedním ťuknutím" },
+        { label: "Další krok", value: "Přejděte rovnou ke cvičení s metronomem" }
+      ],
+      quickAnswers: [
+        { title: "Kolik ťuknutí stačí?", body: "Osm a více ťuknutí obvykle dá mnohem stabilnější průměr než velmi krátký vzorek." },
+        { title: "Lze měřit hrající skladbu?", body: "Ano, pokud ťukáte stále do stejného bodu pulsu." }
+      ],
+      sections: [
+        { title: "Kdy použít Tap BPM", body: "Použijte Tap BPM, když slyšíte skladbu a chcete rychle odhadnout tempo před nastavením metronomu." }
+      ],
+      faqs: [
+        { question: "Kolik ťuknutí potřebuji?", answer: "Osm a více ťuknutí obvykle dá stabilnější průměrné BPM." },
+        { question: "Můžu ho použít s jakoukoli skladbou?", answer: "Ano, pokud ťukáte stále do stejného bodu pulsu." }
+      ]
+    },
+    "chord-transposer": {
+      heroTitle: "Online transpozér akordů pro změnu tóniny",
+      heroDescription:
+        "Transponujte akordové postupy po půltónech, zachovejte slash akordy, zvolte křížky nebo béčka a nový postup ihned zkopírujte.",
+      highlights: [
+        { label: "Rozsah", value: "-12 až +12 půltónů" },
+        { label: "Výstup", value: "Křížky nebo béčka" },
+        { label: "Podpora", value: "Slash akordy a kvalita akordu" }
+      ],
+      quickAnswers: [
+        { title: "Zachovává kvalitu akordu?", body: "Ano. Posune se jen základní tón, zatímco m, 7, maj7, sus4, add9 a podobné kvality zůstávají." },
+        { title: "Lze transponovat celé texty s akordy?", body: "Ano. Nástroj zachová mezery a zalomení řádků a slova, která nejsou akordy, nemění." }
+      ],
+      sections: [
+        { title: "Najděte snazší tóninu", body: "Transponujte skladbu do tóniny pohodlnější pro hlas nebo hraní a pak výsledek ověřte na nástroji." },
+        { title: "Akordy a tónina", body: "Použijte transpozér akordů, když je skladba příliš vysoká nebo nízká. Posuňte každý akord o stejný počet půltónů." }
+      ],
+      faqs: [
+        { question: "Mění transpozice jen názvy akordů?", answer: "Mění tóninu a zachovává harmonické vztahy mezi akordy." },
+        { question: "Podporuje křížky a béčka?", answer: "Podporuje běžné durové, mollové, křížkové, béčkové a septakordy." }
+      ]
+    },
+    "bass-tuner": {
+      heroTitle: "Online ladička na baskytaru",
+      heroDescription: "Rychle nalaďte baskytaru v prohlížeči pomocí detekce mikrofonem a standardních i alternativních ladění.",
+      highlights: [
+        { label: "Vstup", value: "Mikrofon + referenční tóny" },
+        { label: "Ladění", value: "Standard, Drop D, 5strunná" },
+        { label: "Ideální pro", value: "Elektrická a akustická basa" }
+      ],
+      quickAnswers: [
+        { title: "Můžu naladit 5strunnou basu?", body: "Ano. Vyberte předvolbu pro 5 strun a nalaďte každou strunu včetně nízkého H." },
+        { title: "Jak získám stabilní údaj?", body: "Zahrajte jednu strunu pevně a držte. Nízké frekvence se zaznamenávají o něco déle." }
+      ],
+      sections: [
+        { title: "Rychlé naladění", body: "Zapněte mikrofon, hrajte vždy jednu strunu a než pohnete kolíkem, počkejte, až se ručička ustálí." },
+        { title: "Standardní a alternativní ladění basy", body: "Standard E A D G se hodí pro většinu žánrů. Drop D přidává těžší nízkou strunu. 5strunná přidává nízké H pro širší rozsah." }
+      ],
+      faqs: [
+        { question: "Jak naladit basu mikrofonem?", answer: "Zapněte mikrofon, jasně zahrajte jednu strunu a počkejte sekundu, až se ručička ustálí, pak ladění upravte ke středu." },
+        { question: "Jaké je standardní ladění basy?", answer: "Standardní ladění 4strunné basy je E1 A1 D2 G2, od nejnižší k nejvyšší struně." }
+      ]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Online ladička na ukulele",
+      heroDescription: "Rychle nalaďte ukulele v prohlížeči se standardním laděním GCEA, Low G a alternativními laděními.",
+      highlights: [
+        { label: "Vstup", value: "Mikrofon + referenční tóny" },
+        { label: "Ladění", value: "GCEA, Low G, barytonové D-G-B-E" },
+        { label: "Ideální pro", value: "Sopránové, koncertní, tenorové, barytonové" }
+      ],
+      quickAnswers: [
+        { title: "Jaké je standardní ladění ukulele?", body: "Sopránové, koncertní a tenorové ukulele používají G4-C4-E4-A4. Barytonové používá D3-G3-B3-E4." },
+        { title: "Jaký je rozdíl mezi High G a Low G?", body: "High G je standardní re-entrant ladění. Low G ho nahrazuje nižší strunou G pro hlubší zvuk a širší rozsah." }
+      ],
+      sections: [
+        { title: "Jak rychle naladit ukulele", body: "Vyberte předvolbu GCEA, zapněte mikrofon a hrajte každou strunu, dokud se údaj neustálí, pak upravte kolík." },
+        { title: "Běžná ladění ukulele", body: "Začněte s GCEA. Vyzkoušejte Low G pro hlubší zvuk, ladění D pro jasnější tón nebo barytonové D-G-B-E pro kytarový pocit." }
+      ],
+      faqs: [
+        { question: "Jak naladit ukulele mikrofonem?", answer: "Zapněte mikrofon, jasně zahrajte každou strunu a upravujte kolík, dokud se ručička neustálí na správném tónu." },
+        { question: "Funguje pro barytonové ukulele?", answer: "Ano. Vyberte barytonovou předvolbu D-G-B-E a každou strunu podle toho nalaďte." }
+      ]
+    },
+    "sound-level-meter": {
+      heroTitle: "Online měřič hladiny zvuku",
+      heroDescription: "Měřte odhadovanou hladinu zvuku v dB pomocí mikrofonu prohlížeče a grafu v reálném čase.",
+      highlights: [
+        { label: "Údaj", value: "Odhadované dB přes mikrofon" },
+        { label: "Zobrazení", value: "Živý graf s min/max/průměrem" },
+        { label: "Použití", value: "Kontrola cvičebního prostředí" }
+      ],
+      quickAnswers: [
+        { title: "Je dost přesný pro cvičení?", body: "Ano, pro porovnávání prostředí a sledování hlasitých seancí. Není certifikovaný pro profesionální měření." },
+        { title: "Jaká hladina je bezpečná pro hudební cvičení?", body: "60–75 dB pro akustické nástroje. Trvalé hladiny nad 85 dB mohou časem způsobit únavu sluchu." }
+      ],
+      sections: [
+        { title: "Jak používat měřič hladiny zvuku", body: "Zapněte mikrofon, držte zařízení v místnosti v klidu a sledujte živý údaj dB a klouzavý průměr." },
+        { title: "Interpretace údajů", body: "Tiché místnosti ukazují 30–45 dB. Běžný hovor kolem 60 dB. Hlasité cvičební seance obvykle 75–90 dB." }
+      ],
+      faqs: [
+        { question: "Jak přesný je měřič?", answer: "Je to odhad na základě signálu mikrofonu, není profesionálně kalibrovaný, ale je užitečný pro porovnání a sledování." },
+        { question: "Vyžaduje zvláštní povolení?", answer: "Ano, je potřeba přístup prohlížeče k mikrofonu, stejně jako u ladiček." }
+      ]
+    },
+    "pitch-generator": {
+      heroTitle: "Online generátor tónů",
+      heroDescription: "Generujte čisté tóny od 20 Hz do 20000 Hz pro trénink sluchu, referenci nástroje a testování zvuku.",
+      highlights: [
+        { label: "Rozsah", value: "20 Hz až 20000 Hz" },
+        { label: "Výstup", value: "Čistý sinusový tón v prohlížeči" },
+        { label: "Použití", value: "Trénink sluchu a referenční výška" }
+      ],
+      quickAnswers: [
+        { title: "Můžu jím ladit nástroje podle sluchu?", body: "Ano. Nastavte frekvenci na potřebný tón a pak strunu nástroje slaďte s generovaným tónem." },
+        { title: "Jsou vysoké frekvence bezpečné?", body: "Vždy začněte na nízké hlasitosti, zejména nad 8000 Hz, a postupně zvyšujte." }
+      ],
+      sections: [
+        { title: "K čemu je generátor tónů dobrý", body: "Použijte ho jako referenční výšku pro ladění podle sluchu, k procvičování rozpoznávání intervalů nebo k testování reproduktorů a sluchátek." },
+        { title: "Tipy k použití", body: "Začněte na nízké hlasitosti. Pro referenční výšku použijte 440 Hz (A4). Při testování pomalu projíždějte rozsahem." }
+      ],
+      faqs: [
+        { question: "Která frekvence odpovídá kterému tónu?", answer: "A4 = 440 Hz. C4 = 261,6 Hz. G4 = 392 Hz. Ostatní tóny vznikají zdvojnásobením nebo půlením na oktávu." },
+        { question: "Zastaví se tón automaticky?", answer: "Ne. Po dokončení vždy stiskněte Stop, abyste předešli únavě sluchu." }
+      ]
+    }
+  },
+  sv: {
+    "guitar-tuner": {
+      heroTitle: "Gratis online gitarrstämmare",
+      heroDescription:
+        "Stäm akustisk, elektrisk eller klassisk gitarr med mikrofonbaserad tonigenkänning, referenstoner och stöd för Standard, Drop D, Eb, D Standard, Open D och Open G.",
+      highlights: [
+        { label: "Ingång", value: "Mikrofon + referenstoner" },
+        { label: "Stämningar", value: "Standard, Drop och Open" },
+        { label: "Bäst för", value: "Klassisk, akustisk och elektrisk" }
+      ],
+      quickAnswers: [
+        { title: "Funkar det för snabb stämning?", body: "Ja. Slå på mikrofonen, spela en sträng i taget och vänta en stund tills avläsningen stabiliseras innan du justerar." },
+        { title: "Vilken stämning bör du prova härnäst?", body: "Efter Standard är Drop D det enklaste nästa steget, medan Eb Standard sänker hela instrumentet." }
+      ],
+      sections: [
+        { title: "Välj rätt stämning", body: "Använd Standard för de flesta låtar, Drop D för lägre riff, Eb Standard för lägre spänning och Open G eller Open D för öppna ackord." },
+        { title: "Få en stabilare avläsning", body: "Håll instrumentet nära mikrofonen, spela en sträng i taget och vänta en stund tills tonhöjden stabiliseras innan du justerar." },
+        { title: "Ackord och tonart", body: "Använd ackordtransponeraren när en låt känns för hög eller för låg. Flytta varje ackord lika många halvtoner." }
+      ],
+      faqs: [
+        { question: "Varför hoppar nålen?", answer: "Rumsljud eller flera klingande strängar kan störa tonigenkänningen. Spela en sträng tydligt och låt den klinga ut." },
+        { question: "Vilken stämning bör nybörjare använda?", answer: "För sexsträngad gitarr, börja med Standard E A D G B E innan du provar Drop D, Eb Standard eller öppna stämningar." }
+      ]
+    },
+    metronome: {
+      heroTitle: "Online-metronom med BPM och underdelningar",
+      heroDescription:
+        "Öva med en komplett online-metronom med exakt BPM-kontroll, underdelningar, accenter, Tap Tempo och progressiva tempocykler.",
+      highlights: [
+        { label: "Tempo", value: "Exakt BPM + Tap Tempo" },
+        { label: "Rytm", value: "Accenter och underdelningar" },
+        { label: "Rutin", value: "Övningscykel till mål-BPM" }
+      ],
+      quickAnswers: [
+        { title: "Vilket BPM bör nybörjare börja med?", body: "Börja i det snabbaste tempo där du fortfarande spelar rent och avslappnat, och öka sedan i små steg." },
+        { title: "Varför använda underdelningar?", body: "Underdelningar gör den inre pulsen tydligare och hjälper mycket med timing, groove och jämnhet." }
+      ],
+      sections: [
+        { title: "En bättre övningsmetod", body: "Börja långsamt, betona första slaget och öka BPM först efter flera rena cykler." },
+        { title: "Rutin för att bygga fart", body: "Använd övningscykeln för att gå från ett start-BPM till ett mål-BPM i små steg efter ett valt antal takter eller sekunder." }
+      ],
+      faqs: [
+        { question: "Vilket BPM bör jag öva i?", answer: "Börja i det snabbaste tempo där du spelar rent och avslappnat, och öka sedan gradvis." },
+        { question: "Varför använda underdelningar?", answer: "De hjälper dig höra rytmen inom varje slag, inte bara huvudklicket." }
+      ]
+    },
+    "tap-bpm": {
+      heroTitle: "Online Tap BPM-räknare",
+      heroDescription:
+        "Knacka med till valfri låt, få omedelbart och genomsnittligt BPM, kopiera resultatet och gå direkt vidare till metronomövning.",
+      highlights: [
+        { label: "Avläsning", value: "Omedelbart och genomsnittligt BPM" },
+        { label: "Kopiera", value: "Kopiera resultatet med en knackning" },
+        { label: "Nästa steg", value: "Gå direkt till metronomövning" }
+      ],
+      quickAnswers: [
+        { title: "Hur många knackningar räcker?", body: "Åtta eller fler knackningar ger oftast ett mycket stabilare genomsnitt än ett mycket kort stickprov." },
+        { title: "Kan man mäta en låt som spelas?", body: "Ja, så länge du knackar konsekvent på samma pulspunkt." }
+      ],
+      sections: [
+        { title: "När du ska använda Tap BPM", body: "Använd Tap BPM när du hör en låt och snabbt vill uppskatta tempot innan du ställer in metronomen." }
+      ],
+      faqs: [
+        { question: "Hur många knackningar behöver jag?", answer: "Åtta eller fler knackningar ger oftast ett stabilare genomsnittligt BPM." },
+        { question: "Kan jag använda det med vilken låt som helst?", answer: "Ja, så länge du knackar konsekvent på samma pulspunkt." }
+      ]
+    },
+    "chord-transposer": {
+      heroTitle: "Online ackordtransponerare för tonartsbyten",
+      heroDescription:
+        "Transponera ackordföljder per halvton, behåll slash-ackord, välj kors eller b och kopiera den nya följden direkt.",
+      highlights: [
+        { label: "Omfång", value: "-12 till +12 halvtoner" },
+        { label: "Utdata", value: "Kors eller b" },
+        { label: "Stöd", value: "Slash-ackord och ackordkvalitet" }
+      ],
+      quickAnswers: [
+        { title: "Behålls ackordkvaliteten?", body: "Ja. Bara grundtonen flyttas, medan m, 7, maj7, sus4, add9 och liknande kvaliteter behålls." },
+        { title: "Kan man transponera hela texter och ackordblad?", body: "Ja. Verktyget behåller mellanrum och radbrytningar och lämnar ord som inte är ackord oförändrade." }
+      ],
+      sections: [
+        { title: "Hitta en enklare tonart", body: "Transponera en låt till en tonart som är lättare för rösten eller att spela, och kontrollera sedan resultatet med instrumentet." },
+        { title: "Ackord och tonart", body: "Använd ackordtransponeraren när en låt känns för hög eller för låg. Flytta varje ackord lika många halvtoner." }
+      ],
+      faqs: [
+        { question: "Byter transponering bara ackordnamn?", answer: "Den byter tonart och behåller den harmoniska relationen mellan ackorden." },
+        { question: "Stöder den kors och b?", answer: "Den stöder vanliga dur-, moll-, kors-, b- och septimackord." }
+      ]
+    },
+    "bass-tuner": {
+      heroTitle: "Online basstämmare",
+      heroDescription: "Stäm elbasen snabbt i webbläsaren med mikrofonbaserad tonigenkänning samt standard- och alternativa stämningar.",
+      highlights: [
+        { label: "Ingång", value: "Mikrofon + referenstoner" },
+        { label: "Stämningar", value: "Standard, Drop D, 5-strängad" },
+        { label: "Bäst för", value: "Elbas och akustisk bas" }
+      ],
+      quickAnswers: [
+        { title: "Kan jag stämma en 5-strängad bas?", body: "Ja. Välj förinställningen för 5 strängar och stäm varje sträng inklusive låga H." },
+        { title: "Hur får jag en stabil avläsning?", body: "Spela en sträng bestämt och håll stadigt. Låga frekvenser tar lite längre tid att registrera." }
+      ],
+      sections: [
+        { title: "Kom i stämning snabbt", body: "Slå på mikrofonen, spela en sträng i taget och vänta tills nålen stabiliseras innan du justerar stämskruven." },
+        { title: "Standard och alternativa basstämningar", body: "Standard E A D G passar de flesta genrer. Drop D ger en tyngre låg sträng. 5-strängad lägger till låga H för utökat omfång." }
+      ],
+      faqs: [
+        { question: "Hur stämmer jag bas med mikrofon?", answer: "Slå på mikrofonen, knäpp en sträng tydligt och vänta en sekund tills nålen stabiliseras, justera sedan mot mitten." },
+        { question: "Vad är standardstämning för bas?", answer: "Standardstämning för 4-strängad bas är E1 A1 D2 G2, från lägsta till högsta sträng." }
+      ]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Online ukulelestämmare",
+      heroDescription: "Stäm ukulelen snabbt i webbläsaren med GCEA-standardstämning, Low G och alternativa stämningar.",
+      highlights: [
+        { label: "Ingång", value: "Mikrofon + referenstoner" },
+        { label: "Stämningar", value: "GCEA, Low G, baryton D-G-B-E" },
+        { label: "Bäst för", value: "Sopran, konsert, tenor, baryton" }
+      ],
+      quickAnswers: [
+        { title: "Vad är standardstämning för ukulele?", body: "Sopran-, konsert- och tenorukulele använder G4-C4-E4-A4. Baryton använder D3-G3-B3-E4." },
+        { title: "Vad är skillnaden mellan High G och Low G?", body: "High G är den vanliga re-entranta stämningen. Low G ersätter den med en lägre G-sträng för djupare klang och bredare omfång." }
+      ],
+      sections: [
+        { title: "Så stämmer du en ukulele snabbt", body: "Välj GCEA-förinställningen, slå på mikrofonen och knäpp varje sträng tills avläsningen stabiliseras, justera sedan stämskruven." },
+        { title: "Vanliga ukulelestämningar", body: "Börja med GCEA. Prova Low G för djupare klang, D-stämning för ljusare ton eller baryton D-G-B-E för en gitarrlik känsla." }
+      ],
+      faqs: [
+        { question: "Hur stämmer jag ukulele med mikrofon?", answer: "Slå på mikrofonen, knäpp varje sträng tydligt och justera stämskruven tills nålen centreras på rätt ton." },
+        { question: "Fungerar det för barytonukulele?", answer: "Ja. Välj baryton-förinställningen D-G-B-E och stäm varje sträng därefter." }
+      ]
+    },
+    "sound-level-meter": {
+      heroTitle: "Online ljudnivåmätare",
+      heroDescription: "Mät uppskattade ljudnivåer i dB med webbläsarens mikrofon och en graf i realtid.",
+      highlights: [
+        { label: "Avläsning", value: "Uppskattad dB via mikrofon" },
+        { label: "Visning", value: "Live-graf med min/max/medel" },
+        { label: "Användning", value: "Kontroll av övningsmiljön" }
+      ],
+      quickAnswers: [
+        { title: "Är den tillräckligt exakt för övning?", body: "Ja, för att jämföra miljöer och följa höga pass. Inte certifierad för professionell mätning." },
+        { title: "Vilken nivå är säker för musikövning?", body: "60–75 dB för akustiska instrument. Ihållande nivåer över 85 dB kan på sikt ge hörseltrötthet." }
+      ],
+      sections: [
+        { title: "Så använder du ljudnivåmätaren", body: "Slå på mikrofonen, håll enheten stilla i rummet och titta på dB-avläsningen i realtid och det glidande medelvärdet." },
+        { title: "Tolka avläsningarna", body: "Tysta rum visar 30–45 dB. Normalt samtal runt 60 dB. Höga övningspass vanligtvis 75–90 dB." }
+      ],
+      faqs: [
+        { question: "Hur exakt är mätaren?", answer: "Det är en uppskattning baserad på mikrofonsignalen, inte professionellt kalibrerad, men användbar för jämförelser och övervakning." },
+        { question: "Krävs något särskilt tillstånd?", answer: "Ja, åtkomst till webbläsarens mikrofon krävs, precis som för instrumentstämmarna." }
+      ]
+    },
+    "pitch-generator": {
+      heroTitle: "Online tongenerator",
+      heroDescription: "Generera rena toner från 20 Hz till 20000 Hz för hörselträning, instrumentreferens och ljudtest.",
+      highlights: [
+        { label: "Omfång", value: "20 Hz till 20000 Hz" },
+        { label: "Utdata", value: "Ren sinuston i webbläsaren" },
+        { label: "Användning", value: "Hörselträning och referenston" }
+      ],
+      quickAnswers: [
+        { title: "Kan jag stämma instrument på gehör med den?", body: "Ja. Ställ in frekvensen på den ton du behöver och stäm sedan strängen mot den genererade tonen." },
+        { title: "Är höga frekvenser säkra?", body: "Börja alltid på låg volym, särskilt över 8000 Hz, och öka gradvis." }
+      ],
+      sections: [
+        { title: "Vad tongeneratorn är bra för", body: "Använd den som referenston för att stämma på gehör, för att öva intervallträning eller för att testa högtalare och hörlurar." },
+        { title: "Användningstips", body: "Börja på låg volym. För referenston, använd 440 Hz (A4). Vid test, svep långsamt genom omfånget." }
+      ],
+      faqs: [
+        { question: "Vilken frekvens motsvarar vilken ton?", answer: "A4 = 440 Hz. C4 = 261,6 Hz. G4 = 392 Hz. Övriga toner följer genom att dubbla eller halvera per oktav." },
+        { question: "Stannar tonen automatiskt?", answer: "Nej. Tryck alltid på Stopp när du är klar för att undvika lyssningströtthet." }
+      ]
+    }
+  },
+  no: {
+    "guitar-tuner": {
+      heroTitle: "Gratis online gitarstemmer",
+      heroDescription:
+        "Stem akustisk, elektrisk eller klassisk gitar med mikrofonbasert tonegjenkjenning, referansetoner og støtte for Standard, Drop D, Eb, D Standard, Open D og Open G.",
+      highlights: [
+        { label: "Inngang", value: "Mikrofon + referansetoner" },
+        { label: "Stemminger", value: "Standard, Drop og Open" },
+        { label: "Best for", value: "Klassisk, akustisk og elektrisk" }
+      ],
+      quickAnswers: [
+        { title: "Er det bra for rask stemming?", body: "Ja. Slå på mikrofonen, spill én streng om gangen og vent litt til avlesningen stabiliserer seg før du justerer." },
+        { title: "Hvilken stemming bør du prøve neste?", body: "Etter Standard er Drop D det enkleste neste steget, mens Eb Standard senker hele instrumentet." }
+      ],
+      sections: [
+        { title: "Velg riktig stemming", body: "Bruk Standard for de fleste sanger, Drop D for lavere riff, Eb Standard for lavere spenning og Open G eller Open D for åpne akkorder." },
+        { title: "Få en stabilere avlesning", body: "Hold instrumentet nær mikrofonen, spill én streng om gangen og vent litt til tonehøyden stabiliserer seg før du justerer." },
+        { title: "Akkorder og toneart", body: "Bruk akkordtransponereren når en sang føles for høy eller for lav. Flytt hver akkord like mange halvtoner." }
+      ],
+      faqs: [
+        { question: "Hvorfor hopper nålen?", answer: "Romstøy eller flere klingende strenger kan forstyrre tonegjenkjenningen. Spill én streng tydelig og la den klinge ut." },
+        { question: "Hvilken stemming bør nybegynnere bruke?", answer: "For sekstrenget gitar, start med Standard E A D G B E før du prøver Drop D, Eb Standard eller åpne stemminger." }
+      ]
+    },
+    metronome: {
+      heroTitle: "Online metronom med BPM og underdelinger",
+      heroDescription:
+        "Øv med en komplett online metronom med presis BPM-kontroll, underdelinger, aksenter, Tap Tempo og progressive tempo-sykluser.",
+      highlights: [
+        { label: "Tempo", value: "Presis BPM + Tap Tempo" },
+        { label: "Rytme", value: "Aksenter og underdelinger" },
+        { label: "Rutine", value: "Øvingssyklus til mål-BPM" }
+      ],
+      quickAnswers: [
+        { title: "Hvilken BPM bør nybegynnere starte med?", body: "Start i det raskeste tempoet der du fortsatt spiller rent og avslappet, og øk så i små steg." },
+        { title: "Hvorfor bruke underdelinger?", body: "Underdelinger gjør den indre pulsen tydeligere og hjelper mye med timing, groove og jevnhet." }
+      ],
+      sections: [
+        { title: "En bedre øvingsmetode", body: "Start sakte, aksentuer første slag og øk BPM først etter flere rene sykluser." },
+        { title: "Rutine for å bygge fart", body: "Bruk øvingssyklusen for å gå fra start-BPM til mål-BPM i små steg etter et valgt antall takter eller sekunder." }
+      ],
+      faqs: [
+        { question: "Hvilken BPM bør jeg øve på?", answer: "Start i det raskeste tempoet der du spiller rent og avslappet, og øk så gradvis." },
+        { question: "Hvorfor bruke underdelinger?", answer: "De hjelper deg å høre rytmen inni hvert slag, ikke bare hovedklikket." }
+      ]
+    },
+    "tap-bpm": {
+      heroTitle: "Online Tap BPM-teller",
+      heroDescription:
+        "Tapp med på hvilken som helst sang, få umiddelbar og gjennomsnittlig BPM, kopier resultatet og gå rett videre til metronomøving.",
+      highlights: [
+        { label: "Avlesning", value: "Umiddelbar og gjennomsnittlig BPM" },
+        { label: "Kopier", value: "Kopier resultatet med ett tapp" },
+        { label: "Neste steg", value: "Gå rett til metronomøving" }
+      ],
+      quickAnswers: [
+        { title: "Hvor mange tapp er nok?", body: "Åtte eller flere tapp gir vanligvis et mye stabilere gjennomsnitt enn en svært kort prøve." },
+        { title: "Kan man måle en sang som spilles?", body: "Ja, så lenge du tapper konsekvent på samme pulspunkt." }
+      ],
+      sections: [
+        { title: "Når du bør bruke Tap BPM", body: "Bruk Tap BPM når du hører en sang og raskt vil anslå tempoet før du stiller inn metronomen." }
+      ],
+      faqs: [
+        { question: "Hvor mange tapp trenger jeg?", answer: "Åtte eller flere tapp gir vanligvis en stabilere gjennomsnittlig BPM." },
+        { question: "Kan jeg bruke det med hvilken som helst sang?", answer: "Ja, så lenge du tapper konsekvent på samme pulspunkt." }
+      ]
+    },
+    "chord-transposer": {
+      heroTitle: "Online akkordtransponerer for toneartsskifte",
+      heroDescription:
+        "Transponer akkordrekker per halvtone, behold slash-akkorder, velg kryss eller b og kopier den nye rekken med en gang.",
+      highlights: [
+        { label: "Omfang", value: "-12 til +12 halvtoner" },
+        { label: "Utdata", value: "Kryss eller b" },
+        { label: "Støtte", value: "Slash-akkorder og akkordkvalitet" }
+      ],
+      quickAnswers: [
+        { title: "Beholdes akkordkvaliteten?", body: "Ja. Bare grunntonen flyttes, mens m, 7, maj7, sus4, add9 og lignende kvaliteter beholdes." },
+        { title: "Kan man transponere hele tekster og akkordark?", body: "Ja. Verktøyet beholder mellomrom og linjeskift og lar ord som ikke er akkorder være uendret." }
+      ],
+      sections: [
+        { title: "Finn en enklere toneart", body: "Transponer en sang til en toneart som er lettere for stemmen eller å spille, og sjekk så resultatet med instrumentet." },
+        { title: "Akkorder og toneart", body: "Bruk akkordtransponereren når en sang føles for høy eller for lav. Flytt hver akkord like mange halvtoner." }
+      ],
+      faqs: [
+        { question: "Endrer transponering bare akkordnavn?", answer: "Den endrer tonearten og beholder det harmoniske forholdet mellom akkordene." },
+        { question: "Støtter den kryss og b?", answer: "Den støtter vanlige dur-, moll-, kryss-, b- og septimakkorder." }
+      ]
+    },
+    "bass-tuner": {
+      heroTitle: "Online bassstemmer",
+      heroDescription: "Stem bassgitaren raskt i nettleseren med mikrofonbasert tonegjenkjenning samt standard og alternative stemminger.",
+      highlights: [
+        { label: "Inngang", value: "Mikrofon + referansetoner" },
+        { label: "Stemminger", value: "Standard, Drop D, 5-strengs" },
+        { label: "Best for", value: "Elbass og akustisk bass" }
+      ],
+      quickAnswers: [
+        { title: "Kan jeg stemme en 5-strengs bass?", body: "Ja. Velg forhåndsinnstillingen for 5 strenger og stem hver streng inkludert lav H." },
+        { title: "Hvordan får jeg en stabil avlesning?", body: "Spill én streng bestemt og hold stødig. Lave frekvenser tar litt lengre tid å registrere." }
+      ],
+      sections: [
+        { title: "Kom raskt i stemning", body: "Slå på mikrofonen, spill én streng om gangen og vent til nålen stabiliserer seg før du justerer stemmeskruen." },
+        { title: "Standard og alternative bassstemminger", body: "Standard E A D G passer de fleste sjangre. Drop D gir en tyngre lav streng. 5-strengs legger til lav H for utvidet omfang." }
+      ],
+      faqs: [
+        { question: "Hvordan stemmer jeg bass med mikrofon?", answer: "Slå på mikrofonen, knips én streng tydelig og vent et sekund til nålen stabiliserer seg, juster så mot midten." },
+        { question: "Hva er standard bassstemming?", answer: "Standard stemming for 4-strengs bass er E1 A1 D2 G2, fra laveste til høyeste streng." }
+      ]
+    },
+    "ukulele-tuner": {
+      heroTitle: "Online ukulelestemmer",
+      heroDescription: "Stem ukulelen raskt i nettleseren med GCEA-standardstemming, Low G og alternative stemminger.",
+      highlights: [
+        { label: "Inngang", value: "Mikrofon + referansetoner" },
+        { label: "Stemminger", value: "GCEA, Low G, baryton D-G-B-E" },
+        { label: "Best for", value: "Sopran, konsert, tenor, baryton" }
+      ],
+      quickAnswers: [
+        { title: "Hva er standard ukulelestemming?", body: "Sopran-, konsert- og tenorukulele bruker G4-C4-E4-A4. Baryton bruker D3-G3-B3-E4." },
+        { title: "Hva er forskjellen mellom High G og Low G?", body: "High G er den vanlige re-entrant-stemmingen. Low G erstatter den med en lavere G-streng for dypere klang og bredere omfang." }
+      ],
+      sections: [
+        { title: "Slik stemmer du en ukulele raskt", body: "Velg GCEA-forhåndsinnstillingen, slå på mikrofonen og knips hver streng til avlesningen stabiliserer seg, juster så stemmeskruen." },
+        { title: "Vanlige ukulelestemminger", body: "Start med GCEA. Prøv Low G for dypere klang, D-stemming for lysere tone eller baryton D-G-B-E for en gitarlignende følelse." }
+      ],
+      faqs: [
+        { question: "Hvordan stemmer jeg ukulele med mikrofon?", answer: "Slå på mikrofonen, knips hver streng tydelig og juster stemmeskruen til nålen sentreres på riktig tone." },
+        { question: "Fungerer det for barytonukulele?", answer: "Ja. Velg baryton-forhåndsinnstillingen D-G-B-E og stem hver streng deretter." }
+      ]
+    },
+    "sound-level-meter": {
+      heroTitle: "Online lydnivåmåler",
+      heroDescription: "Mål anslåtte lydnivåer i dB med nettleserens mikrofon og en sanntidsgraf.",
+      highlights: [
+        { label: "Avlesning", value: "Anslått dB via mikrofon" },
+        { label: "Visning", value: "Sanntidsgraf med min/maks/gjennomsnitt" },
+        { label: "Bruk", value: "Kontroll av øvingsmiljø" }
+      ],
+      quickAnswers: [
+        { title: "Er den nøyaktig nok for øving?", body: "Ja, for å sammenligne miljøer og følge høye økter. Ikke sertifisert for profesjonell måling." },
+        { title: "Hvilket nivå er trygt for musikkøving?", body: "60–75 dB for akustiske instrumenter. Vedvarende nivåer over 85 dB kan over tid gi hørselstretthet." }
+      ],
+      sections: [
+        { title: "Slik bruker du lydnivåmåleren", body: "Slå på mikrofonen, hold enheten i ro i rommet og se på dB-avlesningen i sanntid og det glidende gjennomsnittet." },
+        { title: "Tolke avlesningene", body: "Stille rom viser 30–45 dB. Normal samtale rundt 60 dB. Høye øvingsøkter vanligvis 75–90 dB." }
+      ],
+      faqs: [
+        { question: "Hvor nøyaktig er måleren?", answer: "Det er et anslag basert på mikrofonsignalet, ikke profesjonelt kalibrert, men nyttig for sammenligning og overvåking." },
+        { question: "Trenger den spesiell tillatelse?", answer: "Ja, tilgang til nettleserens mikrofon kreves, akkurat som for instrumentstemmerne." }
+      ]
+    },
+    "pitch-generator": {
+      heroTitle: "Online tonegenerator",
+      heroDescription: "Generer rene toner fra 20 Hz til 20000 Hz for hørselstrening, instrumentreferanse og lydtesting.",
+      highlights: [
+        { label: "Omfang", value: "20 Hz til 20000 Hz" },
+        { label: "Utdata", value: "Ren sinustone i nettleseren" },
+        { label: "Bruk", value: "Hørselstrening og referansetone" }
+      ],
+      quickAnswers: [
+        { title: "Kan jeg stemme instrumenter på gehør med den?", body: "Ja. Sett frekvensen til tonen du trenger, og stem så strengen mot den genererte tonen." },
+        { title: "Er høye frekvenser trygge?", body: "Start alltid på lavt volum, særlig over 8000 Hz, og øk gradvis." }
+      ],
+      sections: [
+        { title: "Hva tonegeneratoren er god for", body: "Bruk den som referansetone for å stemme på gehør, for å øve intervallgjenkjenning eller for å teste høyttalere og hodetelefoner." },
+        { title: "Brukstips", body: "Start på lavt volum. For referansetone, bruk 440 Hz (A4). Ved testing, sveip sakte gjennom omfanget." }
+      ],
+      faqs: [
+        { question: "Hvilken frekvens svarer til hvilken tone?", answer: "A4 = 440 Hz. C4 = 261,6 Hz. G4 = 392 Hz. Andre toner følger ved å doble eller halvere per oktav." },
+        { question: "Stopper tonen automatisk?", answer: "Nei. Trykk alltid på Stopp når du er ferdig for å unngå lyttetretthet." }
+      ]
+    }
+  }
+};
+
 export function getToolSeoEnhancement(locale: Locale, tool: ToolSlug): ToolSeoEnhancement | null {
+  const override = extendedToolSeoEnhancements[locale]?.[tool];
+  if (override) return override;
+
   const contentLocale = getContentLocale(locale);
   const copy = toolSeoLabels[contentLocale];
   const hero = toolHeroCopy[contentLocale];
