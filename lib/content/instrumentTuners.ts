@@ -133,19 +133,19 @@ const instrumentTunerOverrides: Partial<Record<BaseLocale, Partial<Record<Instru
   ru: {
     cello: {
       description:
-        "Tune cello online with microphone support, clear reference notes and a quick browser workflow for practice and rehearsal."
+        "Настройте виолончель онлайн с поддержкой микрофона, понятными опорными нотами и быстрым браузерным процессом для практики и репетиций."
     },
     cimbalom: {
       description:
-        "Tune cimbalom online with microphone input, reference notes and a fast browser tuner for regular maintenance."
+        "Настройте цимбалы онлайн через микрофон, с опорными нотами и быстрым браузерным тюнером для регулярного обслуживания."
     },
     guitar: {
       description:
-        "Tune guitar online with free chromatic microphone detection, reference notes and help for standard and alternate tunings."
+        "Настройте гитару онлайн с бесплатным хроматическим распознаванием через микрофон, опорными нотами и помощью для стандартных и альтернативных строёв."
     },
     "12-string-guitar": {
       description:
-        "Tune a 12 string guitar online with microphone help, reference notes and stable support for octave-pair tuning."
+        "Настройте 12-струнную гитару онлайн с помощью микрофона, опорными нотами и стабильной поддержкой настройки октавных пар."
     }
   }
 };
@@ -462,36 +462,36 @@ const priorityInstrumentSeoCopy: Record<
   },
   ru: {
     "7-string-guitar": {
-      title: "Online 7 string guitar tuner",
-      description: "Tune 7 string guitar online with low B support, microphone pitch detection and a stable browser display for practice."
+      title: "Онлайн тюнер для 7-струнной гитары",
+      description: "Настройте 7-струнную гитару онлайн с поддержкой низкой B, распознаванием высоты через микрофон и стабильным браузерным дисплеем для практики."
     },
     "8-string-guitar": {
-      title: "Online 8 string guitar tuner",
-      description: "Tune 8 string guitar online with microphone input, reference notes and support for extended-range tuning setups."
+      title: "Онлайн тюнер для 8-струнной гитары",
+      description: "Настройте 8-струнную гитару онлайн через микрофон, с опорными нотами и поддержкой строёв расширенного диапазона."
     },
     "12-string-guitar": {
-      title: "Online 12 string guitar tuner",
-      description: "Tune a 12 string guitar online with microphone help, reference notes and stable support for octave-pair tuning."
+      title: "Онлайн тюнер для 12-струнной гитары",
+      description: "Настройте 12-струнную гитару онлайн с помощью микрофона, опорными нотами и стабильной поддержкой настройки октавных пар."
     },
     bass: {
-      title: "Online bass tuner",
-      description: "Tune bass online with microphone support, stable note detection and quick reference notes for 4 and 5 string setups."
+      title: "Онлайн тюнер для бас-гитары",
+      description: "Настройте бас онлайн с поддержкой микрофона, стабильным распознаванием нот и быстрыми опорными нотами для 4- и 5-струнных конфигураций."
     },
     violin: {
-      title: "Online violin tuner",
-      description: "Tune violin online with browser microphone input, G D A E reference notes and a clear daily tuning workflow."
+      title: "Онлайн тюнер для скрипки",
+      description: "Настройте скрипку онлайн через микрофон браузера, с опорными нотами G D A E и понятным ежедневным процессом настройки."
     },
     cello: {
-      title: "Online cello tuner",
-      description: "Tune cello online with microphone support, clear reference notes and a quick browser workflow for practice and rehearsal."
+      title: "Онлайн тюнер для виолончели",
+      description: "Настройте виолончель онлайн с поддержкой микрофона, понятными опорными нотами и быстрым браузерным процессом для практики и репетиций."
     },
     cimbalom: {
-      title: "Online cimbalom tuner",
-      description: "Tune cimbalom online with microphone input, reference notes and a fast browser tuner for regular maintenance."
+      title: "Онлайн тюнер для цимбал",
+      description: "Настройте цимбалы онлайн через микрофон, с опорными нотами и быстрым браузерным тюнером для регулярного обслуживания."
     },
     koto: {
-      title: "Online koto tuner",
-      description: "Tune koto online with microphone input, reference notes and a quick browser workflow for everyday tuning practice."
+      title: "Онлайн тюнер для кото",
+      description: "Настройте кото онлайн через микрофон, с опорными нотами и быстрым браузерным процессом для повседневной настройки."
     }
   },
   zh: {
