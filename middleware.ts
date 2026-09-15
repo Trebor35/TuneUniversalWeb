@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { defaultLocale, isLocale, locales } from "@/lib/i18n/locales";
+import { defaultLocale, isLocale } from "@/lib/i18n/locales";
+
+// 308 keeps the method and, unlike 307, tells search engines the move is permanent so
+// link signals are consolidated onto the target.
+const PERMANENT_REDIRECT = 308;
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const first = pathname.split("/")[1];
 
+  // The locale root is the site's home: send "/" there, not to a deep tool page.
   if (pathname === "/") {
-    return NextResponse.redirect(new URL(`/${defaultLocale}/tools/guitar-tuner`, request.url));
+    return NextResponse.redirect(new URL(`/${defaultLocale}`, request.url), PERMANENT_REDIRECT);
   }
 
   if (pathname.startsWith("/_next") || pathname.includes(".") || pathname.startsWith("/api")) {
@@ -14,7 +19,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (!isLocale(first)) {
-    return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, request.url));
+    return NextResponse.redirect(new URL(`/${defaultLocale}${pathname}`, request.url), PERMANENT_REDIRECT);
   }
 
   const requestHeaders = new Headers(request.headers);

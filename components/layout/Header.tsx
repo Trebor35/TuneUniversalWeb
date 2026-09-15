@@ -125,7 +125,7 @@ function buildMobileGroups(locale: Locale, dictionary: Dictionary): MobileNavGro
       title: labels.pages,
       links: [
         { href: `/${locale}`, label: "TuneUniversal" },
-        { href: `/${locale}/tools`, label: dictionary.nav.tools },
+        
         { href: `/${locale}/tunings`, label: labels.tunings },
         { href: `/${locale}/guides`, label: labels.guides },
         { href: `/${locale}/songs`, label: labels.songs },
@@ -181,7 +181,7 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
       <div className="mx-auto max-w-6xl lg:hidden">
         <div className="flex items-center gap-3 px-3 py-3">
           <MobileMenu groups={mobileGroups} label={labels.menu} />
-          <Link href={`/${locale}/tools/guitar-tuner`} className="inline-flex min-w-0 flex-1 items-center gap-2 font-bold">
+          <Link href={`/${locale}`} className="inline-flex min-w-0 flex-1 items-center gap-2 font-bold">
             <span className="shrink-0 rounded-md bg-ink p-2 text-white">
               <AudioLines size={18} aria-hidden />
             </span>
@@ -199,7 +199,7 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
       </div>
 
       <div className="mx-auto hidden max-w-6xl items-center justify-between gap-3 px-4 py-3 lg:flex">
-        <Link href={`/${locale}/tools/guitar-tuner`} className="inline-flex min-w-0 items-center gap-2 font-bold">
+        <Link href={`/${locale}`} className="inline-flex min-w-0 items-center gap-2 font-bold">
           <span className="shrink-0 rounded-md bg-ink p-2 text-white">
             <AudioLines size={18} aria-hidden />
           </span>
@@ -218,7 +218,7 @@ export function Header({ locale, dictionary }: { locale: Locale; dictionary: Dic
           <Link href={`/${locale}/songs`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white lg:inline-flex">
             {labels.songs}
           </Link>
-          <Link href={`/${locale}/tools`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white sm:inline-flex">
+          <Link href={`/${locale}`} className="hidden rounded-md px-3 py-2 text-sm font-semibold hover:bg-white sm:inline-flex">
             {dictionary.nav.tools}
           </Link>
           <LanguageSwitcher locale={locale} label={dictionary.nav.language} />

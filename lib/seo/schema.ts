@@ -5,10 +5,11 @@ import type { GuideContent, GuideSlug } from "@/lib/content/guides";
 import type { PublicDomainSong } from "@/lib/content/publicDomainSongs";
 import type { StaticPageSlug } from "@/lib/content/staticPages";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
+import { CONTENT_LAST_MODIFIED, CONTENT_PUBLISHED } from "@/lib/seo/dates";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
-const DATE_PUBLISHED = "2025-01-15";
-const DATE_MODIFIED = "2026-06-12";
+const DATE_PUBLISHED = CONTENT_PUBLISHED;
+const DATE_MODIFIED = CONTENT_LAST_MODIFIED;
 
 export function websiteSchema(locale: Locale, dictionary: Dictionary) {
   return {

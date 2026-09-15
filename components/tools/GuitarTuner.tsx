@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ListChecks, Mic, MicOff, Settings2, Volume2, VolumeX } from "lucide-react";
@@ -158,13 +158,13 @@ const tunerUiText: Record<
   },
   de: {
     chromaticMode: "Chromatisch",
-    chromaticModeHint: "Erkennt jede chromatische Note, auch ausserhalb des gewaehlten Saiten-Presets.",
+    chromaticModeHint: "Erkennt jede chromatische Note, auch ausserhalb des gewählten Saiten-Presets.",
     directionMode: "Richtungsfilter",
-    directionModeHint: "Reduziert Raumgeraeusche und fokussiert den Ton nahe am Mikrofon.",
+    directionModeHint: "Reduziert Raumgeräusche und fokussiert den Ton nahe am Mikrofon.",
     instrument: "Instrument",
     lessSensitive: "Weniger empfindlich",
     lockString: "Saite sperren",
-    lockStringHint: "Waehle eine Saite und der Tuner bleibt auf diesem Ziel.",
+    lockStringHint: "Wähle eine Saite und der Tuner bleibt auf diesem Ziel.",
     manualMode: "Manuell",
     moreSensitive: "Empfindlicher",
     noiseGate: "Mikrofonempfindlichkeit",
@@ -174,17 +174,17 @@ const tunerUiText: Record<
     playReference: "Ton abspielen",
     polyAnalyze: "PolyTune",
     polyHint: "Schlage alle leeren Saiten einmal an, um verstimmte Saiten zu sehen.",
-    polyListening: "Hoert zu...",
+    polyListening: "Hört zu...",
     polyMissing: "Nicht erkannt",
-    polyTitle: "Alle Saiten pruefen",
+    polyTitle: "Alle Saiten prüfen",
     preset: "Stimmung",
     referenceTone: "Referenzton",
     signal: "Signal",
     stopReference: "Ton stoppen",
     target: "Ziel",
-    tips: ["Halte das Instrument nah ans Mikrofon.", "Spiele nur eine leere Saite.", "Nutze den manuellen Modus bei Nebengeraeuschen."],
+    tips: ["Halte das Instrument nah ans Mikrofon.", "Spiele nur eine leere Saite.", "Nutze den manuellen Modus bei Nebengeräuschen."],
     strings: "Saiten",
-    tunerName: "Digitales Stimmgeraet"
+    tunerName: "Digitales Stimmgerät"
   },
   es: {
     chromaticMode: "Cromatica",

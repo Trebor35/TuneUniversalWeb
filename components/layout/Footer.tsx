@@ -4,7 +4,7 @@ import { getPublicDomainSong, publicDomainSongSlugs, songsUi } from "@/lib/conte
 import { getStaticPageContent } from "@/lib/content/staticPages";
 import { tuningHubContent } from "@/lib/content/tuningHub";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
-import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, localeNames, locales, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import type { ToolSlug } from "@/lib/tools/toolConfig";
 
 const footerTools: ToolSlug[] = ["guitar-tuner", "bass-tuner", "metronome", "tap-bpm", "sound-level-meter", "pitch-generator"];
@@ -163,6 +163,23 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
             ))}
           </div>
         </div>
+      </div>
+      <div className="border-t border-line/70">
+        <nav
+          aria-label={dictionary.nav.language}
+          className="mx-auto flex max-w-6xl flex-wrap gap-x-4 gap-y-2 px-4 py-5 text-sm text-ink/66"
+        >
+          {locales.map((item) => (
+            <Link
+              key={item}
+              href={`/${item}`}
+              hrefLang={item}
+              className={item === locale ? "font-bold text-ink" : "hover:text-mint"}
+            >
+              {localeNames[item]}
+            </Link>
+          ))}
+        </nav>
       </div>
     </footer>
   );
