@@ -7,21 +7,21 @@ import { locales, type Locale } from "@/lib/i18n/locales";
 export type ContentSection = "home" | "tools" | "tunings" | "guides" | "songs" | "static";
 
 /**
- * Locales whose guide and song copy is still served from the English source.
+ * Sections whose editorial copy is still served from the English source, per locale.
  *
  * The UI chrome, the tool pages, both hubs and the static pages have native copy for
- * these locales (see the `extended*` maps across lib/content and components/layout),
- * but `getGuideContent` and `songsUi` still fall back to English. A page whose article
- * text is in the wrong language is worth less than no page at all: Google reads it as a
- * near-duplicate of the English original and answers with "crawled, currently not
- * indexed". Those pages stay live and keep passing link equity, but they are marked
- * noindex and kept out of the sitemap until the copy is translated.
+ * every locale. The long-form copy does not: a page whose article text is in the wrong
+ * language is worth less than no page at all, because Google reads it as a near-duplicate
+ * of the English original and answers with "crawled, currently not indexed". Those pages
+ * stay live and keep passing link equity, but they are marked noindex and kept out of the
+ * sitemap until the copy is translated.
  *
- * Remove a locale from this list as soon as its guide and song copy lands.
+ * Drop a section from a locale's list as soon as its copy lands; drop the locale entirely
+ * once nothing is left.
  */
-export const untranslatedArticleLocales: Locale[] = ["nl", "pl", "tr", "cs", "sv", "hi", "no"];
+export const untranslatedSectionsByLocale: Partial<Record<Locale, ContentSection[]>> = {};
 
-const untranslatedSections: ContentSection[] = ["guides", "songs"];
+export const untranslatedArticleLocales = Object.keys(untranslatedSectionsByLocale) as Locale[];
 
 export function sectionForPath(path: string): ContentSection {
   const [, , section] = path.split("/");
@@ -35,8 +35,7 @@ export function sectionForPath(path: string): ContentSection {
 
 /** True when `locale` has native copy for `section`. */
 export function hasNativeCopy(locale: Locale, section: ContentSection): boolean {
-  if (!untranslatedArticleLocales.includes(locale)) return true;
-  return !untranslatedSections.includes(section);
+  return !untranslatedSectionsByLocale[locale]?.includes(section);
 }
 
 export function isIndexable(locale: Locale, section: ContentSection): boolean {

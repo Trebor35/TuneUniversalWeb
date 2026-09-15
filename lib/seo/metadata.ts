@@ -1652,7 +1652,7 @@ export function buildStaticPageMetadata(
 
 export function buildGuideIndexMetadata(locale: Locale): Metadata {
   const contentLocale = getContentLocale(locale);
-  const content = guideIndexContent[contentLocale];
+  const content = guideIndexContent[locale];
   return {
     title: fitTitle(`${content.title} | TuneUniversal`),
     description: content.description,
