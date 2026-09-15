@@ -216,8 +216,9 @@ export default async function ToolsIndexPage({ params }: PageProps) {
       <JsonLd data={organizationSchema(locale)} />
       <JsonLd
         data={breadcrumbSchema([
-          { name: "TuneUniversal", url: `${siteUrl}/${locale}` },
-          { name: hub.title, url: `${siteUrl}/${locale}/tools` }
+          // This component also renders at `/${locale}`, which is the canonical URL for
+          // both routes, so the crumb must not point at the duplicate `/tools` path.
+          { name: "TuneUniversal", url: `${siteUrl}/${locale}` }
         ])}
       />
       <JsonLd data={faqItemsSchema(hub.faq)} />

@@ -863,22 +863,22 @@ const toolHeroCopy: Record<
     "guitar-tuner": {
       title: "Gitarren Tuner online mit Mikrofon",
       description:
-        "Stimme akustische, elektrische oder klassische Gitarre online mit Mikrofon, Referenznoten und Support fuer Standard, Drop D, Eb, D Standard, Open D und Open G."
+        "Stimme akustische, elektrische oder klassische Gitarre online mit Mikrofon, Referenznoten und Support für Standard, Drop D, Eb, D Standard, Open D und Open G."
     },
     metronome: {
       title: "Online Metronom mit BPM und Unterteilungen",
       description:
-        "Uebe mit einem vollstaendigen Online-Metronom mit praezisem BPM, Akzenten, Taktarten, Unterteilungen, Tap Tempo und progressiven Trainingszyklen."
+        "Uebe mit einem vollständigen Online-Metronom mit präzisem BPM, Akzenten, Taktarten, Unterteilungen, Tap Tempo und progressiven Trainingszyklen."
     },
     "tap-bpm": {
-      title: "Tap BPM Zaehler online",
+      title: "Tap BPM Zähler online",
       description:
         "Tippe den Puls eines Songs, erhalte sofortiges und durchschnittliches BPM, kopiere das Ergebnis und gehe direkt zum Metronom."
     },
     "chord-transposer": {
-      title: "Akkord-Transposer online fuer Tonarten",
+      title: "Akkord-Transposer online für Tonarten",
       description:
-        "Transponiere Akkordfolgen in Halbtönen, erhalte Slash Chords, waehle Kreuz oder B und kopiere die neue Folge sofort."
+        "Transponiere Akkordfolgen in Halbtönen, erhalte Slash Chords, wähle Kreuz oder B und kopiere die neue Folge sofort."
     }
   },
   en: {

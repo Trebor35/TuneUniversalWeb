@@ -1,4 +1,4 @@
-﻿import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { getInstrumentLabel } from "@/lib/tools/instruments";
 import { instrumentIds, type Instrument, type ToolSlug } from "@/lib/tools/toolConfig";
 import { formatNoteName, tuningPresets, tunings, type TuningNote } from "@/lib/tools/tuner";
@@ -334,9 +334,9 @@ function whatIsGuides(locale: Locale): Record<WhatIsGuideSlug, Omit<GuideContent
       chromatic: ["ما هو الموالف الكروماتيكي؟", "الموالف الكروماتيكي يكشف أي من النغمات الاثنتي عشرة في السلم الكروماتيكي، مما يجعله أكثر مرونة من موالفات الآلات المحددة.", "بدلا من أن يعرف فقط نغمات الجيتار مثلا، يستطيع الموالف الكروماتيكي كشف أي نغمة موسيقية.", "موالف كروماتيكي", "أنواع الموالفات"]
     },
     de: {
-      tuner: ["Was ist ein Gitarrenstimmgeraet?", "Ein Gitarrenstimmgeraet erkennt die Tonhoehe einer Saite und zeigt an, ob sie zu hoch, zu tief oder gestimmt ist.", "Das Stimmgeraet nutzt das Mikrofon, um die Schwingung zu erfassen, und vergleicht sie mit der Solltonhoehe jeder Saite.", "gitarrentuner online", "gitarre stimmen"],
-      metronome: ["Was ist ein Metronom?", "Ein Metronom erzeugt einen gleichmaessigen Puls bei einem eingestellten Tempo in BPM, damit Musiker ein stabiles Zeitgefuehl entwickeln.", "Je mehr du mit Metronom uebst, desto staerker und zuverlaessiger wird dein inneres Zeitgefuehl.", "metronom online", "was ist BPM"],
-      chromatic: ["Was ist ein chromatisches Stimmgeraet?", "Ein chromatisches Stimmgeraet erkennt alle 12 Toene der chromatischen Skala und ist damit vielseitiger als geraetespezifische Stimmgeraete.", "Statt nur Gitarrentoene zu kennen, erkennt das chromatische Geraet jede musikalische Note.", "chromatischer tuner", "stimmgeraet arten"]
+      tuner: ["Was ist ein Gitarrenstimmgerät?", "Ein Gitarrenstimmgerät erkennt die Tonhöhe einer Saite und zeigt an, ob sie zu hoch, zu tief oder gestimmt ist.", "Das Stimmgerät nutzt das Mikrofon, um die Schwingung zu erfassen, und vergleicht sie mit der Solltonhöhe jeder Saite.", "gitarrentuner online", "gitarre stimmen"],
+      metronome: ["Was ist ein Metronom?", "Ein Metronom erzeugt einen gleichmäßigen Puls bei einem eingestellten Tempo in BPM, damit Musiker ein stabiles Zeitgefühl entwickeln.", "Je mehr du mit Metronom übst, desto stärker und zuverlässiger wird dein inneres Zeitgefühl.", "metronom online", "was ist BPM"],
+      chromatic: ["Was ist ein chromatisches Stimmgerät?", "Ein chromatisches Stimmgerät erkennt alle 12 Töne der chromatischen Skala und ist damit vielseitiger als gerätespezifische Stimmgeräte.", "Statt nur Gitarrentöne zu kennen, erkennt das chromatische Gerät jede musikalische Note.", "chromatischer tuner", "stimmgerät arten"]
     },
     en: {
       tuner: ["What is a guitar tuner?", "A guitar tuner is a device or app that detects the pitch of a string and tells you whether it is sharp, flat, or in tune.", "The tuner uses a microphone to capture the vibration, then compares it against the ideal frequency for each string.", "guitar tuner online", "what is a guitar tuner"],
@@ -414,7 +414,7 @@ function whatIsGuides(locale: Locale): Record<WhatIsGuideSlug, Omit<GuideContent
     }[getContentLocale(locale)],
     chromatic: {
       ar: ["افتح الموالف.", "العب نغمة واحدة بوضوح.", "اقرأ اسم النغمة المعروضة.", "اضبط حتى يستقر المؤشر في المنتصف."],
-      de: ["Das Stimmgeraet öffnen.", "Eine Note klar spielen.", "Den angezeigten Tonnamen lesen.", "Nachstimmen, bis der Zeiger in der Mitte einrastet."],
+      de: ["Das Stimmgerät öffnen.", "Eine Note klar spielen.", "Den angezeigten Tonnamen lesen.", "Nachstimmen, bis der Zeiger in der Mitte einrastet."],
       en: ["Open the tuner.", "Play one note clearly.", "Read the displayed note name.", "Adjust until the needle settles at centre."],
       es: ["Abre el afinador.", "Toca una nota con claridad.", "Lee el nombre de la nota mostrada.", "Ajusta hasta que la aguja se centre."],
       fr: ["Ouvrez l'accordeur.", "Jouez une note clairement.", "Lisez le nom de la note affichée.", "Ajustez jusqu'à ce que l'aiguille soit au centre."],
@@ -452,8 +452,8 @@ function whatIsGuides(locale: Locale): Record<WhatIsGuideSlug, Omit<GuideContent
         { title: "Warum das Metronom beim Üben hilft", body: "Es macht rhythmische Fehler hörbar und korrigierbar. Beginne langsam und steigere das Tempo schrittweise für die besten Ergebnisse." }
       ],
       chromatic: [
-        { title: "Unterschied zwischen chromatisch und instrumentspezifisch", body: "Ein Gitarren-Stimmgeraet kennt nur die 6 Saiten. Das chromatische kennt alle 12 Toene und eignet sich fuer jedes Instrument." },
-        { title: "Wann du das chromatische Stimmgeraet nutzt", body: "Nutze es fuer alternative Stimmungen wie Drop D oder Open G oder fuer Instrumente ausserhalb der Gitarre." }
+        { title: "Unterschied zwischen chromatisch und instrumentspezifisch", body: "Ein Gitarren-Stimmgerät kennt nur die 6 Saiten. Das chromatische kennt alle 12 Töne und eignet sich für jedes Instrument." },
+        { title: "Wann du das chromatische Stimmgerät nutzt", body: "Nutze es für alternative Stimmungen wie Drop D oder Open G oder für Instrumente ausserhalb der Gitarre." }
       ]
     },
     en: {
@@ -991,11 +991,11 @@ function searchConsolePriorityGuideOverrides(locale: Locale): Partial<Record<Gui
       subdiv: ["دليل تقسيمات الميترونوم", "تدرب على الثنائيات والثلاثيات والرباعيات داخل النبضة لتحسين الإحساس الإيقاعي.", "إذا كان العد مع الميترونوم يبدو جامداً، فالتقسيمات تساعدك على سماع المسافات داخل كل نبضة بدقة أكبر."]
     },
     de: {
-      twelve: ["12-saitige Gitarre stimmen", "Stimme eine 12-saitige Gitarre online mit klaren Referenznoten fuer Grund- und Oktavpaare.", "Diese Seite zeigt dir, wie du jede Saitenpaarung sauber abstimmst, damit Chorus und Schimmer kontrolliert bleiben."],
-      eight: ["8-saitige Gitarre stimmen", "Stimme eine 8-Saiter-Gitarre online mit Hilfe fuer tiefe Saiten und moderne Extended-Range-Setups.", "Nutze diesen Guide, wenn du die tiefen Saiten stabil lesen und eine saubere Extended-Range-Stimmung aufbauen willst."],
-      cello: ["Cello stimmen", "Stimme Cello online auf C G D A mit Browser-Mikrofon und einfachen Schritten fuer den Alltag.", "Der Guide hilft dir, jede Cellosaite einzeln zu kontrollieren und am Ende den Gesamtklang noch einmal sauber zu pruefen."],
-      dropCSharp: ["Drop C# Tuning Guide", "Lerne die exakten Noten von Drop C# und wann diese Gitarrenstimmung fuer harte Riffs sinnvoll ist.", "Drop C# ist beliebt fuer moderne, tiefere Gitarrenparts. Hier findest du die Saiten, Hinweise und den direkten Weg zum Tuner."],
-      subdiv: ["Metronom-Unterteilungen Guide", "Arbeite Duolen, Triolen und Vierergruppen systematisch mit einem Online-Metronom.", "Wenn sich der Klick zu grob anfuehlt, helfen Unterteilungen dabei, den inneren Puls und das Timing genauer zu entwickeln."]
+      twelve: ["12-saitige Gitarre stimmen", "Stimme eine 12-saitige Gitarre online mit klaren Referenznoten für Grund- und Oktavpaare.", "Diese Seite zeigt dir, wie du jede Saitenpaarung sauber abstimmst, damit Chorus und Schimmer kontrolliert bleiben."],
+      eight: ["8-saitige Gitarre stimmen", "Stimme eine 8-Saiter-Gitarre online mit Hilfe für tiefe Saiten und moderne Extended-Range-Setups.", "Nutze diesen Guide, wenn du die tiefen Saiten stabil lesen und eine saubere Extended-Range-Stimmung aufbauen willst."],
+      cello: ["Cello stimmen", "Stimme Cello online auf C G D A mit Browser-Mikrofon und einfachen Schritten für den Alltag.", "Der Guide hilft dir, jede Cellosaite einzeln zu kontrollieren und am Ende den Gesamtklang noch einmal sauber zu prüfen."],
+      dropCSharp: ["Drop C# Tuning Guide", "Lerne die exakten Noten von Drop C# und wann diese Gitarrenstimmung für harte Riffs sinnvoll ist.", "Drop C# ist beliebt für moderne, tiefere Gitarrenparts. Hier findest du die Saiten, Hinweise und den direkten Weg zum Tuner."],
+      subdiv: ["Metronom-Unterteilungen Guide", "Arbeite Duolen, Triolen und Vierergruppen systematisch mit einem Online-Metronom.", "Wenn sich der Klick zu grob anfühlt, helfen Unterteilungen dabei, den inneren Puls und das Timing genauer zu entwickeln."]
     },
     en: {
       twelve: ["How to tune a 12 string guitar", "Tune a 12 string guitar online with clear reference notes for standard strings and octave pairs.", "This guide shows you how to balance each course so the shimmer of a 12 string stays rich, stable and easy to control."],
@@ -1109,14 +1109,14 @@ function guideCtrRecoveryOverrides(locale: Locale): Partial<Record<GuideSlug, Gu
       eb: ["دليل ضبط Eb Standard", "اخفض كل أوتار الجيتار نصف درجة إلى Eb Ab Db Gb Bb Eb للحصول على شد أخف وصوت أدفأ.", "Eb Standard شائع عندما تريد راحة أكبر في الغناء أو إحساسًا أخف تحت الأصابع من دون تغيير كبير في الأشكال."]
     },
     de: {
-      bass: ["Bass online stimmen", "Stimme Bass online auf E A D G mit klarer Hilfe fuer 4- und 5-Saiter-Setups.", "Dieser Guide hilft dir, jede Basssaite schnell zu pruefen und danach den Gesamtklang vor Probe oder Ueben sauber abzugleichen."],
-      violin: ["Violine online stimmen", "Stimme Violine online auf G D A E mit einfachen Schritten fuer Alltag und Unterricht.", "Nutze diese Seite, wenn du eine stabilere Mikrofonanzeige und einen einfachen Ablauf fuer das taegliche Stimmen suchst."],
-      bassStd: ["Standard-Bass-Stimmung Guide", "Sieh dir die Standard-Bass-Stimmung E A D G an und erfahre, warum sie fuer die meisten Songs die beste Basis ist.", "Die Standard-Stimmung ist fuer die meisten Bassisten der Ausgangspunkt, weil sie ausgewogen ist und mit den meisten Uebungen und Songs sofort funktioniert."],
-      tunings: ["Haeufige Gitarrenstimmungen", "Vergleiche Standard, Drop D, Eb Standard, Open D und Open G in einer kompakten Uebersicht.", "Dieser Guide sammelt beliebte Gitarrenstimmungen, damit du vor dem Oeffnen des Tuners schneller die passende Klangfarbe findest."],
-      dropD: ["Drop D Tuning Guide", "Stimme Gitarre auf D A D G B E fuer tiefere Riffs und einfachere Powerchords.", "Drop D ist eine der beliebtesten Alternativstimmungen, weil sie sofort mehr Tiefe gibt und trotzdem nah an Standard bleibt."],
-      dropC: ["Drop C Tuning Guide", "Lerne die Noten von Drop C und wann diese Stimmung fuer modernen Rock und Metal sinnvoll ist.", "Drop C kombiniert eine tiefe Basssaite mit Griffbildern, die sich auf den oberen Saiten noch vertraut anfuehlen."],
-      openD: ["Open D Tuning Guide", "Nutze Open D fuer offene Resonanz, Slide-Gitarre und weite Akkordklangfarben.", "Open D passt gut zu Fingerstyle, Slide und Songs, bei denen offene Saiten stark mitschwingen sollen."],
-      eb: ["Eb Standard Tuning Guide", "Senke alle Gitarrensaiten um einen Halbton auf Eb Ab Db Gb Bb Eb fuer weichere Spannung und tieferen Klang.", "Eb Standard ist beliebt, wenn du etwas tiefer singen willst oder sich die Gitarre entspannter anfuehlen soll, ohne die Griffbilder neu zu lernen."]
+      bass: ["Bass online stimmen", "Stimme Bass online auf E A D G mit klarer Hilfe für 4- und 5-Saiter-Setups.", "Dieser Guide hilft dir, jede Basssaite schnell zu prüfen und danach den Gesamtklang vor Probe oder Ueben sauber abzugleichen."],
+      violin: ["Violine online stimmen", "Stimme Violine online auf G D A E mit einfachen Schritten für Alltag und Unterricht.", "Nutze diese Seite, wenn du eine stabilere Mikrofonanzeige und einen einfachen Ablauf für das tägliche Stimmen suchst."],
+      bassStd: ["Standard-Bass-Stimmung Guide", "Sieh dir die Standard-Bass-Stimmung E A D G an und erfahre, warum sie für die meisten Songs die beste Basis ist.", "Die Standard-Stimmung ist für die meisten Bassisten der Ausgangspunkt, weil sie ausgewogen ist und mit den meisten Uebungen und Songs sofort funktioniert."],
+      tunings: ["Häufige Gitarrenstimmungen", "Vergleiche Standard, Drop D, Eb Standard, Open D und Open G in einer kompakten Übersicht.", "Dieser Guide sammelt beliebte Gitarrenstimmungen, damit du vor dem Öffnen des Tuners schneller die passende Klangfarbe findest."],
+      dropD: ["Drop D Tuning Guide", "Stimme Gitarre auf D A D G B E für tiefere Riffs und einfachere Powerchords.", "Drop D ist eine der beliebtesten Alternativstimmungen, weil sie sofort mehr Tiefe gibt und trotzdem nah an Standard bleibt."],
+      dropC: ["Drop C Tuning Guide", "Lerne die Noten von Drop C und wann diese Stimmung für modernen Rock und Metal sinnvoll ist.", "Drop C kombiniert eine tiefe Basssaite mit Griffbildern, die sich auf den oberen Saiten noch vertraut anfühlen."],
+      openD: ["Open D Tuning Guide", "Nutze Open D für offene Resonanz, Slide-Gitarre und weite Akkordklangfarben.", "Open D passt gut zu Fingerstyle, Slide und Songs, bei denen offene Saiten stark mitschwingen sollen."],
+      eb: ["Eb Standard Tuning Guide", "Senke alle Gitarrensaiten um einen Halbton auf Eb Ab Db Gb Bb Eb für weichere Spannung und tieferen Klang.", "Eb Standard ist beliebt, wenn du etwas tiefer singen willst oder sich die Gitarre entspannter anfühlen soll, ohne die Griffbilder neu zu lernen."]
     },
     en: {
       bass: ["How to tune a bass online", "Tune bass online to E A D G with clearer help for 4 string and 5 string setups.", "This guide helps you check each bass string quickly, then confirm the overall balance before practice, rehearsal or recording."],
@@ -1606,11 +1606,11 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
       pitch: ["مولد ترددات اونلاين", "شغل نغمة ثابتة من 20Hz الى 20000Hz للتدريب والفحص الصوتي.", "استخدم مولد الترددات لتمرين الاذن او لمطابقة نغمة مرجعية بسرعة."]
     },
     de: {
-      chromatic: ["Chromatisches Stimmgeraet Guide", "Lerne, wie ein chromatischer Tuner jede Note schnell erkennt.", "Nutze diesen Guide, wenn du Gitarre, Violine oder andere Melodieinstrumente Note fuer Note stimmen willst."],
-      microphone: ["Gitarren Tuner mit Mikrofon", "Nutze das Browser-Mikrofon, um Gitarrentoene ohne App zu erkennen.", "Diese Seite zeigt, wie du beim Stimmen mit Mikrofon eine stabilere Anzeige bekommst."],
-      metronomeGuitar: ["Metronom fuer Gitarre", "Uebe Riffs, Technik und Arpeggios mit klarem BPM fuer Gitarre.", "Nutze ein Gitarren-Metronom, wenn du sauberes Timing aufbauen und das Tempo schrittweise steigern willst."],
-      sound: ["dB Meter Guide", "Nutze das Sound Meter, um die Lautstaerke im Raum geschaetzt in dB zu pruefen.", "Dieser Guide hilft dir, Zimmergeraesche, Uebelautstaerke und typische dB-Bereiche besser einzuordnen."],
-      pitch: ["Pitch Generator online", "Erzeuge einen konstanten Ton von 20 Hz bis 20000 Hz fuer Gehoertraining und Audiotests.", "Nutze den Pitch Generator als Referenzton oder fuer schnelle Audio-Checks im Browser."]
+      chromatic: ["Chromatisches Stimmgerät Guide", "Lerne, wie ein chromatischer Tuner jede Note schnell erkennt.", "Nutze diesen Guide, wenn du Gitarre, Violine oder andere Melodieinstrumente Note für Note stimmen willst."],
+      microphone: ["Gitarren Tuner mit Mikrofon", "Nutze das Browser-Mikrofon, um Gitarrentöne ohne App zu erkennen.", "Diese Seite zeigt, wie du beim Stimmen mit Mikrofon eine stabilere Anzeige bekommst."],
+      metronomeGuitar: ["Metronom für Gitarre", "Uebe Riffs, Technik und Arpeggios mit klarem BPM für Gitarre.", "Nutze ein Gitarren-Metronom, wenn du sauberes Timing aufbauen und das Tempo schrittweise steigern willst."],
+      sound: ["dB Meter Guide", "Nutze das Sound Meter, um die Lautstärke im Raum geschätzt in dB zu prüfen.", "Dieser Guide hilft dir, Zimmergeräusche, Übelautstärke und typische dB-Bereiche besser einzuordnen."],
+      pitch: ["Pitch Generator online", "Erzeuge einen konstanten Ton von 20 Hz bis 20000 Hz für Gehörtraining und Audiotests.", "Nutze den Pitch Generator als Referenzton oder für schnelle Audio-Checks im Browser."]
     },
     en: {
       chromatic: ["Chromatic tuner guide", "Learn when to use a chromatic tuner to catch any note quickly and accurately.", "Use this guide when you want to tune guitar, violin or any pitched instrument note by note with a browser tuner."],

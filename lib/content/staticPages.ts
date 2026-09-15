@@ -374,9 +374,9 @@ const enPages: Record<StaticPageSlug, StaticPageContent> = {
 const localizedTitles: Record<BaseLocale, Partial<Record<StaticPageSlug, Partial<StaticPageContent>>>> = {
   it: {
     "privacy-policy": {
-      title: "Privacy Policy",
+      title: "Informativa sulla privacy",
       description: "Come TuneUniversal gestisce privacy, analytics, pubblicita e consenso nei suoi strumenti musicali gratuiti online.",
-      seoTitle: "Privacy Policy | TuneUniversal",
+      seoTitle: "Informativa sulla privacy | TuneUniversal",
       seoDescription:
         "Leggi la Privacy Policy di TuneUniversal per Google Analytics, Google AdSense, cookie, GDPR, CCPA e dati anonimi.",
       sections: [
@@ -425,9 +425,9 @@ const localizedTitles: Record<BaseLocale, Partial<Record<StaticPageSlug, Partial
       ]
     },
     "cookie-policy": {
-      title: "Cookie Policy",
+      title: "Informativa sui cookie",
       description: "Informazioni su cookie essenziali, analytics, cookie pubblicitari e gestione del consenso su TuneUniversal.",
-      seoTitle: "Cookie Policy | TuneUniversal",
+      seoTitle: "Informativa sui cookie | TuneUniversal",
       seoDescription:
         "Scopri come TuneUniversal usa cookie essenziali, analytics, cookie pubblicitari e strumenti di consenso.",
       sections: [
@@ -2453,19 +2453,35 @@ export function isStaticPageSlug(value: string | undefined): value is StaticPage
   return Boolean(value && staticPageSlugs.includes(value as StaticPageSlug));
 }
 
+/**
+ * Merge a translation over the English base.
+ *
+ * A plain spread kept the base `seoTitle`/`seoDescription` whenever a translation set
+ * only `title`/`description`, so every localized legal page shipped the English SEO
+ * title: all 19 versions of the privacy policy were submitted as "Privacy Policy |
+ * TuneUniversal". Dropping the inherited value lets `buildStaticPageMetadata` derive the
+ * title from the translated one.
+ */
+function mergeStaticPage(base: StaticPageContent, override?: Partial<StaticPageContent>): StaticPageContent {
+  if (!override) return base;
+  const merged: StaticPageContent = { ...base, ...override };
+  if (override.title && !override.seoTitle) delete merged.seoTitle;
+  if (override.description && !override.seoDescription) delete merged.seoDescription;
+  return merged;
+}
+
 export function getStaticPageContent(locale: Locale, slug: StaticPageSlug): StaticPageContent {
   const contentLocale = getContentLocale(locale);
   const base = enPages[slug];
   // Extended locales (nl, pl, tr, cs, sv, pt-BR, hi, no): dedicated legal + about translations
   const extendedLegal = extendedLegalPages[locale as ExtendedLocale]?.[slug];
   if (extendedLegal) {
-    return { ...base, ...extendedLegal };
+    return mergeStaticPage(base, extendedLegal);
   }
   const extendedAbout = extendedAboutPages[locale as ExtendedLocale];
   if (slug === "about" && extendedAbout) {
-    return { ...base, ...extendedAbout };
+    return mergeStaticPage(base, extendedAbout);
   }
   // Base locales: use the localized translation when available, otherwise English base
-  const localized = localizedTitles[contentLocale][slug];
-  return localized ? { ...base, ...localized } : base;
+  return mergeStaticPage(base, localizedTitles[contentLocale][slug]);
 }

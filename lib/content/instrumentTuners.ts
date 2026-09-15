@@ -29,11 +29,11 @@ const instrumentTunerOverrides: Partial<Record<BaseLocale, Partial<Record<Instru
   de: {
     bass: {
       description:
-        "Stimme 4- oder 5-Saiter-Bass online mit Mikrofon, stabiler Tonerkennung und schnellen Referenznoten fuer Probe und Ueben."
+        "Stimme 4- oder 5-Saiter-Bass online mit Mikrofon, stabiler Tonerkennung und schnellen Referenznoten für Probe und Ueben."
     },
     "8-string-guitar": {
       description:
-        "Stimme 8-Saiter Gitarre online mit Mikrofon, Referenznoten und klarer Browser-Anzeige fuer Extended-Range-Riffs."
+        "Stimme 8-Saiter Gitarre online mit Mikrofon, Referenznoten und klarer Browser-Anzeige für Extended-Range-Riffs."
     }
   },
   en: {
@@ -191,35 +191,35 @@ const priorityInstrumentSeoCopy: Record<
   de: {
     "7-string-guitar": {
       title: "7-Saiter Gitarre Tuner online",
-      description: "Stimme 7-Saiter Gitarre online mit tiefem H, Mikrofon-Erkennung und klarer Anzeige fuer moderne Riffs und taegliches Ueben."
+      description: "Stimme 7-Saiter Gitarre online mit tiefem H, Mikrofon-Erkennung und klarer Anzeige für moderne Riffs und tägliches Ueben."
     },
     "8-string-guitar": {
       title: "8-Saiter Gitarre Tuner online",
-      description: "Stimme 8-Saiter Gitarre online mit Mikrofon, Referenznoten und klarer Hilfe fuer moderne Extended-Range-Setups."
+      description: "Stimme 8-Saiter Gitarre online mit Mikrofon, Referenznoten und klarer Hilfe für moderne Extended-Range-Setups."
     },
     "12-string-guitar": {
       title: "12-Saiter Gitarre Tuner online",
-      description: "Stimme 12-Saiter Gitarre online mit Mikrofon, Referenznoten und Unterstuetzung fuer Oktavpaare und Doppelchore."
+      description: "Stimme 12-Saiter Gitarre online mit Mikrofon, Referenznoten und Unterstützung für Oktavpaare und Doppelchore."
     },
     bass: {
       title: "Bass Tuner online",
-      description: "Stimme Bass online mit Mikrofon, stabiler Tonerkennung und Referenznoten fuer 4- und 5-Saiter-Setups."
+      description: "Stimme Bass online mit Mikrofon, stabiler Tonerkennung und Referenznoten für 4- und 5-Saiter-Setups."
     },
     violin: {
       title: "Geige Tuner online",
-      description: "Stimme Geige online mit Mikrofon und Referenznoten G D A E fuer den taeglichen Unterricht und schnelle Kontrolle."
+      description: "Stimme Geige online mit Mikrofon und Referenznoten G D A E für den täglichen Unterricht und schnelle Kontrolle."
     },
     cello: {
       title: "Cello Tuner online",
-      description: "Stimme Cello online mit Mikrofon, Referenznoten und einer schnellen Browser-Loesung fuer Probe und Ueben."
+      description: "Stimme Cello online mit Mikrofon, Referenznoten und einer schnellen Browser-Loesung für Probe und Ueben."
     },
     cimbalom: {
       title: "Cimbalom Tuner online",
-      description: "Stimme Cimbalom online mit Mikrofon, Referenznoten und schneller Hilfe fuer regelmaessige Kontrolle im Browser."
+      description: "Stimme Cimbalom online mit Mikrofon, Referenznoten und schneller Hilfe für regelmäßige Kontrolle im Browser."
     },
     koto: {
       title: "Koto Tuner online",
-      description: "Stimme Koto online mit Mikrofon und Referenznoten, um die Stimmung schnell und einfach im Browser zu pruefen."
+      description: "Stimme Koto online mit Mikrofon und Referenznoten, um die Stimmung schnell und einfach im Browser zu prüfen."
     }
   },
   en: {
@@ -530,16 +530,15 @@ const priorityInstrumentSeoCopy: Record<
   }
 };
 
-const templates: Record<
-  BaseLocale,
-  {
-    description: (instrument: string, tuning: string) => string;
-    faq: (instrument: string, tuning: string) => { answer: string; question: string }[];
-    howItWorks: (instrument: string) => string[];
-    keywords: (instrument: string) => string[];
-    title: (instrument: string) => string;
-  }
-> = {
+type TunerTemplate = {
+  description: (instrument: string, tuning: string) => string;
+  faq: (instrument: string, tuning: string) => { answer: string; question: string }[];
+  howItWorks: (instrument: string) => string[];
+  keywords: (instrument: string) => string[];
+  title: (instrument: string) => string;
+};
+
+const baseTemplates: Record<BaseLocale, TunerTemplate> = {
   ar: {
     description: (instrument, tuning) => `استخدم الميكروفون لضبط ${instrument} عبر الإنترنت. النغمات المرجعية: ${tuning}.`,
     faq: (instrument, tuning) => [
@@ -652,6 +651,96 @@ const templates: Record<
   }
 };
 
+/**
+ * The per-instrument tuner copy is generated from a template, and the template was only
+ * defined for the 11 base locales. Every extended locale therefore rendered "Online Banjo
+ * tuner" in English, so the 20 secondary tuners shared one title across eight locales.
+ */
+const extendedTemplates: Partial<Record<Locale, TunerTemplate>> = {
+  nl: {
+    description: (instrument, tuning) => `Stem ${instrument} online met de microfoon. Referentienoten: ${tuning}.`,
+    faq: (instrument, tuning) => [
+      { question: `Werkt de stemmer voor ${instrument} op de telefoon?`, answer: "Ja, hij werkt in de browser zodra je toegang tot de microfoon geeft." },
+      { question: "Welke referentienoten worden gebruikt?", answer: `Voor dit instrument toont TuneUniversal: ${tuning}.` }
+    ],
+    howItWorks: (instrument) => [`Kies ${instrument} in de stemmer.`, "Geef toegang tot de microfoon.", "Speel een snaar of een noot.", "Stem bij tot de wijzer in het midden staat."],
+    keywords: (instrument) => [`${instrument} stemmer online`, `${instrument} stemmen`, `gratis ${instrument} stemmer`, `${instrument} stemmen met microfoon`],
+    title: (instrument) => `Online ${instrument} stemmer`
+  },
+  pl: {
+    description: (instrument, tuning) => `Stroik ${instrument} online z mikrofonem. Dźwięki referencyjne: ${tuning}.`,
+    faq: (instrument, tuning) => [
+      { question: `Czy stroik ${instrument} działa na telefonie?`, answer: "Tak, działa w przeglądarce po udzieleniu dostępu do mikrofonu." },
+      { question: "Jakich dźwięków referencyjnych używa stroik?", answer: `Dla tego instrumentu TuneUniversal pokazuje: ${tuning}.` }
+    ],
+    howItWorks: (instrument) => [`W stroiku wybierz instrument: ${instrument}.`, "Zezwól na dostęp do mikrofonu.", "Zagraj jedną strunę lub dźwięk.", "Strój, aż wskaźnik znajdzie się na środku."],
+    keywords: (instrument) => [`stroik ${instrument} online`, `${instrument} strojenie`, `darmowy stroik ${instrument}`, `${instrument} stroik z mikrofonem`],
+    title: (instrument) => `${instrument} - stroik online`
+  },
+  tr: {
+    description: (instrument, tuning) => `${instrument} enstrümanını mikrofonla online akort edin. Referans notalar: ${tuning}.`,
+    faq: (instrument, tuning) => [
+      { question: `${instrument} akort aleti telefonda çalışır mı?`, answer: "Evet, mikrofona erişim izni verdiğinizde tarayıcıda çalışır." },
+      { question: "Hangi referans notalar kullanılıyor?", answer: `Bu enstrüman için TuneUniversal şunları gösterir: ${tuning}.` }
+    ],
+    howItWorks: (instrument) => [`Akort aletinde ${instrument} seçin.`, "Mikrofon erişimine izin verin.", "Tek bir tel veya nota çalın.", "Gösterge ortalanana kadar akort edin."],
+    keywords: (instrument) => [`online ${instrument} akort aleti`, `${instrument} akort etme`, `ücretsiz ${instrument} akort aleti`, `mikrofonlu ${instrument} akort aleti`],
+    title: (instrument) => `Online ${instrument} akort aleti`
+  },
+  cs: {
+    description: (instrument, tuning) => `Ladička ${instrument} online s mikrofonem. Referenční tóny: ${tuning}.`,
+    faq: (instrument, tuning) => [
+      { question: `Funguje ladička ${instrument} v mobilu?`, answer: "Ano, funguje v prohlížeči, jakmile povolíte přístup k mikrofonu." },
+      { question: "Jaké referenční tóny se používají?", answer: `Pro tento nástroj TuneUniversal zobrazuje: ${tuning}.` }
+    ],
+    howItWorks: (instrument) => [`V ladičce zvolte nástroj: ${instrument}.`, "Povolte přístup k mikrofonu.", "Zahrajte jednu strunu nebo tón.", "Laďte, dokud není ukazatel uprostřed."],
+    keywords: (instrument) => [`ladička ${instrument} online`, `${instrument} ladění`, `ladička ${instrument} zdarma`, `${instrument} ladička s mikrofonem`],
+    title: (instrument) => `${instrument} - online ladička`
+  },
+  sv: {
+    description: (instrument, tuning) => `Stäm ${instrument} online med mikrofonen. Referenstoner: ${tuning}.`,
+    faq: (instrument, tuning) => [
+      { question: `Fungerar stämmaren för ${instrument} i mobilen?`, answer: "Ja, den fungerar i webbläsaren när du ger åtkomst till mikrofonen." },
+      { question: "Vilka referenstoner används?", answer: `För det här instrumentet visar TuneUniversal: ${tuning}.` }
+    ],
+    howItWorks: (instrument) => [`Välj ${instrument} i stämmaren.`, "Ge åtkomst till mikrofonen.", "Spela en sträng eller en ton.", "Stäm tills visaren står i mitten."],
+    keywords: (instrument) => [`${instrument} stämmare online`, `stämma ${instrument}`, `gratis ${instrument} stämmare`, `${instrument} stämmare med mikrofon`],
+    title: (instrument) => `${instrument} stämmare online`
+  },
+  no: {
+    description: (instrument, tuning) => `Stem ${instrument} online med mikrofonen. Referansetoner: ${tuning}.`,
+    faq: (instrument, tuning) => [
+      { question: `Fungerer stemmeapparatet for ${instrument} på mobil?`, answer: "Ja, det fungerer i nettleseren når du gir tilgang til mikrofonen." },
+      { question: "Hvilke referansetoner brukes?", answer: `For dette instrumentet viser TuneUniversal: ${tuning}.` }
+    ],
+    howItWorks: (instrument) => [`Velg ${instrument} i stemmeapparatet.`, "Gi tilgang til mikrofonen.", "Spill en streng eller en tone.", "Stem til viseren står i midten."],
+    keywords: (instrument) => [`${instrument} stemmeapparat online`, `stemme ${instrument}`, `gratis ${instrument} stemmeapparat`, `${instrument} stemmeapparat med mikrofon`],
+    title: (instrument) => `Online stemmeapparat for ${instrument}`
+  },
+  hi: {
+    description: (instrument, tuning) => `माइक्रोफ़ोन से ${instrument} को ऑनलाइन ट्यून करें। संदर्भ स्वर: ${tuning}।`,
+    faq: (instrument, tuning) => [
+      { question: `क्या ${instrument} ट्यूनर फ़ोन पर काम करता है?`, answer: "हाँ, माइक्रोफ़ोन की अनुमति देने पर यह ब्राउज़र में काम करता है।" },
+      { question: "कौन से संदर्भ स्वर उपयोग होते हैं?", answer: `इस वाद्ययंत्र के लिए TuneUniversal दिखाता है: ${tuning}।` }
+    ],
+    howItWorks: (instrument) => [`ट्यूनर में ${instrument} चुनें।`, "माइक्रोफ़ोन की अनुमति दें।", "एक तार या स्वर बजाएँ।", "जब तक सूचक बीच में न आ जाए, ट्यून करें।"],
+    keywords: (instrument) => [`ऑनलाइन ${instrument} ट्यूनर`, `${instrument} ट्यूनिंग`, `मुफ़्त ${instrument} ट्यूनर`, `माइक्रोफ़ोन ${instrument} ट्यूनर`],
+    title: (instrument) => `ऑनलाइन ${instrument} ट्यूनर`
+  }
+};
+
+/**
+ * Base locale whose hand-written overrides apply, or `undefined` when the locale has its
+ * own template — an English override must never land on top of translated copy.
+ */
+function tunerOverrideLocale(locale: Locale): BaseLocale | undefined {
+  return extendedTemplates[locale] ? undefined : getContentLocale(locale);
+}
+
+function tunerTemplate(locale: Locale): TunerTemplate {
+  return extendedTemplates[locale] ?? baseTemplates[getContentLocale(locale)];
+}
+
 export const instrumentTunerSlugs = instrumentIds.map((instrument) => `${instrument}-tuner` as InstrumentTunerSlug);
 
 export function instrumentToTunerSlug(instrument: Instrument): InstrumentTunerSlug {
@@ -669,10 +758,10 @@ export function isInstrumentTunerSlug(value: string | undefined): value is Instr
 }
 
 export function getInstrumentTunerContent(locale: Locale, instrument: Instrument): InstrumentTunerContent {
-  const contentLocale = getContentLocale(locale);
+  const overrideLocale = tunerOverrideLocale(locale);
   const label = getInstrumentLabel(instrument, locale);
   const tuning = tunings[instrument].map((note) => formatNoteName(`${note.name}${note.octave ?? ""}`, "latin", false)).join(" - ");
-  const template = templates[contentLocale];
+  const template = tunerTemplate(locale);
   const baseContent: InstrumentTunerContent = {
     description: template.description(label, tuning),
     faq: template.faq(label, tuning),
@@ -681,7 +770,9 @@ export function getInstrumentTunerContent(locale: Locale, instrument: Instrument
     keywords: template.keywords(label),
     title: template.title(label)
   };
-  const override = instrumentTunerOverrides[contentLocale]?.[instrument];
-  const priorityCopy = priorityInstrumentSeoCopy[contentLocale]?.[instrument as PriorityInstrument];
+  // Overrides are keyed by base locale and are written in that language, so they must
+  // not be spread over copy that came from an extended-locale template.
+  const override = overrideLocale ? instrumentTunerOverrides[overrideLocale]?.[instrument] : undefined;
+  const priorityCopy = overrideLocale ? priorityInstrumentSeoCopy[overrideLocale]?.[instrument as PriorityInstrument] : undefined;
   return { ...baseContent, ...override, ...priorityCopy, instrument };
 }

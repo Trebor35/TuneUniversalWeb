@@ -1,32 +1,40 @@
 import type { MetadataRoute } from "next";
-import { locales } from "@/lib/i18n/locales";
+import { locales, type Locale } from "@/lib/i18n/locales";
+import { contentLastModifiedDate } from "@/lib/seo/dates";
+import { isIndexable, sectionForPath, sitemapChangeFrequency, sitemapPriority } from "@/lib/seo/indexing";
 import { allLocalizedUrls } from "@/lib/seo/metadata";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
-  return allLocalizedUrls().map((path) => {
+function localeOf(path: string): Locale {
+  return path.split("/")[1] as Locale;
+}
+
+function withLocale(path: string, locale: Locale) {
+  return path.replace(/^\/[^/]+(?=\/|$)/, `/${locale}`);
+}
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const indexablePaths = allLocalizedUrls().filter((path) => isIndexable(localeOf(path), sectionForPath(path)));
+
+  return indexablePaths.map((path) => {
+    const section = sectionForPath(path);
+    // hreflang must not point at a page we are asking Google not to index, so the
+    // alternates list only the locales that actually have native copy for this section.
+    const alternateLocales = locales.filter((locale) => isIndexable(locale, section));
     const localizedUrls = Object.fromEntries(
-      locales.map((locale) => {
-        const localizedPath = path.replace(/^\/[^/]+(?=\/|$)/, `/${locale}`);
-        return [locale, `${siteUrl}${localizedPath}`];
-      })
+      alternateLocales.map((locale) => [locale, `${siteUrl}${withLocale(path, locale)}`])
     );
 
     return {
       url: `${siteUrl}${path}`,
-      lastModified: new Date(),
-      changeFrequency: path.includes("/tools/") ? "monthly" : "weekly",
-      priority:
-        path.includes("/tools/guitar-tuner") && /^\/(en|it|de|es|fr)\//.test(path)
-          ? 0.9
-          : path.includes("/tools/")
-            ? 0.8
-            : 1,
+      lastModified: contentLastModifiedDate,
+      changeFrequency: sitemapChangeFrequency(path),
+      priority: sitemapPriority(path),
       alternates: {
         languages: {
           ...localizedUrls,
-          "x-default": `${siteUrl}${path.replace(/^\/[^/]+(?=\/|$)/, "/en")}`
+          "x-default": `${siteUrl}${withLocale(path, "en")}`
         }
       }
     };

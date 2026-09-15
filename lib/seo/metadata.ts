@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { instrumentTunerSlugs, type InstrumentTunerContent } from "@/lib/content/instrumentTuners";
 import { getContentLocale, locales, type Locale } from "@/lib/i18n/locales";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -9,14 +9,15 @@ import { tuningHubContent } from "@/lib/content/tuningHub";
 import { toolsHubContent } from "@/lib/content/toolsHub";
 import { toolSlugs, type ToolSlug } from "@/lib/tools/toolConfig";
 import { homeKeywords, toolKeywords } from "@/lib/seo/keywords";
+import { canonicalPathForToolsIndex, isIndexable, robotsFor, sectionForPath } from "@/lib/seo/indexing";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
 const homeMetadataOverrides: Partial<Record<Locale, { description: string; title: string }>> = {
   de: {
-    title: "Kostenlose Musik-Tools online | Stimmgeraet, Metronom, BPM | TuneUniversal",
+    title: "Kostenlose Musik-Tools online | Stimmgerät, Metronom, BPM | TuneUniversal",
     description:
-      "Kostenlose Musik-Tools online: universelles Stimmgeraet, Metronom, Tap BPM, Sound Meter, Akkord-Transposer und Stimmhilfen fuer viele Instrumente."
+      "Kostenlose Musik-Tools online: universelles Stimmgerät, Metronom, Tap BPM, Sound Meter, Akkord-Transposer und Stimmhilfen für viele Instrumente."
   },
   en: {
     title: "Free Music Tools Online | Tuner, Metronome, BPM | TuneUniversal",
@@ -107,7 +108,7 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
     "bass-tuner": { title: "Bass-Tuner online kostenlos | Mit Mikrofon | TuneUniversal", description: "Stimme Bass online mit kostenlosem Tuner, Mikrofon-Erkennung und Standard- sowie alternativen Stimmungen." },
     "ukulele-tuner": { title: "Ukulele-Tuner online kostenlos | GCEA mit Mikrofon | TuneUniversal", description: "Stimme Ukulele online mit kostenlosem Tuner, Standard-GCEA, Low G und anderen Stimmungsvarianten." },
     "sound-level-meter": { title: "Schallpegelmesser online kostenlos | dB-Meter im Browser | TuneUniversal", description: "Miss den Schallpegel in dB mit dem Browser-Mikrofon, Echtzeit-Grafik und einstellbarer Empfindlichkeit." },
-    "pitch-generator": { title: "Ton-Generator online kostenlos | 20 Hz bis 20000 Hz | TuneUniversal", description: "Erzeuge reine Toene von 20 Hz bis 20000 Hz fuer Gehoertraining, Stimmreferenz und Audiotest im Browser." }
+    "pitch-generator": { title: "Ton-Generator online kostenlos | 20 Hz bis 20000 Hz | TuneUniversal", description: "Erzeuge reine Töne von 20 Hz bis 20000 Hz für Gehörtraining, Stimmreferenz und Audiotest im Browser." }
   },
   es: {
     "chord-transposer": {
@@ -328,34 +329,34 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
     "pitch-generator": { title: "Gratis online toonopwekker | 20 Hz tot 20000 Hz | TuneUniversal", description: "Genereer zuivere tonen van 20 Hz tot 20000 Hz voor gehoortraining, referentietonen en audiotests." }
   },
   pl: {
-    "guitar-tuner": { title: "Darmowy stroik gitarowy online | Chromatyczny z mikrofonem | TuneUniversal", description: "Stroj gitare online za darmo chromatycznym stroikiem z mikrofonem, wyswietlaniem centow i obsluga alternatywnych stroj." },
-    "bass-tuner": { title: "Darmowy stroik do basu online | Z mikrofonem | TuneUniversal", description: "Stroj bas online za darmo z mikrofonem, detekcja wysokosci dzwieku i obsluga stroju standardowego i alternatywnego." },
-    "ukulele-tuner": { title: "Darmowy stroik do ukulele online | GCEA z mikrofonem | TuneUniversal", description: "Stroj ukulele online za darmo, standard GCEA, Low G i inne warianty przez mikrofon przegladarki." },
-    metronome: { title: "Darmowy metronom online | BPM, metrum i cykle cwiczen | TuneUniversal", description: "Cwicz z darmowym metronomen online: ustawianie BPM, akcenty, metrum, Tap Tempo i progresywne cykle predkosci." },
-    "tap-bpm": { title: "Tap BPM online | Szybkie znajdowanie tempa piosenki | TuneUniversal", description: "Stukaj w rytm muzyki, oblicz srednie BPM w kilka sekund i przejdz od razu do metronomu." },
-    "chord-transposer": { title: "Transpozytor akordow online | Zmiana tonacji o polton | TuneUniversal", description: "Transponuj akordy online o polton, zachowaj slash-akordy i skopiuj wynik od razu." },
-    "sound-level-meter": { title: "Miernik poziomu dzwieku online | Darmowy dB w przegladarce | TuneUniversal", description: "Zmierz szacunkowy poziom dzwieku w dB mikrofonem przegladarki, wykres na zywo i regulowana czulosc." },
-    "pitch-generator": { title: "Generator tonow online | 20 Hz do 20000 Hz | TuneUniversal", description: "Generuj czyste tony od 20 Hz do 20000 Hz do treningu sluchu, strojenia instrumentow i testow audio." }
+    "guitar-tuner": { title: "Darmowy stroik gitarowy online | Chromatyczny z mikrofonem | TuneUniversal", description: "Strój gitarę online za darmo chromatycznym stroikiem z mikrofonem, wyświetlaniem centów i obsługą alternatywnych strojów." },
+    "bass-tuner": { title: "Darmowy stroik do basu online | Z mikrofonem | TuneUniversal", description: "Strój bas online za darmo z mikrofonem, detekcją wysokości dźwięku i obsługą stroju standardowego i alternatywnego." },
+    "ukulele-tuner": { title: "Darmowy stroik do ukulele online | GCEA z mikrofonem | TuneUniversal", description: "Strój ukulele online za darmo, standard GCEA, Low G i inne warianty przez mikrofon przeglądarki." },
+    metronome: { title: "Darmowy metronom online | BPM, metrum i cykle ćwiczeń | TuneUniversal", description: "Ćwicz z darmowym metronomem online: ustawianie BPM, akcenty, metrum, Tap Tempo i progresywne cykle prędkości." },
+    "tap-bpm": { title: "Tap BPM online | Szybkie znajdowanie tempa piosenki | TuneUniversal", description: "Stukaj w rytm muzyki, oblicz średnie BPM w kilka sekund i przejdź od razu do metronomu." },
+    "chord-transposer": { title: "Transpozytor akordów online | Zmiana tonacji o półton | TuneUniversal", description: "Transponuj akordy online o półton, zachowaj slash akordy i skopiuj wynik od razu." },
+    "sound-level-meter": { title: "Miernik poziomu dźwięku online | Darmowy dB w przeglądarce | TuneUniversal", description: "Zmierz szacunkowy poziom dźwięku w dB mikrofonem przeglądarki, wykres na żywo i regulowana czułość." },
+    "pitch-generator": { title: "Generator tonów online | 20 Hz do 20000 Hz | TuneUniversal", description: "Generuj czyste tony od 20 Hz do 20000 Hz do treningu słuchu, strojenia instrumentów i testów audio." }
   },
   tr: {
-    "guitar-tuner": { title: "Ucretsiz online gitar akordlayici | Mikrofonlu kromatik akordlayici | TuneUniversal", description: "Gitarinizi ucretsiz kromatik akordlayici ile online akord edin, mikrofon ile ses algilama ve alternatif akord destegi." },
-    "bass-tuner": { title: "Ucretsiz online bas akordlayici | Mikrofonlu | TuneUniversal", description: "Bas gitarinizi online akord edin, ucretsiz mikrofon algilama ve standart ile alternatif akordlar destegi." },
-    "ukulele-tuner": { title: "Ucretsiz online ukulele akordlayici | GCEA mikrofonlu | TuneUniversal", description: "Ukuleleyi online akord edin, standart GCEA, Low G ve diger akordlar tarayici mikrofonu ile." },
-    metronome: { title: "Ucretsiz online metronom | BPM, olcu ve pratik dongusu | TuneUniversal", description: "Ucretsiz online metronom ile calisin: BPM ayari, vurgular, olcular, Tap Tempo ve ilerleme hiz dongusu." },
-    "tap-bpm": { title: "Tap BPM online | Sarki temposunu hizlica bulun | TuneUniversal", description: "Muzige vurun, saniyeler icinde ortalama BPM hesaplayin ve hemen metronomla pratik yapin." },
-    "chord-transposer": { title: "Online akor transpozisyoncusu | Yarim ton tonal degisim | TuneUniversal", description: "Akorlari online olarak yari ton bazinda transpoz edin, slash akordlari koruyun ve sonucu kopyalayin." },
-    "sound-level-meter": { title: "Ucretsiz online ses seviyesi olceri | Tarayici dB olcumu | TuneUniversal", description: "Tarayici mikrofonu ile tahmini ses seviyesini dB olarak olcun, gercek zamanli grafik ve ayarlanabilir hassasiyet." },
-    "pitch-generator": { title: "Ucretsiz online ses ureteci | 20 Hz ile 20000 Hz | TuneUniversal", description: "Kulak egitimi, alet referansi ve ses testi icin 20 Hz ile 20000 Hz arasi saf tonlar uretin." }
+    "guitar-tuner": { title: "Ücretsiz online gitar akort aleti | Mikrofonlu kromatik | TuneUniversal", description: "Gitarınızı ücretsiz kromatik akort aleti ile online akort edin, mikrofonla ses algılama ve alternatif akort desteği." },
+    "bass-tuner": { title: "Ücretsiz online bas akort aleti | Mikrofonlu | TuneUniversal", description: "Bas gitarınızı online akort edin, ücretsiz mikrofon algılama ve standart ile alternatif akort desteği." },
+    "ukulele-tuner": { title: "Ücretsiz online ukulele akort aleti | GCEA mikrofonlu | TuneUniversal", description: "Ukuleleyi online akort edin, standart GCEA, Low G ve diğer akortlar tarayıcı mikrofonu ile." },
+    metronome: { title: "Ücretsiz online metronom | BPM, ölçü ve pratik döngüsü | TuneUniversal", description: "Ücretsiz online metronom ile çalışın: BPM ayarı, vurgular, ölçüler, Tap Tempo ve ilerleyen hız döngüsü." },
+    "tap-bpm": { title: "Tap BPM online | Şarkı temposunu hızlıca bulun | TuneUniversal", description: "Müziğe vurun, saniyeler içinde ortalama BPM hesaplayın ve hemen metronomla pratik yapın." },
+    "chord-transposer": { title: "Online akor transpoze aracı | Yarım ton tonalite değişimi | TuneUniversal", description: "Akorları online olarak yarım ton bazında transpoze edin, slash akorları koruyun ve sonucu kopyalayın." },
+    "sound-level-meter": { title: "Ücretsiz online ses seviyesi ölçer | Tarayıcıda dB ölçümü | TuneUniversal", description: "Tarayıcı mikrofonu ile tahmini ses seviyesini dB olarak ölçün, gerçek zamanlı grafik ve ayarlanabilir hassasiyet." },
+    "pitch-generator": { title: "Ücretsiz online ses üreteci | 20 Hz ile 20000 Hz | TuneUniversal", description: "Kulak eğitimi, enstrüman referansı ve ses testi için 20 Hz ile 20000 Hz arası saf tonlar üretin." }
   },
   cs: {
-    "guitar-tuner": { title: "Zdarma ladicky na kytaru online | Chromaticky s mikrofonem | TuneUniversal", description: "Naladte kytaru online zdarma chromatickou ladickou s mikrofonem, zobrazenim centu a podporou alternativnich ladeni." },
-    "bass-tuner": { title: "Zdarma ladicky na baskytaru online | S mikrofonem | TuneUniversal", description: "Naladte baskytaru online zdarma s mikrofonem, detekcí výšky tónu a podporou standardnich a alternativnich ladeni." },
-    "ukulele-tuner": { title: "Zdarma ladicky na ukulele online | GCEA s mikrofonem | TuneUniversal", description: "Naladte ukulele online zdarma, standardni GCEA, Low G a dalsi varianty pres mikrofon prohlizece." },
-    metronome: { title: "Zdarma online metronom | BPM, takty a cykly cviceni | TuneUniversal", description: "Cvicte s bezplatnym online metronomen: nastaveni BPM, akcentace, takty, Tap Tempo a progresivni cykly." },
-    "tap-bpm": { title: "Tap BPM online | Rychle najdete tempo skladby | TuneUniversal", description: "Klepejte v rytmu hudby, vypoctete prumerne BPM za sekundy a ihned prejdete k metronomu." },
-    "chord-transposer": { title: "Online transpozer akkordov | Zmena tonality po pultonu | TuneUniversal", description: "Transponujte akordy online po pultonu, zachovejte slash-akordy a zkopirujte vysledek hned." },
-    "sound-level-meter": { title: "Zdarma online meric hluku | Mereni dB v prohlizeci | TuneUniversal", description: "Merte odhadovanou hladinu zvuku v dB mikrofonem prohlizece, graf v realnem case a nastavitelna citlivost." },
-    "pitch-generator": { title: "Zdarma generator tonu online | 20 Hz az 20000 Hz | TuneUniversal", description: "Generujte ciste tony od 20 Hz do 20000 Hz pro trenovani sluchu, reference nastroju a testy zvuku." }
+    "guitar-tuner": { title: "Ladička na kytaru online zdarma | Chromatická s mikrofonem | TuneUniversal", description: "Nalaďte kytaru online zdarma chromatickou ladičkou s mikrofonem, zobrazením centů a podporou alternativních ladění." },
+    "bass-tuner": { title: "Ladička na baskytaru online zdarma | S mikrofonem | TuneUniversal", description: "Nalaďte baskytaru online zdarma s mikrofonem, detekcí výšky tónu a podporou standardních i alternativních ladění." },
+    "ukulele-tuner": { title: "Ladička na ukulele online zdarma | GCEA s mikrofonem | TuneUniversal", description: "Nalaďte ukulele online zdarma, standardní GCEA, Low G a další varianty přes mikrofon prohlížeče." },
+    metronome: { title: "Metronom online zdarma | BPM, takty a cykly cvičení | TuneUniversal", description: "Cvičte s bezplatným online metronomem: nastavení BPM, akcentace, takty, Tap Tempo a progresivní cykly." },
+    "tap-bpm": { title: "Tap BPM online | Rychle najděte tempo skladby | TuneUniversal", description: "Klepejte v rytmu hudby, vypočtěte průměrné BPM za sekundy a ihned přejděte k metronomu." },
+    "chord-transposer": { title: "Transpozice akordů online | Změna tóniny po půltónu | TuneUniversal", description: "Transponujte akordy online po půltónu, zachovejte slash akordy a zkopírujte výsledek hned." },
+    "sound-level-meter": { title: "Měřič hluku online zdarma | Měření dB v prohlížeči | TuneUniversal", description: "Měřte odhadovanou hladinu zvuku v dB mikrofonem prohlížeče, graf v reálném čase a nastavitelná citlivost." },
+    "pitch-generator": { title: "Generátor tónů online zdarma | 20 Hz až 20000 Hz | TuneUniversal", description: "Generujte čisté tóny od 20 Hz do 20000 Hz pro trénování sluchu, referenci nástrojů a testy zvuku." }
   },
   sv: {
     "guitar-tuner": { title: "Gratis gitarrstämmare online | Kromatisk med mikrofon | TuneUniversal", description: "Stäm gitarren online gratis med en kromatisk stämmare, mikrofondetektering, centvisning och alternativa stämningar." },
@@ -389,13 +390,13 @@ const toolMetadataOverrides: Partial<Record<Locale, Partial<Record<ToolSlug, { d
   },
   no: {
     "guitar-tuner": { title: "Gratis gitarstemmer online | Kromatisk med mikrofon | TuneUniversal", description: "Stem gitaren online gratis med kromatisk stemmer, mikrofondetektering, sentvisning og støtte for alternative stemninger." },
-    "bass-tuner": { title: "Gratis bassstemmer online | Med mikrofon | TuneUniversal", description: "Stem bassguitar online gratis med mikrofon, tonehøydedetektering og standard og alternative stemninger." },
+    "bass-tuner": { title: "Gratis basstemmer online | Med mikrofon | TuneUniversal", description: "Stem bassgitaren online gratis med mikrofon, tonehøydedetektering og standard og alternative stemninger." },
     "ukulele-tuner": { title: "Gratis ukulelestemmer online | GCEA med mikrofon | TuneUniversal", description: "Stem ukulelen online gratis med standard GCEA, Low G og andre varianter via nettleserens mikrofon." },
     metronome: { title: "Gratis metronom online | BPM, taktarter og øvelsessykluser | TuneUniversal", description: "Øv med gratis online-metronom: BPM-innstilling, aksenter, taktarter, Tap Tempo og progressive hastighetssykluser." },
     "tap-bpm": { title: "Tap BPM online | Finn sangens tempo raskt | TuneUniversal", description: "Tapp i takt med musikken, beregn gjennomsnittlig BPM på sekunder og gå direkte til metronomen." },
-    "chord-transposer": { title: "Online akkordtransponerare | Endre toneart i halvtoner | TuneUniversal", description: "Transponerere akkorder online i halvtoner, behold slash-akkorder og kopier resultatet direkte." },
+    "chord-transposer": { title: "Akkordtransponering online | Endre toneart i halvtoner | TuneUniversal", description: "Transponer akkorder online i halvtoner, behold slash-akkorder og kopier resultatet direkte." },
     "sound-level-meter": { title: "Gratis lydnivåmåler online | dB-måling i nettleseren | TuneUniversal", description: "Mål estimert lydnivå i dB med nettleserens mikrofon, sanntidsgraf og justerbar følsomhet." },
-    "pitch-generator": { title: "Gratis tonsignal online | 20 Hz til 20000 Hz | TuneUniversal", description: "Generer rene toner fra 20 Hz til 20000 Hz for gehørtrening, instrumentreferanse og lydtester." }
+    "pitch-generator": { title: "Gratis tonegenerator online | 20 Hz til 20000 Hz | TuneUniversal", description: "Generer rene toner fra 20 Hz til 20000 Hz for gehørtrening, instrumentreferanse og lydtester." }
   }
 };
 
@@ -406,12 +407,12 @@ const instrumentMetadataOverrides: Partial<
     "8-string-guitar-tuner": {
       title: "8-Saiter Gitarre online stimmen | Kostenloser Tuner | TuneUniversal",
       description:
-        "Stimme eine 8-Saiter Gitarre online mit Mikrofon, Referenznoten und Browser-Tuner fuer Extended-Range-Riffs und modernes Metal-Spiel."
+        "Stimme eine 8-Saiter Gitarre online mit Mikrofon, Referenznoten und Browser-Tuner für Extended-Range-Riffs und modernes Metal-Spiel."
     },
     "bass-tuner": {
-      title: "Bass Tuner online | Kostenloses Stimmgeraet | TuneUniversal",
+      title: "Bass Tuner online | Kostenloses Stimmgerät | TuneUniversal",
       description:
-        "Stimme Bass online mit Mikrofon, Referenznoten und stabilem Browser-Tuner fuer Standard- und 5-Saiter-Setups."
+        "Stimme Bass online mit Mikrofon, Referenznoten und stabilem Browser-Tuner für Standard- und 5-Saiter-Setups."
     }
   },
   en: {
@@ -554,47 +555,47 @@ const priorityInstrumentMetadataOverrides: Partial<
   de: {
     "7-string-guitar-tuner": {
       title: "7-Saiter Gitarre online stimmen | Kostenloser Tuner | TuneUniversal",
-      description: "Stimme 7-Saiter Gitarre online mit tiefem H, Mikrofon-Erkennung und klarer Anzeige fuer moderne Riffs und taegliches Ueben."
+      description: "Stimme 7-Saiter Gitarre online mit tiefem H, Mikrofon-Erkennung und klarer Anzeige für moderne Riffs und tägliches Ueben."
     },
     "8-string-guitar-tuner": {
       title: "8-Saiter Gitarre online stimmen | Kostenloser Tuner | TuneUniversal",
-      description: "Stimme 8-Saiter Gitarre online mit Mikrofon, Referenznoten und klarer Hilfe fuer moderne Extended-Range-Setups."
+      description: "Stimme 8-Saiter Gitarre online mit Mikrofon, Referenznoten und klarer Hilfe für moderne Extended-Range-Setups."
     },
     "12-string-guitar-tuner": {
       title: "12-Saiter Gitarre online stimmen | Kostenloser Tuner | TuneUniversal",
-      description: "Stimme 12-Saiter Gitarre online mit Mikrofon, Referenznoten und Unterstuetzung fuer Oktavpaare und Doppelchore."
+      description: "Stimme 12-Saiter Gitarre online mit Mikrofon, Referenznoten und Unterstützung für Oktavpaare und Doppelchore."
     },
     "bass-tuner": {
       title: "Bass online stimmen | Kostenloser Tuner | TuneUniversal",
-      description: "Stimme Bass online mit Mikrofon, stabiler Tonerkennung und Referenznoten fuer 4- und 5-Saiter-Setups."
+      description: "Stimme Bass online mit Mikrofon, stabiler Tonerkennung und Referenznoten für 4- und 5-Saiter-Setups."
     },
     "violin-tuner": {
       title: "Geige online stimmen | Kostenloser Tuner | TuneUniversal",
-      description: "Stimme Geige online mit Mikrofon und Referenznoten G D A E fuer den taeglichen Unterricht und schnelle Kontrolle."
+      description: "Stimme Geige online mit Mikrofon und Referenznoten G D A E für den täglichen Unterricht und schnelle Kontrolle."
     },
     "cello-tuner": {
       title: "Cello online stimmen | Kostenloser Tuner | TuneUniversal",
-      description: "Stimme Cello online mit Mikrofon, Referenznoten und einer schnellen Browser-Loesung fuer Probe und Ueben."
+      description: "Stimme Cello online mit Mikrofon, Referenznoten und einer schnellen Browser-Loesung für Probe und Ueben."
     },
     "cimbalom-tuner": {
-      title: "Cimbalom online stimmen | TuneUniversal",
-      description: "Stimme Cimbalom online mit Mikrofon, Referenznoten und schneller Hilfe fuer regelmaessige Kontrolle im Browser."
+      title: "Cimbalom Tuner online | Kostenloses Stimmgerät | TuneUniversal",
+      description: "Stimme Cimbalom online mit Mikrofon, Referenznoten und schneller Hilfe für regelmäßige Kontrolle im Browser."
     },
     "koto-tuner": {
-      title: "Koto online stimmen | TuneUniversal",
-      description: "Stimme Koto online mit Mikrofon und Referenznoten, um die Stimmung schnell und einfach im Browser zu pruefen."
+      title: "Koto Tuner online | Kostenloses Stimmgerät | TuneUniversal",
+      description: "Stimme Koto online mit Mikrofon und Referenznoten, um die Stimmung schnell und einfach im Browser zu prüfen."
     },
     "sitar-tuner": {
       title: "Sitar online stimmen | Kostenloser Tuner | TuneUniversal",
-      description: "Stimme Sitar online mit Mikrofon und Referenznoten fuer das klassische indische C# F# B C# F# G# Setup schnell im Browser."
+      description: "Stimme Sitar online mit Mikrofon und Referenznoten für das klassische indische C# F# B C# F# G# Setup schnell im Browser."
     },
     "erhu-tuner": {
       title: "Erhu online stimmen | Kostenloser D-A Tuner | TuneUniversal",
-      description: "Stimme Erhu online mit Mikrofon und den zwei Referenztoenen D4 und A4 fuer das Standard-Chinesische-Geige-Setup."
+      description: "Stimme Erhu online mit Mikrofon und den zwei Referenztönen D4 und A4 für das Standard-Chinesische-Geige-Setup."
     },
     "santur-tuner": {
       title: "Santur online stimmen | Kostenloser Tuner | TuneUniversal",
-      description: "Stimme Santur online mit Mikrofon und chromatischen Referenztoenen fuer schnelle Kontrolle und regelmaessige Wartung."
+      description: "Stimme Santur online mit Mikrofon und chromatischen Referenztönen für schnelle Kontrolle und regelmäßige Wartung."
     }
   },
   en: {
@@ -1096,36 +1097,36 @@ const priorityGuideMetadataOverrides: Partial<Record<Locale, Partial<Record<Guid
   },
   de: {
     "how-to-tune-bass": {
-      title: "Bass online stimmen | Guide fuer 4 und 5 Saiten | TuneUniversal",
-      description: "Stimme Bass online auf E A D G mit klaren Schritten und hilfreicher Unterstuetzung fuer 4- und 5-Saiter."
+      title: "Bass online stimmen | Guide für 4 und 5 Saiten | TuneUniversal",
+      description: "Stimme Bass online auf E A D G mit klaren Schritten und hilfreicher Unterstützung für 4- und 5-Saiter."
     },
     "how-to-tune-violin": {
       title: "Violine online stimmen | G D A E Guide | TuneUniversal",
-      description: "Stimme Violine online auf G D A E mit einfachen Schritten und stabilerer Mikrofon-Erkennung fuer den Alltag."
+      description: "Stimme Violine online auf G D A E mit einfachen Schritten und stabilerer Mikrofon-Erkennung für den Alltag."
     },
     "standard-bass-tuning": {
       title: "Standard-Bass-Stimmung | E A D G | TuneUniversal",
-      description: "Sieh dir die Standard-Bass-Stimmung E A D G an und erfahre, warum sie weiterhin das haeufigste Grundsetup ist."
+      description: "Sieh dir die Standard-Bass-Stimmung E A D G an und erfahre, warum sie weiterhin das häufigste Grundsetup ist."
     },
     "common-guitar-tunings": {
-      title: "Haeufige Gitarrenstimmungen | Standard, Drop D, Open D | TuneUniversal",
-      description: "Vergleiche Standard, Drop D, Eb Standard, Open D und Open G in einer kompakten Gitarrenstimmungs-Uebersicht."
+      title: "Häufige Gitarrenstimmungen | Standard, Drop D, Open D | TuneUniversal",
+      description: "Vergleiche Standard, Drop D, Eb Standard, Open D und Open G in einer kompakten Gitarrenstimmungs-Übersicht."
     },
     "drop-d-tuning": {
-      title: "Drop D Tuning Guide | D A D G B E | TuneUniversal",
-      description: "Stimme Gitarre auf Drop D fuer tiefere Riffs und einfachere Powerchords, ohne weit von Standard entfernt zu sein."
+      title: "Drop D Tuning Guide | Noten D A D G B E | TuneUniversal",
+      description: "Stimme Gitarre auf Drop D für tiefere Riffs und einfachere Powerchords, ohne weit von Standard entfernt zu sein."
     },
     "drop-c-tuning": {
       title: "Drop C Tuning Guide | Noten und Einsatz | TuneUniversal",
-      description: "Lerne die Noten von Drop C und warum diese Stimmung fuer modernen Rock und Metal so beliebt ist."
+      description: "Lerne die Noten von Drop C und warum diese Stimmung für modernen Rock und Metal so beliebt ist."
     },
     "open-d-tuning": {
       title: "Open D Tuning Guide | Offene Saiten und Slide | TuneUniversal",
-      description: "Nutze Open D fuer resonante offene Saiten, Slide-Gitarre und breite akustische Akkordfarben."
+      description: "Nutze Open D für resonante offene Saiten, Slide-Gitarre und breite akustische Akkordfarben."
     },
     "eb-standard-tuning": {
       title: "Eb Standard Tuning Guide | Halbton tiefer | TuneUniversal",
-      description: "Senke alle Gitarrensaiten um einen Halbton auf Eb Ab Db Gb Bb Eb fuer weichere Spannung und tieferen Klang."
+      description: "Senke alle Gitarrensaiten um einen Halbton auf Eb Ab Db Gb Bb Eb für weichere Spannung und tieferen Klang."
     }
   },
   en: {
@@ -1520,15 +1521,38 @@ const guideMetadataOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, {
   }
 };
 
-export function buildAlternates(locale: Locale, path = ""): Metadata["alternates"] {
+export function buildAlternates(locale: Locale, path = "", canonicalOverride?: string): Metadata["alternates"] {
   const cleanPath = path ? `/${path.replace(/^\//, "")}` : "";
+  const section = sectionForPath(`/${locale}${cleanPath}`);
+  // Only advertise the locales that actually have native copy for this section. A
+  // hreflang pointing at a noindex page is a contradictory signal and Google drops the
+  // whole cluster rather than guessing which half to trust.
+  const alternateLocales = locales.filter((item) => isIndexable(item, section));
   return {
-    canonical: `/${locale}${cleanPath}`,
+    canonical: canonicalOverride ?? `/${locale}${cleanPath}`,
     languages: {
-      ...Object.fromEntries(locales.map((item) => [item, `/${item}${cleanPath}`])),
+      ...Object.fromEntries(alternateLocales.map((item) => [item, `/${item}${cleanPath}`])),
       "x-default": `/en${cleanPath}`
     }
   };
+}
+
+/**
+ * Google truncates around 60 characters. Where a title would overflow, the
+ * " | TuneUniversal" suffix is the first thing to go: the brand is already in the
+ * domain and in the Open Graph site name.
+ */
+const TITLE_BUDGET = 60;
+const BRAND_SUFFIX = " | TuneUniversal";
+
+export function fitTitle(title: string): string {
+  if (title.length <= TITLE_BUDGET) return title;
+  if (title.endsWith(BRAND_SUFFIX)) {
+    const trimmed = title.slice(0, -BRAND_SUFFIX.length);
+    if (trimmed.length <= TITLE_BUDGET) return trimmed;
+    return trimmed;
+  }
+  return title;
 }
 
 export function buildHomeMetadata(locale: Locale, dictionary: Dictionary): Metadata {
@@ -1537,10 +1561,11 @@ export function buildHomeMetadata(locale: Locale, dictionary: Dictionary): Metad
   const title = override?.title ?? dictionary.meta.title;
   const description = override?.description ?? dictionary.meta.description;
   return {
-    title,
+    title: fitTitle(title),
     description,
     keywords: homeKeywords[contentLocale],
     alternates: buildAlternates(locale),
+    robots: robotsFor(locale, "home"),
     openGraph: {
       title,
       description,
@@ -1561,10 +1586,11 @@ export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Di
   const title = override?.title ?? `${content.title} | TuneUniversal`;
   const description = override?.description ?? content.description;
   return {
-    title,
+    title: fitTitle(title),
     description,
     keywords,
     alternates: buildAlternates(locale, `tools/${tool}`),
+    robots: robotsFor(locale, "tools"),
     openGraph: {
       title,
       description,
@@ -1583,10 +1609,11 @@ export function buildInstrumentTunerMetadata(locale: Locale, slug: string, conte
   const title = override?.title ?? `${content.title} | TuneUniversal`;
   const description = override?.description ?? content.description;
   return {
-    title,
+    title: fitTitle(title),
     description,
     keywords: [...content.keywords, ...homeKeywords[contentLocale]],
     alternates: buildAlternates(locale, `tools/${slug}`),
+    robots: robotsFor(locale, "tools"),
     openGraph: {
       title,
       description,
@@ -1607,9 +1634,10 @@ export function buildStaticPageMetadata(
   const title = content.seoTitle ?? `${content.title} | TuneUniversal`;
   const description = content.seoDescription ?? content.description;
   return {
-    title,
+    title: fitTitle(title),
     description,
     alternates: buildAlternates(locale, page),
+    robots: robotsFor(locale, "static"),
     openGraph: {
       title,
       description,
@@ -1626,10 +1654,11 @@ export function buildGuideIndexMetadata(locale: Locale): Metadata {
   const contentLocale = getContentLocale(locale);
   const content = guideIndexContent[contentLocale];
   return {
-    title: `${content.title} | TuneUniversal`,
+    title: fitTitle(`${content.title} | TuneUniversal`),
     description: content.description,
     keywords: [...homeKeywords[contentLocale], "music guides", "tuning guide", "metronome guide", "BPM guide"],
     alternates: buildAlternates(locale, "guides"),
+    robots: robotsFor(locale, "guides"),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
       description: content.description,
@@ -1646,12 +1675,16 @@ export function buildToolsIndexMetadata(locale: Locale, dictionary: Dictionary, 
   const contentLocale = getContentLocale(locale);
   const content = toolsHubContent[locale];
   const cleanPath = path.replace(/^\/+/, "");
-  const absoluteUrl = cleanPath ? `${siteUrl}/${locale}/${cleanPath}` : `${siteUrl}/${locale}`;
+  // `/${locale}` and `/${locale}/tools` render the same component. Both point their
+  // canonical at `/${locale}` so the duplicate collapses into one indexed URL.
+  const canonicalPath = canonicalPathForToolsIndex(locale);
+  const absoluteUrl = `${siteUrl}${canonicalPath}`;
   return {
-    title: `${content.title} | TuneUniversal`,
+    title: fitTitle(`${content.title} | TuneUniversal`),
     description: content.description,
     keywords: [...content.keywords, ...homeKeywords[contentLocale], "universal tuner", "online music tools"],
-    alternates: buildAlternates(locale, cleanPath),
+    alternates: buildAlternates(locale, cleanPath, canonicalPath),
+    robots: robotsFor(locale, "home"),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
       description: content.description,
@@ -1668,10 +1701,11 @@ export function buildTuningHubMetadata(locale: Locale): Metadata {
   const contentLocale = getContentLocale(locale);
   const content = tuningHubContent[locale];
   return {
-    title: `${content.title} | TuneUniversal`,
+    title: fitTitle(`${content.title} | TuneUniversal`),
     description: content.description,
     keywords: [...content.keywords, ...homeKeywords[contentLocale], "alternate tunings", "guitar tuning", "Drop D", "Open G"],
     alternates: buildAlternates(locale, "tunings"),
+    robots: robotsFor(locale, "tunings"),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
       description: content.description,
@@ -1691,10 +1725,11 @@ export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: Gu
   const title = override?.title ?? `${content.title} | TuneUniversal`;
   const description = override?.description ?? content.description;
   return {
-    title,
+    title: fitTitle(title),
     description,
     keywords: [...content.keywords, ...relatedToolKeywords, ...homeKeywords[contentLocale]],
     alternates: buildAlternates(locale, `guides/${guide}`),
+    robots: robotsFor(locale, "guides"),
     openGraph: {
       title,
       description,
@@ -1711,7 +1746,7 @@ export function buildSongsIndexMetadata(locale: Locale): Metadata {
   const contentLocale = getContentLocale(locale);
   const content = songsUi[locale];
   return {
-    title: `${content.title} | TuneUniversal`,
+    title: fitTitle(`${content.title} | TuneUniversal`),
     description: content.description,
     keywords: [
       ...homeKeywords[contentLocale],
@@ -1726,6 +1761,7 @@ export function buildSongsIndexMetadata(locale: Locale): Metadata {
       "music practice"
     ],
     alternates: buildAlternates(locale, "songs"),
+    robots: robotsFor(locale, "songs"),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
       description: content.description,
@@ -1738,32 +1774,54 @@ export function buildSongsIndexMetadata(locale: Locale): Metadata {
   };
 }
 
+/**
+ * The descriptor that turns a song's proper name into a title. The song name itself
+ * stays as it is (it is a proper noun), but every locale used the English descriptor,
+ * so all 19 versions of each song shared one title and Google kept a single one.
+ */
+const songTitleSuffix: Record<Locale, string> = {
+  it: "accordi e spartito semplificato",
+  en: "chords and simplified sheet music",
+  fr: "accords et partition simplifiee",
+  de: "Akkorde und vereinfachte Noten",
+  es: "acordes y partitura simplificada",
+  pt: "acordes e partitura simplificada",
+  zh: "和弦与简化乐谱",
+  ru: "аккорды и упрощённые ноты",
+  ja: "コードと簡易楽譜",
+  ko: "코드와 간단한 악보",
+  ar: "الأكورد والنوتة المبسطة",
+  nl: "akkoorden en vereenvoudigde bladmuziek",
+  pl: "akordy i uproszczone nuty",
+  tr: "akorlar ve basitlestirilmis notalar",
+  cs: "akordy a zjednodusene noty",
+  sv: "ackord och forenklade noter",
+  "pt-BR": "acordes e partitura simplificada",
+  hi: "कॉर्ड्स और सरल शीट म्यूज़िक",
+  no: "akkorder og forenklede noter"
+};
+
 export function buildSongMetadata(locale: Locale, song: PublicDomainSong): Metadata {
   const contentLocale = getContentLocale(locale);
   const content = songsUi[locale];
-  const title = `${song.title} chords and simplified sheet music | TuneUniversal`;
-  const description = `${song.title}: ${song.key}, ${song.meter}, ${song.bpm} BPM. ${content.description}`;
+  const suffix = songTitleSuffix[locale];
+  const title = `${song.title}: ${suffix} | TuneUniversal`;
+  const description = `${song.title} - ${content.key}: ${song.key}, ${content.meter}: ${song.meter}, ${song.bpm} BPM. ${content.description}`;
   return {
-    title,
+    title: fitTitle(title),
     description,
     keywords: [
       song.title,
-      `${song.title} chords`,
-      `${song.title} sheet music`,
-      `${song.title} spartito`,
-      `${song.title} accordi`,
-      `${song.title} chord diagrams`,
-      `${song.title} come fare accordi`,
-      "public domain music",
-      "free music sheet",
-      "guitar chord diagrams",
-      "diagrammi accordi chitarra",
-      ...(song.audience === "children"
-        ? ["easy sheet music for children", "spartiti facili per bambini", "canzoni bambini note facili"]
-        : []),
+      `${song.title} ${content.chords}`,
+      `${song.title} ${suffix}`,
+      content.publicDomain,
+      content.melody,
+      ...(locale === "en" ? ["easy sheet music for children", "free sheet music"] : []),
+      ...(locale === "it" ? ["spartiti facili per bambini", "spartiti pubblico dominio"] : []),
       ...homeKeywords[contentLocale]
     ],
     alternates: buildAlternates(locale, `songs/${song.slug}`),
+    robots: robotsFor(locale, "songs"),
     openGraph: {
       title,
       description,
@@ -1778,9 +1836,10 @@ export function buildSongMetadata(locale: Locale, song: PublicDomainSong): Metad
 
 export function allLocalizedUrls() {
   const allToolPaths = Array.from(new Set([...toolSlugs, ...instrumentTunerSlugs]));
+  // `/${locale}/tools` is deliberately absent: it renders the same component as
+  // `/${locale}` and canonicalises to it, so listing both would submit 19 duplicates.
   return locales.flatMap((locale) => [
     `/${locale}`,
-    `/${locale}/tools`,
     ...allToolPaths.map((tool) => `/${locale}/tools/${tool}`),
     `/${locale}/tunings`,
     `/${locale}/guides`,
