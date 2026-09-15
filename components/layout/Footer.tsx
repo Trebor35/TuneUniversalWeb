@@ -137,7 +137,7 @@ export function Footer({ locale, dictionary }: { locale: Locale; dictionary: Dic
               {headings?.tunings ?? tuningHubContent[contentLocale].title}
             </Link>
             <Link href={`/${locale}/guides`} className="text-sm font-bold text-ink hover:text-mint">
-              {headings?.guides ?? guideIndexContent[contentLocale].title}
+              {headings?.guides ?? guideIndexContent[locale].title}
             </Link>
             {footerGuideSlugs.map((guide) => (
               <Link key={guide} href={`/${locale}/guides/${guide}`} className="text-sm font-medium text-ink/72 hover:text-mint">

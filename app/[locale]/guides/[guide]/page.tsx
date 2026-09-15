@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/ads/AdSlot";
@@ -196,7 +196,7 @@ export default async function GuidePage({ params }: PageProps) {
   const dictionary = await getDictionary(locale);
   const content = getGuideContent(locale, guideSlug);
   const ui = guideUi[locale];
-  const indexContent = guideIndexContent[contentLocale];
+  const indexContent = guideIndexContent[locale];
   const intentLabels = guideIntentLabels[locale];
   const tool = dictionary.tools[content.tool];
   const toolHref = `/${locale}/${content.targetPath ?? `tools/${content.tool}`}`;

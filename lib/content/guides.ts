@@ -1,4 +1,4 @@
-import { getContentLocale, type BaseLocale, type Locale } from "@/lib/i18n/locales";
+import { getContentLocale, withLocaleFallbacks, type BaseLocale, type Locale } from "@/lib/i18n/locales";
 import { getInstrumentLabel } from "@/lib/tools/instruments";
 import { instrumentIds, type Instrument, type ToolSlug } from "@/lib/tools/toolConfig";
 import { formatNoteName, tuningPresets, tunings, type TuningNote } from "@/lib/tools/tuner";
@@ -126,7 +126,1009 @@ type TuningGuideCopy = {
   title: (instrument: string) => string;
 };
 
-export const guideIndexContent: Record<BaseLocale, { description: string; title: string }> = {
+/**
+ * Locales that now have their own guide copy. English overrides must not be layered on
+ * top of it: the base text would be native and the override would drag it back to English.
+ */
+const localesWithNativeGuides: Locale[] = ["nl", "pl", "tr", "cs", "sv", "hi", "no"];
+
+type WhatIsSection = { body: string; title: string };
+type WhatIsBundle = {
+  copy: { chromatic: string[]; metronome: string[]; tuner: string[] };
+  sections: { chromatic: WhatIsSection[]; metronome: WhatIsSection[]; tuner: WhatIsSection[] };
+  steps: { chromatic: string[]; metronome: string[]; tuner: string[] };
+};
+
+/** The three "what is …" guides, for the locales missing from the base maps. */
+const extendedWhatIsGuides: Partial<Record<Locale, WhatIsBundle>> = {
+  pl: {
+    copy: {
+      tuner: ["Czym jest stroik gitarowy?", "Stroik gitarowy to urządzenie lub aplikacja, która wykrywa wysokość dźwięku struny i pokazuje, czy jest za wysoko, za nisko, czy czysto.", "Stroik używa mikrofonu, aby uchwycić drgania, a następnie porównuje je z idealną częstotliwością każdej struny.", "stroik gitarowy online", "czym jest stroik gitarowy"],
+      metronome: ["Czym jest metronom?", "Metronom to urządzenie wytwarzające równy puls w zadanym tempie w BPM, które pomaga muzykom utrzymać stały czas.", "Im więcej ćwiczysz z metronomem, tym silniejsze i pewniejsze staje się Twoje wewnętrzne poczucie rytmu.", "metronom online", "czym jest BPM"],
+      chromatic: ["Czym jest stroik chromatyczny?", "Stroik chromatyczny rozpoznaje każdy z dwunastu dźwięków skali chromatycznej, dzięki czemu jest bardziej uniwersalny niż stroiki dedykowane jednemu instrumentowi.", "Zamiast rozpoznawać tylko dźwięki gitary, stroik chromatyczny identyfikuje dowolny dźwięk muzyczny, niezależnie od instrumentu.", "stroik chromatyczny online", "rodzaje stroików gitarowych"]
+    },
+    steps: {
+      tuner: ["Zagraj jedną strunę.", "Odczytaj wykryty dźwięk na ekranie.", "Obróć kołek w stronę środka.", "Powtórz dla wszystkich sześciu strun."],
+      metronome: ["Wybierz wygodne BPM.", "Uruchom puls i słuchaj uważnie.", "Graj lub śpiewaj razem z nim.", "Zwiększaj tempo dopiero po kilku czystych przejściach."],
+      chromatic: ["Otwórz stroik.", "Zagraj jeden dźwięk wyraźnie.", "Odczytaj wyświetloną nazwę dźwięku.", "Koryguj, aż miernik się zatrzyma."]
+    },
+    sections: {
+      tuner: [
+        { title: "Jak działa stroik gitarowy", body: "Stroik analizuje przychodzącą falę dźwiękową metodą FFT, wyznacza częstotliwość w Hz i porównuje ją z dźwiękiem docelowym. Wynikiem jest odczyt w centach pokazujący, jak bardzo się rozmijasz: zielony oznacza czysty strój." },
+        { title: "Kiedy stroić", body: "Strój przed każdą sesją grania, po każdej wymianie strun oraz za każdym razem, gdy przenosisz gitarę z zimnego pomieszczenia do ciepłego lub odwrotnie." }
+      ],
+      metronome: [
+        { title: "BPM i tempo", body: "BPM oznacza uderzenia na minutę. 60 BPM to jedno uderzenie na sekundę, 120 BPM dwa. Im wyższa liczba, tym szybsze tempo: większość utworów pop mieści się między 90 a 130 BPM." },
+        { title: "Dlaczego metronom pomaga w ćwiczeniu", body: "Sprawia, że błędy rytmiczne stają się słyszalne, a więc możliwe do poprawienia. Zacznij wolno, zagraj czysto, potem zwiększ tempo: to najskuteczniejszy sposób na zbudowanie pewnego rytmu." }
+      ],
+      chromatic: [
+        { title: "Chromatyczny czy dedykowany", body: "Stroik dedykowany zna tylko standardowe dźwięki danego instrumentu. Stroik chromatyczny rozpoznaje wszystkie dwanaście dźwięków skali chromatycznej, więc nadaje się do każdego instrumentu i każdego stroju." },
+        { title: "Kiedy używać stroika chromatycznego", body: "Używaj go do strojów alternatywnych takich jak Drop D, Open G czy pół tonu w dół, do instrumentów innych niż gitara, albo gdy chcesz sprawdzić pojedynczy dźwięk bez gotowych nazw strun." }
+      ]
+    }
+  },
+  cs: {
+    copy: {
+      tuner: ["Co je ladička na kytaru?", "Ladička na kytaru je zařízení nebo aplikace, která zjistí výšku tónu struny a ukáže, zda je vysoko, nízko, nebo naladěná.", "Ladička zachytí kmitání mikrofonem a porovná je s ideální frekvencí každé struny.", "ladička na kytaru online", "co je ladička na kytaru"],
+      metronome: ["Co je metronom?", "Metronom je zařízení, které vydává rovnoměrný puls v nastaveném tempu v BPM a pomáhá hudebníkům držet stálý čas.", "Čím více cvičíte s metronomem, tím silnější a spolehlivější je váš vnitřní smysl pro rytmus.", "metronom online", "co je BPM"],
+      chromatic: ["Co je chromatická ladička?", "Chromatická ladička rozpozná kterýkoli z dvanácti tónů chromatické stupnice, takže je univerzálnější než ladičky určené jednomu nástroji.", "Místo aby znala jen tóny kytary, chromatická ladička určí jakýkoli hudební tón bez ohledu na nástroj.", "chromatická ladička online", "typy ladiček na kytaru"]
+    },
+    steps: {
+      tuner: ["Zahrajte jednu strunu.", "Přečtěte si rozpoznaný tón na obrazovce.", "Otočte ladicím kolíkem ke středu.", "Opakujte u všech šesti strun."],
+      metronome: ["Zvolte pohodlné BPM.", "Spusťte puls a pozorně poslouchejte.", "Hrajte nebo zpívejte s ním.", "Tempo zvyšujte až po několika čistých kolech."],
+      chromatic: ["Otevřete ladičku.", "Zahrajte jeden tón jasně.", "Přečtěte si zobrazený název tónu.", "Upravujte, dokud se ukazatel nezastaví."]
+    },
+    sections: {
+      tuner: [
+        { title: "Jak ladička funguje", body: "Ladička analyzuje příchozí zvukovou vlnu pomocí FFT, určí frekvenci v Hz a porovná ji s cílovým tónem. Výsledkem je hodnota v centech, která ukazuje, jak daleko jste: zelená znamená naladěno." },
+        { title: "Kdy ladit", body: "Laďte před každým hraním, po každé výměně strun a pokaždé, když kytaru přenesete z chladné místnosti do teplé nebo naopak." }
+      ],
+      metronome: [
+        { title: "BPM a tempo", body: "BPM znamená počet dob za minutu. 60 BPM je jedna doba za sekundu, 120 BPM dvě. Čím vyšší číslo, tím rychlejší tempo: většina popových skladeb se pohybuje mezi 90 a 130 BPM." },
+        { title: "Proč metronom pomáhá při cvičení", body: "Dělá rytmické chyby slyšitelnými, a tedy opravitelnými. Začněte pomalu, zahrajte čistě a teprve pak zvyšte tempo: je to nejúčinnější způsob, jak si vybudovat spolehlivý rytmus." }
+      ],
+      chromatic: [
+        { title: "Chromatická nebo pro konkrétní nástroj", body: "Ladička pro konkrétní nástroj zná jen jeho standardní tóny. Chromatická ladička rozpozná všech dvanáct tónů chromatické stupnice, a hodí se tak k jakémukoli nástroji i ladění." },
+        { title: "Kdy použít chromatickou ladičku", body: "Použijte ji pro alternativní ladění jako Drop D, Open G nebo o půltón níž, pro jiné nástroje než kytaru, nebo když chcete zkontrolovat jediný tón bez předvolených názvů strun." }
+      ]
+    }
+  },
+  tr: {
+    copy: {
+      tuner: ["Gitar akort aleti nedir?", "Gitar akort aleti, bir telin perdesini algılayan ve tizde mi, peste mi yoksa doğru mu olduğunu gösteren bir cihaz ya da uygulamadır.", "Akort aleti titreşimi mikrofonla yakalar ve her telin ideal frekansıyla karşılaştırır.", "gitar akort aleti online", "gitar akort aleti nedir"],
+      metronome: ["Metronom nedir?", "Metronom, BPM cinsinden ayarlanan bir tempoda düzenli bir nabız üreten ve müzisyenlerin zamanı tutarlı tutmasına yardımcı olan bir cihazdır.", "Metronomla ne kadar çok çalışırsanız, içsel ritim duygunuz o kadar güçlü ve güvenilir olur.", "online metronom", "BPM nedir"],
+      chromatic: ["Kromatik akort aleti nedir?", "Kromatik akort aleti kromatik dizideki on iki notanın herhangi birini algılar; bu da onu tek bir enstrümana özgü akort aletlerinden daha çok yönlü kılar.", "Yalnızca gitar perdelerini tanımak yerine, kromatik akort aleti enstrüman ne olursa olsun her müzik notasını belirler.", "kromatik akort aleti online", "gitar akort aleti türleri"]
+    },
+    steps: {
+      tuner: ["Tek bir tel çalın.", "Ekranda algılanan notayı okuyun.", "Burguyu merkeze doğru çevirin.", "Altı telin tamamı için tekrarlayın."],
+      metronome: ["Rahat bir BPM seçin.", "Nabzı başlatın ve dikkatle dinleyin.", "Birlikte çalın veya söyleyin.", "Hızı ancak birkaç temiz turdan sonra artırın."],
+      chromatic: ["Akort aletini açın.", "Tek bir notayı net çalın.", "Ekranda görünen nota adını okuyun.", "Gösterge sabitlenene kadar ayarlayın."]
+    },
+    sections: {
+      tuner: [
+        { title: "Gitar akort aleti nasıl çalışır", body: "Akort aleti gelen ses dalgasını FFT ile analiz eder, frekansı Hz olarak belirler ve hedefle karşılaştırır. Sonuç, ne kadar saptığınızı gösteren bir sent değeridir: yeşil doğru akort demektir." },
+        { title: "Ne zaman akort edilir", body: "Her çalma seansından önce, her tel değişiminden sonra ve gitarı soğuk bir odadan sıcak bir odaya ya da tersine taşıdığınız her seferde akort edin." }
+      ],
+      metronome: [
+        { title: "BPM ve tempo", body: "BPM dakikadaki vuruş sayısı demektir. 60 BPM saniyede bir vuruş, 120 BPM iki vuruştur. Sayı büyüdükçe tempo hızlanır: pop parçalarının çoğu 90 ile 130 BPM arasındadır." },
+        { title: "Metronom çalışmaya neden yardımcı olur", body: "Ritim hatalarını duyulur, dolayısıyla düzeltilebilir hale getirir. Yavaş başlayın, temiz çalın, sonra tempoyu artırın: güvenilir bir ritim kurmanın en etkili yolu budur." }
+      ],
+      chromatic: [
+        { title: "Kromatik mi, enstrümana özgü mü", body: "Enstrümana özgü bir akort aleti yalnızca o enstrümanın standart perdelerini bilir. Kromatik akort aleti kromatik dizinin on iki notasının tamamını tanır ve bu yüzden her enstrümana ve her akorda uyar." },
+        { title: "Kromatik akort aleti ne zaman kullanılır", body: "Drop D, Open G veya yarım ses aşağı gibi alternatif akortlarda, gitar dışındaki enstrümanlarda ya da hazır tel adları olmadan tek bir perdeyi kontrol etmek istediğinizde kullanın." }
+      ]
+    }
+  },
+  hi: {
+    copy: {
+      tuner: ["गिटार ट्यूनर क्या है?", "गिटार ट्यूनर एक उपकरण या ऐप है जो तार की पिच पहचानता है और बताता है कि वह ऊँचा है, नीचा है या सही सुर में।", "ट्यूनर माइक्रोफ़ोन से कंपन पकड़ता है और उसे हर तार की आदर्श आवृत्ति से मिलाता है।", "गिटार ट्यूनर ऑनलाइन", "गिटार ट्यूनर क्या है"],
+      metronome: ["मेट्रोनोम क्या है?", "मेट्रोनोम एक उपकरण है जो BPM में तय की गई गति पर स्थिर लय देता है, जिससे संगीतकार समय एकसमान रख पाते हैं।", "आप मेट्रोनोम के साथ जितना अभ्यास करेंगे, आपकी आंतरिक लय-समझ उतनी ही मज़बूत और भरोसेमंद होगी।", "ऑनलाइन मेट्रोनोम", "BPM क्या है"],
+      chromatic: ["क्रोमैटिक ट्यूनर क्या है?", "क्रोमैटिक ट्यूनर क्रोमैटिक स्केल के बारह में से किसी भी स्वर को पहचान लेता है, इसलिए यह किसी एक वाद्ययंत्र के लिए बने ट्यूनर से अधिक बहुउपयोगी है।", "सिर्फ़ गिटार की पिच पहचानने के बजाय, क्रोमैटिक ट्यूनर किसी भी वाद्ययंत्र का कोई भी संगीत स्वर पहचान लेता है।", "क्रोमैटिक ट्यूनर ऑनलाइन", "गिटार ट्यूनर के प्रकार"]
+    },
+    steps: {
+      tuner: ["एक तार बजाएँ।", "स्क्रीन पर पहचाना गया स्वर पढ़ें।", "खूँटी को केंद्र की ओर घुमाएँ।", "छहों तारों के लिए दोहराएँ।"],
+      metronome: ["आरामदायक BPM चुनें।", "लय शुरू करें और ध्यान से सुनें।", "साथ में बजाएँ या गाएँ।", "कई साफ़ दौर के बाद ही गति बढ़ाएँ।"],
+      chromatic: ["ट्यूनर खोलें।", "एक स्वर साफ़ बजाएँ।", "दिखाया गया स्वर-नाम पढ़ें।", "जब तक मीटर स्थिर न हो, समायोजित करें।"]
+    },
+    sections: {
+      tuner: [
+        { title: "गिटार ट्यूनर कैसे काम करता है", body: "ट्यूनर आने वाली ध्वनि तरंग का FFT से विश्लेषण करता है, आवृत्ति Hz में निकालता है और उसे लक्ष्य से मिलाता है। परिणाम सेंट में एक पाठ होता है जो बताता है कि आप कितना दूर हैं: हरा मतलब सही सुर।" },
+        { title: "कब ट्यून करें", body: "हर बजाने के सत्र से पहले, हर तार बदलने के बाद, और जब भी गिटार को ठंडे कमरे से गर्म कमरे में या उल्टा ले जाएँ, ट्यून करें।" }
+      ],
+      metronome: [
+        { title: "BPM और गति", body: "BPM का अर्थ है प्रति मिनट मात्राएँ। 60 BPM यानी एक मात्रा प्रति सेकंड, 120 BPM यानी दो। संख्या जितनी बड़ी, गति उतनी तेज़: ज़्यादातर पॉप गाने 90 से 130 BPM के बीच होते हैं।" },
+        { title: "मेट्रोनोम अभ्यास में क्यों मदद करता है", body: "यह लय की गलतियों को सुनाई देने योग्य और इसलिए सुधारने योग्य बनाता है। धीरे शुरू करें, साफ़ बजाएँ, फिर गति बढ़ाएँ: भरोसेमंद लय बनाने का यही सबसे असरदार तरीका है।" }
+      ],
+      chromatic: [
+        { title: "क्रोमैटिक बनाम वाद्ययंत्र-विशिष्ट", body: "वाद्ययंत्र-विशिष्ट ट्यूनर केवल उसी वाद्ययंत्र की मानक पिच जानता है। क्रोमैटिक ट्यूनर क्रोमैटिक स्केल के सभी बारह स्वर पहचानता है, इसलिए वह हर वाद्ययंत्र और हर ट्यूनिंग के लिए उपयुक्त है।" },
+        { title: "क्रोमैटिक ट्यूनर कब इस्तेमाल करें", body: "Drop D, Open G या आधा स्वर नीचे जैसी वैकल्पिक ट्यूनिंग के लिए, गिटार के अलावा दूसरे वाद्ययंत्रों के लिए, या जब आप बिना पूर्वनिर्धारित तार-नामों के कोई एक पिच जाँचना चाहें।" }
+      ]
+    }
+  },
+  nl: {
+    copy: {
+      tuner: ["Wat is een gitaarstemmer?", "Een gitaarstemmer is een apparaat of app die de toonhoogte van een snaar meet en aangeeft of die te hoog, te laag of zuiver is.", "De stemmer gebruikt de microfoon om de trilling op te vangen en vergelijkt die met de ideale frequentie van elke snaar.", "gitaarstemmer online", "wat is een gitaarstemmer"],
+      metronome: ["Wat is een metronoom?", "Een metronoom is een apparaat dat een gelijkmatige puls geeft op een ingesteld tempo in BPM, zodat muzikanten constant in de maat blijven.", "Hoe vaker je met een metronoom oefent, hoe sterker en betrouwbaarder je innerlijke ritmegevoel wordt.", "online metronoom", "wat is BPM"],
+      chromatic: ["Wat is een chromatische stemmer?", "Een chromatische stemmer herkent elk van de twaalf noten van de chromatische toonladder, waardoor hij veelzijdiger is dan instrumentspecifieke stemmers.", "In plaats van alleen gitaartoonhoogtes te herkennen, identificeert een chromatische stemmer elke muzieknoot, ongeacht het instrument.", "chromatische stemmer online", "soorten gitaarstemmers"]
+    },
+    steps: {
+      tuner: ["Speel één snaar.", "Lees de gedetecteerde noot op het scherm af.", "Draai de stemsleutel richting het midden.", "Herhaal dit voor alle zes de snaren."],
+      metronome: ["Kies een comfortabele BPM.", "Start de puls en luister aandachtig.", "Speel of zing mee.", "Verhoog het tempo pas na een paar schone rondes."],
+      chromatic: ["Open de stemmer.", "Speel één noot helder aan.", "Lees de weergegeven notennaam af.", "Stem bij tot de meter stil blijft staan."]
+    },
+    sections: {
+      tuner: [
+        { title: "Hoe een gitaarstemmer werkt", body: "De stemmer analyseert de binnenkomende geluidsgolf met FFT, bepaalt de frequentie in Hz en vergelijkt die met de doelnoot. Het resultaat is een centwaarde die laat zien hoe ver je ernaast zit: groen betekent zuiver." },
+        { title: "Wanneer je moet stemmen", body: "Stem voor elke speelsessie, na elke snaarwisseling, en telkens als je de gitaar van een koude naar een warme ruimte verplaatst of andersom." }
+      ],
+      metronome: [
+        { title: "BPM en tempo", body: "BPM staat voor beats per minute, slagen per minuut. 60 BPM betekent één slag per seconde, 120 BPM er twee. Hoe hoger het getal, hoe sneller het tempo: de meeste popnummers liggen tussen 90 en 130 BPM." },
+        { title: "Waarom een metronoom helpt bij het oefenen", body: "Hij maakt ritmische fouten hoorbaar en dus corrigeerbaar. Begin langzaam, speel schoon en verhoog daarna het tempo: dat is de effectiefste manier om een betrouwbaar ritme op te bouwen." }
+      ],
+      chromatic: [
+        { title: "Chromatisch versus instrumentspecifiek", body: "Een instrumentspecifieke stemmer kent alleen de standaardtoonhoogtes van dat instrument. Een chromatische stemmer herkent alle twaalf noten van de chromatische toonladder en is daardoor geschikt voor elk instrument en elke stemming." },
+        { title: "Wanneer je een chromatische stemmer gebruikt", body: "Gebruik hem voor alternatieve stemmingen zoals Drop D, Open G of een halve toon lager, voor andere instrumenten dan gitaar, of wanneer je één toonhoogte wilt controleren zonder vaste snaarnamen." }
+      ]
+    }
+  },
+  sv: {
+    copy: {
+      tuner: ["Vad är en gitarrstämmare?", "En gitarrstämmare är en enhet eller app som mäter tonhöjden på en sträng och visar om den ligger högt, lågt eller rätt.", "Stämmaren använder mikrofonen för att fånga svängningen och jämför den sedan med den ideala frekvensen för varje sträng.", "gitarrstämmare online", "vad är en gitarrstämmare"],
+      metronome: ["Vad är en metronom?", "En metronom är en enhet som ger en jämn puls i ett inställt tempo i BPM så att musiker håller tiden konsekvent.", "Ju mer du övar med metronom, desto starkare och mer pålitlig blir din inre känsla för rytm.", "metronom online", "vad är BPM"],
+      chromatic: ["Vad är en kromatisk stämmare?", "En kromatisk stämmare känner igen alla tolv tonerna i den kromatiska skalan, vilket gör den mångsidigare än instrumentspecifika stämmare.", "I stället för att bara känna igen gitarrtoner identifierar en kromatisk stämmare vilken musikalisk ton som helst, oavsett instrument.", "kromatisk stämmare online", "typer av gitarrstämmare"]
+    },
+    steps: {
+      tuner: ["Spela en sträng.", "Läs av den detekterade tonen på skärmen.", "Vrid stämskruven mot mitten.", "Upprepa för alla sex strängarna."],
+      metronome: ["Välj ett bekvämt BPM.", "Starta pulsen och lyssna noga.", "Spela eller sjung med.", "Höj tempot först efter flera rena varv."],
+      chromatic: ["Öppna stämmaren.", "Spela en ton tydligt.", "Läs av det visade tonnamnet.", "Justera tills mätaren står stilla."]
+    },
+    sections: {
+      tuner: [
+        { title: "Så fungerar en gitarrstämmare", body: "Stämmaren analyserar den inkommande ljudvågen med FFT, bestämmer frekvensen i Hz och jämför den med måltonen. Resultatet är ett centvärde som visar hur långt ifrån du ligger: grönt betyder rätt stämt." },
+        { title: "När du ska stämma", body: "Stäm före varje spelpass, efter varje strängbyte och varje gång du flyttar gitarren från ett kallt till ett varmt rum eller tvärtom." }
+      ],
+      metronome: [
+        { title: "BPM och tempo", body: "BPM betyder beats per minute, slag per minut. 60 BPM är ett slag i sekunden, 120 BPM är två. Ju högre siffra, desto snabbare tempo: de flesta poplåtar ligger mellan 90 och 130 BPM." },
+        { title: "Varför metronomen hjälper övningen", body: "Den gör rytmiska fel hörbara och därmed möjliga att rätta. Börja långsamt, spela rent och höj sedan tempot: det är det effektivaste sättet att bygga pålitlig rytm." }
+      ],
+      chromatic: [
+        { title: "Kromatisk eller instrumentspecifik", body: "En instrumentspecifik stämmare kan bara standardtonerna för det instrumentet. En kromatisk stämmare känner igen alla tolv tonerna i den kromatiska skalan och passar därför alla instrument och alla stämningar." },
+        { title: "När du använder en kromatisk stämmare", body: "Använd den för alternativa stämningar som Drop D, Open G eller ett halvt tonsteg ner, för andra instrument än gitarr, eller när du vill kontrollera en enskild ton utan förvalda strängnamn." }
+      ]
+    }
+  },
+  no: {
+    copy: {
+      tuner: ["Hva er et gitarstemmeapparat?", "Et gitarstemmeapparat er en enhet eller app som måler tonehøyden på en streng og viser om den ligger høyt, lavt eller riktig.", "Stemmeapparatet bruker mikrofonen til å fange opp svingningen og sammenligner den med den ideelle frekvensen for hver streng.", "gitarstemmeapparat online", "hva er et gitarstemmeapparat"],
+      metronome: ["Hva er en metronom?", "En metronom er en enhet som gir en jevn puls i et angitt tempo i BPM, slik at musikere holder takten konsekvent.", "Jo mer du øver med metronom, desto sterkere og mer pålitelig blir din indre rytmefølelse.", "metronom online", "hva er BPM"],
+      chromatic: ["Hva er et kromatisk stemmeapparat?", "Et kromatisk stemmeapparat gjenkjenner alle de tolv tonene i den kromatiske skalaen, noe som gjør det mer allsidig enn instrumentspesifikke stemmeapparater.", "I stedet for bare å gjenkjenne gitartoner identifiserer et kromatisk stemmeapparat hvilken som helst musikalsk tone, uansett instrument.", "kromatisk stemmeapparat online", "typer gitarstemmeapparat"]
+    },
+    steps: {
+      tuner: ["Spill én streng.", "Les av tonen som vises på skjermen.", "Vri stemmeskruen mot midten.", "Gjenta for alle seks strengene."],
+      metronome: ["Velg et behagelig BPM.", "Start pulsen og lytt nøye.", "Spill eller syng med.", "Øk tempoet først etter flere rene runder."],
+      chromatic: ["Åpne stemmeapparatet.", "Spill én tone tydelig.", "Les av tonenavnet som vises.", "Juster til måleren står stille."]
+    },
+    sections: {
+      tuner: [
+        { title: "Slik virker et gitarstemmeapparat", body: "Stemmeapparatet analyserer den innkommende lydbølgen med FFT, finner frekvensen i Hz og sammenligner den med måltonen. Resultatet er en centverdi som viser hvor langt unna du ligger: grønt betyr riktig stemt." },
+        { title: "Når du bør stemme", body: "Stem før hver spilleøkt, etter hvert strengbytte, og hver gang du flytter gitaren fra et kaldt til et varmt rom eller omvendt." }
+      ],
+      metronome: [
+        { title: "BPM og tempo", body: "BPM betyr beats per minute, slag per minutt. 60 BPM er ett slag i sekundet, 120 BPM er to. Jo høyere tall, desto raskere tempo: de fleste poplåter ligger mellom 90 og 130 BPM." },
+        { title: "Hvorfor metronomen hjelper øvingen", body: "Den gjør rytmiske feil hørbare og dermed mulige å rette. Start langsomt, spill rent og øk så tempoet: det er den mest effektive måten å bygge pålitelig rytme på." }
+      ],
+      chromatic: [
+        { title: "Kromatisk eller instrumentspesifikk", body: "Et instrumentspesifikt stemmeapparat kjenner bare standardtonene for det instrumentet. Et kromatisk stemmeapparat gjenkjenner alle tolv tonene i den kromatiske skalaen og passer derfor til alle instrumenter og alle stemminger." },
+        { title: "Når du bruker et kromatisk stemmeapparat", body: "Bruk det til alternative stemminger som Drop D, Open G eller et halvt trinn ned, til andre instrumenter enn gitar, eller når du vil sjekke én enkelt tone uten forhåndsdefinerte strengnavn." }
+      ]
+    }
+  }
+};
+
+type ExtraUtilityCopy = { chords: string[]; subdiv: string[]; transpose: string[]; tunings: string[] };
+type ExtraUtilityUi = {
+  alternate: string;
+  chordSteps: string[];
+  chordTool: string;
+  duplets: string;
+  extensions: string;
+  guitarTool: string;
+  metronomeTool: string;
+  progression: string;
+  rootMajor: string;
+  semitones: string;
+  standard: string;
+  subdivSteps: string[];
+  transposeSteps: string[];
+  triplets: string;
+  tuningSteps: string[];
+};
+
+/** Chord, transposing, tuning-overview and subdivision guides for the extended locales. */
+const extendedExtraUtility: Partial<Record<Locale, { copy: ExtraUtilityCopy; ui: ExtraUtilityUi }>> = {
+  nl: {
+    copy: {
+      chords: ["Akkoordsymbolen lezen", "Leer wat C, Am, G7 en andere gangbare akkoordnamen betekenen.", "Een akkoordsymbool vat de grondtoon en het akkoordtype samen. De letter is de grondtoon, m betekent mineur en 7 voegt de septiem toe.", "akkoordsymbolen lezen", "gitaarakkoorden namen"],
+      transpose: ["Akkoorden transponeren", "Verschuif akkoordenschema's omhoog of omlaag in halve tonen.", "Transponeren verandert de toonsoort terwijl de onderlinge verhoudingen tussen de akkoorden gelijk blijven.", "akkoorden transponeren", "toonsoort veranderen"],
+      tunings: ["Veelgebruikte gitaarstemmingen", "Een kort overzicht van Standard, Drop D, Eb Standard, D Standard, Open D en Open G.", "De meeste spelers beginnen met E A D G B E en stappen daarna over op alternatieve stemmingen voor lagere riffs, open akkoorden of een ander zangbereik.", "gitaarstemmingen", "drop d open g stemming"],
+      subdiv: ["Metronoom-onderverdelingen", "Oefen duolen, triolen en kwartolen binnen de tel.", "Onderverdelingen maken de puls preciezer en laten je het ritme tussen de hoofdtikken horen.", "metronoom onderverdelingen", "triolen oefenen"]
+    },
+    ui: {
+      chordTool: "Akkoordtransponeerder", guitarTool: "Gitaarstemmer", metronomeTool: "Metronoom",
+      rootMajor: "Grondtoon en majeurakkoorden", extensions: "m, 7 en maj7",
+      semitones: "Halve tonen", progression: "Behoud het schema",
+      standard: "Standaardstemming", alternate: "Alternatieve stemmingen",
+      duplets: "Duolen", triplets: "Triolen en kwartolen",
+      chordSteps: ["Zoek de grondtoon.", "Lees het akkoordtype af.", "Let op toegevoegde cijfers of extensies.", "Oefen de greep langzaam."],
+      transposeSteps: ["Plak het akkoordenschema.", "Kies een aantal halve tonen van -12 tot +12.", "Controleer het getransponeerde resultaat.", "Speel de nieuwe toonsoort langzaam."],
+      tuningSteps: ["Kies een stemming-preset.", "Stem eerst de laagste snaar.", "Ga snaar voor snaar verder.", "Controleer alle snaren opnieuw na de eerste ronde."],
+      subdivSteps: ["Begin met een lage BPM.", "Kies de maatsoort.", "Selecteer de onderverdeling.", "Verhoog het tempo pas als het ritme ontspannen aanvoelt."]
+    }
+  },
+  sv: {
+    copy: {
+      chords: ["Läsa ackordbeteckningar", "Lär dig vad C, Am, G7 och andra vanliga ackordnamn betyder.", "En ackordbeteckning sammanfattar grundton och ackordtyp. Bokstaven är grundtonen, m betyder moll och 7 lägger till septiman.", "läsa ackordbeteckningar", "gitarrackord namn"],
+      transpose: ["Transponera ackord", "Flytta ackordföljder uppåt eller nedåt i halvtoner.", "Transponering byter tonart men behåller förhållandena mellan ackorden.", "transponera ackord", "byta tonart"],
+      tunings: ["Vanliga gitarrstämningar", "En snabb översikt över Standard, Drop D, Eb Standard, D Standard, Open D och Open G.", "De flesta börjar med E A D G B E och går sedan över till alternativa stämningar för lägre riff, öppna ackord eller ett annat sångomfång.", "gitarrstämningar", "drop d open g stämning"],
+      subdiv: ["Metronomens underdelningar", "Öva duoler, trioler och kvartoler inuti pulsslaget.", "Underdelningar gör pulsen mer exakt och låter dig höra rytmen mellan huvudklicken.", "metronom underdelningar", "öva trioler"]
+    },
+    ui: {
+      chordTool: "Ackordtransponerare", guitarTool: "Gitarrstämmare", metronomeTool: "Metronom",
+      rootMajor: "Grundton och durackord", extensions: "m, 7 och maj7",
+      semitones: "Halvtoner", progression: "Behåll ackordföljden",
+      standard: "Standardstämning", alternate: "Alternativa stämningar",
+      duplets: "Duoler", triplets: "Trioler och kvartoler",
+      chordSteps: ["Hitta grundtonen.", "Läs av ackordtypen.", "Kolla tillagda siffror eller tillägg.", "Öva greppet långsamt."],
+      transposeSteps: ["Klistra in ackordföljden.", "Välj ett antal halvtoner från -12 till +12.", "Kontrollera det transponerade resultatet.", "Spela den nya tonarten långsamt."],
+      tuningSteps: ["Välj en stämningsförinställning.", "Stäm den lägsta strängen först.", "Fortsätt sträng för sträng.", "Kontrollera alla strängar igen efter första varvet."],
+      subdivSteps: ["Börja med ett lågt BPM.", "Välj taktarten.", "Välj underdelningen.", "Höj tempot först när rytmen känns avspänd."]
+    }
+  },
+  no: {
+    copy: {
+      chords: ["Lese akkordsymboler", "Lær hva C, Am, G7 og andre vanlige akkordnavn betyr.", "Et akkordsymbol oppsummerer grunntone og akkordtype. Bokstaven er grunntonen, m betyr moll og 7 legger til septimen.", "lese akkordsymboler", "gitarakkorder navn"],
+      transpose: ["Transponere akkorder", "Flytt akkordrekker opp eller ned i halvtoner.", "Transponering endrer tonearten, men beholder forholdet mellom akkordene.", "transponere akkorder", "bytte toneart"],
+      tunings: ["Vanlige gitarstemminger", "En kort oversikt over Standard, Drop D, Eb Standard, D Standard, Open D og Open G.", "De fleste starter med E A D G B E og går så over til alternative stemminger for lavere riff, åpne akkorder eller et annet sangregister.", "gitarstemminger", "drop d open g stemming"],
+      subdiv: ["Metronomens underdelinger", "Øv duoler, trioler og kvartoler inne i slaget.", "Underdelinger gjør pulsen mer presis og lar deg høre rytmen mellom hovedklikkene.", "metronom underdelinger", "øve trioler"]
+    },
+    ui: {
+      chordTool: "Akkordtransponering", guitarTool: "Gitarstemmeapparat", metronomeTool: "Metronom",
+      rootMajor: "Grunntone og durakkorder", extensions: "m, 7 og maj7",
+      semitones: "Halvtoner", progression: "Behold akkordrekken",
+      standard: "Standardstemming", alternate: "Alternative stemminger",
+      duplets: "Duoler", triplets: "Trioler og kvartoler",
+      chordSteps: ["Finn grunntonen.", "Les av akkordtypen.", "Sjekk tilføyde tall eller utvidelser.", "Øv grepet langsomt."],
+      transposeSteps: ["Lim inn akkordrekken.", "Velg antall halvtoner fra -12 til +12.", "Kontroller det transponerte resultatet.", "Spill den nye tonearten langsomt."],
+      tuningSteps: ["Velg en stemmeforhåndsinnstilling.", "Stem den laveste strengen først.", "Fortsett streng for streng.", "Sjekk alle strengene på nytt etter første runde."],
+      subdivSteps: ["Start med lavt BPM.", "Velg taktarten.", "Velg underdelingen.", "Øk tempoet først når rytmen føles avslappet."]
+    }
+  },
+  pl: {
+    copy: {
+      chords: ["Jak czytać oznaczenia akordów", "Dowiedz się, co znaczą C, Am, G7 i inne popularne nazwy akordów.", "Oznaczenie akordu skraca dźwięk podstawowy i rodzaj akordu. Litera to pryma, m oznacza moll, a 7 dodaje septymę.", "czytanie akordów", "nazwy akordów gitarowych"],
+      transpose: ["Jak transponować akordy", "Przesuwaj progresje akordów w górę lub w dół o półtony.", "Transpozycja zmienia tonację, zachowując relacje między akordami.", "transponowanie akordów", "zmiana tonacji"],
+      tunings: ["Popularne stroje gitarowe", "Krótki przegląd strojów Standard, Drop D, Eb Standard, D Standard, Open D i Open G.", "Większość zaczyna od E A D G B E, a potem sięga po stroje alternatywne dla niższych riffów, otwartych akordów lub innej skali głosu.", "stroje gitarowe", "drop d open g"],
+      subdiv: ["Podziały metronomu", "Ćwicz duole, triole i kwartole wewnątrz miary.", "Podziały uściślają puls i pozwalają usłyszeć rytm pomiędzy głównymi kliknięciami.", "podziały metronomu", "ćwiczenie trioli"]
+    },
+    ui: {
+      chordTool: "Transpozytor akordów", guitarTool: "Stroik gitarowy", metronomeTool: "Metronom",
+      rootMajor: "Pryma i akordy durowe", extensions: "m, 7 i maj7",
+      semitones: "Półtony", progression: "Zachowaj progresję",
+      standard: "Strój standardowy", alternate: "Stroje alternatywne",
+      duplets: "Duole", triplets: "Triole i kwartole",
+      chordSteps: ["Znajdź dźwięk podstawowy.", "Odczytaj rodzaj akordu.", "Sprawdź dodane cyfry lub rozszerzenia.", "Ćwicz chwyt powoli."],
+      transposeSteps: ["Wklej progresję akordów.", "Wybierz liczbę półtonów od -12 do +12.", "Sprawdź wynik transpozycji.", "Zagraj nową tonację powoli."],
+      tuningSteps: ["Wybierz ustawienie stroju.", "Najpierw nastrój najniższą strunę.", "Kontynuuj struna po strunie.", "Po pierwszym przejściu sprawdź wszystkie struny ponownie."],
+      subdivSteps: ["Zacznij od niskiego BPM.", "Wybierz metrum.", "Wybierz podział.", "Zwiększaj tempo dopiero, gdy rytm będzie swobodny."]
+    }
+  },
+  cs: {
+    copy: {
+      chords: ["Jak číst akordové značky", "Zjistěte, co znamenají C, Am, G7 a další běžné názvy akordů.", "Akordová značka shrnuje základní tón a druh akordu. Písmeno je základní tón, m znamená moll a 7 přidává septimu.", "čtení akordů", "názvy kytarových akordů"],
+      transpose: ["Jak transponovat akordy", "Posuňte akordové postupy nahoru nebo dolů po půltónech.", "Transpozice mění tóninu, ale zachovává vztahy mezi akordy.", "transpozice akordů", "změna tóniny"],
+      tunings: ["Běžná kytarová ladění", "Stručný přehled ladění Standard, Drop D, Eb Standard, D Standard, Open D a Open G.", "Většina hráčů začíná s E A D G B E a poté sahá po alternativních laděních kvůli nižším riffům, otevřeným akordům nebo jinému hlasovému rozsahu.", "kytarová ladění", "drop d open g"],
+      subdiv: ["Dělení dob na metronomu", "Cvičte duoly, trioly a kvartoly uvnitř doby.", "Dělení zpřesňuje puls a umožní vám slyšet rytmus mezi hlavními kliky.", "dělení dob metronom", "cvičení triol"]
+    },
+    ui: {
+      chordTool: "Transpozice akordů", guitarTool: "Ladička na kytaru", metronomeTool: "Metronom",
+      rootMajor: "Základní tón a durové akordy", extensions: "m, 7 a maj7",
+      semitones: "Půltóny", progression: "Zachovejte postup",
+      standard: "Standardní ladění", alternate: "Alternativní ladění",
+      duplets: "Duoly", triplets: "Trioly a kvartoly",
+      chordSteps: ["Najděte základní tón.", "Přečtěte druh akordu.", "Zkontrolujte přidaná čísla nebo rozšíření.", "Cvičte hmat pomalu."],
+      transposeSteps: ["Vložte akordový postup.", "Zvolte počet půltónů od -12 do +12.", "Zkontrolujte transponovaný výsledek.", "Zahrajte novou tóninu pomalu."],
+      tuningSteps: ["Zvolte přednastavení ladění.", "Nejdřív nalaďte nejnižší strunu.", "Pokračujte strunu po struně.", "Po prvním kole zkontrolujte všechny struny znovu."],
+      subdivSteps: ["Začněte na nízkém BPM.", "Zvolte takt.", "Vyberte dělení doby.", "Tempo zvyšujte, až když je rytmus uvolněný."]
+    }
+  },
+  tr: {
+    copy: {
+      chords: ["Akor sembolleri nasıl okunur", "C, Am, G7 ve diğer yaygın akor adlarının ne anlama geldiğini öğrenin.", "Akor sembolü kök notayı ve akor türünü özetler. Harf köktür, m minör demektir, 7 ise yedili ekler.", "akor okuma", "gitar akor adları"],
+      transpose: ["Akorlar nasıl transpoze edilir", "Akor dizilerini yarım ton yukarı veya aşağı kaydırın.", "Transpoze tonaliteyi değiştirir ama akorlar arasındaki ilişkileri korur.", "akor transpoze", "tonalite değiştirme"],
+      tunings: ["Yaygın gitar akortları", "Standard, Drop D, Eb Standard, D Standard, Open D ve Open G için kısa bir rehber.", "Çoğu kişi E A D G B E ile başlar, ardından daha pes riffler, açık akorlar veya farklı vokal aralıkları için alternatif akortlara geçer.", "gitar akortları", "drop d open g"],
+      subdiv: ["Metronom alt bölünmeleri", "Vuruşun içinde ikilemeler, üçlemeler ve dörtlemeler çalışın.", "Alt bölünmeler nabzı daha kesin hale getirir ve ana tıklar arasındaki ritmi duymanızı sağlar.", "metronom alt bölünmeleri", "üçleme çalışması"]
+    },
+    ui: {
+      chordTool: "Akor transpoze aracı", guitarTool: "Gitar akort aleti", metronomeTool: "Metronom",
+      rootMajor: "Kök ve majör akorlar", extensions: "m, 7 ve maj7",
+      semitones: "Yarım tonlar", progression: "Diziyi koruyun",
+      standard: "Standart akort", alternate: "Alternatif akortlar",
+      duplets: "İkilemeler", triplets: "Üçlemeler ve dörtlemeler",
+      chordSteps: ["Kök notayı bulun.", "Akor türünü okuyun.", "Eklenen sayıları veya genişletmeleri kontrol edin.", "Basışı yavaşça çalışın."],
+      transposeSteps: ["Akor dizisini yapıştırın.", "-12 ile +12 arasında bir yarım ton değeri seçin.", "Transpoze edilmiş sonucu kontrol edin.", "Yeni tonaliteyi yavaşça çalın."],
+      tuningSteps: ["Bir akort hazır ayarı seçin.", "Önce en pes teli akort edin.", "Tel tel devam edin.", "İlk turdan sonra tüm telleri yeniden kontrol edin."],
+      subdivSteps: ["Düşük bir BPM ile başlayın.", "Ölçüyü seçin.", "Alt bölünmeyi seçin.", "Ritim rahat hissettirdiğinde hızı artırın."]
+    }
+  },
+  hi: {
+    copy: {
+      chords: ["कॉर्ड चिह्न कैसे पढ़ें", "जानें कि C, Am, G7 और दूसरे आम कॉर्ड नामों का क्या अर्थ है।", "कॉर्ड चिह्न मूल स्वर और कॉर्ड के प्रकार को संक्षेप में बताता है। अक्षर मूल स्वर है, m का अर्थ माइनर है और 7 सप्तम जोड़ता है।", "कॉर्ड पढ़ना", "गिटार कॉर्ड के नाम"],
+      transpose: ["कॉर्ड कैसे ट्रांसपोज़ करें", "कॉर्ड अनुक्रमों को अर्धस्वरों में ऊपर या नीचे खिसकाएँ।", "ट्रांसपोज़ करने से स्वरग्राम बदलता है, पर कॉर्डों के बीच के संबंध वैसे ही रहते हैं।", "कॉर्ड ट्रांसपोज़", "स्वरग्राम बदलना"],
+      tunings: ["आम गिटार ट्यूनिंग", "Standard, Drop D, Eb Standard, D Standard, Open D और Open G की संक्षिप्त गाइड।", "ज़्यादातर लोग E A D G B E से शुरू करते हैं, फिर नीची रिफ़, खुले कॉर्ड या अलग गायन-सीमा के लिए वैकल्पिक ट्यूनिंग अपनाते हैं।", "गिटार ट्यूनिंग", "drop d open g"],
+      subdiv: ["मेट्रोनोम उपविभाजन", "मात्रा के भीतर द्विक, त्रिक और चतुष्क का अभ्यास करें।", "उपविभाजन लय को अधिक सटीक बनाते हैं और मुख्य क्लिकों के बीच की लय सुनने में मदद करते हैं।", "मेट्रोनोम उपविभाजन", "त्रिक अभ्यास"]
+    },
+    ui: {
+      chordTool: "कॉर्ड ट्रांसपोज़र", guitarTool: "गिटार ट्यूनर", metronomeTool: "मेट्रोनोम",
+      rootMajor: "मूल स्वर और मेजर कॉर्ड", extensions: "m, 7 और maj7",
+      semitones: "अर्धस्वर", progression: "अनुक्रम बनाए रखें",
+      standard: "मानक ट्यूनिंग", alternate: "वैकल्पिक ट्यूनिंग",
+      duplets: "द्विक", triplets: "त्रिक और चतुष्क",
+      chordSteps: ["मूल स्वर खोजें।", "कॉर्ड का प्रकार पढ़ें।", "जोड़े गए अंक या विस्तार जाँचें।", "पकड़ का धीरे अभ्यास करें।"],
+      transposeSteps: ["कॉर्ड अनुक्रम चिपकाएँ।", "-12 से +12 के बीच अर्धस्वर मान चुनें।", "ट्रांसपोज़ किया गया परिणाम जाँचें।", "नए स्वरग्राम को धीरे बजाएँ।"],
+      tuningSteps: ["कोई ट्यूनिंग प्रीसेट चुनें।", "पहले सबसे नीचे का तार ट्यून करें।", "एक-एक कर बाकी तार करें।", "पहले दौर के बाद सभी तार दोबारा जाँचें।"],
+      subdivSteps: ["कम BPM से शुरू करें।", "ताल चुनें।", "उपविभाजन चुनें।", "लय सहज लगे तभी गति बढ़ाएँ।"]
+    }
+  }
+};
+
+type UtilityBundle = { data: string[]; sections: { body: string; title: string }[]; steps: string[] };
+
+/** "How to find the BPM of a song" for the extended locales. */
+const extendedBpmGuide: Partial<Record<Locale, UtilityBundle>> = {
+  nl: {
+    data: ["Het BPM van een nummer vinden", "Gebruik Tap BPM om het tempo van een nummer te schatten door mee te tikken op de beat.", "Tik mee met de muziek en TuneUniversal berekent een gemiddelde BPM uit je laatste tikken.", "bpm vinden"],
+    steps: ["Open de Tap BPM-pagina — geen microfoon nodig.", "Start het nummer dat je wilt meten.", "Druk één keer per beat op de Tap-knop of de spatiebalk, in de maat met de muziek.", "Ga door voor minstens 8 tot 16 tikken voor een stabiele meting.", "Lees de weergegeven gemiddelde BPM af: dat is het tempo van het nummer.", "Druk op Reset om een nieuwe meting voor een ander nummer te starten."],
+    sections: [
+      { title: "Wat BPM betekent", body: "BPM staat voor beats per minute en beschrijft de pulssnelheid van een muziekstuk. Een lage waarde van 60 tot 80 BPM wijst op een langzame ballad, terwijl 140 tot 180 BPM duidt op een snelle dancetrack of punknummer. Als je de BPM kent, kun je de metronoom op precies het juiste tempo zetten en drumcomputers of een DAW programmeren zonder te gokken." },
+      { title: "Hoeveel tikken je nodig hebt", body: "Voor een eerste schatting heb je minstens vier tikken nodig, maar de meting stabiliseert duidelijk na acht tot zestien tikken. De tool middelt de intervallen tussen de tikken en rekent die om naar BPM: hoe meer tikken, hoe stabieler het gemiddelde. Als je eerste tikken een heel ander getal geven dan de latere, ben je waarschijnlijk op een ander ritmisch punt gaan tikken." },
+      { title: "Nauwkeurig tikken", body: "Tik altijd op hetzelfde punt in de maat, meestal de eerste tel van elke maat. Vermijd tikken op syncopen of de tegenslag. De spatiebalk gebruiken is vaak makkelijker voor een gelijkmatig ritme dan klikken met de muis. Op mobiel druk je de grote knop beter met je hele vingerkootje in dan met alleen de vingertop, voor stabieler contact." },
+      { title: "BPM gebruiken om een nummer te oefenen", body: "Zodra je de BPM hebt, vul je die in bij de online metronoom en oefen je het nummer op die snelheid. Dat is de snelste manier om erachter te komen of je het originele tempo aankunt of dat je langzamer moet beginnen en opbouwen. Veel muzikanten gebruiken Tap BPM als eerste stap van elke oefensessie." }
+    ]
+  },
+  sv: {
+    data: ["Hitta BPM i en låt", "Använd Tap BPM för att uppskatta en låts tempo genom att knacka med i takt.", "Knacka med musiken så räknar TuneUniversal ut ett genomsnittligt BPM från dina senaste knackningar.", "hitta bpm"],
+    steps: ["Öppna Tap BPM-sidan — ingen mikrofon behövs.", "Starta låten du vill mäta.", "Tryck på Tap-knappen eller mellanslag en gång per slag, i takt med musiken.", "Fortsätt i minst 8 till 16 knackningar för en stabil avläsning.", "Läs av det genomsnittliga BPM som visas: det är låtens tempo.", "Tryck på Återställ för att starta en ny mätning för en annan låt."],
+    sections: [
+      { title: "Vad BPM betyder", body: "BPM betyder beats per minute och beskriver pulsens hastighet i ett musikstycke. Ett lågt värde på 60 till 80 BPM tyder på en långsam ballad, medan 140 till 180 BPM pekar på ett snabbt danslåt eller punkspår. Att känna till BPM låter dig ställa metronomen på exakt rätt tempo och programmera trummaskiner eller en DAW utan att gissa." },
+      { title: "Hur många knackningar som krävs", body: "Du behöver minst fyra knackningar för en första uppskattning, men avläsningen stabiliseras tydligt efter åtta till sexton. Verktyget beräknar medelvärdet av intervallen mellan knackningarna och omvandlar dem till BPM: ju fler knackningar, desto stabilare medelvärde. Om dina första knackningar ger ett helt annat tal än de senare har du troligen bytt rytmisk punkt." },
+      { title: "Så knackar du exakt", body: "Knacka alltid på samma punkt i takten, oftast första slaget i varje takt. Undvik att knacka på synkoper eller efterslag. Mellanslagstangenten är ofta lättare för en jämn rytm än att klicka med musen. På mobil trycker du den stora knappen med hela fingerleden i stället för bara fingertoppen, för stabilare kontakt." },
+      { title: "Använda BPM för att öva en låt", body: "När du har BPM matar du in det i onlinemetronomen och övar låten i det tempot. Det är det snabbaste sättet att ta reda på om du klarar originaltempot eller behöver börja långsammare och bygga upp. Många musiker använder Tap BPM som första steg inför varje övningspass." }
+    ]
+  },
+  no: {
+    data: ["Finne BPM i en låt", "Bruk Tap BPM til å anslå tempoet i en låt ved å banke med i takt.", "Bank med musikken, så regner TuneUniversal ut et gjennomsnittlig BPM fra de siste bankene dine.", "finne bpm"],
+    steps: ["Åpne Tap BPM-siden — ingen mikrofon nødvendig.", "Start låten du vil måle.", "Trykk på Tap-knappen eller mellomromstasten én gang per slag, i takt med musikken.", "Fortsett i minst 8 til 16 trykk for en stabil avlesning.", "Les av gjennomsnittlig BPM som vises: det er tempoet i låten.", "Trykk på Tilbakestill for å starte en ny måling for en annen låt."],
+    sections: [
+      { title: "Hva BPM betyr", body: "BPM betyr beats per minute og beskriver pulshastigheten i et musikkstykke. En lav verdi på 60 til 80 BPM tyder på en langsom ballade, mens 140 til 180 BPM peker mot en rask danselåt eller punklåt. Når du kjenner BPM, kan du sette metronomen til nøyaktig riktig tempo og programmere trommemaskiner eller en DAW uten å gjette." },
+      { title: "Hvor mange trykk du trenger", body: "Du trenger minst fire trykk for et første anslag, men avlesningen stabiliserer seg tydelig etter åtte til seksten. Verktøyet tar gjennomsnittet av intervallene mellom trykkene og regner dem om til BPM: jo flere trykk, desto stabilere gjennomsnitt. Hvis de første trykkene gir et helt annet tall enn de senere, har du trolig byttet rytmisk punkt." },
+      { title: "Slik banker du nøyaktig", body: "Bank alltid på samme punkt i takten, som regel første slag i hver takt. Unngå å banke på synkoper eller etterslag. Mellomromstasten er ofte lettere for en jevn rytme enn å klikke med musen. På mobil trykker du den store knappen med hele fingerleddet i stedet for bare fingertuppen, for stødigere kontakt." },
+      { title: "Bruke BPM til å øve på en låt", body: "Når du har BPM, legger du det inn i nettmetronomen og øver låten i det tempoet. Det er den raskeste måten å finne ut om du klarer originaltempoet eller må starte langsommere og bygge opp. Mange musikere bruker Tap BPM som første steg før hver øveøkt." }
+    ]
+  },
+  pl: {
+    data: ["Jak znaleźć BPM utworu", "Użyj Tap BPM, aby oszacować tempo utworu, stukając do rytmu.", "Stukaj razem z muzyką, a TuneUniversal obliczy średnie BPM z Twoich ostatnich stuknięć.", "znaleźć bpm"],
+    steps: ["Otwórz stronę Tap BPM — mikrofon nie jest potrzebny.", "Włącz utwór, który chcesz zmierzyć.", "Naciskaj przycisk Tap lub spację raz na każdą miarę, w rytm muzyki.", "Kontynuuj przez co najmniej 8 do 16 stuknięć, aby odczyt był stabilny.", "Odczytaj wyświetlone średnie BPM: to jest tempo utworu.", "Naciśnij Reset, aby rozpocząć nowy pomiar dla innego utworu."],
+    sections: [
+      { title: "Co oznacza BPM", body: "BPM to uderzenia na minutę i opisuje szybkość pulsu utworu. Niska wartość od 60 do 80 BPM wskazuje na wolną balladę, a wysoka od 140 do 180 BPM na szybki kawałek taneczny lub punkowy. Znajomość BPM pozwala ustawić metronom na dokładnie właściwe tempo i zaprogramować automat perkusyjny lub DAW bez zgadywania." },
+      { title: "Ile stuknięć potrzeba", body: "Do pierwszego oszacowania wystarczą cztery stuknięcia, ale odczyt wyraźnie się stabilizuje po ośmiu do szesnastu. Narzędzie uśrednia odstępy między stuknięciami i przelicza je na BPM: im więcej stuknięć, tym stabilniejsza średnia. Jeśli pierwsze stuknięcia dają zupełnie inną liczbę niż kolejne, prawdopodobnie zmieniłeś punkt rytmiczny, w który stukasz." },
+      { title: "Jak stukać dokładnie", body: "Stukaj zawsze w ten sam punkt miary, zwykle w pierwszą miarę każdego taktu. Unikaj stukania na synkopach i na „i”. Spacja zwykle ułatwia utrzymanie równego rytmu bardziej niż klikanie myszą. Na telefonie naciskaj duży przycisk całym opuszkiem, a nie samym czubkiem palca, aby kontakt był stabilniejszy." },
+      { title: "Jak wykorzystać BPM do ćwiczenia utworu", body: "Gdy masz już BPM, wpisz je w metronom online i ćwicz utwór w tym tempie. To najszybszy sposób, aby sprawdzić, czy nadążasz za oryginalnym tempem, czy trzeba zacząć wolniej i stopniowo przyspieszać. Wielu muzyków używa Tap BPM jako pierwszego kroku przed każdą sesją ćwiczeń." }
+    ]
+  },
+  cs: {
+    data: ["Jak zjistit BPM skladby", "Pomocí Tap BPM odhadnete tempo skladby poklepáváním do rytmu.", "Klepejte spolu s hudbou a TuneUniversal spočítá průměrné BPM z vašich posledních klepnutí.", "zjistit bpm"],
+    steps: ["Otevřete stránku Tap BPM — mikrofon není potřeba.", "Spusťte skladbu, kterou chcete změřit.", "Mačkejte tlačítko Tap nebo mezerník jednou na každou dobu, v rytmu hudby.", "Pokračujte alespoň 8 až 16 klepnutí, aby byl odečet stabilní.", "Přečtěte si zobrazené průměrné BPM: to je tempo skladby.", "Stiskněte Reset a začněte nové měření pro jinou skladbu."],
+    sections: [
+      { title: "Co znamená BPM", body: "BPM znamená počet dob za minutu a popisuje rychlost pulsu skladby. Nízká hodnota 60 až 80 BPM ukazuje na pomalou baladu, zatímco 140 až 180 BPM na rychlou taneční nebo punkovou skladbu. Když znáte BPM, nastavíte metronom na přesně správné tempo a naprogramujete bicí automat nebo DAW bez hádání." },
+      { title: "Kolik klepnutí je potřeba", body: "Pro první odhad stačí čtyři klepnutí, ale odečet se výrazně ustálí po osmi až šestnácti. Nástroj zprůměruje intervaly mezi klepnutími a převede je na BPM: čím více klepnutí, tím stabilnější průměr. Pokud první klepnutí dávají úplně jiné číslo než pozdější, patrně jste změnili rytmický bod, na který klepete." },
+      { title: "Jak klepat přesně", body: "Klepejte vždy na stejný bod doby, obvykle na první dobu každého taktu. Vyhněte se klepání na synkopy a na odrazy. Mezerník bývá pro udržení rovnoměrného rytmu snazší než klikání myší. Na mobilu mačkejte velké tlačítko celým článkem prstu, ne jen špičkou, aby byl kontakt stabilnější." },
+      { title: "Jak BPM využít při cvičení skladby", body: "Jakmile BPM znáte, zadejte je do online metronomu a cvičte skladbu v tomto tempu. Je to nejrychlejší způsob, jak zjistit, zda zvládáte původní tempo, nebo musíte začít pomaleji a postupně zrychlovat. Mnoho hudebníků používá Tap BPM jako první krok před každým cvičením." }
+    ]
+  },
+  tr: {
+    data: ["Bir şarkının BPM değeri nasıl bulunur", "Ritme vurarak bir şarkının temposunu tahmin etmek için Tap BPM kullanın.", "Müzikle birlikte vurun, TuneUniversal son vuruşlarınızdan ortalama bir BPM hesaplasın.", "bpm bulma"],
+    steps: ["Tap BPM sayfasını açın — mikrofona gerek yok.", "Ölçmek istediğiniz şarkıyı başlatın.", "Müzikle aynı anda, her vuruşta bir kez Tap düğmesine veya boşluk tuşuna basın.", "Kararlı bir okuma için en az 8 ila 16 vuruş boyunca devam edin.", "Gösterilen ortalama BPM değerini okuyun: şarkının temposu budur.", "Başka bir parça için yeni ölçüme başlamak üzere Sıfırla düğmesine basın."],
+    sections: [
+      { title: "BPM ne demektir", body: "BPM dakikadaki vuruş sayısı demektir ve bir müzik parçasının nabız hızını anlatır. 60 ila 80 BPM gibi düşük bir değer yavaş bir balladı, 140 ila 180 BPM ise hızlı bir dans veya punk parçasını gösterir. BPM bilmek, metronomu tam doğru tempoya ayarlamanızı ve davul makinelerini veya DAW'ı tahmin yürütmeden programlamanızı sağlar." },
+      { title: "Kaç vuruş gerekir", body: "İlk tahmin için en az dört vuruş yeterlidir, ancak okuma sekiz ila on altı vuruştan sonra belirgin şekilde kararlı hale gelir. Araç vuruşlar arasındaki aralıkların ortalamasını alır ve BPM'ye çevirir: ne kadar çok vuruş, o kadar kararlı ortalama. İlk vuruşlarınız sonrakilerden çok farklı bir sayı veriyorsa, muhtemelen vurduğunuz ritmik noktayı değiştirmişsinizdir." },
+      { title: "Nasıl doğru vurulur", body: "Her zaman ölçünün aynı noktasına vurun, genellikle her ölçünün birinci vuruşuna. Senkoplara veya zayıf zamanlara vurmaktan kaçının. Düzenli bir ritim tutturmak için boşluk tuşu çoğu zaman fareyle tıklamaktan kolaydır. Mobilde büyük düğmeye parmak ucuyla değil parmak yastığıyla basın, temas daha kararlı olur." },
+      { title: "BPM ile bir şarkı çalışmak", body: "BPM değerini öğrendikten sonra onu online metronoma girin ve şarkıyı o hızda çalışın. Orijinal tempoya yetişip yetişemeyeceğinizi ya da daha yavaş başlayıp yükselmeniz gerekip gerekmediğini anlamanın en hızlı yolu budur. Birçok müzisyen her çalışma seansından önce ilk adım olarak Tap BPM kullanır." }
+    ]
+  },
+  hi: {
+    data: ["किसी गाने का BPM कैसे पता करें", "ताल पर टैप करके गाने की गति का अनुमान लगाने के लिए Tap BPM का उपयोग करें।", "संगीत के साथ टैप करें और TuneUniversal आपके हाल के टैप से औसत BPM निकाल देगा।", "bpm पता करें"],
+    steps: ["Tap BPM पेज खोलें — माइक्रोफ़ोन की ज़रूरत नहीं।", "जिस गाने को मापना है उसे चलाएँ।", "संगीत के साथ, हर मात्रा पर एक बार Tap बटन या स्पेसबार दबाएँ।", "स्थिर पाठ के लिए कम से कम 8 से 16 टैप तक जारी रखें।", "दिखाया गया औसत BPM पढ़ें: यही गाने की गति है।", "किसी दूसरे ट्रैक के लिए नया माप शुरू करने हेतु Reset दबाएँ।"],
+    sections: [
+      { title: "BPM का अर्थ", body: "BPM यानी प्रति मिनट मात्राएँ, जो किसी संगीत रचना की लय-गति बताता है। 60 से 80 BPM जैसा कम मान धीमी बैलेड दर्शाता है, जबकि 140 से 180 BPM तेज़ डांस या पंक ट्रैक की ओर इशारा करता है। BPM जानने पर आप मेट्रोनोम को बिल्कुल सही गति पर सेट कर सकते हैं और ड्रम मशीन या DAW बिना अंदाज़े के प्रोग्राम कर सकते हैं।" },
+      { title: "कितने टैप चाहिए", body: "पहले अनुमान के लिए कम से कम चार टैप चाहिए, पर पाठ आठ से सोलह टैप के बाद स्पष्ट रूप से स्थिर होता है। टूल टैप के बीच के अंतराल का औसत लेकर उसे BPM में बदलता है: जितने ज़्यादा टैप, उतना स्थिर औसत। यदि शुरुआती टैप बाद वालों से बहुत अलग संख्या दें, तो संभवतः आपने टैप करने का लयात्मक बिंदु बदल दिया है।" },
+      { title: "सटीक टैप कैसे करें", body: "हमेशा मात्रा के एक ही बिंदु पर टैप करें, आम तौर पर हर ताल की पहली मात्रा पर। सिंकोपेशन या ऑफ-बीट पर टैप करने से बचें। एकसमान लय बनाए रखने के लिए स्पेसबार अक्सर माउस क्लिक से आसान होता है। मोबाइल पर बड़े बटन को केवल उँगली की नोक के बजाय पूरे पोर से दबाएँ, संपर्क अधिक स्थिर रहेगा।" },
+      { title: "गाना सीखने में BPM का उपयोग", body: "BPM मिल जाने पर उसे ऑनलाइन मेट्रोनोम में डालें और गाने को उसी गति पर अभ्यास करें। यह जानने का सबसे तेज़ तरीका है कि आप मूल गति निभा सकते हैं या धीमे शुरू करके बढ़ना होगा। कई संगीतकार हर अभ्यास सत्र से पहले पहले कदम के रूप में Tap BPM इस्तेमाल करते हैं।" }
+    ]
+  }
+};
+
+/** "How to use a metronome" for the extended locales. */
+const extendedMetronomeGuide: Partial<Record<Locale, UtilityBundle>> = {
+  nl: {
+    data: ["Een metronoom gebruiken", "Oefen met BPM, accenten, maatsoort en ritmische onderverdelingen.", "Een metronoom bouwt een stabiel timinggevoel op."],
+    steps: ["Zet de BPM op een laag tempo waarop je elke noot foutloos kunt spelen.", "Kies de maatsoort: 4/4 voor de meeste pop- en rocknummers, 3/4 voor een wals, 6/8 voor ballads.", "Druk op Start en wacht twee of drie maten voordat je begint te spelen.", "Herhaal de passage in een lus met de klik mee en stop niet als je een fout maakt.", "Als je de passage drie keer achter elkaar schoon speelt, verhoog je de BPM met 5.", "Herhaal tot je het doeltempo of de snelheid van de originele opname haalt."],
+    sections: [
+      { title: "BPM en maatsoort", body: "BPM bepaalt de pulssnelheid in slagen per minuut. De maatsoort groepeert die slagen in maten en bepaalt waar de accenten vallen. In 4/4 zijn er vier tellen per maat met het sterkste accent op tel 1; in 3/4 zijn het er drie met één accent, wat het walsgevoel geeft. De maatsoort op de metronoom wisselen is de snelste manier om dat verschil lijfelijk te voelen." },
+      { title: "Je begin-BPM kiezen", body: "De gouden regel is langzaam genoeg beginnen om elke noot schoon te spelen, vaak 50 tot 70 procent van het doeltempo. Onderzoek naar motorisch leren laat zien dat spiergeheugen betrouwbaarder wordt opgebouwd bij langzaam en nauwkeurig oefenen. Te snel doorschieten prent fouten in in plaats van ze te wissen. Er is geen kortere weg die beter werkt dan langzaam, bewust oefenen." },
+      { title: "Ritmische onderverdelingen", body: "Onderverdelingen splitsen elke tel in gelijke delen: duolen (2), triolen (3) en kwartolen (4). Onderverdelingen aanzetten op de metronoom vult de ruimte tussen de hoofdklikken en maakt je innerlijke puls veel preciezer. Dat is vooral nuttig bij snelle passages, waar de tel tussen noten en frases de neiging heeft te verdwijnen." },
+      { title: "Geleidelijke opbouw van het tempo", body: "Verhoog de BPM pas als je drie herhalingen achter elkaar foutloos speelt. Ga dan 5 BPM omhoog en herhaal. Zakt de kwaliteit ergens, ga dan 10 BPM terug en bouw opnieuw op. Deze methode, bekend als speed pyramiding, is een van de best gedocumenteerde in de moderne instrumentale pedagogie en werkt voor elk instrument en genre." }
+    ]
+  },
+  sv: {
+    data: ["Så använder du en metronom", "Öva med BPM, accenter, taktart och rytmiska underdelningar.", "En metronom bygger ett stadigt tidsgrepp."],
+    steps: ["Ställ BPM på ett långsamt värde där du kan spela varje ton utan misstag.", "Välj taktart: 4/4 för de flesta pop- och rocklåtar, 3/4 för vals, 6/8 för ballader.", "Tryck på Start och vänta två eller tre takter innan du börjar spela.", "Loopa passagen i takt med klicket och stanna inte om du gör fel.", "När du spelar passagen rent tre gånger i rad höjer du BPM med 5.", "Upprepa tills du når måltempot eller hastigheten i originalinspelningen."],
+    sections: [
+      { title: "BPM och taktart", body: "BPM anger pulsens hastighet i slag per minut. Taktarten grupperar slagen i takter och bestämmer var accenterna faller. I 4/4 finns fyra slag per takt med starkaste accent på slag 1; i 3/4 finns tre slag med en accent, vilket ger valskänslan. Att byta taktart på metronomen är det snabbaste sättet att känna skillnaden fysiskt." },
+      { title: "Så väljer du start-BPM", body: "Gyllene regeln är att börja tillräckligt långsamt för att spela varje ton rent, ofta 50 till 70 procent av måltempot. Forskning om motorisk inlärning visar att muskelminnet byggs mer pålitligt vid långsam och exakt övning. Att rusa vidare präglar in misstag i stället för att sudda ut dem. Det finns ingen genväg som fungerar bättre än långsam, medveten övning." },
+      { title: "Rytmiska underdelningar", body: "Underdelningar delar varje slag i lika delar: duoler (2), trioler (3) och kvartoler (4). Att slå på underdelningar i metronomen fyller utrymmet mellan huvudklicken och gör din inre puls betydligt mer exakt. Det är särskilt användbart i snabba passager, där slaget tenderar att försvinna mellan toner och fraser." },
+      { title: "Gradvis tempoökning", body: "Höj BPM först när du klarar tre repetitioner i rad utan misstag. Höj sedan med 5 BPM och upprepa. Om kvaliteten sjunker någonstans går du ner 10 BPM och bygger upp igen. Metoden, känd som speed pyramiding, är en av de bäst dokumenterade inom modern instrumentalpedagogik och fungerar för alla instrument och genrer." }
+    ]
+  },
+  no: {
+    data: ["Slik bruker du en metronom", "Øv med BPM, aksenter, taktart og rytmiske underdelinger.", "En metronom bygger et stødig tidsgrep."],
+    steps: ["Sett BPM til en langsom verdi der du kan spille hver tone uten feil.", "Velg taktart: 4/4 for de fleste pop- og rocklåter, 3/4 for vals, 6/8 for ballader.", "Trykk Start og vent to eller tre takter før du begynner å spille.", "Loop passasjen i takt med klikket, og stopp ikke om du gjør feil.", "Når du spiller passasjen rent tre ganger på rad, øker du BPM med 5.", "Gjenta til du når måltempoet eller hastigheten i originalinnspillingen."],
+    sections: [
+      { title: "BPM og taktart", body: "BPM angir pulsens hastighet i slag per minutt. Taktarten grupperer slagene i takter og bestemmer hvor aksentene faller. I 4/4 er det fire slag per takt med sterkeste aksent på slag 1; i 3/4 er det tre slag med én aksent, noe som gir valsfølelsen. Å bytte taktart på metronomen er den raskeste måten å kjenne forskjellen fysisk." },
+      { title: "Slik velger du start-BPM", body: "Gylne regel er å starte langsomt nok til å spille hver tone rent, ofte 50 til 70 prosent av måltempoet. Forskning på motorisk læring viser at muskelminnet bygges mer pålitelig ved langsom og nøyaktig øving. Å haste videre preger inn feil i stedet for å viske dem ut. Det finnes ingen snarvei som virker bedre enn langsom, bevisst øving." },
+      { title: "Rytmiske underdelinger", body: "Underdelinger deler hvert slag i like deler: duoler (2), trioler (3) og kvartoler (4). Å slå på underdelinger i metronomen fyller rommet mellom hovedklikkene og gjør den indre pulsen langt mer presis. Det er særlig nyttig i raske passasjer, der slaget har en tendens til å forsvinne mellom toner og fraser." },
+      { title: "Gradvis tempoøkning", body: "Øk BPM først når du klarer tre repetisjoner på rad uten feil. Øk så med 5 BPM og gjenta. Faller kvaliteten et sted, går du ned 10 BPM og bygger opp igjen. Metoden, kjent som speed pyramiding, er blant de best dokumenterte i moderne instrumentalpedagogikk og gjelder alle instrumenter og sjangre." }
+    ]
+  },
+  pl: {
+    data: ["Jak używać metronomu", "Ćwicz z BPM, akcentami, metrum i podziałami rytmicznymi.", "Metronom buduje stabilne poczucie czasu."],
+    steps: ["Ustaw BPM na wolną wartość, przy której zagrasz każdy dźwięk bez błędu.", "Wybierz metrum: 4/4 dla większości utworów pop i rock, 3/4 dla walca, 6/8 dla ballad.", "Naciśnij Start i odczekaj dwa lub trzy takty, zanim zaczniesz grać.", "Zapętl fragment razem z klikiem i nie przerywaj, jeśli się pomylisz.", "Gdy zagrasz fragment czysto trzy razy z rzędu, zwiększ BPM o 5.", "Powtarzaj, aż osiągniesz tempo docelowe lub prędkość oryginalnego nagrania."],
+    sections: [
+      { title: "BPM i metrum", body: "BPM określa szybkość pulsu w uderzeniach na minutę. Metrum grupuje te uderzenia w takty i wyznacza, gdzie padają akcenty. W 4/4 są cztery miary w takcie, a najsilniejszy akcent pada na pierwszą; w 3/4 są trzy miary z jednym akcentem, co daje charakter walca. Zmiana metrum w metronomie to najszybszy sposób, aby poczuć tę różnicę fizycznie." },
+      { title: "Jak wybrać początkowe BPM", body: "Złota zasada brzmi: zacznij na tyle wolno, aby zagrać każdy dźwięk czysto, często 50 do 70 procent tempa docelowego. Badania nad uczeniem motorycznym pokazują, że pamięć mięśniowa kształtuje się pewniej przy wolnym i dokładnym ćwiczeniu. Pośpiech utrwala błędy zamiast je usuwać. Nie ma skrótu skuteczniejszego niż powolne, świadome ćwiczenie." },
+      { title: "Podziały rytmiczne", body: "Podziały dzielą każdą miarę na równe części: duole (2), triole (3) i kwartole (4). Włączenie podziałów w metronomie wypełnia przestrzeń między głównymi kliknięciami i znacznie uściśla wewnętrzny puls. Jest to szczególnie przydatne w szybkich fragmentach, gdzie miara bywa gubiona między dźwiękami i frazami." },
+      { title: "Stopniowe zwiększanie tempa", body: "Zwiększaj BPM dopiero, gdy zagrasz trzy powtórzenia z rzędu bez błędu. Potem podnieś o 5 BPM i powtórz. Jeśli jakość w którymś momencie spadnie, cofnij się o 10 BPM i odbuduj. Metoda ta, znana jako speed pyramiding, należy do najlepiej udokumentowanych we współczesnej pedagogice instrumentalnej i sprawdza się w każdym instrumencie i gatunku." }
+    ]
+  },
+  cs: {
+    data: ["Jak používat metronom", "Cvičte s BPM, akcenty, taktem a rytmickým dělením dob.", "Metronom buduje stabilní cit pro čas."],
+    steps: ["Nastavte BPM na pomalou hodnotu, při které zahrajete každý tón bez chyby.", "Zvolte takt: 4/4 pro většinu popových a rockových skladeb, 3/4 pro valčík, 6/8 pro balady.", "Stiskněte Start a počkejte dva nebo tři takty, než začnete hrát.", "Opakujte pasáž ve smyčce podle kliku a nezastavujte, když uděláte chybu.", "Když pasáž zahrajete třikrát po sobě čistě, zvyšte BPM o 5.", "Opakujte, dokud nedosáhnete cílového tempa nebo rychlosti původní nahrávky."],
+    sections: [
+      { title: "BPM a takt", body: "BPM určuje rychlost pulsu v dobách za minutu. Takt seskupuje doby do taktů a určuje, kam padají akcenty. Ve 4/4 jsou čtyři doby v taktu s nejsilnějším akcentem na první; ve 3/4 jsou tři doby s jedním akcentem, což vytváří valčíkový pohyb. Změna taktu na metronomu je nejrychlejší způsob, jak ten rozdíl fyzicky pocítit." },
+      { title: "Jak zvolit počáteční BPM", body: "Zlaté pravidlo zní začít dost pomalu na to, abyste zahráli každý tón čistě, často na 50 až 70 procentech cílového tempa. Výzkum motorického učení ukazuje, že svalová paměť se buduje spolehlivěji při pomalém a přesném cvičení. Spěch vtiskne chyby místo aby je smazal. Neexistuje zkratka, která by fungovala lépe než pomalé, vědomé cvičení." },
+      { title: "Rytmické dělení dob", body: "Dělení rozděluje každou dobu na stejné části: duoly (2), trioly (3) a kvartoly (4). Zapnutí dělení na metronomu vyplní prostor mezi hlavními kliky a výrazně zpřesní vnitřní puls. Hodí se to zvlášť v rychlých pasážích, kde se doba mezi tóny a frázemi snadno ztrácí." },
+      { title: "Postupné zrychlování", body: "BPM zvyšujte teprve tehdy, když zvládnete tři opakování za sebou bez chyby. Pak přidejte 5 BPM a opakujte. Pokud kvalita někde klesne, vraťte se o 10 BPM a budujte znovu. Tato metoda, známá jako speed pyramiding, patří k nejlépe zdokumentovaným v moderní instrumentální pedagogice a platí pro jakýkoli nástroj i žánr." }
+    ]
+  },
+  tr: {
+    data: ["Metronom nasıl kullanılır", "BPM, vurgular, ölçü ve ritmik alt bölünmelerle çalışın.", "Metronom sağlam bir zamanlama duygusu kurar."],
+    steps: ["BPM'yi her notayı hatasız çalabileceğiniz yavaş bir değere ayarlayın.", "Ölçüyü seçin: çoğu pop ve rock parçası için 4/4, vals için 3/4, baladlar için 6/8.", "Başlat'a basın ve çalmaya başlamadan önce iki üç ölçü bekleyin.", "Pasajı klikle birlikte döngüye alın ve hata yaparsanız durmayın.", "Pasajı üst üste üç kez temiz çaldığınızda BPM'yi 5 artırın.", "Hedef tempoya veya orijinal kaydın hızına ulaşana kadar tekrarlayın."],
+    sections: [
+      { title: "BPM ve ölçü", body: "BPM nabız hızını dakikadaki vuruş olarak belirler. Ölçü bu vuruşları ölçülere gruplar ve vurguların nereye düşeceğini saptar. 4/4'te ölçü başına dört vuruş vardır ve en güçlü vurgu birinci vuruştadır; 3/4'te tek vurgulu üç vuruş vardır ve vals hissi doğar. Metronomda ölçüyü değiştirmek bu farkı bedenen hissetmenin en hızlı yoludur." },
+      { title: "Başlangıç BPM'si nasıl seçilir", body: "Altın kural, her notayı temiz çalabilecek kadar yavaş başlamaktır; genellikle hedef hızın yüzde 50 ila 70'i. Motor öğrenme araştırmaları, kas hafızasının yavaş ve doğru çalışmayla daha güvenilir oluştuğunu gösteriyor. Acele etmek hataları silmek yerine kazır. Yavaş ve bilinçli çalışmadan daha iyi işleyen bir kestirme yol yoktur." },
+      { title: "Ritmik alt bölünmeler", body: "Alt bölünmeler her vuruşu eşit parçalara ayırır: ikilemeler (2), üçlemeler (3) ve dörtlemeler (4). Metronomda alt bölünmeleri açmak ana tıklar arasındaki boşluğu doldurur ve iç nabzınızı çok daha kesin hale getirir. Bu, vuruşun notalar ve cümleler arasında kaybolmaya eğilimli olduğu hızlı pasajlarda özellikle işe yarar." },
+      { title: "Kademeli hız artışı", body: "BPM'yi ancak üst üste üç tekrarı hatasız çalabildiğinizde artırın. Sonra 5 BPM yükseltip tekrarlayın. Herhangi bir noktada kalite düşerse 10 BPM geri inin ve yeniden kurun. Speed pyramiding olarak bilinen bu yöntem, modern enstrüman pedagojisinde en iyi belgelenmiş yöntemlerden biridir ve her enstrüman ve türde geçerlidir." }
+    ]
+  },
+  hi: {
+    data: ["मेट्रोनोम का उपयोग कैसे करें", "BPM, ज़ोर, ताल और लयात्मक उपविभाजनों के साथ अभ्यास करें।", "मेट्रोनोम स्थिर समय-बोध बनाता है।"],
+    steps: ["BPM को इतनी धीमी गति पर रखें कि आप हर स्वर बिना गलती के बजा सकें।", "ताल चुनें: ज़्यादातर पॉप और रॉक गानों के लिए 4/4, वाल्ट्ज़ के लिए 3/4, बैलेड के लिए 6/8।", "Start दबाएँ और बजाना शुरू करने से पहले दो-तीन ताल प्रतीक्षा करें।", "क्लिक के साथ उस हिस्से को दोहराते रहें और गलती होने पर रुकें नहीं।", "जब आप लगातार तीन बार साफ़ बजा लें, BPM 5 बढ़ा दें।", "लक्ष्य गति या मूल रिकॉर्डिंग की गति तक पहुँचने तक दोहराएँ।"],
+    sections: [
+      { title: "BPM और ताल", body: "BPM लय की गति को प्रति मिनट मात्राओं में तय करता है। ताल इन मात्राओं को समूहों में बाँटता है और तय करता है कि ज़ोर कहाँ पड़ेगा। 4/4 में प्रति ताल चार मात्राएँ होती हैं और सबसे तेज़ ज़ोर पहली पर; 3/4 में तीन मात्राएँ और एक ज़ोर होता है, जिससे वाल्ट्ज़ का भाव बनता है। मेट्रोनोम पर ताल बदलना इस अंतर को शारीरिक रूप से महसूस करने का सबसे तेज़ तरीका है।" },
+      { title: "शुरुआती BPM कैसे चुनें", body: "सुनहरा नियम यह है कि इतना धीमा शुरू करें कि हर स्वर साफ़ बजे, अक्सर लक्ष्य गति का 50 से 70 प्रतिशत। मोटर अधिगम पर शोध बताता है कि धीमे और सटीक अभ्यास से मांसपेशीय स्मृति अधिक भरोसेमंद बनती है। जल्दबाज़ी गलतियों को मिटाने के बजाय बैठा देती है। धीमे, सचेत अभ्यास से बेहतर कोई शॉर्टकट नहीं है।" },
+      { title: "लयात्मक उपविभाजन", body: "उपविभाजन हर मात्रा को बराबर हिस्सों में बाँटते हैं: द्विक (2), त्रिक (3) और चतुष्क (4)। मेट्रोनोम पर उपविभाजन चालू करने से मुख्य क्लिकों के बीच की जगह भर जाती है और आपकी आंतरिक लय कहीं अधिक सटीक हो जाती है। यह खासकर तेज़ हिस्सों में उपयोगी है, जहाँ मात्रा स्वरों और वाक्यांशों के बीच खो जाती है।" },
+      { title: "क्रमिक गति-वृद्धि", body: "BPM तभी बढ़ाएँ जब आप लगातार तीन बार बिना गलती बजा सकें। फिर 5 BPM बढ़ाकर दोहराएँ। कहीं भी गुणवत्ता गिरे तो 10 BPM नीचे आकर फिर से बनाएँ। यह तरीका, जिसे speed pyramiding कहते हैं, आधुनिक वाद्य-शिक्षण में सबसे प्रलेखित तरीकों में से है और हर वाद्ययंत्र व शैली पर लागू होता है।" }
+    ]
+  }
+};
+
+type QueryDrivenCopy = { chromatic: string[]; metronomeGuitar: string[]; microphone: string[]; pitch: string[]; sound: string[] };
+type QueryDrivenShared = {
+  chromaticSteps: string[];
+  metronomeSteps: string[];
+  microphoneSteps: string[];
+  pitchSteps: string[];
+  soundSteps: string[];
+  tipTitle: string;
+  whyTitle: string;
+};
+/** Ten section bodies, in the order the guides appear in the return below. */
+type QueryDrivenBodies = [string, string, string, string, string, string, string, string, string, string];
+
+/** Query-driven utility guides for the extended locales. */
+const extendedQueryDriven: Partial<Record<Locale, { bodies: QueryDrivenBodies; copy: QueryDrivenCopy; shared: QueryDrivenShared }>> = {
+  nl: {
+    copy: {
+      chromatic: ["Gids voor de chromatische stemmer", "Leer wanneer je een chromatische stemmer gebruikt om elke noot snel en nauwkeurig te herkennen.", "Gebruik deze gids als je gitaar, viool of elk ander instrument met toonhoogte noot voor noot wilt stemmen met een browserstemmer."],
+      microphone: ["Gitaarstemmer met microfoon", "Gebruik de microfoon van je browser om de toonhoogte van de gitaar te meten zonder een app te installeren.", "Deze pagina legt uit hoe je een stabielere meting krijgt bij het online stemmen van gitaar met een microfoon."],
+      metronomeGuitar: ["Metronoom voor gitaaroefening", "Oefen riffs, aanslagcontrole en akkoordwisselingen met een gitaarvriendelijke online metronoom.", "Gebruik een metronoom voor gitaar als je strakkere timing, een schoner ritme en een gecontroleerde opbouw van snelheid wilt."],
+      sound: ["Gids voor de dB-geluidsmeter", "Meet het geschatte volume van een ruimte in dB en vergelijk stil oefenen, gesprek en luide omgevingen.", "Deze gids helpt je de geluidsmeter te gebruiken voor ruimtechecks, oefenvolume en snelle dB-vergelijkingen."],
+      pitch: ["Online gids voor de toongenerator", "Genereer een stabiele toon van 20 Hz tot 20000 Hz voor gehoortraining, referentietoon en audiochecks.", "Gebruik de toongenerator als je een vaste referentietoon, een gehoortest of een snelle luidsprekercheck in de browser nodig hebt."]
+    },
+    shared: {
+      chromaticSteps: ["Open de stemmer.", "Speel één noot tegelijk.", "Let op de gedetecteerde noot en de centwaarde.", "Stel bij tot de toonhoogte zuiver blijft staan."],
+      microphoneSteps: ["Open de gitaarstemmer.", "Geef toegang tot de microfoon.", "Sla één snaar helder aan.", "Wacht tot de meting tot rust komt voordat je bijstelt."],
+      metronomeSteps: ["Kies een comfortabele BPM.", "Begin met eenvoudige hoofdtellen.", "Oefen riffs of akkoordwisselingen in de maat.", "Verhoog het tempo pas na een paar schone rondes."],
+      soundSteps: ["Geef toegang tot de microfoon.", "Kies een vaste plek in de ruimte.", "Let op de huidige, minimale, maximale en gemiddelde dB.", "Gebruik de grafiek om de laatste 30 seconden te vergelijken."],
+      pitchSteps: ["Kies een frequentie.", "Stel een veilig volume in.", "Start de toon.", "Stop hem als je de test of oefening afrondt."],
+      whyTitle: "Wanneer je het gebruikt",
+      tipTitle: "Praktische tip"
+    },
+    bodies: [
+      "Een chromatische stemmer helpt als je niet alleen op standaardsnaren wilt vertrouwen en elke noot of alternatieve stemming moet herkennen.",
+      "Speel één noot tegelijk en beperk achtergrondgeluid, zodat de toonhoogtedetectie stabieler blijft.",
+      "De microfoon van je browser is een van de snelste manieren om te stemmen zonder extra kabels, apps of pedalen.",
+      "Houd de gitaar dicht bij de telefoon of laptop, speel één snaar tegelijk en laat de noot doorklinken voordat je bijstelt.",
+      "Een gitaarmetronoom helpt je groove, aanslagcontrole, nauwkeurigheid van riffs en schonere akkoordwisselingen te verbeteren.",
+      "Begin met kwarten en achtsten, voeg daarna onderverdelingen en oplopende cycli toe om snelheid op te bouwen.",
+      "Een geluidsmeter is handig om het volume van een ruimte, je oefenvolume en het verschil tussen stille en lawaaiige omgevingen te controleren.",
+      "Houd het apparaat een paar seconden stil, zodat de gemiddelde, minimale en maximale waarden bruikbaarder worden.",
+      "Een toongenerator is nuttig voor gehoortraining, referentienoten en snelle controles van luidsprekers, koptelefoons en specifieke frequenties.",
+      "Begin altijd op laag volume, zeker bij hoge frequenties, en verhoog het niet meer dan nodig."
+    ]
+  },
+  sv: {
+    copy: {
+      chromatic: ["Guide till kromatisk stämmare", "Lär dig när du ska använda en kromatisk stämmare för att fånga vilken ton som helst snabbt och exakt.", "Använd guiden när du vill stämma gitarr, fiol eller vilket tonat instrument som helst ton för ton med en webbläsarstämmare."],
+      microphone: ["Gitarrstämmare med mikrofon", "Använd webbläsarens mikrofon för att mäta gitarrens tonhöjd utan att installera en app.", "Sidan förklarar hur du får en stabilare avläsning när du stämmer gitarr med mikrofon online."],
+      metronomeGuitar: ["Metronom för gitarrövning", "Öva riff, anslagskontroll och ackordbyten med en gitarrvänlig onlinemetronom.", "Använd metronom för gitarr när du vill ha stadigare timing, renare rytm och en kontrollerad uppbyggnad av tempo."],
+      sound: ["Guide till dB-ljudnivåmätaren", "Mät rummets uppskattade volym i dB och jämför tyst övning, samtal och bullriga miljöer.", "Guiden hjälper dig använda ljudnivåmätaren för rumskontroll, övningsvolym och snabba dB-jämförelser."],
+      pitch: ["Onlineguide till tongeneratorn", "Generera en stadig ton från 20 Hz till 20000 Hz för gehörsträning, referenston och ljudkontroller.", "Använd tongeneratorn när du behöver en fast referenston, ett hörseltest eller en snabb högtalarkontroll i webbläsaren."]
+    },
+    shared: {
+      chromaticSteps: ["Öppna stämmaren.", "Spela en ton i taget.", "Håll koll på den detekterade tonen och centvärdet.", "Justera tills tonhöjden lägger sig rätt."],
+      microphoneSteps: ["Öppna gitarrstämmaren.", "Ge åtkomst till mikrofonen.", "Slå an en sträng tydligt.", "Vänta tills avläsningen lugnat sig innan du justerar."],
+      metronomeSteps: ["Välj ett bekvämt BPM.", "Börja med enkla huvudslag.", "Öva riff eller ackordbyten i takt.", "Höj tempot först efter flera rena varv."],
+      soundSteps: ["Ge åtkomst till mikrofonen.", "Välj en fast plats i rummet.", "Håll koll på aktuell, lägsta, högsta och genomsnittlig dB.", "Använd grafen för att jämföra de senaste 30 sekunderna."],
+      pitchSteps: ["Välj en frekvens.", "Ställ in en säker volym.", "Starta tonen.", "Stoppa den när du avslutar testet eller övningen."],
+      whyTitle: "När du använder den",
+      tipTitle: "Praktiskt tips"
+    },
+    bodies: [
+      "En kromatisk stämmare hjälper när du inte vill förlita dig enbart på standardsträngar och behöver känna igen vilken ton eller alternativ stämning som helst.",
+      "Spela en ton i taget och minska bakgrundsljudet så att tonhöjdsavläsningen håller sig stadigare.",
+      "Webbläsarens mikrofon är ett av de snabbaste sätten att stämma utan extra kablar, appar eller pedaler.",
+      "Håll gitarren nära telefonen eller datorn, spela en sträng i taget och låt tonen klinga innan du justerar.",
+      "En gitarrmetronom hjälper dig förbättra groove, anslagskontroll, riffprecision och renare ackordbyten.",
+      "Börja med fjärdedelar och åttondelar, lägg sedan till underdelningar och progressiva cykler för att bygga tempo.",
+      "En ljudnivåmätare är användbar för att kontrollera rummets ljudnivå, övningsvolymen och skillnaden mellan tysta och bullriga miljöer.",
+      "Håll enheten stilla i några sekunder så att genomsnitt, lägsta och högsta värden blir mer användbara.",
+      "En tongenerator är användbar för gehörsträning, referenstoner och snabba kontroller av högtalare, hörlurar och specifika frekvenser.",
+      "Börja alltid på låg volym, särskilt vid höga frekvenser, och höj bara så mycket som behövs."
+    ]
+  },
+  no: {
+    copy: {
+      chromatic: ["Guide til kromatisk stemmeapparat", "Lær når du bør bruke et kromatisk stemmeapparat for å fange hvilken som helst tone raskt og nøyaktig.", "Bruk guiden når du vil stemme gitar, fiolin eller et hvilket som helst tonet instrument tone for tone med et nettleserstemmeapparat."],
+      microphone: ["Gitarstemmeapparat med mikrofon", "Bruk nettleserens mikrofon til å måle gitarens tonehøyde uten å installere en app.", "Siden forklarer hvordan du får en stødigere avlesning når du stemmer gitar med mikrofon online."],
+      metronomeGuitar: ["Metronom for gitarøving", "Øv riff, anslagskontroll og akkordskifter med en gitarvennlig nettmetronom.", "Bruk metronom for gitar når du vil ha stødigere timing, renere rytme og en kontrollert oppbygging av tempo."],
+      sound: ["Guide til dB-lydnivåmåleren", "Mål rommets anslåtte volum i dB og sammenlign stille øving, samtale og støyende omgivelser.", "Guiden hjelper deg å bruke lydnivåmåleren til romsjekk, øvingsvolum og raske dB-sammenligninger."],
+      pitch: ["Nettguide til tonegeneratoren", "Lag en stødig tone fra 20 Hz til 20000 Hz for gehørtrening, referansetone og lydsjekk.", "Bruk tonegeneratoren når du trenger en fast referansetone, en hørselstest eller en rask høyttalersjekk i nettleseren."]
+    },
+    shared: {
+      chromaticSteps: ["Åpne stemmeapparatet.", "Spill én tone om gangen.", "Følg med på tonen som gjenkjennes og centverdien.", "Juster til tonehøyden legger seg riktig."],
+      microphoneSteps: ["Åpne gitarstemmeapparatet.", "Gi tilgang til mikrofonen.", "Slå an én streng tydelig.", "Vent til avlesningen har roet seg før du justerer."],
+      metronomeSteps: ["Velg et behagelig BPM.", "Start med enkle hovedslag.", "Øv riff eller akkordskifter i takt.", "Øk tempoet først etter flere rene runder."],
+      soundSteps: ["Gi tilgang til mikrofonen.", "Velg en fast plass i rommet.", "Følg med på nåværende, laveste, høyeste og gjennomsnittlig dB.", "Bruk grafen til å sammenligne de siste 30 sekundene."],
+      pitchSteps: ["Velg en frekvens.", "Still inn et trygt volum.", "Start tonen.", "Stopp den når du avslutter testen eller øvelsen."],
+      whyTitle: "Når du bruker det",
+      tipTitle: "Praktisk tips"
+    },
+    bodies: [
+      "Et kromatisk stemmeapparat hjelper når du ikke vil stole bare på standardstrenger og må gjenkjenne hvilken som helst tone eller alternativ stemming.",
+      "Spill én tone om gangen og reduser bakgrunnsstøyen, så holder tonegjenkjenningen seg stødigere.",
+      "Nettleserens mikrofon er en av de raskeste måtene å stemme på uten ekstra kabler, apper eller pedaler.",
+      "Hold gitaren nær telefonen eller maskinen, spill én streng om gangen og la tonen klinge før du justerer.",
+      "En gitarmetronom hjelper deg å forbedre groove, anslagskontroll, presisjon i riff og renere akkordskifter.",
+      "Start med fjerdedeler og åttendeler, legg så til underdelinger og progressive sykluser for å bygge tempo.",
+      "En lydnivåmåler er nyttig for å sjekke romvolum, øvingsvolum og forskjellen mellom stille og støyende omgivelser.",
+      "Hold enheten stille i noen sekunder, slik at gjennomsnitt, laveste og høyeste verdi blir mer nyttige.",
+      "En tonegenerator er nyttig til gehørtrening, referansetoner og raske sjekker av høyttalere, hodetelefoner og bestemte frekvenser.",
+      "Start alltid på lavt volum, særlig ved høye frekvenser, og øk bare så mye som nødvendig."
+    ]
+  },
+  pl: {
+    copy: {
+      chromatic: ["Przewodnik po stroiku chromatycznym", "Dowiedz się, kiedy używać stroika chromatycznego, aby szybko i dokładnie wychwycić każdy dźwięk.", "Skorzystaj z przewodnika, gdy chcesz stroić gitarę, skrzypce lub dowolny instrument dźwiękowy nuta po nucie w przeglądarce."],
+      microphone: ["Stroik gitarowy z mikrofonem", "Użyj mikrofonu przeglądarki, aby zmierzyć wysokość dźwięku gitary bez instalowania aplikacji.", "Ta strona wyjaśnia, jak uzyskać stabilniejszy odczyt podczas strojenia gitary mikrofonem online."],
+      metronomeGuitar: ["Metronom do ćwiczeń na gitarze", "Ćwicz riffy, kontrolę kostkowania i zmiany akordów z metronomem online przyjaznym gitarzystom.", "Używaj metronomu do gitary, gdy chcesz równiejsze tempo, czystszy rytm i kontrolowane budowanie szybkości."],
+      sound: ["Przewodnik po mierniku dB", "Zmierz szacunkową głośność pomieszczenia w dB i porównaj ciche ćwiczenie, rozmowę i głośne otoczenie.", "Przewodnik pomaga używać miernika dźwięku do kontroli pomieszczenia, głośności ćwiczeń i szybkich porównań w dB."],
+      pitch: ["Przewodnik po generatorze tonów online", "Generuj stabilny ton od 20 Hz do 20000 Hz do treningu słuchu, dźwięku referencyjnego i testów audio.", "Użyj generatora tonów, gdy potrzebujesz stałego dźwięku odniesienia, testu słuchu lub szybkiego sprawdzenia głośników w przeglądarce."]
+    },
+    shared: {
+      chromaticSteps: ["Otwórz stroik.", "Graj po jednym dźwięku.", "Obserwuj wykryty dźwięk i wartość w centach.", "Koryguj, aż wysokość się ustabilizuje."],
+      microphoneSteps: ["Otwórz stroik gitarowy.", "Zezwól na dostęp do mikrofonu.", "Szarpnij jedną strunę wyraźnie.", "Poczekaj, aż odczyt się ustabilizuje, zanim zaczniesz korygować."],
+      metronomeSteps: ["Wybierz wygodne BPM.", "Zacznij od prostych miar głównych.", "Ćwicz riffy lub zmiany akordów w rytm.", "Zwiększaj tempo dopiero po kilku czystych przejściach."],
+      soundSteps: ["Zezwól na dostęp do mikrofonu.", "Wybierz stałe miejsce w pomieszczeniu.", "Obserwuj bieżące, minimalne, maksymalne i średnie dB.", "Użyj wykresu, aby porównać ostatnie 30 sekund."],
+      pitchSteps: ["Wybierz częstotliwość.", "Ustaw bezpieczną głośność.", "Uruchom ton.", "Zatrzymaj go po zakończeniu testu lub ćwiczenia."],
+      whyTitle: "Kiedy tego używać",
+      tipTitle: "Praktyczna wskazówka"
+    },
+    bodies: [
+      "Stroik chromatyczny przydaje się, gdy nie chcesz polegać wyłącznie na strunach standardowych i musisz rozpoznać dowolny dźwięk lub strój alternatywny.",
+      "Graj po jednym dźwięku i ogranicz hałas w tle, aby wykrywanie wysokości było stabilniejsze.",
+      "Mikrofon przeglądarki to jeden z najszybszych sposobów strojenia bez dodatkowych kabli, aplikacji i efektów.",
+      "Trzymaj gitarę blisko telefonu lub laptopa, graj po jednej strunie i pozwól dźwiękowi wybrzmieć, zanim zaczniesz korygować.",
+      "Metronom gitarowy pomaga poprawić groove, kontrolę kostkowania, precyzję riffów i czystsze zmiany akordów.",
+      "Zacznij od ćwierćnut i ósemek, a potem dodaj podziały i cykle progresywne, aby budować szybkość.",
+      "Miernik dźwięku przydaje się do sprawdzania głośności pomieszczenia, poziomu ćwiczeń i różnicy między cichym a hałaśliwym otoczeniem.",
+      "Trzymaj urządzenie nieruchomo przez kilka sekund, aby wartości średnia, minimalna i maksymalna były bardziej użyteczne.",
+      "Generator tonów przydaje się do treningu słuchu, dźwięków odniesienia i szybkiego sprawdzenia głośników, słuchawek i konkretnych częstotliwości.",
+      "Zawsze zaczynaj od niskiej głośności, zwłaszcza przy wysokich częstotliwościach, i zwiększaj ją tylko w razie potrzeby."
+    ]
+  },
+  cs: {
+    copy: {
+      chromatic: ["Průvodce chromatickou ladičkou", "Zjistěte, kdy použít chromatickou ladičku, abyste rychle a přesně zachytili jakýkoli tón.", "Průvodce využijete, když chcete ladit kytaru, housle nebo jakýkoli tónovaný nástroj tón po tónu přímo v prohlížeči."],
+      microphone: ["Ladička na kytaru s mikrofonem", "Použijte mikrofon prohlížeče k měření výšky tónu kytary bez instalace aplikace.", "Stránka vysvětluje, jak získat stabilnější odečet při ladění kytary mikrofonem online."],
+      metronomeGuitar: ["Metronom pro cvičení na kytaru", "Cvičte riffy, kontrolu trsátka a přechody mezi akordy s online metronomem vhodným pro kytaru.", "Metronom pro kytaru použijte, když chcete stabilnější tempo, čistší rytmus a kontrolované budování rychlosti."],
+      sound: ["Průvodce měřičem hluku v dB", "Změřte odhadovanou hlasitost místnosti v dB a porovnejte tiché cvičení, hovor a hlučné prostředí.", "Průvodce pomůže používat měřič hluku ke kontrole místnosti, hlasitosti cvičení a rychlému porovnání v dB."],
+      pitch: ["Online průvodce generátorem tónů", "Vytvořte stabilní tón od 20 Hz do 20000 Hz pro trénink sluchu, referenční tón a kontrolu zvuku.", "Generátor tónů využijte, když potřebujete pevný referenční tón, test sluchu nebo rychlou kontrolu reproduktorů v prohlížeči."]
+    },
+    shared: {
+      chromaticSteps: ["Otevřete ladičku.", "Hrajte vždy jeden tón.", "Sledujte rozpoznaný tón a hodnotu v centech.", "Upravujte, dokud se výška neustálí."],
+      microphoneSteps: ["Otevřete ladičku na kytaru.", "Povolte přístup k mikrofonu.", "Rozezněte jednu strunu jasně.", "Než začnete ladit, počkejte, až se odečet ustálí."],
+      metronomeSteps: ["Zvolte pohodlné BPM.", "Začněte jednoduchými hlavními dobami.", "Cvičte riffy nebo přechody akordů v rytmu.", "Tempo zvyšujte až po několika čistých kolech."],
+      soundSteps: ["Povolte přístup k mikrofonu.", "Zvolte pevné místo v místnosti.", "Sledujte aktuální, minimální, maximální a průměrné dB.", "Pomocí grafu porovnejte posledních 30 sekund."],
+      pitchSteps: ["Zvolte frekvenci.", "Nastavte bezpečnou hlasitost.", "Spusťte tón.", "Zastavte jej, až test nebo cvičení dokončíte."],
+      whyTitle: "Kdy to použít",
+      tipTitle: "Praktický tip"
+    },
+    bodies: [
+      "Chromatická ladička pomůže, když se nechcete spoléhat jen na standardní struny a potřebujete rozpoznat jakýkoli tón nebo alternativní ladění.",
+      "Hrajte vždy jeden tón a omezte hluk v pozadí, aby rozpoznávání výšky zůstalo stabilnější.",
+      "Mikrofon prohlížeče je jeden z nejrychlejších způsobů ladění bez dalších kabelů, aplikací a pedálů.",
+      "Držte kytaru blízko telefonu nebo notebooku, hrajte vždy jednu strunu a nechte tón doznít, než začnete ladit.",
+      "Kytarový metronom pomáhá zlepšit groove, kontrolu trsátka, přesnost riffů a čistší přechody mezi akordy.",
+      "Začněte čtvrťovými a osminovými notami, pak přidejte dělení dob a postupné cykly, abyste budovali rychlost.",
+      "Měřič hluku se hodí ke kontrole hlasitosti místnosti, hlasitosti cvičení a rozdílu mezi tichým a hlučným prostředím.",
+      "Podržte zařízení pár sekund v klidu, aby byly průměrné, minimální a maximální hodnoty užitečnější.",
+      "Generátor tónů se hodí k tréninku sluchu, referenčním tónům a rychlé kontrole reproduktorů, sluchátek a konkrétních frekvencí.",
+      "Vždy začínejte na nízké hlasitosti, zvlášť u vysokých frekvencí, a zvyšujte ji jen podle potřeby."
+    ]
+  },
+  tr: {
+    copy: {
+      chromatic: ["Kromatik akort aleti rehberi", "Herhangi bir notayı hızlı ve doğru yakalamak için kromatik akort aletini ne zaman kullanacağınızı öğrenin.", "Gitar, keman veya perdeli herhangi bir enstrümanı tarayıcı akort aletiyle nota nota akort etmek istediğinizde bu rehberi kullanın."],
+      microphone: ["Mikrofonlu gitar akort aleti", "Uygulama kurmadan gitarın perdesini ölçmek için tarayıcı mikrofonunu kullanın.", "Bu sayfa, gitarı online olarak mikrofonla akort ederken daha kararlı bir okuma almanın yolunu anlatır."],
+      metronomeGuitar: ["Gitar çalışması için metronom", "Riffleri, mızrap kontrolünü ve akor geçişlerini gitara uygun bir online metronomla çalışın.", "Daha sağlam zamanlama, daha temiz ritim ve kontrollü bir hız artışı istediğinizde gitar için metronom kullanın."],
+      sound: ["dB ses seviyesi ölçer rehberi", "Odanın tahmini ses seviyesini dB olarak ölçün; sessiz çalışmayı, konuşmayı ve gürültülü ortamları karşılaştırın.", "Bu rehber, ses ölçeri oda kontrolü, çalışma sesi ve hızlı dB karşılaştırmaları için kullanmanıza yardımcı olur."],
+      pitch: ["Online ses üreteci rehberi", "Kulak eğitimi, referans perde ve ses kontrolü için 20 Hz ile 20000 Hz arasında kararlı bir ton üretin.", "Sabit bir referans tona, işitme testine veya tarayıcıda hızlı bir hoparlör kontrolüne ihtiyaç duyduğunuzda ses üretecini kullanın."]
+    },
+    shared: {
+      chromaticSteps: ["Akort aletini açın.", "Her seferinde tek nota çalın.", "Algılanan notayı ve sent değerini izleyin.", "Perde yerine oturana kadar ayarlayın."],
+      microphoneSteps: ["Gitar akort aletini açın.", "Mikrofon erişimine izin verin.", "Tek bir teli net çalın.", "Ayar yapmadan önce okumanın sabitlenmesini bekleyin."],
+      metronomeSteps: ["Rahat bir BPM seçin.", "Basit ana vuruşlarla başlayın.", "Riffleri veya akor geçişlerini ritimde çalışın.", "Hızı ancak birkaç temiz turdan sonra artırın."],
+      soundSteps: ["Mikrofon erişimine izin verin.", "Odada sabit bir konum seçin.", "Anlık, en düşük, en yüksek ve ortalama dB değerlerini izleyin.", "Son 30 saniyeyi karşılaştırmak için grafiği kullanın."],
+      pitchSteps: ["Bir frekans seçin.", "Güvenli bir ses seviyesi ayarlayın.", "Tonu başlatın.", "Test veya alıştırma bitince durdurun."],
+      whyTitle: "Ne zaman kullanılır",
+      tipTitle: "Pratik ipucu"
+    },
+    bodies: [
+      "Kromatik akort aleti, yalnızca standart tellere güvenmek istemediğinizde ve herhangi bir notayı ya da alternatif akordu algılamanız gerektiğinde işe yarar.",
+      "Her seferinde tek nota çalın ve arka plan gürültüsünü azaltın, böylece perde algılama daha kararlı kalır.",
+      "Tarayıcı mikrofonu, ek kablo, uygulama veya pedal olmadan akort etmenin en hızlı yollarından biridir.",
+      "Gitarı telefona veya bilgisayara yakın tutun, her seferinde tek tel çalın ve ayar yapmadan önce notanın çınlamasına izin verin.",
+      "Gitar metronomu groove'u, mızrap kontrolünü, riff isabetini ve daha temiz akor geçişlerini geliştirmenize yardımcı olur.",
+      "Dörtlük ve sekizliklerle başlayın, sonra hız kazanmak için alt bölünmeler ve kademeli döngüler ekleyin.",
+      "Ses seviyesi ölçer, oda gürültüsünü, çalışma sesini ve sessiz ile gürültülü ortamlar arasındaki farkı kontrol etmek için yararlıdır.",
+      "Ortalama, en düşük ve en yüksek değerlerin daha anlamlı olması için cihazı birkaç saniye sabit tutun.",
+      "Ses üreteci; kulak eğitimi, referans notalar ve hoparlör, kulaklık ve belirli frekansların hızlı kontrolü için yararlıdır.",
+      "Özellikle yüksek frekanslarda daima düşük ses seviyesinde başlayın ve yalnızca gerektiği kadar yükseltin."
+    ]
+  },
+  hi: {
+    copy: {
+      chromatic: ["क्रोमैटिक ट्यूनर गाइड", "जानें कि किसी भी स्वर को जल्दी और सटीक पकड़ने के लिए क्रोमैटिक ट्यूनर कब इस्तेमाल करें।", "जब आप गिटार, वायलिन या किसी भी स्वर-युक्त वाद्ययंत्र को ब्राउज़र ट्यूनर से स्वर-दर-स्वर ट्यून करना चाहें, इस गाइड का उपयोग करें।"],
+      microphone: ["माइक्रोफ़ोन वाला गिटार ट्यूनर", "बिना ऐप इंस्टॉल किए गिटार की पिच मापने के लिए ब्राउज़र के माइक्रोफ़ोन का उपयोग करें।", "यह पृष्ठ बताता है कि माइक्रोफ़ोन से ऑनलाइन गिटार ट्यून करते समय अधिक स्थिर पाठ कैसे मिले।"],
+      metronomeGuitar: ["गिटार अभ्यास के लिए मेट्रोनोम", "गिटार के लिए उपयुक्त ऑनलाइन मेट्रोनोम के साथ रिफ़, पिकिंग नियंत्रण और कॉर्ड बदलाव का अभ्यास करें।", "जब आप अधिक स्थिर समय, साफ़ लय और नियंत्रित गति-वृद्धि चाहें, तो गिटार के लिए मेट्रोनोम इस्तेमाल करें।"],
+      sound: ["dB साउंड लेवल मीटर गाइड", "कमरे की अनुमानित ध्वनि dB में मापें और शांत अभ्यास, बातचीत तथा शोरगुल वाले माहौल की तुलना करें।", "यह गाइड कमरे की जाँच, अभ्यास की ध्वनि और त्वरित dB तुलना के लिए साउंड मीटर इस्तेमाल करने में मदद करती है।"],
+      pitch: ["ऑनलाइन पिच जनरेटर गाइड", "कान के प्रशिक्षण, संदर्भ पिच और ऑडियो जाँच के लिए 20 Hz से 20000 Hz तक स्थिर स्वर बनाएँ।", "जब आपको स्थिर संदर्भ स्वर, श्रवण परीक्षण या ब्राउज़र में स्पीकर की त्वरित जाँच चाहिए, पिच जनरेटर इस्तेमाल करें।"]
+    },
+    shared: {
+      chromaticSteps: ["ट्यूनर खोलें।", "एक बार में एक स्वर बजाएँ।", "पहचाना गया स्वर और सेंट मान देखें।", "जब तक पिच स्थिर न हो, समायोजित करें।"],
+      microphoneSteps: ["गिटार ट्यूनर खोलें।", "माइक्रोफ़ोन की अनुमति दें।", "एक तार साफ़ छेड़ें।", "समायोजन से पहले पाठ के स्थिर होने की प्रतीक्षा करें।"],
+      metronomeSteps: ["आरामदायक BPM चुनें।", "सरल मुख्य मात्राओं से शुरू करें।", "रिफ़ या कॉर्ड बदलाव लय में अभ्यास करें।", "कई साफ़ दौर के बाद ही गति बढ़ाएँ।"],
+      soundSteps: ["माइक्रोफ़ोन की अनुमति दें।", "कमरे में एक स्थिर जगह चुनें।", "वर्तमान, न्यूनतम, अधिकतम और औसत dB देखें।", "पिछले 30 सेकंड की तुलना के लिए ग्राफ़ का उपयोग करें।"],
+      pitchSteps: ["एक आवृत्ति चुनें।", "सुरक्षित ध्वनि स्तर सेट करें।", "स्वर शुरू करें।", "परीक्षण या अभ्यास पूरा होने पर इसे रोक दें।"],
+      whyTitle: "इसे कब इस्तेमाल करें",
+      tipTitle: "व्यावहारिक सुझाव"
+    },
+    bodies: [
+      "क्रोमैटिक ट्यूनर तब मदद करता है जब आप केवल मानक तारों पर निर्भर नहीं रहना चाहते और कोई भी स्वर या वैकल्पिक ट्यूनिंग पहचाननी हो।",
+      "एक बार में एक स्वर बजाएँ और पृष्ठभूमि का शोर घटाएँ, ताकि पिच की पहचान अधिक स्थिर रहे।",
+      "ब्राउज़र का माइक्रोफ़ोन बिना अतिरिक्त केबल, ऐप या पेडल के ट्यून करने के सबसे तेज़ तरीकों में से एक है।",
+      "गिटार को फ़ोन या लैपटॉप के पास रखें, एक बार में एक तार बजाएँ और समायोजन से पहले स्वर को गूँजने दें।",
+      "गिटार मेट्रोनोम ग्रूव, पिकिंग नियंत्रण, रिफ़ की सटीकता और साफ़ कॉर्ड बदलाव सुधारने में मदद करता है।",
+      "चौथाई और अठवें स्वरों से शुरू करें, फिर गति बढ़ाने के लिए उपविभाजन और क्रमिक चक्र जोड़ें।",
+      "साउंड मीटर कमरे की तेज़ी, अभ्यास की ध्वनि और शांत बनाम शोरगुल वाले माहौल का अंतर जाँचने के लिए उपयोगी है।",
+      "उपकरण को कुछ सेकंड स्थिर रखें, ताकि औसत, न्यूनतम और अधिकतम पाठ अधिक उपयोगी हों।",
+      "पिच जनरेटर कान के प्रशिक्षण, संदर्भ स्वरों और स्पीकर, हेडफ़ोन तथा विशिष्ट आवृत्तियों की त्वरित जाँच के लिए उपयोगी है।",
+      "हमेशा कम ध्वनि से शुरू करें, विशेषकर ऊँची आवृत्तियों पर, और उतना ही बढ़ाएँ जितना ज़रूरी हो।"
+    ]
+  }
+};
+
+// ---------------------------------------------------------------------------
+// Extended-locale copy.
+//
+// These maps sit above `guideContentOverrides` on purpose: that const calls
+// queryDrivenUtilityGuides() while the module is still evaluating, so anything it
+// reads has to be initialised by then. Declaring them lower down throws
+// "Cannot access ... before initialization" at build time.
+// ---------------------------------------------------------------------------
+
+type ToolTitleSet = Record<"bass-tuner" | "chord-transposer" | "guitar-tuner" | "metronome" | "pitch-generator" | "sound-level-meter" | "tap-bpm" | "ukulele-tuner", string>;
+
+/** Tool names for the locales that are absent from the ternary chain below. */
+const extendedToolTitles: Partial<Record<Locale, ToolTitleSet>> = {
+  nl: { "bass-tuner": "Basgitaar stemmer", "chord-transposer": "Akkoordtransponeerder", "guitar-tuner": "Universele stemmer", metronome: "Metronoom", "pitch-generator": "Toongenerator", "sound-level-meter": "Geluidsmeter", "tap-bpm": "Tap BPM", "ukulele-tuner": "Ukelele stemmer" },
+  pl: { "bass-tuner": "Stroik basowy", "chord-transposer": "Transpozytor akordów", "guitar-tuner": "Uniwersalny stroik", metronome: "Metronom", "pitch-generator": "Generator tonów", "sound-level-meter": "Miernik dźwięku", "tap-bpm": "Tap BPM", "ukulele-tuner": "Stroik ukulele" },
+  tr: { "bass-tuner": "Bas akort aleti", "chord-transposer": "Akor transpoze aracı", "guitar-tuner": "Evrensel akort aleti", metronome: "Metronom", "pitch-generator": "Ton üreteci", "sound-level-meter": "Ses seviyesi ölçer", "tap-bpm": "Tap BPM", "ukulele-tuner": "Ukulele akort aleti" },
+  cs: { "bass-tuner": "Ladička na baskytaru", "chord-transposer": "Transpozice akordů", "guitar-tuner": "Univerzální ladička", metronome: "Metronom", "pitch-generator": "Generátor tónů", "sound-level-meter": "Měřič hluku", "tap-bpm": "Tap BPM", "ukulele-tuner": "Ladička na ukulele" },
+  sv: { "bass-tuner": "Basstämmare", "chord-transposer": "Ackordtransponerare", "guitar-tuner": "Universell stämmare", metronome: "Metronom", "pitch-generator": "Tongenerator", "sound-level-meter": "Ljudnivåmätare", "tap-bpm": "Tap BPM", "ukulele-tuner": "Ukulelestämmare" },
+  no: { "bass-tuner": "Bass-stemmeapparat", "chord-transposer": "Akkordtransponering", "guitar-tuner": "Universelt stemmeapparat", metronome: "Metronom", "pitch-generator": "Tonegenerator", "sound-level-meter": "Lydnivåmåler", "tap-bpm": "Tap BPM", "ukulele-tuner": "Ukulele-stemmeapparat" },
+  hi: { "bass-tuner": "बास ट्यूनर", "chord-transposer": "कॉर्ड ट्रांसपोज़र", "guitar-tuner": "यूनिवर्सल ट्यूनर", metronome: "मेट्रोनोम", "pitch-generator": "पिच जनरेटर", "sound-level-meter": "साउंड लेवल मीटर", "tap-bpm": "Tap BPM", "ukulele-tuner": "युकुलेले ट्यूनर" }
+};
+
+/** Short blurbs for the related-tool cards, same locales. */
+const extendedRelatedToolCopy: Partial<Record<Locale, { main: string; metronome: string; tapBpm: string; soundMeter: string }>> = {
+  nl: { main: "Open het belangrijkste tool bij deze gids.", metronome: "Oefen met een stabiele BPM en onderverdelingen.", tapBpm: "Bereken snel het gemiddelde tempo van een nummer.", soundMeter: "Controleer het geluidsniveau en het rumoer in de kamer." },
+  pl: { main: "Otwórz główne narzędzie powiązane z tym przewodnikiem.", metronome: "Ćwicz ze stabilnym BPM i podziałami.", tapBpm: "Szybko oblicz średnie tempo utworu.", soundMeter: "Sprawdź poziom dźwięku i hałas w pomieszczeniu." },
+  tr: { main: "Bu rehbere bağlı ana aracı açın.", metronome: "Sabit BPM ve alt bölünmelerle çalışın.", tapBpm: "Bir parçanın ortalama temposunu hızlıca hesaplayın.", soundMeter: "Ses seviyesini ve odadaki gürültüyü kontrol edin." },
+  cs: { main: "Otevřete hlavní nástroj spojený s tímto návodem.", metronome: "Cvičte se stabilním BPM a dělením dob.", tapBpm: "Rychle spočítejte průměrné tempo skladby.", soundMeter: "Zkontrolujte hlasitost a hluk v místnosti." },
+  sv: { main: "Öppna huvudverktyget som hör till den här guiden.", metronome: "Öva med stadigt BPM och underdelningar.", tapBpm: "Räkna snabbt ut en låts genomsnittliga tempo.", soundMeter: "Kontrollera ljudnivån och rumsbullret." },
+  no: { main: "Åpne hovedverktøyet som hører til denne guiden.", metronome: "Øv med stødig BPM og underdelinger.", tapBpm: "Regn raskt ut en låts gjennomsnittlige tempo.", soundMeter: "Sjekk lydnivået og støyen i rommet." },
+  hi: { main: "इस गाइड से जुड़ा मुख्य टूल खोलें।", metronome: "स्थिर BPM और उपविभाजनों के साथ अभ्यास करें।", tapBpm: "किसी गाने का औसत टेम्पो जल्दी निकालें।", soundMeter: "ध्वनि स्तर और कमरे का शोर जाँचें।" }
+};
+
+type InstrumentFaqBuilder = (instrument: string, tuning: string) => { answer: string; question: string }[];
+
+/** Instrument-guide FAQ for the locales the ternary chain below does not cover. */
+const extendedInstrumentFaq: Partial<Record<Locale, InstrumentFaqBuilder>> = {
+  nl: (instrument, tuning) => [
+    { question: `Wat is de standaardstemming van ${instrument}?`, answer: `De standaardstemming gebruikt deze referentienoten: ${tuning}. Ze bepalen de toonhoogte van elke open snaar en vormen het vertrekpunt voor elke alternatieve stemming.` },
+    { question: `Kan ik ${instrument} met mijn telefoon stemmen?`, answer: "Ja. Open de stemmer in de browser van je telefoon en geef toegang tot de microfoon. Op iOS heb je Safari 14.3 of hoger nodig; op Android werken Chrome en Firefox goed. Houd de telefoon dicht bij het instrument voor een betere detectie." },
+    { question: `Hoe vaak moet ik ${instrument} stemmen?`, answer: "Stem het instrument elke keer dat je gaat spelen. Wisselingen in temperatuur, luchtvochtigheid en snaarspanning zorgen ervoor dat het na verloop van tijd ontstemt. Nieuwe snaren zetten zich in de eerste uren en moeten vaker gestemd worden, wat normaal is en niet betekent dat er iets mis is." },
+    { question: "Waarom blijft de noot verspringen in plaats van stil te staan?", answer: "De toonhoogtedetectie schommelt licht zolang de snaar trilt. Voor een stabielere meting: sla de snaar stevig aan en laat hem doorklinken, zet geluidsbronnen als ventilatoren of tv uit, en zorg dat je geen andere snaren aanraakt. Nylon snaren stabiliseren langzamer dan stalen." },
+    { question: `Moet ik een app installeren om ${instrument} te stemmen?`, answer: "Nee. TuneUniversal werkt volledig in de browser, zonder installatie. Open de pagina, geef toestemming voor de microfoon en begin. Het werkt op Windows, macOS, iOS en Android." }
+  ],
+  sv: (instrument, tuning) => [
+    { question: `Vilken är standardstämningen för ${instrument}?`, answer: `Standardstämningen använder dessa referenstoner: ${tuning}. De bestämmer tonhöjden på varje lös sträng och är utgångspunkten för alla alternativa stämningar.` },
+    { question: `Kan jag stämma ${instrument} med mobilen?`, answer: "Ja. Öppna stämmaren i mobilens webbläsare och ge åtkomst till mikrofonen. På iOS behövs Safari 14.3 eller senare; på Android fungerar Chrome och Firefox bra. Håll telefonen nära instrumentet för bättre detektering." },
+    { question: `Hur ofta bör jag stämma ${instrument}?`, answer: "Stäm varje gång du spelar. Förändringar i temperatur, luftfuktighet och strängspänning gör att instrumentet glider ur stämning med tiden. Nya strängar sätter sig under de första timmarna och behöver stämmas oftare, vilket är normalt och inte betyder att något är fel." },
+    { question: "Varför hoppar tonen i stället för att ligga still?", answer: "Tonhöjdsavläsningen svänger något så länge strängen vibrerar. För en stabilare mätning: slå an strängen bestämt och låt den klinga, stäng av ljudkällor som fläktar eller tv, och se till att du inte råkar vidröra andra strängar. Nylonsträngar stabiliseras långsammare än stålsträngar." },
+    { question: `Måste jag installera en app för att stämma ${instrument}?`, answer: "Nej. TuneUniversal körs helt i webbläsaren utan installation. Öppna sidan, ge tillåtelse till mikrofonen och sätt igång. Det fungerar på Windows, macOS, iOS och Android." }
+  ],
+  no: (instrument, tuning) => [
+    { question: `Hva er standardstemmingen for ${instrument}?`, answer: `Standardstemmingen bruker disse referansetonene: ${tuning}. De bestemmer tonehøyden på hver løse streng og er utgangspunktet for alle alternative stemminger.` },
+    { question: `Kan jeg stemme ${instrument} med mobilen?`, answer: "Ja. Åpne stemmeapparatet i nettleseren på mobilen og gi tilgang til mikrofonen. På iOS trengs Safari 14.3 eller nyere; på Android fungerer Chrome og Firefox godt. Hold telefonen nær instrumentet for bedre gjenkjenning." },
+    { question: `Hvor ofte bør jeg stemme ${instrument}?`, answer: "Stem hver gang du spiller. Endringer i temperatur, luftfuktighet og strengspenning gjør at instrumentet glir ut av stemming over tid. Nye strenger setter seg i løpet av de første timene og må stemmes oftere, noe som er normalt og ikke betyr at noe er galt." },
+    { question: "Hvorfor hopper tonen i stedet for å ligge stille?", answer: "Tonehøydeavlesningen svinger litt så lenge strengen vibrerer. For en mer stabil måling: slå an strengen bestemt og la den klinge, slå av lydkilder som vifter eller TV, og pass på at du ikke berører andre strenger. Nylonstrenger stabiliserer seg langsommere enn stålstrenger." },
+    { question: `Må jeg installere en app for å stemme ${instrument}?`, answer: "Nei. TuneUniversal kjører helt i nettleseren uten installasjon. Åpne siden, gi tillatelse til mikrofonen og sett i gang. Det fungerer på Windows, macOS, iOS og Android." }
+  ],
+  pl: (instrument, tuning) => [
+    { question: `Jaki jest standardowy strój — ${instrument}?`, answer: `Standardowy strój wykorzystuje te dźwięki referencyjne: ${tuning}. Wyznaczają one wysokość każdej pustej struny i są punktem wyjścia dla wszystkich strojów alternatywnych.` },
+    { question: "Czy da się stroić z telefonu?", answer: "Tak. Otwórz stroik w przeglądarce telefonu i zezwól na dostęp do mikrofonu. Na iOS potrzebne jest Safari 14.3 lub nowsze; na Androidzie dobrze działają Chrome i Firefox. Trzymaj telefon blisko instrumentu, aby wykrywanie było lepsze." },
+    { question: "Jak często trzeba stroić instrument?", answer: "Strój za każdym razem, gdy zaczynasz grać. Zmiany temperatury, wilgotności i naprężenia strun sprawiają, że strój się rozjeżdża. Nowe struny układają się w pierwszych godzinach i wymagają częstszego strojenia, co jest normalne i nie oznacza usterki." },
+    { question: "Dlaczego dźwięk skacze zamiast stać w miejscu?", answer: "Odczyt wysokości waha się, dopóki struna drga. Aby uzyskać stabilniejszy pomiar: szarpnij strunę zdecydowanie i pozwól jej wybrzmieć, wyłącz źródła dźwięku takie jak wentylator czy telewizor i uważaj, by nie dotknąć innych strun. Struny nylonowe stabilizują się wolniej niż stalowe." },
+    { question: "Czy trzeba instalować aplikację?", answer: "Nie. TuneUniversal działa w całości w przeglądarce, bez instalacji. Otwórz stronę, zezwól na dostęp do mikrofonu i zaczynaj. Działa na Windows, macOS, iOS i Android." }
+  ],
+  cs: (instrument, tuning) => [
+    { question: `Jaké je standardní ladění — ${instrument}?`, answer: `Standardní ladění používá tyto referenční tóny: ${tuning}. Určují výšku každé prázdné struny a jsou výchozím bodem pro všechna alternativní ladění.` },
+    { question: "Dá se ladit z telefonu?", answer: "Ano. Otevřete ladičku v prohlížeči telefonu a povolte přístup k mikrofonu. Na iOS je potřeba Safari 14.3 nebo novější; na Androidu dobře fungují Chrome a Firefox. Držte telefon blízko nástroje, aby bylo rozpoznání lepší." },
+    { question: "Jak často je potřeba nástroj ladit?", answer: "Laďte pokaždé, než začnete hrát. Změny teploty, vlhkosti a napětí strun ladění postupně rozhodí. Nové struny se usazují během prvních hodin a vyžadují častější ladění, což je normální a neznamená to závadu." },
+    { question: "Proč tón poskakuje místo aby stál na místě?", answer: "Odečet výšky kolísá, dokud struna kmitá. Pro stabilnější měření: rozezněte strunu rozhodně a nechte ji doznít, vypněte zdroje zvuku jako ventilátor nebo televizi a dejte pozor, ať se nedotknete jiných strun. Nylonové struny se ustalují pomaleji než ocelové." },
+    { question: "Je nutné instalovat aplikaci?", answer: "Ne. TuneUniversal běží celý v prohlížeči bez instalace. Otevřete stránku, povolte mikrofon a začněte. Funguje na Windows, macOS, iOS i Androidu." }
+  ],
+  tr: (instrument, tuning) => [
+    { question: `${instrument} için standart akort nedir?`, answer: `Standart akort şu referans notaları kullanır: ${tuning}. Bu notalar her boş telin perdesini belirler ve tüm alternatif akortların çıkış noktasıdır.` },
+    { question: `${instrument} telefondan akort edilebilir mi?`, answer: "Evet. Akort aletini telefonun tarayıcısında açın ve mikrofon erişimine izin verin. iOS'ta Safari 14.3 veya üzeri gerekir; Android'de Chrome ve Firefox iyi çalışır. Daha iyi algılama için telefonu enstrümana yakın tutun." },
+    { question: `${instrument} ne sıklıkla akort edilmeli?`, answer: "Her çalmaya başladığınızda akort edin. Sıcaklık, nem ve tel gerginliğindeki değişimler zamanla akordu bozar. Yeni teller ilk saatlerde oturur ve daha sık akort gerektirir; bu normaldir ve bir arıza anlamına gelmez." },
+    { question: "Nota neden sabit durmak yerine oynuyor?", answer: "Tel titrediği sürece perde okuması hafifçe salınır. Daha kararlı bir ölçüm için: teli kararlı biçimde çalın ve çınlamasına izin verin, vantilatör veya televizyon gibi ses kaynaklarını kapatın ve yanlışlıkla başka tellere dokunmadığınızdan emin olun. Naylon teller çelik tellere göre daha yavaş oturur." },
+    { question: `${instrument} akort etmek için uygulama kurmak gerekir mi?`, answer: "Hayır. TuneUniversal tamamen tarayıcıda, kurulum olmadan çalışır. Sayfayı açın, mikrofona izin verin ve başlayın. Windows, macOS, iOS ve Android'de çalışır." }
+  ],
+  hi: (instrument, tuning) => [
+    { question: `${instrument} की मानक ट्यूनिंग क्या है?`, answer: `मानक ट्यूनिंग इन संदर्भ स्वरों का उपयोग करती है: ${tuning}। ये हर खुले तार की पिच तय करते हैं और सभी वैकल्पिक ट्यूनिंग का शुरुआती बिंदु हैं।` },
+    { question: `क्या ${instrument} फ़ोन से ट्यून किया जा सकता है?`, answer: "हाँ। ट्यूनर को फ़ोन के ब्राउज़र में खोलें और माइक्रोफ़ोन की अनुमति दें। iOS पर Safari 14.3 या नया चाहिए; Android पर Chrome और Firefox अच्छे से काम करते हैं। बेहतर पहचान के लिए फ़ोन को वाद्ययंत्र के पास रखें।" },
+    { question: `${instrument} को कितनी बार ट्यून करना चाहिए?`, answer: "हर बार बजाने से पहले ट्यून करें। तापमान, नमी और तार के तनाव में बदलाव से समय के साथ ट्यूनिंग बिगड़ती है। नए तार पहले कुछ घंटों में बैठते हैं और उन्हें ज़्यादा बार ट्यून करना पड़ता है; यह सामान्य है और किसी खराबी का संकेत नहीं।" },
+    { question: "स्वर स्थिर रहने के बजाय बदलता क्यों रहता है?", answer: "जब तक तार कंपन करता है, पिच का पाठ हल्का डोलता है। अधिक स्थिर माप के लिए: तार को दृढ़ता से छेड़ें और गूँजने दें, पंखे या टीवी जैसे ध्वनि स्रोत बंद करें, और ध्यान रखें कि दूसरे तारों को न छुएँ। नायलॉन तार स्टील तारों से धीमे स्थिर होते हैं।" },
+    { question: `क्या ${instrument} ट्यून करने के लिए ऐप इंस्टॉल करना ज़रूरी है?`, answer: "नहीं। TuneUniversal पूरी तरह ब्राउज़र में चलता है, बिना इंस्टॉल किए। पेज खोलें, माइक्रोफ़ोन की अनुमति दें और शुरू करें। यह Windows, macOS, iOS और Android पर काम करता है।" }
+  ]
+};
+
+type MistakeBuilder = (instrument: string) => string[];
+
+/** Common tuning mistakes, for the locales the ternary chain below does not cover. */
+const extendedMistakes: Partial<Record<Locale, MistakeBuilder>> = {
+  nl: (instrument) => [
+    `Meer dan één snaar van ${instrument} tegelijk aanslaan maakt de detectie instabiel: de meter vangt meerdere frequenties op en kan niet bepalen welke je stemt.`,
+    "Stemmen in een rumoerige kamer leidt snel tot verkeerde metingen. Zet ventilatoren, tv en elke bron van continu geluid uit voordat je begint.",
+    "Stoppen zodra de noot verspringt, zonder te wachten tot ze stabiel is, laat het instrument vaak nog ontstemd. Wacht tot de naald op een vaste waarde blijft staan.",
+    "Omlaag stemmen naar de doelnoot in plaats van omhoog: ga liever iets onder de noot zitten en stem omhoog, dan is de spanning op de mechaniek gelijkmatiger.",
+    "De stemsleutel te snel draaien: vlak bij de juiste toonhoogte draai je langzaam en in kleine stapjes."
+  ],
+  sv: (instrument) => [
+    `Att slå an mer än en sträng på ${instrument} åt gången gör avläsningen instabil: mätaren fångar flera frekvenser och kan inte avgöra vilken du stämmer.`,
+    "Att stämma i ett bullrigt rum leder lätt till felaktiga avläsningar. Stäng av fläktar, tv och alla källor till kontinuerligt ljud innan du börjar.",
+    "Att sluta så snart tonen ändras, utan att vänta tills den stabiliserats, lämnar ofta instrumentet ostämt. Vänta tills visaren står stilla på ett värde.",
+    "Att stämma ner till måltonen i stället för upp: gå hellre något under tonen och stäm upp, då blir spänningen på stämskruven jämnare.",
+    "Att vrida stämskruven för snabbt: nära rätt tonhöjd vrider du långsamt och i små steg."
+  ],
+  no: (instrument) => [
+    `Å slå an mer enn én streng på ${instrument} om gangen gjør avlesningen ustabil: måleren fanger opp flere frekvenser og klarer ikke avgjøre hvilken du stemmer.`,
+    "Å stemme i et støyende rom gir lett feil avlesninger. Slå av vifter, TV og alle kilder til jevn lyd før du begynner.",
+    "Å stoppe så snart tonen endrer seg, uten å vente til den har stabilisert seg, etterlater ofte instrumentet ustemt. Vent til viseren står stille på en verdi.",
+    "Å stemme ned til måltonen i stedet for opp: gå heller litt under tonen og stem opp, da blir spenningen på stemmeskruen jevnere.",
+    "Å vri stemmeskruen for fort: nær riktig tonehøyde vrir du langsomt og i små steg."
+  ],
+  pl: () => [
+    "Szarpanie więcej niż jednej struny naraz destabilizuje wykrywanie: miernik odbiera kilka częstotliwości i nie potrafi ustalić, którą stroisz.",
+    "Strojenie w hałaśliwym pomieszczeniu łatwo prowadzi do błędnych odczytów. Przed rozpoczęciem wyłącz wentylatory, telewizor i każde źródło ciągłego dźwięku.",
+    "Przerywanie, gdy tylko dźwięk drgnie, bez czekania na ustabilizowanie, często zostawia instrument nienastrojony. Poczekaj, aż wskazówka zatrzyma się na stałej wartości.",
+    "Strojenie w dół do docelowego dźwięku zamiast w górę: lepiej zejść nieco poniżej i dostroić w górę, wtedy naprężenie na kołku jest równomierniejsze.",
+    "Zbyt szybkie obracanie kołka: blisko właściwej wysokości obracaj powoli i małymi ruchami."
+  ],
+  cs: () => [
+    "Rozeznění více strun najednou znestabilní rozpoznávání: měřič zachytí několik frekvencí a nedokáže určit, kterou ladíte.",
+    "Ladění v hlučné místnosti snadno vede k chybným odečtům. Než začnete, vypněte ventilátory, televizi a každý zdroj trvalého zvuku.",
+    "Ukončit ladění hned, jak se tón pohne, bez čekání na ustálení, často nechá nástroj nedoladěný. Počkejte, až se ručička zastaví na stabilní hodnotě.",
+    "Ladit dolů k cílovému tónu místo nahoru: raději sjeďte mírně pod tón a dolaďte nahoru, napětí na kolíku pak bude rovnoměrnější.",
+    "Otáčet kolíkem příliš rychle: blízko správné výšky otáčejte pomalu a po malých krocích."
+  ],
+  tr: () => [
+    "Aynı anda birden fazla tel çalmak algılamayı kararsız hale getirir: ölçer birkaç frekansı birden yakalar ve hangisini akort ettiğinizi belirleyemez.",
+    "Gürültülü bir odada akort etmek kolayca yanlış okumalara yol açar. Başlamadan önce vantilatörleri, televizyonu ve sürekli ses veren her kaynağı kapatın.",
+    "Nota kıpırdar kıpırdamaz, sabitlenmesini beklemeden durmak enstrümanı çoğu zaman akortsuz bırakır. İbre sabit bir değerde durana kadar bekleyin.",
+    "Hedef notaya yukarıdan aşağı akort etmek yerine aşağıdan yukarı çıkın: notanın biraz altına inip yukarı akort etmek burgudaki gerginliği daha dengeli tutar.",
+    "Burguyu çok hızlı çevirmek: doğru perdeye yakınken yavaş ve küçük adımlarla çevirin."
+  ],
+  hi: () => [
+    "एक साथ एक से अधिक तार बजाने से पहचान अस्थिर हो जाती है: मीटर कई आवृत्तियाँ पकड़ता है और तय नहीं कर पाता कि आप कौन सा ट्यून कर रहे हैं।",
+    "शोरगुल वाले कमरे में ट्यून करने से आसानी से गलत पाठ आते हैं। शुरू करने से पहले पंखे, टीवी और लगातार आवाज़ के हर स्रोत को बंद कर दें।",
+    "स्वर हिलते ही रुक जाना, उसके स्थिर होने का इंतज़ार किए बिना, अक्सर वाद्ययंत्र को बेसुरा छोड़ देता है। जब तक सूचक किसी स्थिर मान पर न ठहरे, प्रतीक्षा करें।",
+    "लक्ष्य स्वर तक ऊपर से नीचे ट्यून करना, नीचे से ऊपर के बजाय: बेहतर है स्वर से थोड़ा नीचे जाकर ऊपर ट्यून करें, इससे खूँटी पर तनाव अधिक एकसमान रहता है।",
+    "खूँटी को बहुत तेज़ घुमाना: सही पिच के पास धीरे-धीरे और छोटे-छोटे कदमों में घुमाएँ।"
+  ]
+};
+
+type AlternativeTuningLabelSet = {
+  description: (name: string, instrument: string, tuning: string) => string;
+  intro: (name: string, instrument: string, tuning: string) => string;
+  keywords: (name: string, instrument: string, tuning: string) => string[];
+  referenceTitle: string;
+  setupTitle: string;
+  steps: (name: string, instrument: string) => string[];
+  targetTitle: (name: string, instrument: string) => string;
+  title: (name: string, instrument: string) => string;
+};
+
+/** Alternative-tuning copy for the locales missing from the base map. */
+const extendedAlternativeTuningLabels: Partial<Record<Locale, AlternativeTuningLabelSet>> = {
+  nl: {
+    title: (name, instrument) => `${name} stemming voor ${instrument}`,
+    description: (name, instrument, tuning) => `Leer de ${name} stemming voor ${instrument}. Referentienoten: ${tuning}. Open de online stemmer en stel elke snaar in.`,
+    intro: (name, instrument, tuning) => `De ${name} stemming verandert de toonhoogte van een of meer snaren van ${instrument} ten opzichte van standaard. De referentienoten zijn ${tuning}. Gebruik de stemmer met deze preset om elke snaar nauwkeurig in te stellen.`,
+    steps: (name, instrument) => [`Open de ${instrument} stemmer.`, `Kies de preset ${name} als die beschikbaar is.`, "Stem elke snaar op de weergegeven referentienoot.", "Controleer alle snaren opnieuw als je klaar bent, want de spanning verandert onderweg."],
+    keywords: (name, instrument, tuning) => [`${name} stemming`, `${name} ${instrument}`, `${instrument} ${name} stemmen`, tuning],
+    referenceTitle: "Snaar- en notentabel",
+    setupTitle: "Wanneer je deze stemming gebruikt",
+    targetTitle: (name, instrument) => `${instrument} stemmer — ${name}`
+  },
+  sv: {
+    title: (name, instrument) => `${name}-stämning för ${instrument}`,
+    description: (name, instrument, tuning) => `Lär dig ${name}-stämning för ${instrument}. Referenstoner: ${tuning}. Öppna stämmaren online och ställ in varje sträng.`,
+    intro: (name, instrument, tuning) => `${name}-stämningen ändrar tonhöjden på en eller flera strängar på ${instrument} jämfört med standard. Referenstonerna är ${tuning}. Använd stämmaren med den här förinställningen för att ställa in varje sträng exakt.`,
+    steps: (name, instrument) => [`Öppna ${instrument}-stämmaren.`, `Välj förinställningen ${name} om den finns.`, "Stäm varje sträng mot den visade referenstonen.", "Kontrollera alla strängar igen när du är klar, eftersom spänningen ändras under tiden."],
+    keywords: (name, instrument, tuning) => [`${name}-stämning`, `${name} ${instrument}`, `stämma ${instrument} ${name}`, tuning],
+    referenceTitle: "Sträng- och tontabell",
+    setupTitle: "När du använder den här stämningen",
+    targetTitle: (name, instrument) => `${instrument} stämmare — ${name}`
+  },
+  no: {
+    title: (name, instrument) => `${name}-stemming for ${instrument}`,
+    description: (name, instrument, tuning) => `Lær ${name}-stemming for ${instrument}. Referansetoner: ${tuning}. Åpne stemmeapparatet online og still inn hver streng.`,
+    intro: (name, instrument, tuning) => `${name}-stemmingen endrer tonehøyden på én eller flere strenger på ${instrument} sammenlignet med standard. Referansetonene er ${tuning}. Bruk stemmeapparatet med denne forhåndsinnstillingen for å stille inn hver streng nøyaktig.`,
+    steps: (name, instrument) => [`Åpne ${instrument}-stemmeapparatet.`, `Velg forhåndsinnstillingen ${name} hvis den finnes.`, "Stem hver streng mot den viste referansetonen.", "Sjekk alle strengene på nytt når du er ferdig, siden spenningen endrer seg underveis."],
+    keywords: (name, instrument, tuning) => [`${name}-stemming`, `${name} ${instrument}`, `stemme ${instrument} ${name}`, tuning],
+    referenceTitle: "Streng- og tonetabell",
+    setupTitle: "Når du bruker denne stemmingen",
+    targetTitle: (name, instrument) => `${instrument} stemmeapparat — ${name}`
+  },
+  pl: {
+    title: (name, instrument) => `${name} — strój dla instrumentu ${instrument}`,
+    description: (name, instrument, tuning) => `Poznaj strój ${name}. Instrument: ${instrument}. Dźwięki referencyjne: ${tuning}. Otwórz stroik online i ustaw każdą strunę.`,
+    intro: (name, instrument, tuning) => `Strój ${name} zmienia wysokość jednej lub kilku strun względem stroju standardowego. Instrument: ${instrument}. Dźwięki referencyjne to ${tuning}. Użyj stroika z tym ustawieniem, aby precyzyjnie ustawić każdą strunę.`,
+    steps: (name) => ["Otwórz stroik.", `Wybierz ustawienie ${name}, jeśli jest dostępne.`, "Ustaw każdą strunę na pokazany dźwięk referencyjny.", "Po zakończeniu sprawdź wszystkie struny ponownie, bo naprężenie zmienia się w trakcie."],
+    keywords: (name, instrument, tuning) => [`strój ${name}`, `${name} ${instrument}`, `${instrument} ${name} strojenie`, tuning],
+    referenceTitle: "Tabela strun i dźwięków",
+    setupTitle: "Kiedy stosować ten strój",
+    targetTitle: (name, instrument) => `stroik ${instrument} — ${name}`
+  },
+  cs: {
+    title: (name, instrument) => `${name} — ladění pro nástroj ${instrument}`,
+    description: (name, instrument, tuning) => `Poznejte ladění ${name}. Nástroj: ${instrument}. Referenční tóny: ${tuning}. Otevřete online ladičku a nastavte každou strunu.`,
+    intro: (name, instrument, tuning) => `Ladění ${name} mění výšku jedné nebo více strun oproti standardu. Nástroj: ${instrument}. Referenční tóny jsou ${tuning}. Použijte ladičku s tímto přednastavením a nastavte každou strunu přesně.`,
+    steps: (name) => ["Otevřete ladičku.", `Zvolte přednastavení ${name}, pokud je k dispozici.`, "Nastavte každou strunu na zobrazený referenční tón.", "Po dokončení zkontrolujte všechny struny znovu, protože napětí se během ladění mění."],
+    keywords: (name, instrument, tuning) => [`ladění ${name}`, `${name} ${instrument}`, `${instrument} ${name} ladění`, tuning],
+    referenceTitle: "Tabulka strun a tónů",
+    setupTitle: "Kdy toto ladění použít",
+    targetTitle: (name, instrument) => `ladička ${instrument} — ${name}`
+  },
+  tr: {
+    title: (name, instrument) => `${instrument} için ${name} akordu`,
+    description: (name, instrument, tuning) => `${instrument} için ${name} akordunu öğrenin. Referans notalar: ${tuning}. Online akort aletini açın ve her teli ayarlayın.`,
+    intro: (name, instrument, tuning) => `${name} akordu, ${instrument} üzerindeki bir veya daha fazla telin perdesini standarda göre değiştirir. Referans notalar: ${tuning}. Her teli hassas şekilde ayarlamak için akort aletini bu hazır ayarla kullanın.`,
+    steps: (name, instrument) => [`${instrument} akort aletini açın.`, `Varsa ${name} hazır ayarını seçin.`, "Her teli gösterilen referans notaya ayarlayın.", "İşiniz bitince tüm telleri yeniden kontrol edin, çünkü gerginlik bu sırada değişir."],
+    keywords: (name, instrument, tuning) => [`${name} akordu`, `${name} ${instrument}`, `${instrument} ${name} akort`, tuning],
+    referenceTitle: "Tel ve nota tablosu",
+    setupTitle: "Bu akort ne zaman kullanılır",
+    targetTitle: (name, instrument) => `${instrument} akort aleti — ${name}`
+  },
+  hi: {
+    title: (name, instrument) => `${instrument} के लिए ${name} ट्यूनिंग`,
+    description: (name, instrument, tuning) => `${instrument} के लिए ${name} ट्यूनिंग सीखें। संदर्भ स्वर: ${tuning}। ऑनलाइन ट्यूनर खोलें और हर तार सेट करें।`,
+    intro: (name, instrument, tuning) => `${name} ट्यूनिंग ${instrument} के एक या अधिक तारों की पिच को मानक से बदल देती है। संदर्भ स्वर हैं ${tuning}। हर तार को सटीक सेट करने के लिए ट्यूनर को इस प्रीसेट के साथ इस्तेमाल करें।`,
+    steps: (name, instrument) => [`${instrument} ट्यूनर खोलें।`, `उपलब्ध हो तो ${name} प्रीसेट चुनें।`, "हर तार को दिखाए गए संदर्भ स्वर पर सेट करें।", "पूरा होने पर सभी तार दोबारा जाँचें, क्योंकि इस दौरान तनाव बदलता है।"],
+    keywords: (name, instrument, tuning) => [`${name} ट्यूनिंग`, `${name} ${instrument}`, `${instrument} ${name} ट्यूनिंग`, tuning],
+    referenceTitle: "तार और स्वर तालिका",
+    setupTitle: "यह ट्यूनिंग कब इस्तेमाल करें",
+    targetTitle: (name, instrument) => `${instrument} ट्यूनर — ${name}`
+  }
+};
+
+/** Section labels and shared bodies for the same locales. */
+const extendedTuningSectionLabels: Partial<Record<Locale, { commonGenres: string; compatibleInstruments: string; practicalTips: string }>> = {
+  nl: { commonGenres: "Veelvoorkomende genres", compatibleInstruments: "Geschikte instrumenten", practicalTips: "Praktische tips" },
+  sv: { commonGenres: "Vanliga genrer", compatibleInstruments: "Lämpliga instrument", practicalTips: "Praktiska tips" },
+  no: { commonGenres: "Vanlige sjangre", compatibleInstruments: "Egnede instrumenter", practicalTips: "Praktiske tips" },
+  pl: { commonGenres: "Popularne gatunki", compatibleInstruments: "Pasujące instrumenty", practicalTips: "Praktyczne wskazówki" },
+  cs: { commonGenres: "Obvyklé žánry", compatibleInstruments: "Vhodné nástroje", practicalTips: "Praktické tipy" },
+  tr: { commonGenres: "Yaygın türler", compatibleInstruments: "Uygun enstrümanlar", practicalTips: "Pratik ipuçları" },
+  hi: { commonGenres: "सामान्य शैलियाँ", compatibleInstruments: "उपयुक्त वाद्ययंत्र", practicalTips: "व्यावहारिक सुझाव" }
+};
+
+const extendedTuningBodies: Partial<Record<Locale, { compatible: (instrument: string) => string; practicalTips: string }>> = {
+  nl: {
+    compatible: (instrument) => `Deze stemming is bedoeld voor ${instrument}. Gebruik je hetzelfde bereik of dezelfde snaarindeling, dan kun je deze noten als referentie nemen.`,
+    practicalTips: "Stem van de laagste snaar naar de hoogste, controleer aan het eind alle noten opnieuw en sla de preset op als je deze stemming vaak gebruikt."
+  },
+  sv: {
+    compatible: (instrument) => `Den här stämningen är avsedd för ${instrument}. Om du har samma omfång eller samma stränguppsättning kan du använda dessa toner som referens.`,
+    practicalTips: "Stäm från den lägsta strängen till den högsta, kontrollera alla toner igen i slutet och spara förinställningen om du använder stämningen ofta."
+  },
+  no: {
+    compatible: (instrument) => `Denne stemmingen er laget for ${instrument}. Bruker du samme register eller samme strengoppsett, kan du bruke disse tonene som referanse.`,
+    practicalTips: "Stem fra den laveste strengen til den høyeste, sjekk alle tonene på nytt til slutt og lagre forhåndsinnstillingen hvis du bruker stemmingen ofte."
+  },
+  pl: {
+    compatible: (instrument) => `Ten strój jest przeznaczony dla instrumentu ${instrument}. Jeśli masz ten sam zakres lub ten sam układ strun, możesz przyjąć te dźwięki jako odniesienie.`,
+    practicalTips: "Strój od najniższej struny do najwyższej, na koniec sprawdź ponownie wszystkie dźwięki i zapisz ustawienie, jeśli często korzystasz z tego stroju."
+  },
+  cs: {
+    compatible: (instrument) => `Toto ladění je určeno pro nástroj ${instrument}. Pokud máte stejný rozsah nebo stejné uspořádání strun, můžete tyto tóny použít jako referenci.`,
+    practicalTips: "Laďte od nejnižší struny k nejvyšší, na konci znovu zkontrolujte všechny tóny a uložte přednastavení, pokud toto ladění používáte často."
+  },
+  tr: {
+    compatible: (instrument) => `Bu akort ${instrument} için tasarlanmıştır. Aynı ses aralığını veya aynı tel düzenini kullanıyorsanız bu notaları referans alabilirsiniz.`,
+    practicalTips: "En pes telden en tize doğru akort edin, sonunda tüm notaları yeniden kontrol edin ve bu akordu sık kullanıyorsanız hazır ayarı kaydedin."
+  },
+  hi: {
+    compatible: (instrument) => `यह ट्यूनिंग ${instrument} के लिए बनाई गई है। यदि आपका रेंज या तार-विन्यास वही है, तो आप इन स्वरों को संदर्भ के रूप में ले सकते हैं।`,
+    practicalTips: "सबसे नीचे के तार से सबसे ऊपर के तार तक ट्यून करें, अंत में सभी स्वर दोबारा जाँचें, और यदि यह ट्यूनिंग अक्सर इस्तेमाल करते हैं तो प्रीसेट सहेज लें।"
+  }
+};
+
+const baseGuideIndexContent: Record<BaseLocale, { description: string; title: string }> = {
   ar: {
     title: "أدلة TuneUniversal",
     description: "أدلة سريعة لضبط الآلات واستخدام الميترونوم وحساب BPM بلغتك."
@@ -173,7 +1175,66 @@ export const guideIndexContent: Record<BaseLocale, { description: string; title:
   }
 };
 
-const tuningGuideCopy: Record<BaseLocale, TuningGuideCopy> = {
+/** Guides index copy for the locales missing from the base map. */
+const extendedGuideIndexContent: Partial<Record<Locale, { description: string; title: string }>> = {
+  nl: { title: "TuneUniversal gidsen", description: "Korte muziekgidsen over stemmen, oefenen met de metronoom en het BPM vinden." },
+  sv: { title: "TuneUniversal-guider", description: "Korta musikguider om stämning, metronomövning och att hitta BPM." },
+  no: { title: "TuneUniversal-guider", description: "Korte musikkguider om stemming, metronomøving og å finne BPM." },
+  pl: { title: "Przewodniki TuneUniversal", description: "Krótkie przewodniki muzyczne o strojeniu, ćwiczeniu z metronomem i znajdowaniu BPM." },
+  cs: { title: "Průvodci TuneUniversal", description: "Krátcí hudební průvodci laděním, cvičením s metronomem a hledáním BPM." },
+  tr: { title: "TuneUniversal rehberleri", description: "Akort etme, metronomla çalışma ve BPM bulma üzerine kısa müzik rehberleri." },
+  hi: { title: "TuneUniversal गाइड", description: "ट्यूनिंग, मेट्रोनोम अभ्यास और BPM खोजने पर संक्षिप्त संगीत गाइड।" }
+};
+
+export const guideIndexContent: Record<Locale, { description: string; title: string }> = withLocaleFallbacks(
+  baseGuideIndexContent,
+  extendedGuideIndexContent
+);
+
+/**
+ * `standardBassUtility` reuses `tuningGuideCopy`, so without a distinct title, description
+ * and intro the page is byte-identical to the bass instrument guide. English gets those
+ * three fields from a CTR override that is skipped for the locales below.
+ */
+const extendedStandardBassCopy: Partial<Record<Locale, { description: string; intro: string; title: string }>> = {
+  nl: {
+    title: "Gids voor de standaard basstemming",
+    description: "Bekijk de standaard basstemming E A D G en lees waarom die nog altijd de norm is voor de meeste bassisten.",
+    intro: "De standaard basstemming is het veiligste vertrekpunt voor lessen, bandrepetities en het meeste repertoire, omdat ze in balans en vertrouwd blijft."
+  },
+  sv: {
+    title: "Guide till standardstämning för bas",
+    description: "Se standardstämningen för bas, E A D G, och läs varför den fortfarande är förvalet för de flesta basister.",
+    intro: "Standardstämningen för bas är den tryggaste utgångspunkten för lektioner, bandrep och det mesta låtmaterialet, eftersom den förblir balanserad och välbekant."
+  },
+  no: {
+    title: "Guide til standardstemming for bass",
+    description: "Se standardstemmingen for bass, E A D G, og les hvorfor den fortsatt er standardvalget for de fleste bassister.",
+    intro: "Standardstemmingen for bass er det tryggeste utgangspunktet for undervisning, bandøving og det meste av repertoaret, fordi den holder seg balansert og kjent."
+  },
+  pl: {
+    title: "Przewodnik po standardowym stroju basu",
+    description: "Poznaj standardowy strój basu E A D G i dowiedz się, dlaczego wciąż jest domyślnym wyborem większości basistów.",
+    intro: "Standardowy strój basu to najbezpieczniejszy punkt wyjścia na lekcje, próby zespołu i większość repertuaru, bo pozostaje zrównoważony i dobrze znany."
+  },
+  cs: {
+    title: "Průvodce standardním laděním baskytary",
+    description: "Podívejte se na standardní ladění baskytary E A D G a zjistěte, proč je pro většinu baskytaristů stále výchozí.",
+    intro: "Standardní ladění baskytary je nejbezpečnější výchozí bod pro výuku, zkoušky kapely i většinu repertoáru, protože zůstává vyvážené a známé."
+  },
+  tr: {
+    title: "Standart bas akordu rehberi",
+    description: "Standart bas akordu E A D G'yi görün ve neden hâlâ çoğu basçının varsayılan tercihi olduğunu öğrenin.",
+    intro: "Standart bas akordu; dersler, grup provaları ve çoğu repertuvar için en güvenli başlangıç noktasıdır, çünkü dengeli ve tanıdık kalır."
+  },
+  hi: {
+    title: "मानक बास ट्यूनिंग गाइड",
+    description: "मानक बास ट्यूनिंग E A D G देखें और जानें कि यह आज भी अधिकांश बास वादकों की डिफ़ॉल्ट पसंद क्यों है।",
+    intro: "मानक बास ट्यूनिंग पाठों, बैंड रिहर्सल और अधिकांश गीत-सामग्री के लिए सबसे सुरक्षित शुरुआती बिंदु है, क्योंकि यह संतुलित और परिचित बनी रहती है।"
+  }
+};
+
+const baseTuningGuideCopy: Record<BaseLocale, TuningGuideCopy> = {
   ar: {
     title: (instrument) => `كيفية ضبط ${instrument} على الإنترنت`,
     description: (instrument, tuning) => `دليل سريع لضبط ${instrument} بالميكروفون. النغمات المرجعية: ${tuning}.`,
@@ -326,8 +1387,165 @@ const tuningGuideCopy: Record<BaseLocale, TuningGuideCopy> = {
   }
 };
 
+/**
+ * Extended locales have no entry in the base map, so every instrument guide rendered the
+ * English copy. Each locale added here makes its 23 instrument guides native.
+ */
+const extendedTuningGuideCopy: Partial<Record<Locale, TuningGuideCopy>> = {
+  pl: {
+    title: (instrument) => `${instrument} — jak nastroić online`,
+    description: (instrument, tuning) => `Przewodnik krok po kroku do strojenia przez mikrofon przeglądarki. Instrument: ${instrument}. Dźwięki referencyjne: ${tuning}. Bez instalowania aplikacji.`,
+    intro: (instrument, tuning) => `TuneUniversal pozwala nastroić instrument bezpośrednio w przeglądarce, korzystając z mikrofonu urządzenia. Wybrany instrument: ${instrument}. Zezwól na dostęp do mikrofonu i dopasuj każdą strunę do dźwięków referencyjnych: ${tuning}. Stroik na bieżąco pokazuje, czy struna jest za nisko, za wysoko, czy nastrojona.`,
+    steps: () => [
+      "Otwórz stronę stroika i kliknij Włącz mikrofon — przeglądarka poprosi o zgodę przy pierwszym uruchomieniu.",
+      "Graj po jednej pustej strunie, pozwalając jej wybrzmieć wyraźnie i nie dotykając pozostałych.",
+      "Obserwuj wskazówkę i odczyt w centach: zielony oznacza czysty strój, czerwony konieczność korekty.",
+      "Obracaj kołek powoli w stronę docelowego dźwięku — blisko właściwej wysokości drobne ruchy robią dużą różnicę.",
+      "Powtórz dla każdej struny, od najniższej do najwyższej.",
+      "Po nastrojeniu wszystkich strun zagraj kilka akordów i sprawdź ponownie — struny często osiadają po pierwszym przejściu."
+    ],
+    sections: (instrument, tuning) => [
+      { title: "Dźwięki referencyjne", body: `Ta strona przyjmuje ${tuning} jako standardowe dźwięki referencyjne. Wybrany instrument: ${instrument}. Każdy dźwięk odpowiada jednej pustej strunie. Dopasowanie tych wysokości zestraja Cię z innymi instrumentami i z nagraniami. Jeśli chcesz poznać alternatywne stroje, zajrzyj do centrum strojów, gdzie każdy wariant ma własną stronę z gotowym ustawieniem.` },
+      { title: "Jak uzyskać najlepszy odczyt z mikrofonu", body: "Trzymaj instrument w odległości 20 do 30 cm od mikrofonu, aby sygnał był najczystszy. Ogranicz hałas w tle: wyłącz wentylatory, telewizor i wszystko, co daje ciągły szum. Po szarpnięciu struny odczekaj chwilę, aż wysokość się ustabilizuje, zanim ocenisz wskazanie. Wskazówka uspokoi się i poda dokładną wartość w centach, gdy dźwięk będzie wybrzmiewał czysto." },
+      { title: "Dlaczego struny się rozstrajają", body: "Struny tracą strój z kilku powodów: zmiany temperatury i wilgotności, rozciąganie się podczas gry, luz w kołkach oraz nowe struny, które jeszcze się nie ułożyły. Nowe struny trzeba nastroić i rozegrać kilka razy, zanim zaczną trzymać wysokość. Dobrze ustawiony instrument z solidnymi kołkami utrzymuje strój znacznie dłużej między sesjami." },
+      { title: "Najczęstsze błędy przy strojeniu", body: "Zawsze strój w górę do docelowego dźwięku, a nie w dół: struna lepiej utrzyma naprężenie w kołku i dłużej pozostanie czysta. Strój po jednej strunie i pozwól każdemu dźwiękowi wyraźnie wybrzmieć, zanim sprawdzisz odczyt. Nie szarpaj zbyt mocno, bo silne uderzenie daje krótki skok w górę, po którym dźwięk opada. Jeśli struna wskazuje za wysoko, zejdź lekko poniżej celu i dostrój w górę." }
+    ],
+    keywords: (instrument) => [`${instrument} strojenie`, `stroik ${instrument} online`, `darmowy stroik ${instrument}`, `stroik ${instrument} z mikrofonem`, `jak nastroić ${instrument}`],
+    targetTitle: (instrument) => `stroik ${instrument}`
+  },
+  cs: {
+    title: (instrument) => `${instrument} — jak naladit online`,
+    description: (instrument, tuning) => `Návod krok za krokem k ladění přes mikrofon prohlížeče. Nástroj: ${instrument}. Referenční tóny: ${tuning}. Bez instalace aplikace.`,
+    intro: (instrument, tuning) => `TuneUniversal umožňuje naladit nástroj přímo v prohlížeči pomocí mikrofonu zařízení. Zvolený nástroj: ${instrument}. Povolte přístup k mikrofonu a srovnejte každou strunu s referenčními tóny: ${tuning}. Ladička v reálném čase ukazuje, zda je struna nízko, vysoko, nebo naladěná.`,
+    steps: () => [
+      "Otevřete stránku ladičky a klikněte na Zapnout mikrofon — prohlížeč se poprvé zeptá na povolení.",
+      "Hrajte vždy jednu prázdnou strunu a nechte ji jasně doznít, aniž byste se dotkli ostatních.",
+      "Sledujte ručičku a hodnotu v centech: zelená znamená naladěno, červená nutnost úpravy.",
+      "Otáčejte ladicím kolíkem pomalu k cílovému tónu — blízko správné výšky dělají malé úpravy velký rozdíl.",
+      "Opakujte u každé struny, od nejnižší k nejvyšší.",
+      "Po naladění všech strun zahrajte pár akordů a zkontrolujte znovu — struny se po prvním kole často usadí."
+    ],
+    sections: (instrument, tuning) => [
+      { title: "Referenční tóny", body: `Tato stránka používá ${tuning} jako standardní referenční tóny. Zvolený nástroj: ${instrument}. Každý tón odpovídá jedné prázdné struně. Srovnáním těchto výšek budete ladit s ostatními nástroji i s nahrávkami. Pokud chcete prozkoumat alternativní ladění, navštivte rozcestník ladění, kde má každá varianta vlastní stránku s přednastavením.` },
+      { title: "Jak získat nejlepší odečet z mikrofonu", body: "Držte nástroj 20 až 30 cm od mikrofonu, aby byl signál co nejčistší. Omezte hluk v pozadí: vypněte ventilátory, televizi a vše, co vydává trvalé hučení. Po rozeznění struny chvíli počkejte, než se výška ustálí, teprve pak hodnoťte údaj. Ručička se uklidní a poskytne přesnou hodnotu v centech, jakmile tón čistě doznívá." },
+      { title: "Proč se struny rozlaďují", body: "Struny se rozlaďují z několika důvodů: změny teploty a vlhkosti, protahování hrou, vůle v ladicích kolících a nové struny, které se ještě neusadily. Nové struny je potřeba několikrát naladit a rozehrát, než začnou výšku spolehlivě držet. Dobře seřízený nástroj s kvalitními kolíky drží ladění mezi hraním podstatně déle." },
+      { title: "Nejčastější chyby při ladění", body: "Laďte vždy nahoru k cílovému tónu, ne dolů: struna tak lépe udrží napětí v kolíku a zůstane naladěná déle. Laďte po jedné struně a nechte každý tón jasně doznít, než zkontrolujete údaj. Nehrajte příliš silně, protože tvrdý úhoz dá krátký výkyv nahoru, který pak klesne. Pokud struna ukazuje vysoko, jděte mírně pod cíl a dolaďte nahoru." }
+    ],
+    keywords: (instrument) => [`${instrument} ladění`, `ladička ${instrument} online`, `ladička ${instrument} zdarma`, `${instrument} ladička s mikrofonem`, `jak naladit ${instrument}`],
+    targetTitle: (instrument) => `ladička ${instrument}`
+  },
+  tr: {
+    title: (instrument) => `${instrument} online nasıl akort edilir`,
+    description: (instrument, tuning) => `Tarayıcı mikrofonuyla akort etmek için adım adım rehber. Enstrüman: ${instrument}. Referans notalar: ${tuning}. Uygulama gerekmez.`,
+    intro: (instrument, tuning) => `TuneUniversal, cihazınızın mikrofonunu kullanarak enstrümanınızı doğrudan tarayıcıda akort etmenizi sağlar. Seçilen enstrüman: ${instrument}. Mikrofon erişimine izin verin ve her teli referans notalarla eşleştirin: ${tuning}. Akort aleti, telin pes mi, tiz mi yoksa doğru mu olduğunu anlık olarak gösterir.`,
+    steps: () => [
+      "Akort aleti sayfasını açın ve Mikrofonu etkinleştir düğmesine tıklayın — tarayıcı ilk seferde izin isteyecektir.",
+      "Diğer tellere dokunmadan her seferinde tek bir boş teli çalın ve net şekilde çınlamasına izin verin.",
+      "İbreyi ve sent değerini izleyin: yeşil doğru akort, kırmızı düzeltme gerektiğini gösterir.",
+      "Akort burgusunu hedef notaya doğru yavaşça çevirin — doğru perdeye yakınken küçük ayarlar büyük fark yaratır.",
+      "Her tel için tekrarlayın, en pesten en tize doğru ilerleyin.",
+      "Tüm teller akort edildikten sonra birkaç akor çalın ve yeniden kontrol edin — teller ilk turdan sonra genellikle biraz oturur."
+    ],
+    sections: (instrument, tuning) => [
+      { title: "Referans notalar", body: `Bu sayfa standart referans notalar olarak ${tuning} kullanır. Seçilen enstrüman: ${instrument}. Her nota bir boş tele karşılık gelir. Bu perdeleri tutturduğunuzda diğer enstrümanlarla ve kayıtlı müzikle uyumlu olursunuz. Alternatif akortları keşfetmek isterseniz, her varyantın kendi hazır ayarlı sayfası bulunan akort merkezine göz atın.` },
+      { title: "En iyi mikrofon okumasını almak", body: "En net sinyal için enstrümanı mikrofona 20 ila 30 cm mesafede tutun. Arka plan gürültüsünü azaltın: vantilatör, televizyon ve sürekli uğultu yaratan her şeyi kapatın. Bir teli çektikten sonra okumayı değerlendirmeden önce perdenin sabitlenmesi için bir an bekleyin. Nota temiz şekilde sürdüğünde ibre yerine oturur ve doğru bir sent değeri verir." },
+      { title: "Teller neden akordunu kaybeder", body: "Teller birkaç nedenle akordunu kaybeder: sıcaklık ve nem değişimleri, çalarken gerilmeleri, akort burgularındaki boşluk ve henüz oturmamış yeni teller. Yeni tellerin perdeyi güvenilir şekilde tutabilmesi için birkaç kez akort edilip çalınması gerekir. İyi ayarlanmış, kaliteli burguları olan bir enstrüman akordunu seanslar arasında çok daha iyi korur." },
+      { title: "Akort ederken kaçınılması gereken hatalar", body: "Hedef notaya her zaman aşağıdan yukarı doğru akort edin: bu, telin burguda gerginliği korumasına ve daha uzun süre akortta kalmasına yardımcı olur. Tek seferde tek tel akort edin ve kontrol etmeden önce her notanın net çınlamasını bekleyin. Çok sert vurmayın, çünkü güçlü atak önce yukarı bir sıçrama verir, sonra aşağı düşer. Bir tel tiz okuyorsa hedefin biraz altına inin ve yukarı doğru akort edin." }
+    ],
+    keywords: (instrument) => [`${instrument} akort etme`, `online ${instrument} akort aleti`, `ücretsiz ${instrument} akort aleti`, `mikrofonlu ${instrument} akort aleti`, `${instrument} nasıl akort edilir`],
+    targetTitle: (instrument) => `${instrument} akort aleti`
+  },
+  hi: {
+    title: (instrument) => `${instrument} को ऑनलाइन कैसे ट्यून करें`,
+    description: (instrument, tuning) => `ब्राउज़र माइक्रोफ़ोन से ट्यून करने की चरण-दर-चरण गाइड। वाद्ययंत्र: ${instrument}। संदर्भ स्वर: ${tuning}। किसी ऐप की ज़रूरत नहीं।`,
+    intro: (instrument, tuning) => `TuneUniversal आपके डिवाइस के माइक्रोफ़ोन से सीधे ब्राउज़र में वाद्ययंत्र ट्यून करने में मदद करता है। चुना गया वाद्ययंत्र: ${instrument}। माइक्रोफ़ोन की अनुमति दें और हर तार को संदर्भ स्वरों से मिलाएँ: ${tuning}। ट्यूनर वास्तविक समय में दिखाता है कि तार नीचा है, ऊँचा है या सही।`,
+    steps: () => [
+      "ट्यूनर पेज खोलें और माइक्रोफ़ोन चालू करें पर क्लिक करें — ब्राउज़र पहली बार अनुमति माँगेगा।",
+      "एक बार में एक खुला तार बजाएँ और उसे बिना दूसरे तारों को छुए साफ़ गूँजने दें।",
+      "सूचक और सेंट मान देखें: हरा मतलब सही ट्यून, लाल मतलब समायोजन ज़रूरी।",
+      "ट्यूनिंग खूँटी को धीरे-धीरे लक्ष्य स्वर की ओर घुमाएँ — सही पिच के पास छोटे समायोजन बड़ा अंतर लाते हैं।",
+      "हर तार के लिए दोहराएँ, सबसे नीचे से सबसे ऊपर तक।",
+      "सभी तार ट्यून करने के बाद एक-दो कॉर्ड बजाएँ और फिर जाँचें — पहले दौर के बाद तार अक्सर थोड़े बैठ जाते हैं।"
+    ],
+    sections: (instrument, tuning) => [
+      { title: "संदर्भ स्वर", body: `यह पृष्ठ मानक संदर्भ स्वरों के रूप में ${tuning} का उपयोग करता है। चुना गया वाद्ययंत्र: ${instrument}। हर स्वर एक खुले तार से मेल खाता है। इन पिचों से मिलान करने पर आप दूसरे वाद्ययंत्रों और रिकॉर्ड किए गए संगीत के साथ सुर में रहते हैं। वैकल्पिक ट्यूनिंग देखने के लिए ट्यूनिंग हब पर जाएँ, जहाँ हर वैरिएंट का अपना पेज और प्रीसेट है।` },
+      { title: "माइक्रोफ़ोन से सबसे अच्छा पाठ कैसे लें", body: "सबसे साफ़ संकेत के लिए वाद्ययंत्र को माइक्रोफ़ोन से 20 से 30 सेमी दूर रखें। पृष्ठभूमि का शोर कम करें: पंखे, टीवी और लगातार गूँज पैदा करने वाली हर चीज़ बंद कर दें। तार छेड़ने के बाद पाठ आँकने से पहले पिच के स्थिर होने का एक क्षण प्रतीक्षा करें। जब स्वर साफ़ बना रहता है तो सूचक ठहर जाता है और सटीक सेंट मान देता है।" },
+      { title: "तार बेसुरे क्यों होते हैं", body: "तार कई कारणों से बेसुरे होते हैं: तापमान और नमी में बदलाव, बजाने से खिंचाव, ट्यूनिंग खूँटियों में ढीलापन, और नए तार जो अभी बैठे नहीं हैं। नए तारों को पिच भरोसे से पकड़ने से पहले कई बार ट्यून और बजाया जाना चाहिए। अच्छी खूँटियों वाला ठीक से सेट किया गया वाद्ययंत्र सत्रों के बीच ट्यूनिंग कहीं बेहतर बनाए रखता है।" },
+      { title: "ट्यूनिंग में आम गलतियाँ", body: "हमेशा लक्ष्य स्वर की ओर नीचे से ऊपर ट्यून करें, ऊपर से नीचे नहीं: इससे तार खूँटी में तनाव बनाए रखता है और अधिक देर सुर में रहता है। एक बार में एक तार ट्यून करें और जाँचने से पहले हर स्वर को साफ़ गूँजने दें। बहुत ज़ोर से न छेड़ें, क्योंकि तेज़ आघात पहले ऊपर की ओर उछाल देता है जो फिर गिर जाता है। यदि तार ऊँचा दिखे तो लक्ष्य से थोड़ा नीचे जाकर ऊपर की ओर ट्यून करें।" }
+    ],
+    keywords: (instrument) => [`${instrument} ट्यूनिंग`, `ऑनलाइन ${instrument} ट्यूनर`, `मुफ़्त ${instrument} ट्यूनर`, `माइक्रोफ़ोन ${instrument} ट्यूनर`, `${instrument} कैसे ट्यून करें`],
+    targetTitle: (instrument) => `${instrument} ट्यूनर`
+  },
+  nl: {
+    title: (instrument) => `Hoe stem je ${instrument} online`,
+    description: (instrument, tuning) => `Stap-voor-stap gids om ${instrument} te stemmen met de microfoon van je browser. Referentienoten: ${tuning}. Geen app nodig.`,
+    intro: (instrument, tuning) => `TuneUniversal helpt je ${instrument} rechtstreeks in je browser te stemmen met de microfoon van je apparaat. Kies het instrument, geef toegang tot de microfoon en stem elke snaar op de referentienoten: ${tuning}. De stemmer laat in real time zien of een snaar te laag, te hoog of zuiver is.`,
+    steps: (instrument) => [
+      `Open de pagina van de ${instrument} stemmer en klik op Microfoon inschakelen — je browser vraagt de eerste keer om toestemming.`,
+      "Speel een open snaar tegelijk en laat die helder doorklinken zonder de andere snaren aan te raken.",
+      "Let op de naald en de centweergave: groen betekent zuiver, rood betekent dat je moet bijstellen.",
+      "Draai de stemsleutel langzaam richting de doelnoot — vlak bij de juiste toonhoogte maken kleine correcties veel verschil.",
+      "Herhaal dit voor elke snaar, van de laagste naar de hoogste.",
+      "Speel na het stemmen een paar akkoorden en controleer opnieuw — snaren zakken vaak iets na de eerste ronde."
+    ],
+    sections: (instrument, tuning) => [
+      { title: "Referentienoten", body: `Deze pagina gebruikt ${tuning} als standaard referentienoten voor ${instrument}. Elke noot hoort bij een open snaar. Met deze toonhoogtes sta je gelijk met andere instrumenten en met opgenomen muziek. Wil je alternatieve stemmingen verkennen, ga dan naar de stemminghub, waar elke variant een eigen pagina met preset heeft.` },
+      { title: "De beste microfoonmeting krijgen", body: `Houd ${instrument} op 20 tot 30 cm van de microfoon voor het helderste signaal. Beperk achtergrondgeluid: zet ventilatoren, televisies en alles wat een continue bromtoon geeft uit. Wacht na het aanslaan van een snaar even tot de toonhoogte stabiel is voordat je de meting beoordeelt. De naald komt tot rust en geeft een nauwkeurige centwaarde zodra de noot schoon doorklinkt.` },
+      { title: "Waarom snaren ontstemmen", body: `Snaren raken om verschillende redenen ontstemd: wisselingen in temperatuur en luchtvochtigheid, het uitrekken door het spelen, speling in de stemmechanieken, en nieuwe snaren die nog niet zijn ingespeeld. Nieuwe snaren moeten een paar keer gestemd en bespeeld worden voordat ze hun toonhoogte betrouwbaar vasthouden. Een goed afgesteld instrument met degelijke mechanieken blijft veel langer in stemming.` },
+      { title: "Veelgemaakte fouten bij het stemmen", body: `Stem altijd omhoog naar de doelnoot in plaats van omlaag: zo houdt de snaar de spanning in de mechaniek beter vast en blijft ze langer zuiver. Stem een snaar tegelijk en laat elke noot helder doorklinken voordat je kijkt. Sla niet te hard aan, want een harde aanslag geeft een korte uitschieter omhoog die daarna te laag uitkomt. Leest een snaar te hoog, ga dan iets onder de doelnoot en stem omhoog.` }
+    ],
+    keywords: (instrument) => [`${instrument} stemmen`, `online ${instrument} stemmer`, `gratis ${instrument} stemmer`, `${instrument} microfoon stemmer`, `hoe stem je ${instrument}`],
+    targetTitle: (instrument) => `${instrument} stemmer`
+  },
+  sv: {
+    title: (instrument) => `Så stämmer du ${instrument} online`,
+    description: (instrument, tuning) => `En steg-för-steg-guide till att stämma ${instrument} med webbläsarens mikrofon. Referenstoner: ${tuning}. Ingen app krävs.`,
+    intro: (instrument, tuning) => `TuneUniversal hjälper dig att stämma ${instrument} direkt i webbläsaren med enhetens mikrofon. Välj instrument, ge åtkomst till mikrofonen och stäm varje sträng mot referenstonerna: ${tuning}. Stämmaren visar i realtid om strängen ligger lågt, högt eller rätt.`,
+    steps: (instrument) => [
+      `Öppna sidan för ${instrument}-stämmaren och klicka på Aktivera mikrofon — webbläsaren frågar om tillåtelse första gången.`,
+      "Spela en lös sträng i taget och låt den klinga tydligt utan att röra de andra strängarna.",
+      "Håll koll på visaren och centvärdet: grönt betyder rätt stämt, rött att du behöver justera.",
+      "Vrid stämskruven långsamt mot måltonen — nära rätt tonhöjd gör små justeringar stor skillnad.",
+      "Upprepa för varje sträng, från den lägsta till den högsta.",
+      "Spela ett par ackord när alla strängar är stämda och kontrollera igen — strängarna sätter sig ofta något efter första varvet."
+    ],
+    sections: (instrument, tuning) => [
+      { title: "Referenstoner", body: `Den här sidan använder ${tuning} som standardreferens för ${instrument}. Varje ton motsvarar en lös sträng. Med dessa tonhöjder ligger du rätt mot andra instrument och mot inspelad musik. Vill du utforska alternativa stämningar finns stämningshubben, där varje variant har en egen sida med förvald inställning.` },
+      { title: "Så får du bästa mikrofonavläsning", body: `Håll ${instrument} 20 till 30 cm från mikrofonen för tydligast signal. Minska bakgrundsljud: stäng av fläktar, tv och allt som ger ett jämnt brum. Vänta ett ögonblick efter anslaget tills tonhöjden stabiliseras innan du bedömer avläsningen. Visaren lugnar sig och ger ett exakt centvärde när tonen klingar rent.` },
+      { title: "Varför strängar blir ostämda", body: `Strängar glider ur stämning av flera skäl: förändringar i temperatur och luftfuktighet, att spelandet tänjer strängarna, glapp i stämskruvarna och nya strängar som inte satt sig än. Nya strängar behöver stämmas och spelas in flera gånger innan de håller tonhöjden. Ett välinställt instrument med bra stämskruvar håller stämningen betydligt längre mellan passen.` },
+      { title: "Vanliga misstag vid stämning", body: `Stäm alltid upp mot måltonen i stället för ner, då håller strängen spänningen i stämskruven och stannar rätt längre. Stäm en sträng i taget och låt varje ton klinga tydligt innan du kontrollerar. Slå inte an för hårt: ett kraftigt anslag ger en topp uppåt som sedan sjunker. Om en sträng visar för högt, gå något under måltonen och stäm upp till den.` }
+    ],
+    keywords: (instrument) => [`stämma ${instrument}`, `${instrument} stämmare online`, `gratis ${instrument} stämmare`, `${instrument} stämmare med mikrofon`, `hur man stämmer ${instrument}`],
+    targetTitle: (instrument) => `${instrument} stämmare`
+  },
+  no: {
+    title: (instrument) => `Slik stemmer du ${instrument} online`,
+    description: (instrument, tuning) => `En trinnvis guide til å stemme ${instrument} med nettleserens mikrofon. Referansetoner: ${tuning}. Ingen app nødvendig.`,
+    intro: (instrument, tuning) => `TuneUniversal hjelper deg å stemme ${instrument} rett i nettleseren med mikrofonen på enheten. Velg instrument, gi tilgang til mikrofonen og stem hver streng mot referansetonene: ${tuning}. Stemmeapparatet viser i sanntid om strengen ligger lavt, høyt eller riktig.`,
+    steps: (instrument) => [
+      `Åpne siden for ${instrument}-stemmeapparatet og klikk på Aktiver mikrofon — nettleseren spør om tillatelse første gang.`,
+      "Spill én løs streng om gangen og la den klinge tydelig uten å berøre de andre strengene.",
+      "Følg med på viseren og centverdien: grønt betyr riktig stemt, rødt at du må justere.",
+      "Vri stemmeskruen langsomt mot måltonen — nær riktig tonehøyde gjør små justeringer stor forskjell.",
+      "Gjenta for hver streng, fra den laveste til den høyeste.",
+      "Spill et par akkorder når alle strengene er stemt, og sjekk på nytt — strengene setter seg ofte litt etter første runde."
+    ],
+    sections: (instrument, tuning) => [
+      { title: "Referansetoner", body: `Denne siden bruker ${tuning} som standard referansetoner for ${instrument}. Hver tone svarer til én løs streng. Med disse tonehøydene ligger du riktig mot andre instrumenter og mot innspilt musikk. Vil du utforske alternative stemminger, finnes stemmehuben der hver variant har sin egen side med ferdig oppsett.` },
+      { title: "Slik får du best mikrofonavlesning", body: `Hold ${instrument} 20 til 30 cm fra mikrofonen for tydeligst signal. Reduser bakgrunnsstøy: slå av vifter, TV og alt som gir en jevn brumming. Vent et øyeblikk etter anslaget til tonehøyden stabiliserer seg før du vurderer avlesningen. Viseren roer seg og gir en nøyaktig centverdi når tonen klinger rent.` },
+      { title: "Hvorfor strenger blir ustemte", body: `Strenger glir ut av stemming av flere grunner: endringer i temperatur og luftfuktighet, at spillingen tøyer strengene, slark i stemmeskruene, og nye strenger som ikke har satt seg ennå. Nye strenger må stemmes og spilles inn flere ganger før de holder tonehøyden. Et godt innstilt instrument med solide stemmeskruer holder stemmingen mye lenger mellom øktene.` },
+      { title: "Vanlige feil ved stemming", body: `Stem alltid opp mot måltonen i stedet for ned, da holder strengen spenningen i stemmeskruen og blir stemt lenger. Stem én streng om gangen og la hver tone klinge tydelig før du sjekker. Ikke slå an for hardt: et kraftig anslag gir en topp oppover som deretter synker. Viser en streng for høyt, gå litt under måltonen og stem opp til den.` }
+    ],
+    keywords: (instrument) => [`stemme ${instrument}`, `${instrument} stemmeapparat online`, `gratis ${instrument} stemmeapparat`, `${instrument} stemmeapparat med mikrofon`, `hvordan stemme ${instrument}`],
+    targetTitle: (instrument) => `${instrument} stemmeapparat`
+  }
+};
+
+const tuningGuideCopy: Record<Locale, TuningGuideCopy> = withLocaleFallbacks(baseTuningGuideCopy, extendedTuningGuideCopy);
+
 function whatIsGuides(locale: Locale): Record<WhatIsGuideSlug, Omit<GuideContent, "targetPath">> {
-  const copy = {
+  const extendedWhatIs = extendedWhatIsGuides[locale];
+  const copy = extendedWhatIs?.copy ?? {
     ar: {
       tuner: ["ما هو موالف الجيتار؟", "موالف الجيتار أداة تكشف طبقة الصوت وتخبرك إن كانت العلامة حادة أو خافتة أو في الضبط الصحيح.", "يستخدم الموالف الميكروفون لاكتشاف الاهتزاز، ثم يقارنه بالنغمة المثالية لكل وتر.", "موالف جيتار", "ضبط جيتار اونلاين"],
       metronome: ["ما هو الميترونوم؟", "الميترونوم جهاز ينتج نبضة ثابتة بإيقاع محدد لمساعدة العازفين على الإبقاء على الوقت بانتظام.", "كلما تدربت مع الميترونوم، أصبح إحساسك بالوقت أقوى وأكثر ثباتا.", "ميترونوم اونلاين", "ما هو BPM"],
@@ -385,7 +1603,7 @@ function whatIsGuides(locale: Locale): Record<WhatIsGuideSlug, Omit<GuideContent
     }
   }[getContentLocale(locale)];
 
-  const steps = {
+  const steps = extendedWhatIs?.steps ?? {
     tuner: {
       ar: ["العب وترا واحدا.", "راقب النغمة المكتشفة على الشاشة.", "اضبط الملف باتجاه المركز.", "كرر لجميع الأوتار الستة."],
       de: ["Eine Saite spielen.", "Den angezeigten Ton und die Abweichung ablesen.", "Den Wirbel in Richtung Mitte drehen.", "Alle sechs Saiten nacheinander wiederholen."],
@@ -427,7 +1645,7 @@ function whatIsGuides(locale: Locale): Record<WhatIsGuideSlug, Omit<GuideContent
     }[getContentLocale(locale)]
   };
 
-  const sections = {
+  const sections = extendedWhatIs?.sections ?? {
     ar: {
       tuner: [
         { title: "كيف يعمل الموالف", body: "يستخدم الموالف FFT لتحليل الموجة الصوتية وتحويلها إلى قراءة بالهرتز، ثم مقارنتها بتوليفة السنتات الصحيحة. والنتيجة هي سهم يشير إلى الضبط النقي." },
@@ -982,6 +2200,7 @@ const guideContentOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, Gu
 };
 
 function searchConsolePriorityGuideOverrides(locale: Locale): Partial<Record<GuideSlug, GuideOverride>> {
+  if (localesWithNativeGuides.includes(locale)) return {};
   const copy = {
     ar: {
       twelve: ["كيفية ضبط جيتار 12 وتر", "اضبط جيتار 12 وتر زوجاً بعد زوج مع مرجع واضح للأوكتافات والطبقة الأساسية.", "هذه الصفحة تشرح طريقة ضبط جيتار 12 وتر خطوة بخطوة حتى تبقى الأزواج متناغمة ومتوازنة من دون إحساس غير ثابت في الشد."],
@@ -1097,6 +2316,7 @@ function searchConsolePriorityGuideOverrides(locale: Locale): Partial<Record<Gui
 }
 
 function guideCtrRecoveryOverrides(locale: Locale): Partial<Record<GuideSlug, GuideOverride>> {
+  if (localesWithNativeGuides.includes(locale)) return {};
   const copy = {
     ar: {
       bass: ["كيفية ضبط الباس", "اضبط الباس أونلاين على E A D G مع دعم واضح لإعدادات 4 و5 أوتار.", "هذه الصفحة تساعدك على ضبط كل وتر في الباس بسرعة، ثم التحقق من توازن الآلة قبل التدريب أو البروفة."],
@@ -1265,13 +2485,23 @@ function guideCtrRecoveryOverrides(locale: Locale): Partial<Record<GuideSlug, Gu
 function applyGuideOverride(base: GuideContent, locale: Locale, guide: GuideSlug): GuideContent {
   const priorityOverride = searchConsolePriorityGuideOverrides(locale)[guide];
   const ctrOverride = guideCtrRecoveryOverrides(locale)[guide];
-  const manualOverride = guideContentOverrides[locale]?.[guide] ?? guideContentOverrides[getContentLocale(locale)]?.[guide];
-  const override = priorityOverride || ctrOverride || manualOverride ? { ...priorityOverride, ...ctrOverride, ...manualOverride } : null;
+  const manualOverride =
+    guideContentOverrides[locale]?.[guide] ??
+    (localesWithNativeGuides.includes(locale) ? undefined : guideContentOverrides[getContentLocale(locale)]?.[guide]);
+  // `standard-bass-tuning` is built from the bass instrument guide, so English relies on a
+  // CTR override to tell the two pages apart. That override is skipped for the locales
+  // that now have native guide copy, so supply the distinguishing fields here instead.
+  const nativeBassStandard = guide === "standard-bass-tuning" ? extendedStandardBassCopy[locale] : undefined;
+  const override =
+    priorityOverride || ctrOverride || manualOverride || nativeBassStandard
+      ? { ...priorityOverride, ...ctrOverride, ...manualOverride, ...nativeBassStandard }
+      : null;
   return override ? { ...base, ...override } : base;
 }
 
 function extraUtilityGuides(locale: Locale): Record<ExtraUtilityGuideSlug, Omit<GuideContent, "targetPath">> {
-  const copy = {
+  const extendedExtra = extendedExtraUtility[locale];
+  const copy = extendedExtra?.copy ?? {
     ar: {
       chords: ["كيفية قراءة رموز الأوتار", "تعلم معنى C و Am و G7 والرموز الشائعة للأوتار.", "رموز الأوتار تختصر النغمة الأساسية ونوع الوتر. الحرف يحدد الجذر، و m يعني صغير، و 7 يضيف السابعة.", "قراءة الأوتار", "رموز أوتار الغيتار"],
       transpose: ["كيفية نقل الأوتار إلى مقام آخر", "انقل تقدمات الأوتار لأعلى أو لأسفل بنصف نغمة.", "النقل يغير المقام مع الحفاظ على العلاقات بين الأوتار. ارفع أو اخفض نصف النغمات حتى يناسب الصوت أو الآلة.", "نقل الأوتار", "تغيير مقام الأغنية"],
@@ -1339,7 +2569,7 @@ function extraUtilityGuides(locale: Locale): Record<ExtraUtilityGuideSlug, Omit<
       subdiv: ["节拍器细分练习", "在每一拍中练习二连、三连和四连。", "细分可以帮助你更准确地感受主拍之间的节奏。", "节拍器细分", "三连音练习"]
     }
   }[getContentLocale(locale)];
-  const ui = {
+  const ui = extendedExtra?.ui ?? {
     ar: {
       chordTool: "ناقل الأوتار",
       guitarTool: "موالِف الغيتار",
@@ -1597,7 +2827,8 @@ type QueryDrivenGuideSlug =
   | "pitch-generator-guide";
 
 function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, Omit<GuideContent, "targetPath">> {
-  const copy = {
+  const extendedQd = extendedQueryDriven[locale];
+  const copy = extendedQd?.copy ?? {
     ar: {
       chromatic: ["دليل الموالف الكروماتيكي", "تعرف على استخدام موالف كروماتيكي لالتقاط اي نغمة بسرعة.", "استخدم هذا الدليل عندما تريد ضبط الجيتار او الكمان او اي الة لحنية نغمة بنغمة."],
       microphone: ["موالف جيتار بالميكروفون", "استخدم ميكروفون المتصفح لالتقاط نغمة الجيتار بدون تطبيق اضافي.", "هذه الصفحة تشرح كيف تحصل على قراءة اكثر ثباتا عند ضبط الجيتار بالميكروفون."],
@@ -1788,7 +3019,7 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
   };
 
   const contentLocale = getContentLocale(locale);
-  const shared = contentLocale === "it" ? italianShared : contentLocale === "fr" ? frenchShared : contentLocale === "de" ? germanShared : contentLocale === "es" ? spanishShared : contentLocale === "pt" ? portugueseShared : contentLocale === "zh" ? chineseShared : contentLocale === "ru" ? russianShared : contentLocale === "ja" ? japaneseShared : contentLocale === "ko" ? koreanShared : contentLocale === "ar" ? arabicShared : englishShared;
+  const shared = extendedQd ? extendedQd.shared : contentLocale === "it" ? italianShared : contentLocale === "fr" ? frenchShared : contentLocale === "de" ? germanShared : contentLocale === "es" ? spanishShared : contentLocale === "pt" ? portugueseShared : contentLocale === "zh" ? chineseShared : contentLocale === "ru" ? russianShared : contentLocale === "ja" ? japaneseShared : contentLocale === "ko" ? koreanShared : contentLocale === "ar" ? arabicShared : englishShared;
   const isFr = contentLocale === "fr";
   const isDe = contentLocale === "de";
   const isEs = contentLocale === "es";
@@ -1809,8 +3040,9 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
       sections: [
         {
           title: shared.whyTitle,
-          body:
-            locale === "it"
+          body: extendedQd
+            ? extendedQd.bodies[0]
+            : locale === "it"
               ? "Un accordatore cromatico e utile quando non vuoi limitarti alle sole corde standard e hai bisogno di riconoscere qualsiasi nota o accordatura."
               : isFr
               ? "Un accordeur chromatique est utile quand vous ne voulez pas vous limiter aux seules cordes standard et devez reconnaître n'importe quelle note ou accordage."
@@ -1834,8 +3066,9 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
         },
         {
           title: shared.tipTitle,
-          body:
-            locale === "it"
+          body: extendedQd
+            ? extendedQd.bodies[1]
+            : locale === "it"
               ? "Suona una sola nota per volta e riduci il rumore ambientale: il rilevamento diventa molto piu stabile."
               : isFr
               ? "Jouez une seule note à la fois et réduisez le bruit ambiant : la détection devient bien plus stable."
@@ -1871,8 +3104,9 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
       sections: [
         {
           title: shared.whyTitle,
-          body:
-            locale === "it"
+          body: extendedQd
+            ? extendedQd.bodies[2]
+            : locale === "it"
               ? "Il microfono del browser e il modo piu rapido per accordare senza cavi, app o pedali aggiuntivi."
               : isFr
               ? "Le micro du navigateur est l'un des moyens les plus rapides d'accorder sans câbles, applications ni pédales supplémentaires."
@@ -1896,8 +3130,9 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
         },
         {
           title: shared.tipTitle,
-          body:
-            locale === "it"
+          body: extendedQd
+            ? extendedQd.bodies[3]
+            : locale === "it"
               ? "Tieni la chitarra vicino al telefono o al laptop, suona una corda alla volta e lascia decadere la nota prima di regolare."
               : isFr
               ? "Gardez la guitare près du téléphone ou de l'ordinateur, jouez une corde à la fois et laissez la note résonner avant d'ajuster."
@@ -1933,8 +3168,9 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
       sections: [
         {
           title: shared.whyTitle,
-          body:
-            locale === "it"
+          body: extendedQd
+            ? extendedQd.bodies[4]
+            : locale === "it"
               ? "Un metronomo per chitarra serve per migliorare groove, plettrata, precisione dei riff e pulizia nei cambi di accordi."
               : isFr
               ? "Un métronome pour guitare aide à améliorer le groove, le contrôle du médiator, la précision des riffs et la propreté des changements d'accords."
@@ -1958,8 +3194,9 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
         },
         {
           title: shared.tipTitle,
-          body:
-            locale === "it"
+          body: extendedQd
+            ? extendedQd.bodies[5]
+            : locale === "it"
               ? "Lavora prima su quarti e ottavi, poi aggiungi suddivisioni e cicli progressivi per salire di velocita."
               : isFr
               ? "Travaillez d'abord les noires et les croches, puis ajoutez des subdivisions et des cycles progressifs pour gagner en vitesse."
@@ -1995,8 +3232,9 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
       sections: [
         {
           title: shared.whyTitle,
-          body:
-            locale === "it"
+          body: extendedQd
+            ? extendedQd.bodies[6]
+            : locale === "it"
               ? "Il fonometro e utile per controllare il volume della stanza, il livello di pratica e la differenza tra ambienti silenziosi e rumorosi."
               : isFr
               ? "Le sonomètre est utile pour vérifier le volume de la pièce, le niveau de travail et la différence entre environnements calmes et bruyants."
@@ -2020,8 +3258,9 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
         },
         {
           title: shared.tipTitle,
-          body:
-            locale === "it"
+          body: extendedQd
+            ? extendedQd.bodies[7]
+            : locale === "it"
               ? "Lascia il telefono o il computer fermo per qualche secondo: media, minimo e massimo diventano piu affidabili."
               : isFr
               ? "Laissez le téléphone ou l'ordinateur immobile quelques secondes : moyenne, minimum et maximum deviennent plus fiables."
@@ -2057,8 +3296,9 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
       sections: [
         {
           title: shared.whyTitle,
-          body:
-            locale === "it"
+          body: extendedQd
+            ? extendedQd.bodies[8]
+            : locale === "it"
               ? "Un pitch generator e utile per ear training, note di riferimento, controlli rapidi di casse, cuffie e frequenze specifiche."
               : isFr
               ? "Un générateur de hauteur est utile pour l'entraînement de l'oreille, les notes de référence et les vérifications rapides d'enceintes, de casques et de fréquences précises."
@@ -2082,8 +3322,9 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
         },
         {
           title: shared.tipTitle,
-          body:
-            locale === "it"
+          body: extendedQd
+            ? extendedQd.bodies[9]
+            : locale === "it"
               ? "Parti sempre con volume basso, soprattutto sulle frequenze acute, poi alzalo solo quanto basta."
               : isFr
               ? "Commencez toujours à faible volume, surtout sur les fréquences aiguës, puis augmentez seulement autant que nécessaire."
@@ -2114,7 +3355,8 @@ function queryDrivenUtilityGuides(locale: Locale): Record<QueryDrivenGuideSlug, 
 }
 
 function utilityBpm(locale: Locale): Omit<GuideContent, "targetPath"> {
-  const data = {
+  const extendedBpm = extendedBpmGuide[locale];
+  const data = extendedBpm?.data ?? {
     de: ["BPM eines Songs finden", "Schätze das Tempo eines Songs, indem du mit Tap BPM zum Beat tippst.", "Tippe zum Beat und TuneUniversal berechnet einen Durchschnitt aus deinen letzten Taps.", "bpm finden"],
     en: ["How to find the BPM of a song", "Use Tap BPM to estimate a song tempo by tapping with the beat.", "Tap along with the music and TuneUniversal calculates an average BPM from your recent taps.", "find bpm"],
     es: ["Cómo calcular el BPM de una canción", "Usa Tap BPM para estimar el tempo tocando con el pulso.", "Toca junto con la música y TuneUniversal calcula un BPM medio.", "calcular bpm"],
@@ -2143,7 +3385,7 @@ function utilityBpm(locale: Locale): Omit<GuideContent, "targetPath"> {
     description: data[1],
     intro: data[2],
     keywords: [data[3], "tap bpm", "beats per minute"],
-    steps: isIt
+    steps: extendedBpm ? extendedBpm.steps : isIt
       ? ["Apri la pagina Tap BPM — non serve microfono.", "Avvia il brano che vuoi misurare.", "Premi il pulsante Tap (o la barra spaziatrice) una volta per ogni beat.", "Continua per almeno 8-16 tap per una lettura stabile.", "Leggi il BPM medio visualizzato — questo è il tempo del brano.", "Premi Reset per ricominciare con un nuovo brano."]
       : isFr
       ? ["Ouvrez la page Tap BPM — aucun micro nécessaire.", "Lancez le morceau que vous voulez mesurer.", "Appuyez sur le bouton Tap (ou la barre d'espace) une fois par temps, en rythme avec la musique.", "Continuez pendant au moins 8 à 16 taps pour une lecture stable.", "Lisez le BPM moyen affiché — c'est le tempo du morceau.", "Appuyez sur Réinitialiser pour démarrer une nouvelle mesure pour un autre titre."]
@@ -2164,7 +3406,7 @@ function utilityBpm(locale: Locale): Omit<GuideContent, "targetPath"> {
       : isAr
       ? ["افتح صفحة Tap BPM — لا حاجة لميكروفون.", "شغّل الأغنية التي تريد قياسها.", "اضغط زر Tap (أو مسافة) مرة واحدة لكل نبضة مع إيقاع الموسيقى.", "استمر لمدة 8-16 نقرة على الأقل للحصول على قراءة مستقرة.", "اقرأ متوسط BPM المعروض — هذا هو إيقاع الأغنية.", "اضغط إعادة الضبط لبدء قياس جديد لمسار مختلف."]
       : ["Open the Tap BPM page — no microphone needed.", "Start the song you want to measure.", "Press the Tap button (or spacebar) once per beat in time with the music.", "Continue for at least 8–16 taps for a stable reading.", "Read the average BPM displayed — that is the song tempo.", "Press Reset to start a new measurement for a different track."],
-    sections: isIt
+    sections: extendedBpm ? extendedBpm.sections : isIt
       ? [
           { title: "Cos'è il BPM", body: "BPM significa battiti al minuto e descrive la velocità del pulse in un brano. Un valore basso (60-80 BPM) indica un brano lento o una ballad, mentre un valore alto (140-180 BPM) indica un brano veloce come un punk rock o una dance track. Conoscere il BPM ti permette di impostare il metronomo alla velocità esatta e programmare drum machine o DAW senza dover indovinare." },
           { title: "Quanti tap servono", body: "Per una stima affidabile servono almeno quattro tap, ma la lettura diventa molto più stabile dopo otto o sedici tap. Il tool calcola la media degli intervalli tra i tap e la converte in BPM — più tap fai, più la media si stabilizza. Se i primi tap danno un valore molto diverso dagli ultimi, probabilmente hai leggermente cambiato il punto ritmico su cui batti." },
@@ -2310,7 +3552,8 @@ function utilityBpm(locale: Locale): Omit<GuideContent, "targetPath"> {
 }
 
 function utilityMetronome(locale: Locale): Omit<GuideContent, "targetPath"> {
-  const data = {
+  const extendedMetronome = extendedMetronomeGuide[locale];
+  const data = extendedMetronome?.data ?? {
     de: ["Metronom richtig verwenden", "Übe mit BPM, Akzenten, Taktart und rhythmischen Unterteilungen.", "Ein Metronom baut stabiles Timing auf."],
     en: ["How to use a metronome", "Practice with BPM, accents, meter and rhythmic subdivisions.", "A metronome builds steady timing."],
     es: ["Cómo usar un metrónomo", "Practica con BPM, acentos, compás y subdivisiones rítmicas.", "El metrónomo ayuda a construir un tempo estable."],
@@ -2339,7 +3582,7 @@ function utilityMetronome(locale: Locale): Omit<GuideContent, "targetPath"> {
     description: data[1],
     intro: data[2],
     keywords: ["online metronome", "music bpm", "metronome practice"],
-    steps: isIt
+    steps: extendedMetronome ? extendedMetronome.steps : isIt
       ? ["Imposta il BPM a un valore lento dove riesci a suonare ogni nota senza errori.", "Scegli il metro: 4/4 per la maggior parte dei brani pop e rock, 3/4 per i valzer, 6/8 per i ballad.", "Premi Start e aspetta due o tre battute prima di iniziare a suonare.", "Suona il passaggio in loop seguendo il click — non fermarti se sbagli.", "Quando esegui il passaggio pulito tre volte di fila, aumenta il BPM di 5.", "Ripeti fino a raggiungere il tempo obiettivo o la velocità del brano originale."]
       : isFr
       ? ["Réglez le BPM à une valeur lente où vous pouvez jouer chaque note sans erreur.", "Choisissez la mesure : 4/4 pour la plupart des morceaux pop et rock, 3/4 pour la valse, 6/8 pour les ballades.", "Appuyez sur Démarrer et attendez deux ou trois mesures avant de jouer.", "Bouclez le passage en suivant le clic — ne vous arrêtez pas en cas d'erreur.", "Quand vous jouez le passage proprement trois fois de suite, augmentez le BPM de 5.", "Répétez jusqu'à atteindre le tempo cible ou la vitesse de l'enregistrement original."]
@@ -2360,7 +3603,7 @@ function utilityMetronome(locale: Locale): Omit<GuideContent, "targetPath"> {
       : isAr
       ? ["اضبط BPM على قيمة بطيئة حيث يمكنك عزف كل نغمة بدون أخطاء.", "اختر الميزان: 4/4 لمعظم أغاني البوب والروك، 3/4 للفالس، 6/8 للبالاد.", "اضغط ابدأ وانتظر مقياسين أو ثلاثة قبل البدء في العزف.", "كرر المقطع مع النقر — لا تتوقف إذا ارتكبت خطأ.", "عندما تعزف المقطع بنظافة ثلاث مرات متتالية، ارفع BPM بمقدار 5.", "كرر حتى تصل إلى الإيقاع المستهدف أو سرعة التسجيل الأصلي."]
       : ["Set the BPM to a slow value where you can play every note without mistakes.", "Choose the meter: 4/4 for most pop and rock songs, 3/4 for waltz, 6/8 for ballads.", "Press Start and wait two or three bars before you start playing.", "Loop the passage following the click — do not stop if you make a mistake.", "When you play the passage cleanly three times in a row, raise the BPM by 5.", "Repeat until you reach the target tempo or the speed of the original recording."],
-    sections: isIt
+    sections: extendedMetronome ? extendedMetronome.sections : isIt
       ? [
           { title: "BPM e metro", body: "BPM significa battiti al minuto e definisce la velocità del pulse. Il metro raggruppa i beat in misure e stabilisce dove cadono gli accenti. In 4/4 ci sono quattro beat per misura con il beat 1 più forte; in 3/4 ce ne sono tre e l'accento cade sul primo, creando l'andamento del valzer. Cambiare il metro sul metronomo è il modo più rapido per percepire questa differenza fisicamente." },
           { title: "Come scegliere il BPM di partenza", body: "La regola d'oro è partire abbastanza lento da suonare ogni nota senza tentennamenti — spesso 50-70% della velocità obiettivo. Non c'è vergogna in un tempo molto basso: studi ricerche sul motor learning mostrano che la memoria muscolare si forma più solidamente quando si pratica lentamente e senza errori. Accelerare troppo presto imprime gli errori invece di cancellarli." },
@@ -2506,14 +3749,15 @@ function utilityMetronome(locale: Locale): Omit<GuideContent, "targetPath"> {
 }
 
 function standardBassUtility(locale: Locale): Omit<GuideContent, "targetPath"> {
+  const bassOverride = extendedStandardBassCopy[locale];
   const label = getInstrumentLabel("bass", locale);
   const tuning = tuningString("bass", locale);
-  const copy = tuningGuideCopy[getContentLocale(locale)];
+  const copy = tuningGuideCopy[locale];
   const targetPath = targetPathForInstrument("bass");
   return {
-    description: copy.description(label, tuning),
+    description: bassOverride?.description ?? copy.description(label, tuning),
     faq: genericInstrumentFaq(locale, label, tuning),
-    intro: copy.intro(label, tuning),
+    intro: bassOverride?.intro ?? copy.intro(label, tuning),
     keywords: [...copy.keywords(label, tuning), tuning, "standard bass tuning", "TuneUniversal"],
     noteRows: noteRowsFromNotes(tunings.bass, locale),
     relatedGuides: ["how-to-tune-bass", "five-string-bass-tuning"],
@@ -2523,8 +3767,9 @@ function standardBassUtility(locale: Locale): Omit<GuideContent, "targetPath"> {
     commonMistakes: genericMistakes(locale, label),
     targetDescription: copy.description(label, tuning),
     targetTitle: copy.targetTitle(label),
-    title:
-      locale === "it"
+    title: bassOverride
+      ? bassOverride.title
+      : locale === "it"
         ? "Accordatura basso standard"
         : locale === "fr"
           ? "Accordage standard de la basse"
@@ -2579,7 +3824,7 @@ const alternativeTuningGuides: Record<
   "five-string-bass-tuning": { instrument: "bass", presetId: "five-string", label: "5-string low B" }
 };
 
-const alternativeTuningLabels: Record<
+const baseAlternativeTuningLabels: Record<
   BaseLocale,
   {
     description: (name: string, instrument: string, tuning: string) => string;
@@ -2704,6 +3949,15 @@ const alternativeTuningLabels: Record<
   }
 };
 
+
+
+const alternativeTuningLabels: Record<Locale, AlternativeTuningLabelSet> = withLocaleFallbacks(
+  baseAlternativeTuningLabels,
+  extendedAlternativeTuningLabels
+);
+
+
+
 export const instrumentsSeoData = instrumentGuideSlugs;
 export const tuningsSeoData = alternativeTuningGuides;
 export const localizedSeoContent = { guideIndexContent, tuningGuideCopy, alternativeTuningLabels };
@@ -2750,7 +4004,12 @@ function noteRowsFromNotes(notes: TuningNote[], locale: Locale) {
   }));
 }
 
+
+
+
 function localizedToolTitles(locale: Locale) {
+  const extended = extendedToolTitles[locale];
+  if (extended) return extended;
   return {
     "bass-tuner": locale === "it" ? "Accordatore basso" : locale === "fr" ? "Accordeur basse" : locale === "es" ? "Afinador de bajo" : locale === "de" ? "Bass Tuner" : locale === "pt" ? "Afinador de baixo" : locale === "ja" ? "ベースチューナー" : locale === "ko" ? "베이스 튜너" : locale === "zh" ? "贝斯调音器" : locale === "ru" ? "Тюнер баса" : locale === "ar" ? "موالف الباس" : "Bass tuner",
     "chord-transposer": locale === "it" ? "Traspositore accordi" : locale === "fr" ? "Transposeur d'accords" : locale === "es" ? "Transpositor de acordes" : locale === "de" ? "Akkord-Transposer" : locale === "pt" ? "Transpositor de acordes" : locale === "ja" ? "コード移調" : locale === "ko" ? "코드 조옮김" : locale === "zh" ? "和弦移调器" : locale === "ru" ? "Транспозитор аккордов" : locale === "ar" ? "ناقل الأوتار" : "Chord transposer",
@@ -2763,8 +4022,12 @@ function localizedToolTitles(locale: Locale) {
   } as Record<ToolSlug, string>;
 }
 
+
+
 function genericInstrumentFaq(locale: Locale, instrument: string, tuning: string) {
   const contentLocale = getContentLocale(locale);
+  const extendedFaq = extendedInstrumentFaq[locale];
+  if (extendedFaq) return extendedFaq(instrument, tuning);
   if (contentLocale === "it") {
     return [
       { question: `Qual è l'accordatura standard di ${instrument}?`, answer: `L'accordatura standard di ${instrument} usa queste note di riferimento: ${tuning}. Queste note determinano l'altezza di ogni corda a vuoto e costituiscono il punto di partenza per qualsiasi accordatura alternativa.` },
@@ -2959,8 +4222,12 @@ export const faqData = {
   tuning: genericTuningFaq
 };
 
+
+
 function genericMistakes(locale: Locale, instrument: string) {
   const contentLocale = getContentLocale(locale);
+  const extendedMistakeList = extendedMistakes[locale];
+  if (extendedMistakeList) return extendedMistakeList(instrument);
   if (contentLocale === "it") {
     return [
       `Suonare piu di una corda di ${instrument} alla volta rende il rilevamento instabile — il rilevatore capta piu frequenze e non riesce a determinare quale stai accordando.`,
@@ -3063,6 +4330,15 @@ function genericMistakes(locale: Locale, instrument: string) {
 function relatedToolsForGuide(locale: Locale, primaryTool: ToolSlug, targetPath?: string) {
   const titles = localizedToolTitles(locale);
   const tunerHref = targetPath ? `/${locale}/${targetPath}` : `/${locale}/tools/${primaryTool}`;
+  const extendedCopy = extendedRelatedToolCopy[locale];
+  if (extendedCopy) {
+    return [
+      { href: tunerHref, title: titles[primaryTool], description: extendedCopy.main },
+      { href: `/${locale}/tools/metronome`, title: titles.metronome, description: extendedCopy.metronome },
+      { href: `/${locale}/tools/tap-bpm`, title: titles["tap-bpm"], description: extendedCopy.tapBpm },
+      { href: `/${locale}/tools/sound-level-meter`, title: titles["sound-level-meter"], description: extendedCopy.soundMeter }
+    ];
+  }
   const cl = getContentLocale(locale);
   const isFr = cl === "fr";
   const isDe = cl === "de";
@@ -3232,6 +4508,8 @@ function tuningUseText(locale: Locale, name: string, instrument: string) {
 }
 
 function tuningSectionLabels(locale: Locale) {
+  const extended = extendedTuningSectionLabels[locale];
+  if (extended) return extended;
   switch (locale) {
     case "it":
       return {
@@ -3303,7 +4581,7 @@ function tuningSectionLabels(locale: Locale) {
 }
 
 function buildInstrumentGuide(locale: Locale, instrument: Instrument, guide: GuideSlug): GuideContent {
-  const copy = tuningGuideCopy[getContentLocale(locale)];
+  const copy = tuningGuideCopy[locale];
   const label = getInstrumentLabel(instrument, locale);
   const tuning = tuningString(instrument, locale);
   const targetPath = targetPathForInstrument(instrument);
@@ -3340,7 +4618,7 @@ function buildAlternativeTuningGuide(locale: Locale, guide: GuideSlug): GuideCon
   const preset = tuningPresets[tuningGuide.instrument]?.find((item) => item.id === tuningGuide.presetId);
   if (!preset) return null;
 
-  const copy = alternativeTuningLabels[getContentLocale(locale)];
+  const copy = alternativeTuningLabels[locale];
   const instrument = getInstrumentLabel(tuningGuide.instrument, locale);
   const tuning = tuningStringFromNotes(preset.notes, locale);
   const name = tuningGuide.label;
@@ -3366,8 +4644,9 @@ function buildAlternativeTuningGuide(locale: Locale, guide: GuideSlug): GuideCon
       { title: copy.referenceTitle, body: tuning },
       {
         title: sectionLabels.compatibleInstruments,
-        body:
-          locale === "it"
+        body: extendedTuningBodies[locale]
+          ? extendedTuningBodies[locale]!.compatible(instrument)
+          : locale === "it"
             ? `Questa accordatura è pensata per ${instrument}. Se usi lo stesso registro o la stessa disposizione delle corde, puoi partire da queste note come riferimento.`
             : getContentLocale(locale) === "fr"
             ? `Cet accordage est conçu pour ${instrument}. Si vous utilisez le même registre ou la même disposition des cordes, vous pouvez partir de ces notes comme référence.`
@@ -3385,8 +4664,9 @@ function buildAlternativeTuningGuide(locale: Locale, guide: GuideSlug): GuideCon
       },
       {
         title: sectionLabels.practicalTips,
-        body:
-          locale === "it"
+        body: extendedTuningBodies[locale]
+          ? extendedTuningBodies[locale]!.practicalTips
+          : locale === "it"
             ? "Accorda sempre dalla corda più grave alla più acuta, ricontrolla tutte le note alla fine e salva il preset se usi spesso questa accordatura."
             : getContentLocale(locale) === "fr"
             ? "Accordez toujours de la corde la plus grave à la plus aiguë, revérifiez toutes les notes à la fin et enregistrez le preset si vous utilisez souvent cet accordage."
@@ -3409,13 +4689,30 @@ export function isGuideSlug(value: string | undefined): value is GuideSlug {
   return Boolean(value && guideSlugs.includes(value as GuideSlug));
 }
 
+/**
+ * `utilityGuides` is a static map keyed by base locale, assembled by calling the builders
+ * with a hard-coded locale string. That pins the extended locales to English, so build
+ * their utility guides on demand instead.
+ */
+function utilityGuidesFor(locale: Locale): Record<UtilityGuideSlug, Omit<GuideContent, "targetPath">> {
+  if (!localesWithNativeGuides.includes(locale)) return utilityGuides[getContentLocale(locale)];
+  return {
+    "how-to-find-bpm": utilityBpm(locale),
+    "how-to-use-metronome": utilityMetronome(locale),
+    ...extraUtilityGuides(locale),
+    ...queryDrivenUtilityGuides(locale),
+    ...whatIsGuides(locale),
+    "standard-bass-tuning": standardBassUtility(locale)
+  } as Record<UtilityGuideSlug, Omit<GuideContent, "targetPath">>;
+}
+
 export function getGuideContent(locale: Locale, guide: GuideSlug): GuideContent {
   const instrument = instrumentFromGuideSlug(guide);
   if (instrument) return applyGuideOverride(buildInstrumentGuide(locale, instrument, guide), locale, guide);
   const alternativeGuide = buildAlternativeTuningGuide(locale, guide);
   if (alternativeGuide) return applyGuideOverride(alternativeGuide, locale, guide);
   return applyGuideOverride(
-    utilityGuides[getContentLocale(locale)][guide as (typeof utilityGuideSlugs)[number]] as GuideContent,
+    utilityGuidesFor(locale)[guide as (typeof utilityGuideSlugs)[number]] as GuideContent,
     locale,
     guide
   );

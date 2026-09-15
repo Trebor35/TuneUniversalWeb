@@ -53,7 +53,7 @@ export default async function GuidesIndexPage({ params }: PageProps) {
   const locale = rawLocale as Locale;
   const contentLocale = getContentLocale(locale);
   const dictionary = await getDictionary(locale);
-  const content = guideIndexContent[contentLocale];
+  const content = guideIndexContent[locale];
   const internalLinks = internalLinkingContent[contentLocale].guidesHub;
   const categories: { guides: readonly GuideSlug[]; title: string }[] = [
     { title: guideCategoryLabels[contentLocale].instrument, guides: instrumentGuideSlugs },
