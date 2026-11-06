@@ -9,7 +9,7 @@ import { tuningHubContent } from "@/lib/content/tuningHub";
 import { toolsHubContent } from "@/lib/content/toolsHub";
 import { toolSlugs, type ToolSlug } from "@/lib/tools/toolConfig";
 import { homeKeywords, toolKeywords } from "@/lib/seo/keywords";
-import { canonicalPathForToolsIndex, isIndexable, robotsFor, sectionForPath } from "@/lib/seo/indexing";
+import { canonicalPathForToolsIndex, isIndexablePath, robotsForPath } from "@/lib/seo/indexing";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.tuneuniversal.com";
 
@@ -1523,11 +1523,10 @@ const guideMetadataOverrides: Partial<Record<Locale, Partial<Record<GuideSlug, {
 
 export function buildAlternates(locale: Locale, path = "", canonicalOverride?: string): Metadata["alternates"] {
   const cleanPath = path ? `/${path.replace(/^\//, "")}` : "";
-  const section = sectionForPath(`/${locale}${cleanPath}`);
-  // Only advertise the locales that actually have native copy for this section. A
-  // hreflang pointing at a noindex page is a contradictory signal and Google drops the
-  // whole cluster rather than guessing which half to trust.
-  const alternateLocales = locales.filter((item) => isIndexable(item, section));
+  // Only advertise the locales whose version of this page is indexable. A hreflang
+  // pointing at a noindex page is a contradictory signal and Google drops the whole
+  // cluster rather than guessing which half to trust.
+  const alternateLocales = locales.filter((item) => isIndexablePath(`/${item}${cleanPath}`));
   return {
     canonical: canonicalOverride ?? `/${locale}${cleanPath}`,
     languages: {
@@ -1565,7 +1564,7 @@ export function buildHomeMetadata(locale: Locale, dictionary: Dictionary): Metad
     description,
     keywords: homeKeywords[contentLocale],
     alternates: buildAlternates(locale),
-    robots: robotsFor(locale, "home"),
+    robots: robotsForPath(`/${locale}`),
     openGraph: {
       title,
       description,
@@ -1590,7 +1589,7 @@ export function buildToolMetadata(locale: Locale, tool: ToolSlug, dictionary: Di
     description,
     keywords,
     alternates: buildAlternates(locale, `tools/${tool}`),
-    robots: robotsFor(locale, "tools"),
+    robots: robotsForPath(`/${locale}/tools/${tool}`),
     openGraph: {
       title,
       description,
@@ -1613,7 +1612,7 @@ export function buildInstrumentTunerMetadata(locale: Locale, slug: string, conte
     description,
     keywords: [...content.keywords, ...homeKeywords[contentLocale]],
     alternates: buildAlternates(locale, `tools/${slug}`),
-    robots: robotsFor(locale, "tools"),
+    robots: robotsForPath(`/${locale}/tools/${slug}`),
     openGraph: {
       title,
       description,
@@ -1637,7 +1636,7 @@ export function buildStaticPageMetadata(
     title: fitTitle(title),
     description,
     alternates: buildAlternates(locale, page),
-    robots: robotsFor(locale, "static"),
+    robots: robotsForPath(`/${locale}/${page}`),
     openGraph: {
       title,
       description,
@@ -1658,7 +1657,7 @@ export function buildGuideIndexMetadata(locale: Locale): Metadata {
     description: content.description,
     keywords: [...homeKeywords[contentLocale], "music guides", "tuning guide", "metronome guide", "BPM guide"],
     alternates: buildAlternates(locale, "guides"),
-    robots: robotsFor(locale, "guides"),
+    robots: robotsForPath(`/${locale}/guides`),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
       description: content.description,
@@ -1684,7 +1683,7 @@ export function buildToolsIndexMetadata(locale: Locale, dictionary: Dictionary, 
     description: content.description,
     keywords: [...content.keywords, ...homeKeywords[contentLocale], "universal tuner", "online music tools"],
     alternates: buildAlternates(locale, cleanPath, canonicalPath),
-    robots: robotsFor(locale, "home"),
+    robots: robotsForPath(canonicalPath),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
       description: content.description,
@@ -1705,7 +1704,7 @@ export function buildTuningHubMetadata(locale: Locale): Metadata {
     description: content.description,
     keywords: [...content.keywords, ...homeKeywords[contentLocale], "alternate tunings", "guitar tuning", "Drop D", "Open G"],
     alternates: buildAlternates(locale, "tunings"),
-    robots: robotsFor(locale, "tunings"),
+    robots: robotsForPath(`/${locale}/tunings`),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
       description: content.description,
@@ -1729,7 +1728,7 @@ export function buildGuideMetadata(locale: Locale, guide: GuideSlug, content: Gu
     description,
     keywords: [...content.keywords, ...relatedToolKeywords, ...homeKeywords[contentLocale]],
     alternates: buildAlternates(locale, `guides/${guide}`),
-    robots: robotsFor(locale, "guides"),
+    robots: robotsForPath(`/${locale}/guides/${guide}`),
     openGraph: {
       title,
       description,
@@ -1761,7 +1760,7 @@ export function buildSongsIndexMetadata(locale: Locale): Metadata {
       "music practice"
     ],
     alternates: buildAlternates(locale, "songs"),
-    robots: robotsFor(locale, "songs"),
+    robots: robotsForPath(`/${locale}/songs`),
     openGraph: {
       title: `${content.title} | TuneUniversal`,
       description: content.description,
@@ -1821,7 +1820,7 @@ export function buildSongMetadata(locale: Locale, song: PublicDomainSong): Metad
       ...homeKeywords[contentLocale]
     ],
     alternates: buildAlternates(locale, `songs/${song.slug}`),
-    robots: robotsFor(locale, "songs"),
+    robots: robotsForPath(`/${locale}/songs/${song.slug}`),
     openGraph: {
       title,
       description,
