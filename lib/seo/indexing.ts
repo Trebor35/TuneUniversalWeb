@@ -1,4 +1,5 @@
 import { locales, type Locale } from "@/lib/i18n/locales";
+import { toolSlugs, type ToolSlug } from "@/lib/tools/toolConfig";
 
 /**
  * Sections of the site, in the sense Google cares about: a group of pages that share
@@ -7,21 +8,27 @@ import { locales, type Locale } from "@/lib/i18n/locales";
 export type ContentSection = "home" | "tools" | "tunings" | "guides" | "songs" | "static";
 
 /**
- * Sections whose editorial copy is still served from the English source, per locale.
+ * What the site asks Google to index.
  *
- * The UI chrome, the tool pages, both hubs and the static pages have native copy for
- * every locale. The long-form copy does not: a page whose article text is in the wrong
- * language is worth less than no page at all, because Google reads it as a near-duplicate
- * of the English original and answers with "crawled, currently not indexed". Those pages
- * stay live and keep passing link equity, but they are marked noindex and kept out of the
- * sitemap until the copy is translated.
+ * Between August and October 2026 the indexed page count fell from 217 to 1 while all
+ * 2299 URLs were crawled successfully: no manual action, sitemap read without error,
+ * title and canonical and hreflang all in <head>. 90 days of Search Console data show 0
+ * clicks, 172 impressions and an average position of 57. That is not a technical
+ * obstacle, it is Google declining to index a site that looks mass-produced — 121 pages
+ * multiplied by 19 locales, most of them generated from templates.
  *
- * Drop a section from a locale's list as soon as its copy lands; drop the locale entirely
- * once nothing is left.
+ * So the site now submits only the part that is a genuine product rather than generated
+ * text: the interactive tools, in the locales with the largest audience for them. Roughly
+ * 45 URLs instead of 2299.
+ *
+ * Everything else stays live and reachable, marked `noindex, follow` — users and internal
+ * link equity are unaffected, Google is simply no longer asked to rank it. Widen these
+ * two lists to bring pages back; nothing else needs to change.
  */
-export const untranslatedSectionsByLocale: Partial<Record<Locale, ContentSection[]>> = {};
+export const indexedLocales: Locale[] = ["en", "it", "de", "es", "fr"];
 
-export const untranslatedArticleLocales = Object.keys(untranslatedSectionsByLocale) as Locale[];
+/** The eight interactive tools. The other 20 tuner URLs are the same tool with a preset. */
+export const indexedToolSlugs: readonly ToolSlug[] = toolSlugs;
 
 export function sectionForPath(path: string): ContentSection {
   const [, , section] = path.split("/");
@@ -33,21 +40,23 @@ export function sectionForPath(path: string): ContentSection {
   return "static";
 }
 
-/** True when `locale` has native copy for `section`. */
-export function hasNativeCopy(locale: Locale, section: ContentSection): boolean {
-  return !untranslatedSectionsByLocale[locale]?.includes(section);
-}
-
-export function isIndexable(locale: Locale, section: ContentSection): boolean {
-  return hasNativeCopy(locale, section);
+/** The single source of truth for whether a URL is offered to search engines. */
+export function isIndexablePath(path: string): boolean {
+  const [, locale, section, slug] = path.split("/");
+  if (!indexedLocales.includes(locale as Locale)) return false;
+  if (!section) return true;
+  // `/{locale}/tools` renders the same component as `/{locale}` and canonicalises to it.
+  if (section === "tools" && !slug) return true;
+  if (section === "tools") return indexedToolSlugs.includes(slug as ToolSlug);
+  return false;
 }
 
 /**
- * `noindex, follow` for pages we do not want in the index yet: Google drops them from
- * results but keeps crawling through to the tools and hubs they link to.
+ * `noindex, follow` keeps a page out of results while Google still crawls through it to
+ * the tools it links to, so internal link equity is preserved.
  */
-export function robotsFor(locale: Locale, section: ContentSection) {
-  if (isIndexable(locale, section)) return undefined;
+export function robotsForPath(path: string) {
+  if (isIndexablePath(path)) return undefined;
   return {
     index: false,
     follow: true,
@@ -67,23 +76,12 @@ export function canonicalPathForToolsIndex(locale: Locale) {
 /** Sitemap priority, highest for the pages the site is actually trying to rank. */
 export function sitemapPriority(path: string): number {
   const section = sectionForPath(path);
-  const depth = path.split("/").length - 2;
   if (section === "home") return 1;
-  if (section === "static") return 0.3;
-  if (section === "tools") {
-    if (depth === 0) return 0.9;
-    return /\/tools\/(guitar|bass|ukulele|violin|piano)-tuner$/.test(path) ? 0.9 : 0.8;
-  }
-  if (section === "tunings") return 0.7;
-  if (section === "guides") return depth === 0 ? 0.7 : 0.6;
-  return depth === 0 ? 0.6 : 0.5;
+  return /\/tools\/(guitar|bass|ukulele)-tuner$/.test(path) ? 0.9 : 0.8;
 }
 
 export function sitemapChangeFrequency(path: string): "weekly" | "monthly" | "yearly" {
-  const section = sectionForPath(path);
-  if (section === "home") return "weekly";
-  if (section === "static") return "yearly";
-  return "monthly";
+  return sectionForPath(path) === "home" ? "weekly" : "monthly";
 }
 
 export function isKnownLocaleSet(value: readonly string[]): value is readonly Locale[] {
